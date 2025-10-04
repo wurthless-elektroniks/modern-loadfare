@@ -94,7 +94,7 @@ def main():
             print(f"appending template from file: {args.xebuild_template}")
 
             template = None
-            with open(template, "rb") as f:
+            with open(args.xebuild_template, "rb") as f:
                 template = f.read()
             
             output += template

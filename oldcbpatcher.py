@@ -5,6 +5,7 @@ Old-style CBs typically have POST codes, an entry point at 0x3C0,
 and no obfuscation when calling cd_jump.
 '''
 
+import struct
 from patcher import assemble_nop, assemble_branch, decode_branch_address, decode_branch_conditional_address
 from signature import SignatureBuilder, WILDCARD, bulk_find
 from postcounter import assemble_hwinit_postcount_block_universal
@@ -233,3 +234,49 @@ def oldcb_try_patch(cbb: bytes, patchparams: dict) -> None | bytes:
     cbb = _patch_cd_hashcheck(cbb, resolved_sigs['hashcheck_addr'])
 
     return cbb
+
+def oldcb_extract_hwinit_bytecode(cbb: bytes) -> None | bytes:
+    # if oldcb_ident(cbb) is False:
+    #     return None
+    
+    hwinit_top_address = OLDCB_HWINIT_TOP_PATTERN.find(cbb)
+    if hwinit_top_address is None:
+        print("error: cannot find top of hwinit interpreter")
+        return None
+
+    # old hwinits like 5761 hardcode the hwinit bytecode program size into the function itself
+    hwinit_setup_exec_hardcoded_pattern = SignatureBuilder() \
+        .pattern([
+            0x3c, 0x60, 0x00, 0x00,           # +0x00 lis  r3,0x0
+            0x38, 0x63, WILDCARD, WILDCARD,   # +0x04 addi r3,r3,0x8b8   <-- hwinit bytecode location
+            0x7c, 0x62, 0x1a, 0x14,           # +0x08 add  r3,r2,r3
+            0x38, 0x83, WILDCARD, WILDCARD,   # +0x0C addi r4,r3,0x44d8  <-- bytecode size
+        ]) \
+        .build()
+    
+    # more recent hwinits like 6752 have the hwinit bytecode program size headered
+    hwinit_setup_exec_headered_pattern = SignatureBuilder() \
+        .pattern([
+            0x3c, 0x60, 0x00, 0x00,          # +0x00 lis  r3,0x0
+            0x38, 0x63, WILDCARD, WILDCARD,  # +0x04 addi r3,r3,0xf70  <-- hwinit bytecode location
+            0x7c, 0x62, 0x1a, 0x14,          # add  r3,r2,r3
+            0x80, 0x83, 0x00, 0x00,          # lwz  r4,0x0(r3)   <-- bytecode size
+            0x38, 0x63, 0x00, 0x04,          # addi r3,r3,0x4    <-- r3 now points to actual hwinit start
+        ]) \
+        .build()
+    
+    headered_address = hwinit_setup_exec_headered_pattern.find(cbb, hwinit_top_address - 0x80)
+    if headered_address is not None:
+        hwinit_bytecode_address = struct.unpack(">H", cbb[headered_address+6:headered_address+8])[0]
+        hwinit_size = struct.unpack(">I", cbb[hwinit_bytecode_address:hwinit_bytecode_address+4])[0]
+        hwinit_bytecode_address += 4
+        return cbb[hwinit_bytecode_address:hwinit_bytecode_address+hwinit_size]
+
+    hardcoded_address = hwinit_setup_exec_hardcoded_pattern.find(cbb, hwinit_top_address - 0x80)
+    if hardcoded_address is not None:
+        hwinit_bytecode_address = struct.unpack(">H", cbb[hardcoded_address+0x06:hardcoded_address+0x08])[0]
+        hwinit_size             = struct.unpack(">H", cbb[hardcoded_address+0x0E:hardcoded_address+0x10])[0]
+        return cbb[hwinit_bytecode_address:hwinit_bytecode_address+hwinit_size]
+
+    print("error: unable to find hwinit bytecode")
+    return None
