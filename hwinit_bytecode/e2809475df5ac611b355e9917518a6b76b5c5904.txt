@@ -1,0 +1,2031 @@
+0000: store_word 0xe0000000, 0xd0008010
+0008: store_half 2, 0xd0008004
+000c: %r12_0 = load_half -7
+0010: sync
+0014: store_word 0, 0xe0020000
+001c: %r10_0 = load_word -7
+0024: sync
+0028: store_word 0xc0000000, 0xe0020004
+0034: %r10_0 = load_word -7
+003c: sync
+0040: store_word 0x00000018, 0xe1020004
+0048: %r12_0 = load_word -7
+004c: sync
+0050: store_word 0x5f076009, 0xe1010000
+0058: %r10_0 = load_word -7
+005c: sync
+0060: store_word 0x00004000, 0xe1018020
+0068: %r10_0 = load_word -7
+006c: sync
+0070: store_word 0xe4000000, 0xd0010010
+0078: store_half 2, 0xd0010004
+007c: %r12_0 = load_half -7
+0080: sync
+0084: %r10_1 = add 0x20000000, 0
+008c: store_word %r10_1, 0xe4000284
+0090: %r12_0 = load_word -7
+0094: sync
+0098: store_word 0, 0xe4000200
+009c: store_word %r10_1, 0xe4000210
+00a0: store_word %r10_1, 0xe4000244
+00a4: store_word_0_100 0, 0xe4002000
+00a8: store_word 0, 0xe40002a4
+00ac: %r12_0 = load_word -7
+00b0: sync
+00b4: store_word 0x00020100, 0xd0000018
+00bc: store_word 0xea001000, 0xd0150010
+00c8: store_half 2, 0xd0150004
+00d0: %r10_0 = load_half -7
+00d8: sync
+00dc: store_word 0x000001e6, 0xea00101c
+00e4: %r10_0 = load_word -7
+00ec: sync
+00f0: store_word 0, 0xe400002c
+00f4: store_word 0x00000100, 0xe400002c
+00fc: store_word 4, 0xea001084
+0104: store_word 0x00000012, 0xea001080
+010c: store_word 0, 0xea001084
+0114: %r10_0 = load_word -7
+011c: %r10_1 = and %r10_0, 4
+0120: branch_cond4 %r10_1, 0
+0124: store_word 4, 0xea001094
+012c: %r10_0 = load_word -7
+0134: %r10_0 = load_word -7
+013c: store_word 0, 0xea001094
+0144: %r10_0 = and %r10_0, 0x000000ff
+014c: %r12_0 = load_word -6
+0150: %r10_1 = and %r10_1, 0xffffff00
+0158: %r10_1 = or %r10_1, %r10_0
+015c: store_word %r10_1, 0xe400002c
+0160: op_B -7, 1
+0164: store_word 0, 0xe1020004
+0168: store_half 6, 0xd0008004
+016c: %r12_0 = load_half -7
+0170: sync
+0174: delay -7
+0178: store_word 0xff60ffce, 0xe1013100
+0180: store_word 0, 0xe1013000
+0184: store_word 0, 0xe1013200
+0188: store_word 0x001d0031, 0xe1013300
+0190: store_word 0x00000030, 0xe1003100
+0198: store_word 0, 0xe1003000
+01a0: store_word 0, 0xe1003200
+01a8: store_word 0xe0f7fd00, 0xe1003300
+01b4: op_B -7, 0
+01b8: store_word %r10_0, 0xe4000028
+01bc: %r12_0 = load_word -7
+01c0: %r10_0 = and %r10_0, 0x00000100
+01c8: branch_cond4 %r10_0, 0
+01cc: %r10_0 = load_word -7
+01d4: %r10_0 = and %r10_0, 4
+01d8: branch_cond4 %r10_0, 0
+01dc: store_word 4, 0xea001084
+01e4: %r12_0 = load_word -7
+01e8: store_word %r10_0, 0xea001080
+01f0: store_word 0, 0xea001084
+01f8: %r10_0 = load_word -7
+01fc: op_B -7, 0
+0200: store_word 0x20000000, 0xe1020000
+0208: store_word 0x20000000, 0xe1040000
+0210: store_word 0, 0xe4002800
+0214: store_word 0x08000000, 0xe4002804
+021c: %r12_0 = load_word -4
+0220: %r11_1 = rotlw_by_28_then_and %r11_1, 7
+0224: branch_cond0 %r11_1, 5
+0228: %r10_1 = add 0x20003021, 0
+0230: branch_cond0 %r11_1, 6
+0234: %r10_1 = add 0x20001011, 0
+023c: branch_cond0 %r11_1, 7
+0240: %r10_1 = add 0x20003025, 0
+0248: branch_cond0 %r11_1, 0
+024c: %r10_1 = add 0x20000009, 0
+0254: branch_cond0 %r11_1, 1
+0258: %r10_1 = add 0x20003029, 0
+0260: branch_cond0 %r11_1, 2
+0264: %r10_1 = add 0x20001015, 0
+026c: branch_cond0 %r11_1, 3
+0270: %r10_1 = add 0x2000302d, 0
+0278: branch_cond0 %r11_1, 4
+027c: %r10_1 = add 0x2000000b, 0
+0284: store_word %r10_1, 0xe4000210
+0288: %r10_1 = or %r10_1, 0x000c0000
+0290: store_word %r10_1, 0xe4000210
+0294: %r10_0 = load_word -7
+0298: sync
+029c: delay -7
+02a0: %r10_1 = and %r10_1, 0xdff3ffff
+02a8: store_word %r10_1, 0xe4000210
+02ac: store_word 0x00000200, 0xe4000200
+02b4: store_word %r10_1, 0xe4000284
+02b8: %r10_1 = or %r10_1, 0x000c0000
+02c0: store_word %r10_1, 0xe4000284
+02c4: %r12_0 = load_word -7
+02c8: sync
+02cc: delay -7
+02d0: %r10_1 = and %r10_1, 0xdff3ffff
+02d8: store_word %r10_1, 0xe4000284
+02dc: op_B -7, 1
+02e0: %r10_1 = add 0x20000013, 0
+02e8: %r10_0 = load_word -7
+02ec: %r10_0 = and %r10_0, 0x000000ff
+02f4: branch_cond0 %r10_0, 0
+02f8: %r10_1 = add 0x20000007, 0
+0300: store_word %r10_1, 0xe4000244
+0304: %r10_1 = or %r10_1, 0x000c0000
+030c: store_word %r10_1, 0xe4000244
+0310: %r12_0 = load_word -7
+0314: sync
+0318: delay -7
+031c: %r10_1 = and %r10_1, 0xdff3ffff
+0324: store_word %r10_1, 0xe4000244
+0328: store_word 0, 0xe40001a8
+032c: store_word 0x00024024, 0xe40002a0
+0334: store_word 0x00024024, 0xe40002a8
+033c: store_word_0_100 0x00000342, 0xe40020c0
+0344: store_word_0_100 0, 0xe40020c4
+0348: %r10_0 = add 0x50505050, 0
+0350: store_word_0_100 %r10_0, 0xe4002088
+0354: store_word_0_100 %r10_0, 0xe400208c
+0358: %r10_0 = load_word -6
+035c: %r10_1 = and %r10_1, 0x000000ff
+0364: %r10_0 = add 0x06060606, 0
+036c: branch_cond4 %r10_1, 0
+0370: %r10_0 = add 0x0a0a0a0a, 0
+0378: store_word_0_100 %r10_0, 0xe400209c
+037c: store_word_0_100 %r10_0, 0xe40020a0
+0380: %r10_0 = add 0x06060606, 0
+0388: branch_cond4 %r10_1, 0
+038c: %r10_0 = add 0x0f0f0f0f, 0
+0394: store_word_0_100 %r10_0, 0xe4002080
+0398: store_word_0_100 %r10_0, 0xe4002084
+039c: %r12_0 = load_word -7
+03a0: sync
+03a4: delay -7
+03a8: op_B -7, 1
+03ac: store_word_0_100 0, 0xe4002090
+03b0: store_word -1, 0xe40020a4
+03b4: store_word -1, 0xe40021a4
+03b8: store_word_0_100 1, 0xe4002028
+03bc: %r10_0 = load_word -7
+03c0: sync
+03c4: delay -7
+03c8: store_word_0_100 0, 0xe4002028
+03cc: %r10_0 = load_word -7
+03d0: %r10_0 = and %r10_0, 0x000000ff
+03d8: branch_cond0 %r10_0, 0
+03dc: store_word_0_100 0x000000e6, 0xe4002028
+03e4: store_word_0_100 0x000000e4, 0xe4002028
+03ec: branch_cond3 -7, -7
+03f0: store_word_0_100 0x000ff306, 0xe4002028
+03f8: %r10_0 = load_word -7
+03fc: sync
+0400: delay -7
+0404: store_word_0_100 0x000ff300, 0xe4002028
+040c: store_word 0, 0xe40002a4
+0410: store_word_0_100 0, 0xe4002000
+0414: store_word_0_100 0, 0xe4002034
+0418: store_word_0_100 0x001c0000, 0xe400202c
+0420: store_word_0_100 2, 0xe4002000
+0424: %r10_0 = load_word -7
+0428: sync
+042c: delay -7
+0430: store_word 0x00000019, 0xe40002a4
+0438: %r12_0 = load_word -7
+043c: sync
+0440: delay -7
+0444: store_word_0_100 0, 0xe4002034
+0448: store_word_0_100 0x423c0000, 0xe400202c
+0450: store_word_0_100 0x0a280100, 0xe400202c
+0458: store_word_0_100 0x06200221, 0xe400202c
+0460: store_word_0_100 0x0620808d, 0xe400202c
+0468: store_word_0_100 0x06200772, 0xe400202c
+0470: store_word_0_100 2, 0xe4002000
+0474: %r10_0 = load_word -7
+0478: sync
+047c: delay -7
+0480: store_word_0_100 0, 0xe4002034
+0484: store_word_0_100 0x0a280100, 0xe400202c
+048c: store_word_0_100 0x2f240000, 0xe400202c
+0494: store_word_0_100 0x2f240000, 0xe400202c
+049c: store_word_0_100 0x0620c48d, 0xe400202c
+04a4: store_word_0_100 2, 0xe4002000
+04a8: %r10_0 = load_word -7
+04ac: sync
+04b0: %r12_0 = load_word -3
+04b4: %r12_0 = load_word -2
+04b8: store_word_0_100 0, 0xe4002034
+04bc: store_word_0_100 0x0620c08d, 0xe400202c
+04c4: store_word_0_100 2, 0xe4002000
+04c8: store_word_0_100 0, 0xe4002034
+04cc: store_word_0_100 0x0620a48d, 0xe400202c
+04d4: store_word_0_100 2, 0xe4002000
+04d8: %r10_0 = load_word -7
+04dc: sync
+04e0: %r12_0 = load_word -1
+04e4: %r12_0 = load_word 0
+04e8: store_word_0_100 0, 0xe4002034
+04ec: store_word_0_100 0x0620a08d, 0xe400202c
+04f4: store_word_0_100 2, 0xe4002000
+04f8: %r12_0 = rotlw_by_0_then_and %r12_0, 0x00ff00ff
+0500: %r12_1 = rotlw_by_0_then_and %r12_1, 0x00ff00ff
+0508: %r12_0 = rotlw_by_24_then_and %r13_0, 0x00ff00ff
+0510: %r12_0 = rotlw_by_16_then_and %r13_0, 0x00ff00ff
+0518: %r13_1 = rotlw_by_24_then_and %r13_1, 0x00ff00ff
+0520: %r13_1 = rotlw_by_16_then_and %r13_1, 0x00ff00ff
+0528: branch_cond0 %r12_0, %r12_1
+052c: %r12_0 = rotlw_by_16_then_and %r12_0, -1
+0530: branch_cond0 %r12_0, %r12_1
+0534: branch_cond0 %r13_0, %r13_1
+0538: %r12_0 = rotlw_by_16_then_and %r13_0, -1
+053c: branch_cond0 %r13_0, %r13_1
+0540: %r10_1 = add 0, 0
+0544: %r10_0 = add 0x20000000, 0
+054c: branch_cond4 %r12_0, %r13_0
+0550: %r10_1 = add 0x00000018, 0
+0558: %r10_0 = add 0x10000000, 0
+0560: branch_cond4 %r12_0, 0x00ff00ff
+0568: branch_cond4 %r13_0, 0x00ff00ff
+0570: %r10_1 = add 0, 0
+0574: %r10_0 = add 0x20000000, 0
+057c: %r12_0 = load_word -4
+0580: %r11_1 = and %r11_1, 0xffffffe7
+0588: %r11_1 = or %r11_1, %r10_1
+058c: store_word %r11_1, 0xe40002a4
+0590: store_word %r11_0, 0xe1020000
+0594: store_word %r11_0, 0xe1040000
+0598: %r10_0 = load_word -7
+059c: %r10_0 = and %r10_0, 0x000000ff
+05a4: branch_cond4 %r10_0, 0
+05a8: %r10_1 = add 0x001ff306, 0
+05b0: %r10_0 = and %r12_0, 0x0000000f
+05b8: branch_cond0 %r10_0, 2
+05bc: %r10_1 = add 0x001bb306, 0
+05c4: branch_cond0 %r10_0, 6
+05c8: %r10_1 = add 0x0007d306, 0
+05d0: store_word_0_100 %r10_1, 0xe4002028
+05d4: %r10_0 = load_word -7
+05d8: sync
+05dc: delay -7
+05e0: %r10_1 = and %r10_1, -7
+05e4: store_word_0_100 %r10_1, 0xe4002028
+05e8: %r12_0 = load_word -6
+05ec: %r10_1 = and %r10_1, -2
+05f0: store_word %r10_1, 0xe40002a4
+05f4: store_word_0_100 0, 0xe4002034
+05f8: store_word_0_100 0x001c0000, 0xe400202c
+0600: store_word_0_100 2, 0xe4002000
+0604: %r10_0 = load_word -7
+0608: sync
+060c: delay -7
+0610: %r10_1 = or %r10_1, 1
+0614: store_word %r10_1, 0xe40002a4
+0618: %r12_0 = load_word -7
+061c: sync
+0620: delay -7
+0624: %r10_1 = add 0x040e3202, 0
+062c: %r12_0 = load_word -4
+0630: branch_cond2 %r11_1, 0x00000018
+0638: %r10_1 = or %r10_1, 1
+063c: store_word_0_100 %r10_1, 0xe4002004
+0640: store_word_0_100 0x00000080, 0xe4002008
+0648: store_word_0_100 0x00348084, 0xe400200c
+0650: store_word_0_100 0x0000007a, 0xe4002010
+0658: store_word_0_100 0x00106514, 0xe4002014
+0660: store_word_0_100 0x00210414, 0xe40020c8
+0668: store_word_0_100 0x01283446, 0xe400201c
+0670: store_word_0_100 0x03620991, 0xe4002020
+0678: store_word_0_100 0x0c958107, 0xe4002024
+0680: store_word_0_100 0x00000018, 0xe4002094
+0688: store_word_0_100 0x00000030, 0xe400206c
+0690: store_word_0_100 0, 0xe4002034
+0694: store_word_0_100 0x423c0000, 0xe400202c
+069c: store_word_0_100 0x0a280100, 0xe400202c
+06a4: store_word_0_100 0x06200221, 0xe400202c
+06ac: %r10_1 = add 0x06208088, 0
+06b4: %r10_0 = load_word -7
+06b8: %r10_0 = and %r10_0, 0x000000ff
+06c0: branch_cond4 %r10_0, 0
+06c4: %r10_1 = add 0x06208089, 0
+06cc: %r10_0 = and %r12_0, 0x0000000f
+06d4: branch_cond0 %r10_0, 2
+06d8: %r10_1 = add 0x0620808a, 0
+06e0: branch_cond0 %r10_0, 6
+06e4: %r10_1 = add 0x06208089, 0
+06ec: %r12_0 = load_word -4
+06f0: branch_cond2 %r11_1, 0x00000018
+06f8: %r10_1 = or %r10_1, 4
+06fc: store_word_0_100 %r10_1, 0xe400202c
+0700: store_word_0_100 0x06200772, 0xe400202c
+0708: store_word_0_100 2, 0xe4002000
+070c: %r10_0 = load_word -7
+0710: sync
+0714: delay -7
+0718: store_word_0_100 0, 0xe4002034
+071c: store_word_0_100 0x0a280100, 0xe400202c
+0724: store_word_0_100 0x2f240000, 0xe400202c
+072c: store_word_0_100 0x2f240000, 0xe400202c
+0734: store_word_0_100 0x003c0000, 0xe400202c
+073c: store_word_0_100 2, 0xe4002000
+0740: store_word_0_100 0x00001000, 0xe4002000
+0748: store_word_0_100 0x00000605, 0xe4002000
+0750: %r10_0 = load_word -7
+0754: sync
+0758: delay -7
+075c: store_word 0, 0
+0760: %r10_0 = load_word -7
+0764: sync
+0768: store_word 0x00008000, 0x00008000
+0770: %r10_0 = load_word -7
+0774: sync
+0778: %r10_0 = load_word -7
+077c: branch_cond4 %r10_0, 0
+0780: store_word %r12_0, 4
+0784: store_word %r12_1, 0x00000008
+0788: store_word %r13_0, 0x0000000c
+078c: store_word %r13_1, 0x00000010
+0790: store_word 0x08000000, 0xe1020000
+0798: store_word 0x08000000, 0xe1040000
+07a0: store_word_0_100 0x020f1242, 0xe4002004
+07a8: store_word_0_100 0x00000080, 0xe4002008
+07b0: store_word_0_100 0x00344041, 0xe400200c
+07b8: store_word_0_100 0x0000007a, 0xe4002010
+07c0: store_word_0_100 0x00106514, 0xe4002014
+07c8: store_word_0_100 0x00210414, 0xe40020c8
+07d0: branch_cond3 -7, -7
+07d4: store_word %r12_0, 4
+07d8: store_word %r12_1, 0x00000008
+07dc: store_word %r13_0, 0x0000000c
+07e0: store_word %r13_1, 0x00000010
+07e4: op_B -7, 1
+07e8: op_E 0, -7
+07ec: %r10_1 = add 0x00001800, 0
+07f4: op_B -7, 1
+07f8: %r10_0 = or %r13_1, %r13_1
+07fc: op_E 0, -7
+0800: op_E 1, -7
+0804: %r10_1 = add 0x00001804, 0
+080c: op_B -7, 1
+0810: %r10_0 = or %r11_0, %r13_1
+0814: op_E 1, -7
+0818: op_E 2, -7
+081c: %r10_1 = add 0x00001880, 0
+0824: op_B -7, 1
+0828: %r10_0 = or %r11_0, %r13_1
+082c: op_E 2, -7
+0830: op_E 3, -7
+0834: %r10_1 = add 0x00001884, 0
+083c: op_B -7, 1
+0840: %r10_0 = or %r11_0, %r13_1
+0844: op_E 3, -7
+0848: branch_cond4 %r11_0, 0
+084c: op_E 0, -7
+0850: op_E 0, -7
+0854: op_E 1, -7
+0858: op_E 1, -7
+085c: op_E 2, -7
+0860: op_E 2, -7
+0864: op_E 3, -7
+0868: op_E 3, -7
+086c: store_word 0x0011119a, 0xe4000024
+0874: op_B -7, 1
+0878: store_word_0_100 0, 0xe4002000
+087c: store_word_0_100 0, 0xe4002034
+0880: store_word_0_100 0x00040000, 0xe400202c
+0888: store_word_0_100 2, 0xe4002000
+088c: %r10_0 = load_word -7
+0890: sync
+0894: delay -7
+0898: %r10_0 = add 0x040e3202, 0
+08a0: %r10_0 = load_word -7
+08a4: %r10_0 = and %r10_0, 0x000000ff
+08ac: branch_cond4 %r10_0, 0
+08b0: %r12_0 = load_word -4
+08b4: %r11_1 = and %r11_1, 0x0000000f
+08bc: branch_cond0 %r11_1, 0x00000008
+08c4: %r10_1 = add 0x2000000b, 0
+08cc: %r10_0 = add 0x04113202, 0
+08d4: branch_cond0 %r11_1, 0x00000009
+08dc: %r10_1 = add 0x20007061, 0
+08e4: %r10_0 = add 0x04113202, 0
+08ec: branch_cond0 %r11_1, 0x0000000a
+08f4: %r10_1 = add 0x20003031, 0
+08fc: %r10_0 = add 0x04123202, 0
+0904: branch_cond0 %r11_1, 0x0000000b
+090c: %r10_1 = add 0x20007065, 0
+0914: %r10_0 = add 0x04123202, 0
+091c: branch_cond0 %r11_1, 0x0000000c
+0924: %r10_1 = add 0x20001019, 0
+092c: %r10_0 = add 0x04123202, 0
+0934: branch_cond0 %r11_1, 0x0000000d
+093c: %r10_1 = add 0x20007069, 0
+0944: %r10_0 = add 0x04133202, 0
+094c: branch_cond0 %r11_1, 0x0000000e
+0954: %r10_1 = add 0x20003035, 0
+095c: %r10_0 = add 0x04133202, 0
+0964: branch_cond0 %r11_1, 0x0000000f
+096c: %r10_1 = add 0x2000706d, 0
+0974: %r10_0 = add 0x04133202, 0
+097c: branch_cond0 %r11_1, 0
+0980: %r10_1 = add 0x2000000d, 0
+0988: %r10_0 = add 0x04143202, 0
+0990: branch_cond0 %r11_1, 1
+0994: %r10_1 = add 0x20007071, 0
+099c: %r10_0 = add 0x04143202, 0
+09a4: branch_cond0 %r11_1, 2
+09a8: %r10_1 = add 0x20003039, 0
+09b0: %r10_0 = add 0x04153202, 0
+09b8: branch_cond0 %r11_1, 3
+09bc: %r10_1 = add 0x20007075, 0
+09c4: %r10_0 = add 0x04153202, 0
+09cc: branch_cond0 %r11_1, 4
+09d0: %r10_1 = add 0x2000101d, 0
+09d8: %r10_0 = add 0x04153202, 0
+09e0: branch_cond0 %r11_1, 5
+09e4: %r10_1 = add 0x20007079, 0
+09ec: %r10_0 = add 0x04163202, 0
+09f4: branch_cond0 %r11_1, 6
+09f8: %r10_1 = add 0x2000303d, 0
+0a00: %r10_0 = add 0x04163202, 0
+0a08: branch_cond0 %r11_1, 7
+0a0c: %r10_1 = add 0x2000707d, 0
+0a14: %r10_0 = add 0x04163202, 0
+0a1c: %r10_0 = and %r12_0, 0x0000000f
+0a24: branch_cond0 %r10_0, 2
+0a28: branch_cond0 %r10_0, 6
+0a2c: store_word %r10_1, 0xe4000284
+0a30: %r10_1 = or %r10_1, 0x000c0000
+0a38: store_word %r10_1, 0xe4000284
+0a3c: %r12_0 = load_word -7
+0a40: sync
+0a44: delay -7
+0a48: %r10_1 = and %r10_1, 0xdff3ffff
+0a50: store_word %r10_1, 0xe4000284
+0a54: op_B -7, 1
+0a58: %r12_0 = load_word -4
+0a5c: branch_cond2 %r11_1, 0x00000018
+0a64: %r10_0 = or %r11_0, 1
+0a68: store_word_0_100 %r11_0, 0xe4002004
+0a6c: store_word_0_100 0x00000080, 0xe4002008
+0a74: store_word_0_100 0x20b48088, 0xe400200c
+0a7c: store_word_0_100 0x0000007a, 0xe4002010
+0a84: store_word_0_100 1, 0xe4002018
+0a88: store_word_0_100 0x00106514, 0xe4002014
+0a90: store_word_0_100 0x00210414, 0xe40020c8
+0a98: store_word_0_100 0x0128d87d, 0xe400201c
+0aa0: store_word_0_100 0x03a20edb, 0xe4002020
+0aa8: store_word_0_100 0x0c97914d, 0xe4002024
+0ab0: store_word_0_100 0x00000025, 0xe4002094
+0ab8: store_word_0_100 0x00000030, 0xe400206c
+0ac0: store_word_0_100 0, 0xe4002034
+0ac4: store_word_0_100 0x003c0000, 0xe400202c
+0acc: store_word_0_100 2, 0xe4002000
+0ad0: %r10_0 = load_word -7
+0ad4: sync
+0ad8: delay -7
+0adc: store_word_0_100 0, 0xe4002034
+0ae0: store_word_0_100 0x0a280100, 0xe400202c
+0ae8: store_word_0_100 0x2f240000, 0xe400202c
+0af0: %r10_1 = add 0x062080b9, 0
+0af8: %r10_0 = load_word -7
+0afc: %r10_0 = and %r10_0, 0x000000ff
+0b04: branch_cond4 %r10_0, 0
+0b08: %r10_1 = add 0x06208009, 0
+0b10: %r10_0 = and %r12_0, 0x0000000f
+0b18: branch_cond0 %r10_0, 2
+0b1c: %r10_1 = add 0x062080b8, 0
+0b24: branch_cond0 %r10_0, 6
+0b28: %r10_1 = add 0x062080b9, 0
+0b30: %r12_0 = load_word -4
+0b34: branch_cond2 %r11_1, 0x00000018
+0b3c: %r10_1 = or %r10_1, 4
+0b40: store_word %r10_1, 0xe4000014
+0b44: store_word_0_100 %r10_1, 0xe400202c
+0b48: %r10_1 = add 0x06200732, 0
+0b50: store_word %r10_1, 0xe4000010
+0b54: store_word_0_100 %r10_1, 0xe400202c
+0b58: store_word_0_100 0x003c0000, 0xe400202c
+0b60: store_word_0_100 2, 0xe4002000
+0b64: store_word_0_100 0x00001000, 0xe4002000
+0b6c: store_word_0_100 0x00000605, 0xe4002000
+0b74: %r10_0 = load_word -7
+0b78: sync
+0b7c: delay -7
+0b80: %r10_0 = load_word -7
+0b84: %r10_0 = and %r10_0, 0x000000ff
+0b8c: branch_cond4 %r10_0, 0
+0b90: %r10_0 = add 0, 0
+0b94: op_E %r11_0, -7
+0b98: %r12_0 = add 0, 0
+0b9c: %r12_1 = add 0, 0
+0ba0: %r12_0 = add 0, 0
+0ba4: op_E %r11_0, -7
+0ba8: %r10_0 = add %r11_0, 1
+0bac: branch_cond0 %r11_0, 4
+0bb0: %r10_0 = add 0, 0
+0bb4: store_word %r11_0, 0xe4000018
+0bb8: store_word_0_100 %r11_0, 0xe400209c
+0bbc: store_word_0_100 %r11_0, 0xe40020a0
+0bc0: %r10_0 = load_word -7
+0bc4: sync
+0bc8: delay -7
+0bcc: store_word_0_100 0x00001605, 0xe4002000
+0bd4: store_word_0_100 0x00000605, 0xe4002000
+0bdc: op_E 0, -7
+0be0: %r10_1 = add 0x00001808, 0
+0be8: op_B -7, 1
+0bec: op_E 0, -7
+0bf0: op_E 1, -7
+0bf4: %r10_1 = add 0x0000180c, 0
+0bfc: op_B -7, 1
+0c00: op_E 1, -7
+0c04: op_E 2, -7
+0c08: %r10_1 = add 0x00001888, 0
+0c10: op_B -7, 1
+0c14: op_E 2, -7
+0c18: op_E 3, -7
+0c1c: %r10_1 = add 0x0000188c, 0
+0c24: op_B -7, 1
+0c28: op_E 3, -7
+0c2c: %r10_0 = load_word -5
+0c30: %r10_0 = add %r11_0, 0x01010101
+0c38: branch_cond0 %r11_0, 0x50505050
+0c40: %r10_0 = add 0, 0
+0c44: op_E %r10_0, -7
+0c48: %r11_1 = rotlw_by_0_then_and %r13_0, 0x000000ff
+0c50: branch_cond4 %r11_1, 0
+0c54: %r10_0 = and %r12_0, 0x0000ffff
+0c5c: %r10_0 = div %r11_0, %r11_1
+0c60: %r13_1 = rotlw_by_0_then_and %r11_0, 0x000000ff
+0c68: %r11_1 = rotlw_by_24_then_and %r13_0, 0x000000ff
+0c70: branch_cond4 %r11_1, 0
+0c74: %r10_0 = rotlw_by_16_then_and %r12_0, 0x0000ffff
+0c7c: %r10_0 = div %r11_0, %r11_1
+0c80: %r10_0 = rotlw_by_8_then_and %r11_0, 0x0000ff00
+0c88: %r13_1 = or %r13_1, %r11_0
+0c8c: %r11_1 = rotlw_by_16_then_and %r13_0, 0x000000ff
+0c94: branch_cond4 %r11_1, 0
+0c98: %r10_0 = and %r12_1, 0x0000ffff
+0ca0: %r10_0 = div %r11_0, %r11_1
+0ca4: %r10_0 = rotlw_by_16_then_and %r11_0, 0x00ff0000
+0cac: %r13_1 = or %r13_1, %r11_0
+0cb0: %r11_1 = rotlw_by_8_then_and %r13_0, 0x000000ff
+0cb8: branch_cond4 %r11_1, 0
+0cbc: %r10_0 = rotlw_by_16_then_and %r12_1, 0x0000ffff
+0cc4: %r10_0 = div %r11_0, %r11_1
+0cc8: %r10_0 = rotlw_by_24_then_and %r11_0, 0xff000000
+0cd0: %r13_1 = or %r13_1, %r11_0
+0cd4: op_E %r10_0, -7
+0cd8: %r10_0 = add %r10_0, 1
+0cdc: branch_cond0 %r10_0, 4
+0ce0: op_E 0, -7
+0ce4: store_word %r13_1, 0xe400209c
+0ce8: op_E 0, -7
+0cec: op_E 1, -7
+0cf0: store_word %r13_1, 0xe40020a0
+0cf4: op_E 1, -7
+0cf8: op_E 2, -7
+0cfc: store_word %r13_1, 0xe400219c
+0d00: op_E 2, -7
+0d04: op_E 3, -7
+0d08: store_word %r13_1, 0xe40021a0
+0d0c: op_E 3, -7
+0d10: %r10_0 = add 0x0a0a0a0a, 0
+0d18: store_word_0_100 %r10_0, 0xe400209c
+0d1c: store_word_0_100 %r10_0, 0xe40020a0
+0d20: %r10_0 = load_word -7
+0d24: sync
+0d28: delay -7
+0d2c: store_word_0_100 0x00001605, 0xe4002000
+0d34: store_word_0_100 0x00000605, 0xe4002000
+0d3c: %r10_0 = add 0, 0
+0d40: store_word_0_100 %r11_0, 0xe4002080
+0d44: store_word_0_100 %r11_0, 0xe4002084
+0d48: %r11_1 = add 1, 0
+0d4c: store_word %r11_1, 0xe4000028
+0d50: %r10_0 = add 0, 0
+0d54: op_E %r11_0, -7
+0d58: %r12_0 = add 0, 0
+0d5c: %r12_1 = add 0, 0
+0d60: %r12_0 = add 0, 0
+0d64: op_E %r11_0, -7
+0d68: %r10_0 = add %r11_0, 1
+0d6c: branch_cond0 %r11_0, 4
+0d70: op_B -7, 1
+0d74: %r10_0 = add 0, 0
+0d78: store_word %r11_0, 0xe4000018
+0d7c: op_B -7, 1
+0d80: op_B -7, 1
+0d84: op_E 0, -7
+0d88: %r10_1 = add 0x00001808, 0
+0d90: %r10_0 = load_word -4
+0d94: op_B -7, 1
+0d98: op_E 0, -7
+0d9c: op_E 1, -7
+0da0: %r10_1 = add 0x0000180c, 0
+0da8: %r12_0 = load_word -4
+0dac: op_B -7, 1
+0db0: op_E 1, -7
+0db4: op_E 2, -7
+0db8: %r10_1 = add 0x00001888, 0
+0dc0: %r10_0 = load_word -4
+0dc4: op_B -7, 1
+0dc8: op_E 2, -7
+0dcc: op_E 3, -7
+0dd0: %r10_1 = add 0x0000188c, 0
+0dd8: %r12_0 = load_word -4
+0ddc: op_B -7, 1
+0de0: op_E 3, -7
+0de4: %r10_0 = load_word -5
+0de8: %r10_0 = add %r11_0, 0x01010101
+0df0: branch_cond0 %r11_0, 0x50505050
+0df8: %r10_0 = add 0, 0
+0dfc: op_E %r10_0, -7
+0e00: %r11_1 = rotlw_by_0_then_and %r13_0, 0x000000ff
+0e08: branch_cond4 %r11_1, 0
+0e0c: %r10_0 = and %r12_0, 0x0000ffff
+0e14: %r10_0 = div %r11_0, %r11_1
+0e18: %r13_1 = rotlw_by_0_then_and %r11_0, 0x000000ff
+0e20: %r11_1 = rotlw_by_24_then_and %r13_0, 0x000000ff
+0e28: branch_cond4 %r11_1, 0
+0e2c: %r10_0 = rotlw_by_16_then_and %r12_0, 0x0000ffff
+0e34: %r10_0 = div %r11_0, %r11_1
+0e38: %r10_0 = rotlw_by_8_then_and %r11_0, 0x0000ff00
+0e40: %r13_1 = or %r13_1, %r11_0
+0e44: %r11_1 = rotlw_by_16_then_and %r13_0, 0x000000ff
+0e4c: branch_cond4 %r11_1, 0
+0e50: %r10_0 = and %r12_1, 0x0000ffff
+0e58: %r10_0 = div %r11_0, %r11_1
+0e5c: %r10_0 = rotlw_by_16_then_and %r11_0, 0x00ff0000
+0e64: %r13_1 = or %r13_1, %r11_0
+0e68: %r11_1 = rotlw_by_8_then_and %r13_0, 0x000000ff
+0e70: branch_cond4 %r11_1, 0
+0e74: %r10_0 = rotlw_by_16_then_and %r12_1, 0x0000ffff
+0e7c: %r10_0 = div %r11_0, %r11_1
+0e80: %r10_0 = rotlw_by_24_then_and %r11_0, 0xff000000
+0e88: %r13_1 = or %r13_1, %r11_0
+0e8c: op_E %r10_0, -7
+0e90: %r10_0 = add %r10_0, 1
+0e94: branch_cond0 %r10_0, 4
+0e98: op_E 0, -7
+0e9c: store_word %r13_1, 0xe4002080
+0ea0: op_E 0, -7
+0ea4: op_E 1, -7
+0ea8: store_word %r13_1, 0xe4002084
+0eac: op_E 1, -7
+0eb0: op_E 2, -7
+0eb4: store_word %r13_1, 0xe4002180
+0eb8: op_E 2, -7
+0ebc: op_E 3, -7
+0ec0: store_word %r13_1, 0xe4002184
+0ec4: op_E 3, -7
+0ec8: %r12_0 = load_word -7
+0ecc: sync
+0ed0: delay -7
+0ed4: %r10_0 = load_word -4
+0ed8: %r11_1 = subf %r11_1, 1
+0edc: branch_cond5 %r11_1, 0
+0ee0: op_B -7, 1
+0ee4: store_word_0_100 0, 0xe4002000
+0ee8: store_word_0_100 0, 0xe4002034
+0eec: %r10_0 = load_word -6
+0ef0: store_word_0_100 %r10_1, 0xe400202c
+0ef4: store_word_0_100 0x003c0000, 0xe400202c
+0efc: store_word_0_100 2, 0xe4002000
+0f00: store_word_0_100 0x00001605, 0xe4002000
+0f08: store_word_0_100 0x00000605, 0xe4002000
+0f10: %r10_0 = load_word -7
+0f14: sync
+0f18: delay -7
+0f1c: store_word_0_100 0, 0xe4002034
+0f20: store_word_0_100 0x003c0000, 0xe400202c
+0f28: store_word_0_100 2, 0xe4002000
+0f2c: store_word_0_100 0x00001000, 0xe4002000
+0f34: store_word_0_100 0x00000605, 0xe4002000
+0f3c: %r10_0 = load_word -7
+0f40: sync
+0f44: delay -7
+0f48: op_B -7, 1
+0f4c: %r10_0 = load_word -6
+0f50: %r10_1 = rotlw_by_31_then_and %r10_1, 0x7fffffff
+0f58: branch_cond1 %r10_1, 0x00000080
+0f60: store_word 0, 0
+0f64: %r10_0 = load_word -7
+0f68: sync
+0f6c: store_word %r10_1, %r10_1
+0f70: %r10_0 = load_word -7
+0f74: sync
+0f78: %r10_0 = load_word -7
+0f7c: branch_cond0 %r10_0, 0
+0f80: %r10_0 = load_word -5
+0f84: branch_cond4 %r11_0, %r10_1
+0f88: store_word 0x0014149a, 0xe4000024
+0f90: op_B -7, 1
+0f94: branch_cond3 -7, -7
+0f98: %r10_0 = load_word -7
+0f9c: sync
+0fa0: delay -7
+0fa4: op_B -7, 0
+0fa8: store_word 2, 0xe400028c
+0fac: %r12_0 = load_word -7
+0fb0: sync
+0fb4: delay -7
+0fb8: store_word 0, 0xe400028c
+0fbc: %r12_0 = load_word -7
+0fc0: sync
+0fc4: delay -7
+0fc8: store_word 0, 0xe4000288
+0fcc: op_B -7, 1
+0fd0: store_word 1, 0xe4000288
+0fd4: op_B -7, 1
+0fd8: store_word 5, 0xe4000288
+0fdc: op_B -7, 1
+0fe0: store_word 1, 0xe4000288
+0fe4: op_B -7, 1
+0fe8: store_word 0, 0xe4000288
+0fec: op_B -7, 1
+0ff0: op_B -7, 0
+0ff4: %r10_0 = and %r10_1, 0x000000ff
+0ffc: branch_cond5 %r11_0, %r10_0
+1000: %r10_0 = or %r11_0, %r11_0
+1004: %r10_0 = rotlw_by_24_then_and %r10_1, 0x000000ff
+100c: branch_cond5 %r11_0, %r10_0
+1010: %r10_0 = or %r11_0, %r11_0
+1014: %r10_0 = rotlw_by_16_then_and %r10_1, 0x000000ff
+101c: branch_cond5 %r11_0, %r10_0
+1020: %r10_0 = or %r11_0, %r11_0
+1024: %r10_0 = rotlw_by_8_then_and %r10_1, 0x000000ff
+102c: branch_cond5 %r11_0, %r10_0
+1030: %r10_0 = or %r11_0, %r11_0
+1034: op_B -7, 0
+1038: %r10_0 = add 0x00000050, 0
+1040: %r10_0 = load_word -6
+1044: op_B -7, 1
+1048: %r12_0 = load_word -6
+104c: op_B -7, 1
+1050: %r10_0 = load_word -6
+1054: op_B -7, 1
+1058: %r12_0 = load_word -6
+105c: op_B -7, 1
+1060: %r10_1 = rotlw_by_8_then_and %r10_0, -1
+1064: %r10_0 = or %r10_0, %r10_1
+1068: %r10_1 = rotlw_by_16_then_and %r10_0, -1
+106c: %r10_0 = or %r10_0, %r10_1
+1070: %r10_0 = load_word -6
+1074: %r10_1 = subf %r10_1, %r10_0
+1078: store_word %r10_1, 0xe4002080
+107c: %r12_0 = load_word -6
+1080: %r10_1 = subf %r10_1, %r10_0
+1084: store_word %r10_1, 0xe4002084
+1088: %r10_0 = load_word -6
+108c: %r10_1 = subf %r10_1, %r10_0
+1090: store_word %r10_1, 0xe4002180
+1094: %r12_0 = load_word -6
+1098: %r10_1 = subf %r10_1, %r10_0
+109c: store_word %r10_1, 0xe4002184
+10a0: op_B -7, 0
+10a4: %r10_0 = load_word -6
+10a8: %r10_1 = add %r10_1, 0x01010101
+10b0: store_word %r10_1, 0xe4002080
+10b4: %r12_0 = load_word -6
+10b8: %r10_1 = add %r10_1, 0x01010101
+10c0: store_word %r10_1, 0xe4002084
+10c4: %r10_0 = load_word -6
+10c8: %r10_1 = add %r10_1, 0x01010101
+10d0: store_word %r10_1, 0xe4002180
+10d4: %r12_0 = load_word -6
+10d8: %r10_1 = add %r10_1, 0x01010101
+10e0: store_word %r10_1, 0xe4002184
+10e4: %r12_0 = load_word -7
+10e8: sync
+10ec: delay -7
+10f0: op_B -7, 1
+10f4: store_word_0_100 0, 0xe4002000
+10f8: %r12_0 = load_word -6
+10fc: %r10_1 = and %r10_1, -2
+1100: store_word %r10_1, 0xe40002a4
+1104: store_word_0_100 0, 0xe4002034
+1108: store_word_0_100 0x001c0000, 0xe400202c
+1110: store_word_0_100 2, 0xe4002000
+1114: %r10_0 = load_word -7
+1118: sync
+111c: delay -7
+1120: %r10_1 = or %r10_1, 1
+1124: store_word %r10_1, 0xe40002a4
+1128: %r12_0 = load_word -7
+112c: sync
+1130: delay -7
+1134: store_word_0_100 0, 0xe4002034
+1138: store_word_0_100 0x423c0000, 0xe400202c
+1140: store_word_0_100 0x0a280100, 0xe400202c
+1148: store_word_0_100 0x06200221, 0xe400202c
+1150: %r12_0 = load_word -7
+1154: store_word_0_100 %r10_0, 0xe400202c
+1158: %r10_0 = load_word -7
+115c: store_word_0_100 %r10_0, 0xe400202c
+1160: store_word_0_100 2, 0xe4002000
+1164: %r10_0 = load_word -7
+1168: sync
+116c: delay -7
+1170: store_word_0_100 0, 0xe4002034
+1174: store_word_0_100 0x0a280100, 0xe400202c
+117c: store_word_0_100 0x2f240000, 0xe400202c
+1184: store_word_0_100 0x2f240000, 0xe400202c
+118c: store_word_0_100 0x003c0000, 0xe400202c
+1194: store_word_0_100 2, 0xe4002000
+1198: store_word_0_100 0x00001605, 0xe4002000
+11a0: store_word_0_100 0x00000605, 0xe4002000
+11a8: %r10_0 = load_word -7
+11ac: sync
+11b0: delay -7
+11b4: op_B -7, 0
+11b8: store_word_0_100 0, 0xe4002000
+11bc: store_word_0_100 0, 0xe4002034
+11c0: store_word_0_100 0x00040000, 0xe400202c
+11c8: store_word_0_100 2, 0xe4002000
+11cc: %r10_0 = load_word -7
+11d0: sync
+11d4: delay -7
+11d8: op_B -7, 1
+11dc: store_word_0_100 0, 0xe4002034
+11e0: store_word_0_100 0x003c0000, 0xe400202c
+11e8: store_word_0_100 2, 0xe4002000
+11ec: %r10_0 = load_word -7
+11f0: sync
+11f4: delay -7
+11f8: op_B -7, 0
+11fc: store_word_0_100 0, 0xe4002000
+1200: store_word_0_100 0, 0xe4002034
+1204: %r10_0 = add 0, 0
+1208: %r11_1 = rotlw_by_25_then_and %r10_1, 1
+120c: branch_cond4 %r11_1, 1
+1210: %r10_0 = add -1, 0
+1214: store_word %r11_0, 0xe4002030
+1218: %r10_0 = xor %r11_0, -1
+121c: store_word %r11_0, 0xe4002130
+1220: store_word_0_100 %r10_0, 0xe4002030
+1224: store_word_0_100 %r10_0, 0xe4002030
+1228: store_word_0_100 %r10_0, 0xe4002030
+122c: store_word_0_100 %r10_0, 0xe4002030
+1230: store_word_0_100 %r10_0, 0xe4002030
+1234: store_word_0_100 %r10_0, 0xe4002030
+1238: store_word_0_100 %r10_0, 0xe4002030
+123c: store_word_0_100 %r10_0, 0xe4002030
+1240: %r10_0 = add 0, 0
+1244: %r11_1 = rotlw_by_25_then_and %r10_1, 1
+1248: branch_cond4 %r11_1, 1
+124c: %r10_0 = add -1, 0
+1250: store_word %r11_0, 0xe4002030
+1254: %r10_0 = xor %r11_0, -1
+1258: store_word %r11_0, 0xe4002130
+125c: store_word_0_100 %r10_0, 0xe4002030
+1260: store_word_0_100 %r10_0, 0xe4002030
+1264: %r10_0 = xor %r10_0, -1
+1268: store_word_0_100 %r10_0, 0xe4002030
+126c: store_word_0_100 %r10_0, 0xe4002030
+1270: %r10_0 = xor %r10_0, -1
+1274: store_word_0_100 %r10_0, 0xe4002030
+1278: store_word_0_100 %r10_0, 0xe4002030
+127c: %r10_0 = xor %r10_0, -1
+1280: store_word_0_100 %r10_0, 0xe4002030
+1284: store_word_0_100 %r10_0, 0xe4002030
+1288: %r10_0 = add 0x0f2c0000, 0
+1290: %r11_1 = rotlw_by_1_then_and %r10_1, 0x00008000
+1298: %r10_0 = or %r11_0, %r11_1
+129c: %r11_1 = rotlw_by_5_then_and %r10_1, 0x00010000
+12a4: %r10_0 = or %r11_0, %r11_1
+12a8: %r11_1 = rotlw_by_2_then_and %r10_1, 0x00020000
+12b0: %r10_0 = or %r11_0, %r11_1
+12b4: %r11_1 = rotlw_by_16_then_and %r10_1, 0x00001fff
+12bc: %r10_0 = or %r11_0, %r11_1
+12c0: store_word_0_100 %r11_0, 0xe400202c
+12c4: %r10_0 = and %r11_0, 0x0003e000
+12cc: %r10_0 = xor %r11_0, 0x00008000
+12d4: %r10_0 = or %r11_0, 0x012c0000
+12dc: store_word_0_100 %r11_0, 0xe400202c
+12e0: %r10_0 = xor %r11_0, 0x00008000
+12e8: %r10_0 = and %r11_0, 0x0003e000
+12f0: %r10_0 = or %r11_0, 0x01b00000
+12f8: %r11_1 = rotlw_by_29_then_and %r10_1, 0x0000000f
+1300: %r10_0 = or %r11_0, %r11_1
+1304: %r11_1 = rotlw_by_28_then_and %r10_1, 0x00000070
+130c: %r10_0 = or %r11_0, %r11_1
+1310: %r11_1 = rotlw_by_27_then_and %r10_1, 0x00000080
+1318: %r10_0 = or %r11_0, %r11_1
+131c: %r11_1 = rotlw_by_28_then_and %r10_1, 0x00000200
+1324: %r10_0 = or %r11_0, %r11_1
+1328: store_word_0_100 %r11_0, 0xe400202c
+132c: %r10_0 = or %r11_0, 0x02000000
+1334: store_word_0_100 %r11_0, 0xe400202c
+1338: %r10_0 = and %r11_0, 0x0003e000
+1340: %r10_0 = xor %r11_0, 0x00010000
+1348: %r10_0 = or %r11_0, 0x1f2c0000
+1350: store_word_0_100 %r11_0, 0xe400202c
+1354: %r10_0 = xor %r11_0, 0x00010000
+135c: %r10_0 = and %r11_0, 0x0003e000
+1364: %r10_0 = or %r11_0, 0x1f280000
+136c: store_word_0_100 %r11_0, 0xe400202c
+1370: %r10_0 = xor %r11_0, 0x00008000
+1378: store_word_0_100 %r11_0, 0xe400202c
+137c: %r10_0 = xor %r11_0, 0x00008000
+1384: %r10_0 = xor %r11_0, 0x00010000
+138c: store_word_0_100 %r11_0, 0xe400202c
+1390: %r10_0 = xor %r11_0, 0x00010000
+1398: store_word_0_100 2, 0xe4002000
+139c: store_word_0_100 0x00001605, 0xe4002000
+13a4: store_word_0_100 0x00000605, 0xe4002000
+13ac: %r10_1 = add %r10_1, 0x00000020
+13b4: store_word_0_100 0, 0xe4002000
+13b8: store_word_0_100 0, 0xe4002034
+13bc: %r10_0 = add 0, 0
+13c0: %r11_1 = rotlw_by_25_then_and %r10_1, 1
+13c4: branch_cond4 %r11_1, 1
+13c8: %r10_0 = add -1, 0
+13cc: store_word %r11_0, 0xe4002030
+13d0: %r10_0 = xor %r11_0, -1
+13d4: store_word %r11_0, 0xe4002130
+13d8: store_word_0_100 %r10_0, 0xe4002030
+13dc: store_word_0_100 %r10_0, 0xe4002030
+13e0: store_word_0_100 %r10_0, 0xe4002030
+13e4: store_word_0_100 %r10_0, 0xe4002030
+13e8: store_word_0_100 %r10_0, 0xe4002030
+13ec: store_word_0_100 %r10_0, 0xe4002030
+13f0: store_word_0_100 %r10_0, 0xe4002030
+13f4: store_word_0_100 %r10_0, 0xe4002030
+13f8: %r10_0 = add 0, 0
+13fc: %r11_1 = rotlw_by_25_then_and %r10_1, 1
+1400: branch_cond4 %r11_1, 1
+1404: %r10_0 = add -1, 0
+1408: store_word %r11_0, 0xe4002030
+140c: %r10_0 = xor %r11_0, -1
+1410: store_word %r11_0, 0xe4002130
+1414: store_word_0_100 %r10_0, 0xe4002030
+1418: store_word_0_100 %r10_0, 0xe4002030
+141c: %r10_0 = xor %r10_0, -1
+1420: store_word_0_100 %r10_0, 0xe4002030
+1424: store_word_0_100 %r10_0, 0xe4002030
+1428: %r10_0 = xor %r10_0, -1
+142c: store_word_0_100 %r10_0, 0xe4002030
+1430: store_word_0_100 %r10_0, 0xe4002030
+1434: %r10_0 = xor %r10_0, -1
+1438: store_word_0_100 %r10_0, 0xe4002030
+143c: store_word_0_100 %r10_0, 0xe4002030
+1440: %r10_0 = add 0x0f2c0000, 0
+1448: %r11_1 = rotlw_by_1_then_and %r10_1, 0x00008000
+1450: %r10_0 = or %r11_0, %r11_1
+1454: %r11_1 = rotlw_by_5_then_and %r10_1, 0x00010000
+145c: %r10_0 = or %r11_0, %r11_1
+1460: %r11_1 = rotlw_by_2_then_and %r10_1, 0x00020000
+1468: %r10_0 = or %r11_0, %r11_1
+146c: %r11_1 = rotlw_by_16_then_and %r10_1, 0x00001fff
+1474: %r10_0 = or %r11_0, %r11_1
+1478: store_word_0_100 %r11_0, 0xe400202c
+147c: %r10_0 = and %r11_0, 0x0003e000
+1484: %r10_0 = xor %r11_0, 0x00008000
+148c: %r10_0 = or %r11_0, 0x012c0000
+1494: store_word_0_100 %r11_0, 0xe400202c
+1498: %r10_0 = xor %r11_0, 0x00008000
+14a0: %r10_0 = and %r11_0, 0x0003e000
+14a8: %r10_0 = or %r11_0, 0x01b00000
+14b0: %r11_1 = rotlw_by_29_then_and %r10_1, 0x0000000f
+14b8: %r10_0 = or %r11_0, %r11_1
+14bc: %r11_1 = rotlw_by_28_then_and %r10_1, 0x00000070
+14c4: %r10_0 = or %r11_0, %r11_1
+14c8: %r11_1 = rotlw_by_27_then_and %r10_1, 0x00000080
+14d0: %r10_0 = or %r11_0, %r11_1
+14d4: %r11_1 = rotlw_by_28_then_and %r10_1, 0x00000200
+14dc: %r10_0 = or %r11_0, %r11_1
+14e0: store_word_0_100 %r11_0, 0xe400202c
+14e4: %r10_0 = or %r11_0, 0x02000000
+14ec: store_word_0_100 %r11_0, 0xe400202c
+14f0: %r10_0 = and %r11_0, 0x0003e000
+14f8: %r10_0 = xor %r11_0, 0x00010000
+1500: %r10_0 = or %r11_0, 0x1f2c0000
+1508: store_word_0_100 %r11_0, 0xe400202c
+150c: %r10_0 = xor %r11_0, 0x00010000
+1514: %r10_0 = and %r11_0, 0x0003e000
+151c: %r10_0 = or %r11_0, 0x1f280000
+1524: store_word_0_100 %r11_0, 0xe400202c
+1528: %r10_0 = xor %r11_0, 0x00008000
+1530: store_word_0_100 %r11_0, 0xe400202c
+1534: %r10_0 = xor %r11_0, 0x00008000
+153c: %r10_0 = xor %r11_0, 0x00010000
+1544: store_word_0_100 %r11_0, 0xe400202c
+1548: %r10_0 = xor %r11_0, 0x00010000
+1550: store_word_0_100 2, 0xe4002000
+1554: store_word_0_100 0x00001605, 0xe4002000
+155c: store_word_0_100 0x00000605, 0xe4002000
+1564: %r10_1 = add %r10_1, 0x00000020
+156c: store_word_0_100 0, 0xe4002000
+1570: store_word_0_100 0, 0xe4002034
+1574: %r10_0 = add 0, 0
+1578: %r11_1 = rotlw_by_25_then_and %r10_1, 1
+157c: branch_cond4 %r11_1, 1
+1580: %r10_0 = add -1, 0
+1584: store_word %r11_0, 0xe4002030
+1588: %r10_0 = xor %r11_0, -1
+158c: store_word %r11_0, 0xe4002130
+1590: store_word_0_100 %r10_0, 0xe4002030
+1594: store_word_0_100 %r10_0, 0xe4002030
+1598: store_word_0_100 %r10_0, 0xe4002030
+159c: store_word_0_100 %r10_0, 0xe4002030
+15a0: store_word_0_100 %r10_0, 0xe4002030
+15a4: store_word_0_100 %r10_0, 0xe4002030
+15a8: store_word_0_100 %r10_0, 0xe4002030
+15ac: store_word_0_100 %r10_0, 0xe4002030
+15b0: %r10_0 = add 0, 0
+15b4: %r11_1 = rotlw_by_25_then_and %r10_1, 1
+15b8: branch_cond4 %r11_1, 1
+15bc: %r10_0 = add -1, 0
+15c0: store_word %r11_0, 0xe4002030
+15c4: %r10_0 = xor %r11_0, -1
+15c8: store_word %r11_0, 0xe4002130
+15cc: store_word_0_100 %r10_0, 0xe4002030
+15d0: store_word_0_100 %r10_0, 0xe4002030
+15d4: store_word_0_100 %r10_0, 0xe4002030
+15d8: store_word_0_100 %r10_0, 0xe4002030
+15dc: %r10_0 = xor %r10_0, -1
+15e0: store_word_0_100 %r10_0, 0xe4002030
+15e4: store_word_0_100 %r10_0, 0xe4002030
+15e8: %r10_0 = xor %r10_0, -1
+15ec: store_word_0_100 %r10_0, 0xe4002030
+15f0: store_word_0_100 %r10_0, 0xe4002030
+15f4: %r10_0 = xor %r10_0, -1
+15f8: %r10_0 = add 0x0f2c0000, 0
+1600: %r11_1 = rotlw_by_1_then_and %r10_1, 0x00008000
+1608: %r10_0 = or %r11_0, %r11_1
+160c: %r11_1 = rotlw_by_5_then_and %r10_1, 0x00010000
+1614: %r10_0 = or %r11_0, %r11_1
+1618: %r11_1 = rotlw_by_2_then_and %r10_1, 0x00020000
+1620: %r10_0 = or %r11_0, %r11_1
+1624: %r11_1 = rotlw_by_16_then_and %r10_1, 0x00001fff
+162c: %r10_0 = or %r11_0, %r11_1
+1630: store_word_0_100 %r11_0, 0xe400202c
+1634: %r10_0 = and %r11_0, 0x0003e000
+163c: %r10_0 = xor %r11_0, 0x00008000
+1644: %r10_0 = or %r11_0, 0x012c0000
+164c: store_word_0_100 %r11_0, 0xe400202c
+1650: %r10_0 = xor %r11_0, 0x00008000
+1658: %r10_0 = and %r11_0, 0x0003e000
+1660: %r10_0 = or %r11_0, 0x01b00000
+1668: %r11_1 = rotlw_by_29_then_and %r10_1, 0x0000000f
+1670: %r10_0 = or %r11_0, %r11_1
+1674: %r11_1 = rotlw_by_28_then_and %r10_1, 0x00000070
+167c: %r10_0 = or %r11_0, %r11_1
+1680: %r11_1 = rotlw_by_27_then_and %r10_1, 0x00000080
+1688: %r10_0 = or %r11_0, %r11_1
+168c: %r11_1 = rotlw_by_28_then_and %r10_1, 0x00000200
+1694: %r10_0 = or %r11_0, %r11_1
+1698: store_word_0_100 %r11_0, 0xe400202c
+169c: %r10_0 = or %r11_0, 0x02000000
+16a4: store_word_0_100 %r11_0, 0xe400202c
+16a8: %r10_0 = and %r11_0, 0x0003e000
+16b0: %r10_0 = xor %r11_0, 0x00010000
+16b8: %r10_0 = or %r11_0, 0x1f2c0000
+16c0: store_word_0_100 %r11_0, 0xe400202c
+16c4: %r10_0 = xor %r11_0, 0x00010000
+16cc: %r10_0 = and %r11_0, 0x0003e000
+16d4: %r10_0 = or %r11_0, 0x1f280000
+16dc: store_word_0_100 %r11_0, 0xe400202c
+16e0: %r10_0 = xor %r11_0, 0x00008000
+16e8: store_word_0_100 %r11_0, 0xe400202c
+16ec: %r10_0 = xor %r11_0, 0x00008000
+16f4: %r10_0 = xor %r11_0, 0x00010000
+16fc: store_word_0_100 %r11_0, 0xe400202c
+1700: %r10_0 = xor %r11_0, 0x00010000
+1708: store_word_0_100 2, 0xe4002000
+170c: store_word_0_100 0x00001605, 0xe4002000
+1714: store_word_0_100 0x00000605, 0xe4002000
+171c: %r10_1 = add %r10_1, 0x00000020
+1724: store_word_0_100 0, 0xe4002000
+1728: store_word_0_100 0, 0xe4002034
+172c: %r10_0 = add 0, 0
+1730: %r11_1 = rotlw_by_25_then_and %r10_1, 1
+1734: branch_cond4 %r11_1, 1
+1738: %r10_0 = add -1, 0
+173c: store_word %r11_0, 0xe4002030
+1740: %r10_0 = xor %r11_0, -1
+1744: store_word %r11_0, 0xe4002130
+1748: store_word_0_100 %r10_0, 0xe4002030
+174c: store_word_0_100 %r10_0, 0xe4002030
+1750: store_word_0_100 %r10_0, 0xe4002030
+1754: store_word_0_100 %r10_0, 0xe4002030
+1758: store_word_0_100 %r10_0, 0xe4002030
+175c: store_word_0_100 %r10_0, 0xe4002030
+1760: store_word_0_100 %r10_0, 0xe4002030
+1764: store_word_0_100 %r10_0, 0xe4002030
+1768: %r10_0 = add 0, 0
+176c: %r11_1 = rotlw_by_25_then_and %r10_1, 1
+1770: branch_cond4 %r11_1, 1
+1774: %r10_0 = add -1, 0
+1778: store_word %r11_0, 0xe4002030
+177c: %r10_0 = xor %r11_0, -1
+1780: store_word %r11_0, 0xe4002130
+1784: store_word_0_100 %r10_0, 0xe4002030
+1788: store_word_0_100 %r10_0, 0xe4002030
+178c: store_word_0_100 %r10_0, 0xe4002030
+1790: store_word_0_100 %r10_0, 0xe4002030
+1794: %r10_0 = xor %r10_0, -1
+1798: store_word_0_100 %r10_0, 0xe4002030
+179c: store_word_0_100 %r10_0, 0xe4002030
+17a0: %r10_0 = xor %r10_0, -1
+17a4: store_word_0_100 %r10_0, 0xe4002030
+17a8: store_word_0_100 %r10_0, 0xe4002030
+17ac: %r10_0 = xor %r10_0, -1
+17b0: %r10_0 = add 0x0f2c0000, 0
+17b8: %r11_1 = rotlw_by_1_then_and %r10_1, 0x00008000
+17c0: %r10_0 = or %r11_0, %r11_1
+17c4: %r11_1 = rotlw_by_5_then_and %r10_1, 0x00010000
+17cc: %r10_0 = or %r11_0, %r11_1
+17d0: %r11_1 = rotlw_by_2_then_and %r10_1, 0x00020000
+17d8: %r10_0 = or %r11_0, %r11_1
+17dc: %r11_1 = rotlw_by_16_then_and %r10_1, 0x00001fff
+17e4: %r10_0 = or %r11_0, %r11_1
+17e8: store_word_0_100 %r11_0, 0xe400202c
+17ec: %r10_0 = and %r11_0, 0x0003e000
+17f4: %r10_0 = xor %r11_0, 0x00008000
+17fc: %r10_0 = or %r11_0, 0x012c0000
+1804: store_word_0_100 %r11_0, 0xe400202c
+1808: %r10_0 = xor %r11_0, 0x00008000
+1810: %r10_0 = and %r11_0, 0x0003e000
+1818: %r10_0 = or %r11_0, 0x01b00000
+1820: %r11_1 = rotlw_by_29_then_and %r10_1, 0x0000000f
+1828: %r10_0 = or %r11_0, %r11_1
+182c: %r11_1 = rotlw_by_28_then_and %r10_1, 0x00000070
+1834: %r10_0 = or %r11_0, %r11_1
+1838: %r11_1 = rotlw_by_27_then_and %r10_1, 0x00000080
+1840: %r10_0 = or %r11_0, %r11_1
+1844: %r11_1 = rotlw_by_28_then_and %r10_1, 0x00000200
+184c: %r10_0 = or %r11_0, %r11_1
+1850: store_word_0_100 %r11_0, 0xe400202c
+1854: %r10_0 = or %r11_0, 0x02000000
+185c: store_word_0_100 %r11_0, 0xe400202c
+1860: %r10_0 = and %r11_0, 0x0003e000
+1868: %r10_0 = xor %r11_0, 0x00010000
+1870: %r10_0 = or %r11_0, 0x1f2c0000
+1878: store_word_0_100 %r11_0, 0xe400202c
+187c: %r10_0 = xor %r11_0, 0x00010000
+1884: %r10_0 = and %r11_0, 0x0003e000
+188c: %r10_0 = or %r11_0, 0x1f280000
+1894: store_word_0_100 %r11_0, 0xe400202c
+1898: %r10_0 = xor %r11_0, 0x00008000
+18a0: store_word_0_100 %r11_0, 0xe400202c
+18a4: %r10_0 = xor %r11_0, 0x00008000
+18ac: %r10_0 = xor %r11_0, 0x00010000
+18b4: store_word_0_100 %r11_0, 0xe400202c
+18b8: %r10_0 = xor %r11_0, 0x00010000
+18c0: store_word_0_100 2, 0xe4002000
+18c4: store_word_0_100 0x00001605, 0xe4002000
+18cc: store_word_0_100 0x00000605, 0xe4002000
+18d4: %r10_1 = add %r10_1, 0x00000020
+18dc: store_word_0_100 0, 0xe4002000
+18e0: store_word_0_100 0, 0xe4002034
+18e4: %r10_0 = add 0, 0
+18e8: %r11_1 = rotlw_by_25_then_and %r10_1, 1
+18ec: branch_cond4 %r11_1, 1
+18f0: %r10_0 = add -1, 0
+18f4: store_word %r11_0, 0xe4002030
+18f8: %r10_0 = xor %r11_0, -1
+18fc: store_word %r11_0, 0xe4002130
+1900: store_word_0_100 %r10_0, 0xe4002030
+1904: store_word_0_100 %r10_0, 0xe4002030
+1908: store_word_0_100 %r10_0, 0xe4002030
+190c: store_word_0_100 %r10_0, 0xe4002030
+1910: store_word_0_100 %r10_0, 0xe4002030
+1914: store_word_0_100 %r10_0, 0xe4002030
+1918: store_word_0_100 %r10_0, 0xe4002030
+191c: store_word_0_100 %r10_0, 0xe4002030
+1920: %r10_0 = add 0, 0
+1924: %r11_1 = rotlw_by_25_then_and %r10_1, 1
+1928: branch_cond4 %r11_1, 1
+192c: %r10_0 = add -1, 0
+1930: store_word %r11_0, 0xe4002030
+1934: %r10_0 = xor %r11_0, -1
+1938: store_word %r11_0, 0xe4002130
+193c: store_word_0_100 %r10_0, 0xe4002030
+1940: store_word_0_100 %r10_0, 0xe4002030
+1944: %r10_0 = xor %r10_0, -1
+1948: store_word_0_100 %r10_0, 0xe4002030
+194c: store_word_0_100 %r10_0, 0xe4002030
+1950: %r10_0 = xor %r10_0, -1
+1954: store_word_0_100 %r10_0, 0xe4002030
+1958: store_word_0_100 %r10_0, 0xe4002030
+195c: %r10_0 = xor %r10_0, -1
+1960: store_word_0_100 %r10_0, 0xe4002030
+1964: store_word_0_100 %r10_0, 0xe4002030
+1968: %r10_0 = add 0x0f2c0000, 0
+1970: %r11_1 = rotlw_by_1_then_and %r10_1, 0x00008000
+1978: %r10_0 = or %r11_0, %r11_1
+197c: %r11_1 = rotlw_by_5_then_and %r10_1, 0x00010000
+1984: %r10_0 = or %r11_0, %r11_1
+1988: %r11_1 = rotlw_by_2_then_and %r10_1, 0x00020000
+1990: %r10_0 = or %r11_0, %r11_1
+1994: %r11_1 = rotlw_by_16_then_and %r10_1, 0x00001fff
+199c: %r10_0 = or %r11_0, %r11_1
+19a0: store_word_0_100 %r11_0, 0xe400202c
+19a4: %r10_0 = and %r11_0, 0x0003e000
+19ac: %r10_0 = xor %r11_0, 0x00008000
+19b4: %r10_0 = or %r11_0, 0x012c0000
+19bc: store_word_0_100 %r11_0, 0xe400202c
+19c0: %r10_0 = xor %r11_0, 0x00008000
+19c8: %r10_0 = and %r11_0, 0x0003e000
+19d0: %r10_0 = or %r11_0, 0x01b00000
+19d8: %r11_1 = rotlw_by_29_then_and %r10_1, 0x0000000f
+19e0: %r10_0 = or %r11_0, %r11_1
+19e4: %r11_1 = rotlw_by_28_then_and %r10_1, 0x00000070
+19ec: %r10_0 = or %r11_0, %r11_1
+19f0: %r11_1 = rotlw_by_27_then_and %r10_1, 0x00000080
+19f8: %r10_0 = or %r11_0, %r11_1
+19fc: %r11_1 = rotlw_by_28_then_and %r10_1, 0x00000200
+1a04: %r10_0 = or %r11_0, %r11_1
+1a08: store_word_0_100 %r11_0, 0xe400202c
+1a0c: %r10_0 = or %r11_0, 0x02000000
+1a14: store_word_0_100 %r11_0, 0xe400202c
+1a18: %r10_0 = and %r11_0, 0x0003e000
+1a20: %r10_0 = xor %r11_0, 0x00010000
+1a28: %r10_0 = or %r11_0, 0x1f2c0000
+1a30: store_word_0_100 %r11_0, 0xe400202c
+1a34: %r10_0 = xor %r11_0, 0x00010000
+1a3c: %r10_0 = and %r11_0, 0x0003e000
+1a44: %r10_0 = or %r11_0, 0x1f280000
+1a4c: store_word_0_100 %r11_0, 0xe400202c
+1a50: %r10_0 = xor %r11_0, 0x00008000
+1a58: store_word_0_100 %r11_0, 0xe400202c
+1a5c: %r10_0 = xor %r11_0, 0x00008000
+1a64: %r10_0 = xor %r11_0, 0x00010000
+1a6c: store_word_0_100 %r11_0, 0xe400202c
+1a70: %r10_0 = xor %r11_0, 0x00010000
+1a78: store_word_0_100 2, 0xe4002000
+1a7c: store_word_0_100 0x00001605, 0xe4002000
+1a84: store_word_0_100 0x00000605, 0xe4002000
+1a8c: %r10_1 = add %r10_1, 0x00000020
+1a94: store_word_0_100 0, 0xe4002000
+1a98: store_word_0_100 0, 0xe4002034
+1a9c: %r10_0 = add 0, 0
+1aa0: %r11_1 = rotlw_by_25_then_and %r10_1, 1
+1aa4: branch_cond4 %r11_1, 1
+1aa8: %r10_0 = add -1, 0
+1aac: store_word %r11_0, 0xe4002030
+1ab0: %r10_0 = xor %r11_0, -1
+1ab4: store_word %r11_0, 0xe4002130
+1ab8: store_word_0_100 %r10_0, 0xe4002030
+1abc: store_word_0_100 %r10_0, 0xe4002030
+1ac0: store_word_0_100 %r10_0, 0xe4002030
+1ac4: store_word_0_100 %r10_0, 0xe4002030
+1ac8: store_word_0_100 %r10_0, 0xe4002030
+1acc: store_word_0_100 %r10_0, 0xe4002030
+1ad0: store_word_0_100 %r10_0, 0xe4002030
+1ad4: store_word_0_100 %r10_0, 0xe4002030
+1ad8: %r10_0 = add 0, 0
+1adc: %r11_1 = rotlw_by_25_then_and %r10_1, 1
+1ae0: branch_cond4 %r11_1, 1
+1ae4: %r10_0 = add -1, 0
+1ae8: store_word %r11_0, 0xe4002030
+1aec: %r10_0 = xor %r11_0, -1
+1af0: store_word %r11_0, 0xe4002130
+1af4: store_word_0_100 %r10_0, 0xe4002030
+1af8: store_word_0_100 %r10_0, 0xe4002030
+1afc: %r10_0 = xor %r10_0, -1
+1b00: store_word_0_100 %r10_0, 0xe4002030
+1b04: store_word_0_100 %r10_0, 0xe4002030
+1b08: %r10_0 = xor %r10_0, -1
+1b0c: store_word_0_100 %r10_0, 0xe4002030
+1b10: store_word_0_100 %r10_0, 0xe4002030
+1b14: %r10_0 = xor %r10_0, -1
+1b18: store_word_0_100 %r10_0, 0xe4002030
+1b1c: store_word_0_100 %r10_0, 0xe4002030
+1b20: %r10_0 = add 0x0f2c0000, 0
+1b28: %r11_1 = rotlw_by_1_then_and %r10_1, 0x00008000
+1b30: %r10_0 = or %r11_0, %r11_1
+1b34: %r11_1 = rotlw_by_5_then_and %r10_1, 0x00010000
+1b3c: %r10_0 = or %r11_0, %r11_1
+1b40: %r11_1 = rotlw_by_2_then_and %r10_1, 0x00020000
+1b48: %r10_0 = or %r11_0, %r11_1
+1b4c: %r11_1 = rotlw_by_16_then_and %r10_1, 0x00001fff
+1b54: %r10_0 = or %r11_0, %r11_1
+1b58: store_word_0_100 %r11_0, 0xe400202c
+1b5c: %r10_0 = and %r11_0, 0x0003e000
+1b64: %r10_0 = xor %r11_0, 0x00008000
+1b6c: %r10_0 = or %r11_0, 0x012c0000
+1b74: store_word_0_100 %r11_0, 0xe400202c
+1b78: %r10_0 = xor %r11_0, 0x00008000
+1b80: %r10_0 = and %r11_0, 0x0003e000
+1b88: %r10_0 = or %r11_0, 0x01b00000
+1b90: %r11_1 = rotlw_by_29_then_and %r10_1, 0x0000000f
+1b98: %r10_0 = or %r11_0, %r11_1
+1b9c: %r11_1 = rotlw_by_28_then_and %r10_1, 0x00000070
+1ba4: %r10_0 = or %r11_0, %r11_1
+1ba8: %r11_1 = rotlw_by_27_then_and %r10_1, 0x00000080
+1bb0: %r10_0 = or %r11_0, %r11_1
+1bb4: %r11_1 = rotlw_by_28_then_and %r10_1, 0x00000200
+1bbc: %r10_0 = or %r11_0, %r11_1
+1bc0: store_word_0_100 %r11_0, 0xe400202c
+1bc4: %r10_0 = or %r11_0, 0x02000000
+1bcc: store_word_0_100 %r11_0, 0xe400202c
+1bd0: %r10_0 = and %r11_0, 0x0003e000
+1bd8: %r10_0 = xor %r11_0, 0x00010000
+1be0: %r10_0 = or %r11_0, 0x1f2c0000
+1be8: store_word_0_100 %r11_0, 0xe400202c
+1bec: %r10_0 = xor %r11_0, 0x00010000
+1bf4: %r10_0 = and %r11_0, 0x0003e000
+1bfc: %r10_0 = or %r11_0, 0x1f280000
+1c04: store_word_0_100 %r11_0, 0xe400202c
+1c08: %r10_0 = xor %r11_0, 0x00008000
+1c10: store_word_0_100 %r11_0, 0xe400202c
+1c14: %r10_0 = xor %r11_0, 0x00008000
+1c1c: %r10_0 = xor %r11_0, 0x00010000
+1c24: store_word_0_100 %r11_0, 0xe400202c
+1c28: %r10_0 = xor %r11_0, 0x00010000
+1c30: store_word_0_100 2, 0xe4002000
+1c34: store_word_0_100 0x00001605, 0xe4002000
+1c3c: store_word_0_100 0x00000605, 0xe4002000
+1c44: %r10_1 = add %r10_1, 0x00000020
+1c4c: store_word_0_100 0, 0xe4002000
+1c50: store_word_0_100 0, 0xe4002034
+1c54: %r10_0 = add 0, 0
+1c58: %r11_1 = rotlw_by_25_then_and %r10_1, 1
+1c5c: branch_cond4 %r11_1, 1
+1c60: %r10_0 = add -1, 0
+1c64: store_word %r11_0, 0xe4002030
+1c68: %r10_0 = xor %r11_0, -1
+1c6c: store_word %r11_0, 0xe4002130
+1c70: store_word_0_100 %r10_0, 0xe4002030
+1c74: store_word_0_100 %r10_0, 0xe4002030
+1c78: store_word_0_100 %r10_0, 0xe4002030
+1c7c: store_word_0_100 %r10_0, 0xe4002030
+1c80: store_word_0_100 %r10_0, 0xe4002030
+1c84: store_word_0_100 %r10_0, 0xe4002030
+1c88: store_word_0_100 %r10_0, 0xe4002030
+1c8c: store_word_0_100 %r10_0, 0xe4002030
+1c90: %r10_0 = add 0, 0
+1c94: %r11_1 = rotlw_by_25_then_and %r10_1, 1
+1c98: branch_cond4 %r11_1, 1
+1c9c: %r10_0 = add -1, 0
+1ca0: store_word %r11_0, 0xe4002030
+1ca4: %r10_0 = xor %r11_0, -1
+1ca8: store_word %r11_0, 0xe4002130
+1cac: store_word_0_100 %r10_0, 0xe4002030
+1cb0: store_word_0_100 %r10_0, 0xe4002030
+1cb4: store_word_0_100 %r10_0, 0xe4002030
+1cb8: store_word_0_100 %r10_0, 0xe4002030
+1cbc: %r10_0 = xor %r10_0, -1
+1cc0: store_word_0_100 %r10_0, 0xe4002030
+1cc4: store_word_0_100 %r10_0, 0xe4002030
+1cc8: %r10_0 = xor %r10_0, -1
+1ccc: store_word_0_100 %r10_0, 0xe4002030
+1cd0: store_word_0_100 %r10_0, 0xe4002030
+1cd4: %r10_0 = xor %r10_0, -1
+1cd8: %r10_0 = add 0x0f2c0000, 0
+1ce0: %r11_1 = rotlw_by_1_then_and %r10_1, 0x00008000
+1ce8: %r10_0 = or %r11_0, %r11_1
+1cec: %r11_1 = rotlw_by_5_then_and %r10_1, 0x00010000
+1cf4: %r10_0 = or %r11_0, %r11_1
+1cf8: %r11_1 = rotlw_by_2_then_and %r10_1, 0x00020000
+1d00: %r10_0 = or %r11_0, %r11_1
+1d04: %r11_1 = rotlw_by_16_then_and %r10_1, 0x00001fff
+1d0c: %r10_0 = or %r11_0, %r11_1
+1d10: store_word_0_100 %r11_0, 0xe400202c
+1d14: %r10_0 = and %r11_0, 0x0003e000
+1d1c: %r10_0 = xor %r11_0, 0x00008000
+1d24: %r10_0 = or %r11_0, 0x012c0000
+1d2c: store_word_0_100 %r11_0, 0xe400202c
+1d30: %r10_0 = xor %r11_0, 0x00008000
+1d38: %r10_0 = and %r11_0, 0x0003e000
+1d40: %r10_0 = or %r11_0, 0x01b00000
+1d48: %r11_1 = rotlw_by_29_then_and %r10_1, 0x0000000f
+1d50: %r10_0 = or %r11_0, %r11_1
+1d54: %r11_1 = rotlw_by_28_then_and %r10_1, 0x00000070
+1d5c: %r10_0 = or %r11_0, %r11_1
+1d60: %r11_1 = rotlw_by_27_then_and %r10_1, 0x00000080
+1d68: %r10_0 = or %r11_0, %r11_1
+1d6c: %r11_1 = rotlw_by_28_then_and %r10_1, 0x00000200
+1d74: %r10_0 = or %r11_0, %r11_1
+1d78: store_word_0_100 %r11_0, 0xe400202c
+1d7c: %r10_0 = or %r11_0, 0x02000000
+1d84: store_word_0_100 %r11_0, 0xe400202c
+1d88: %r10_0 = and %r11_0, 0x0003e000
+1d90: %r10_0 = xor %r11_0, 0x00010000
+1d98: %r10_0 = or %r11_0, 0x1f2c0000
+1da0: store_word_0_100 %r11_0, 0xe400202c
+1da4: %r10_0 = xor %r11_0, 0x00010000
+1dac: %r10_0 = and %r11_0, 0x0003e000
+1db4: %r10_0 = or %r11_0, 0x1f280000
+1dbc: store_word_0_100 %r11_0, 0xe400202c
+1dc0: %r10_0 = xor %r11_0, 0x00008000
+1dc8: store_word_0_100 %r11_0, 0xe400202c
+1dcc: %r10_0 = xor %r11_0, 0x00008000
+1dd4: %r10_0 = xor %r11_0, 0x00010000
+1ddc: store_word_0_100 %r11_0, 0xe400202c
+1de0: %r10_0 = xor %r11_0, 0x00010000
+1de8: store_word_0_100 2, 0xe4002000
+1dec: store_word_0_100 0x00001605, 0xe4002000
+1df4: store_word_0_100 0x00000605, 0xe4002000
+1dfc: %r10_1 = add %r10_1, 0x00000020
+1e04: store_word_0_100 0, 0xe4002000
+1e08: store_word_0_100 0, 0xe4002034
+1e0c: %r10_0 = add 0, 0
+1e10: %r11_1 = rotlw_by_25_then_and %r10_1, 1
+1e14: branch_cond4 %r11_1, 1
+1e18: %r10_0 = add -1, 0
+1e1c: store_word %r11_0, 0xe4002030
+1e20: %r10_0 = xor %r11_0, -1
+1e24: store_word %r11_0, 0xe4002130
+1e28: store_word_0_100 %r10_0, 0xe4002030
+1e2c: store_word_0_100 %r10_0, 0xe4002030
+1e30: store_word_0_100 %r10_0, 0xe4002030
+1e34: store_word_0_100 %r10_0, 0xe4002030
+1e38: store_word_0_100 %r10_0, 0xe4002030
+1e3c: store_word_0_100 %r10_0, 0xe4002030
+1e40: store_word_0_100 %r10_0, 0xe4002030
+1e44: store_word_0_100 %r10_0, 0xe4002030
+1e48: %r10_0 = add 0, 0
+1e4c: %r11_1 = rotlw_by_25_then_and %r10_1, 1
+1e50: branch_cond4 %r11_1, 1
+1e54: %r10_0 = add -1, 0
+1e58: store_word %r11_0, 0xe4002030
+1e5c: %r10_0 = xor %r11_0, -1
+1e60: store_word %r11_0, 0xe4002130
+1e64: store_word_0_100 %r10_0, 0xe4002030
+1e68: store_word_0_100 %r10_0, 0xe4002030
+1e6c: store_word_0_100 %r10_0, 0xe4002030
+1e70: store_word_0_100 %r10_0, 0xe4002030
+1e74: %r10_0 = xor %r10_0, -1
+1e78: store_word_0_100 %r10_0, 0xe4002030
+1e7c: store_word_0_100 %r10_0, 0xe4002030
+1e80: %r10_0 = xor %r10_0, -1
+1e84: store_word_0_100 %r10_0, 0xe4002030
+1e88: store_word_0_100 %r10_0, 0xe4002030
+1e8c: %r10_0 = xor %r10_0, -1
+1e90: %r10_0 = add 0x0f2c0000, 0
+1e98: %r11_1 = rotlw_by_1_then_and %r10_1, 0x00008000
+1ea0: %r10_0 = or %r11_0, %r11_1
+1ea4: %r11_1 = rotlw_by_5_then_and %r10_1, 0x00010000
+1eac: %r10_0 = or %r11_0, %r11_1
+1eb0: %r11_1 = rotlw_by_2_then_and %r10_1, 0x00020000
+1eb8: %r10_0 = or %r11_0, %r11_1
+1ebc: %r11_1 = rotlw_by_16_then_and %r10_1, 0x00001fff
+1ec4: %r10_0 = or %r11_0, %r11_1
+1ec8: store_word_0_100 %r11_0, 0xe400202c
+1ecc: %r10_0 = and %r11_0, 0x0003e000
+1ed4: %r10_0 = xor %r11_0, 0x00008000
+1edc: %r10_0 = or %r11_0, 0x012c0000
+1ee4: store_word_0_100 %r11_0, 0xe400202c
+1ee8: %r10_0 = xor %r11_0, 0x00008000
+1ef0: %r10_0 = and %r11_0, 0x0003e000
+1ef8: %r10_0 = or %r11_0, 0x01b00000
+1f00: %r11_1 = rotlw_by_29_then_and %r10_1, 0x0000000f
+1f08: %r10_0 = or %r11_0, %r11_1
+1f0c: %r11_1 = rotlw_by_28_then_and %r10_1, 0x00000070
+1f14: %r10_0 = or %r11_0, %r11_1
+1f18: %r11_1 = rotlw_by_27_then_and %r10_1, 0x00000080
+1f20: %r10_0 = or %r11_0, %r11_1
+1f24: %r11_1 = rotlw_by_28_then_and %r10_1, 0x00000200
+1f2c: %r10_0 = or %r11_0, %r11_1
+1f30: store_word_0_100 %r11_0, 0xe400202c
+1f34: %r10_0 = or %r11_0, 0x02000000
+1f3c: store_word_0_100 %r11_0, 0xe400202c
+1f40: %r10_0 = and %r11_0, 0x0003e000
+1f48: %r10_0 = xor %r11_0, 0x00010000
+1f50: %r10_0 = or %r11_0, 0x1f2c0000
+1f58: store_word_0_100 %r11_0, 0xe400202c
+1f5c: %r10_0 = xor %r11_0, 0x00010000
+1f64: %r10_0 = and %r11_0, 0x0003e000
+1f6c: %r10_0 = or %r11_0, 0x1f280000
+1f74: store_word_0_100 %r11_0, 0xe400202c
+1f78: %r10_0 = xor %r11_0, 0x00008000
+1f80: store_word_0_100 %r11_0, 0xe400202c
+1f84: %r10_0 = xor %r11_0, 0x00008000
+1f8c: %r10_0 = xor %r11_0, 0x00010000
+1f94: store_word_0_100 %r11_0, 0xe400202c
+1f98: %r10_0 = xor %r11_0, 0x00010000
+1fa0: store_word_0_100 2, 0xe4002000
+1fa4: store_word_0_100 0x00001605, 0xe4002000
+1fac: store_word_0_100 0x00000605, 0xe4002000
+1fb4: %r10_1 = add %r10_1, 0x00000020
+1fbc: op_B -7, 0
+1fc0: %r10_1 = add 0x00001800, 0
+1fc8: %r10_0 = add 0x01800180, 0
+1fd0: op_B -7, 1
+1fd4: %r10_0 = add 0x02400240, 0
+1fdc: op_B -7, 1
+1fe0: %r10_0 = add 0x04200420, 0
+1fe8: op_B -7, 1
+1fec: %r10_0 = add 0x08100810, 0
+1ff4: op_B -7, 1
+1ff8: %r10_0 = add 0x10081008, 0
+2000: op_B -7, 1
+2004: %r10_0 = add 0x20042004, 0
+200c: op_B -7, 1
+2010: %r10_0 = add 0x40024002, 0
+2018: op_B -7, 1
+201c: %r10_0 = add 0x80018001, 0
+2024: op_B -7, 1
+2028: op_B -7, 0
+202c: %r10_0 = load_word -4
+2030: %r11_1 = xor %r11_1, %r10_0
+2034: %r13_1 = or %r13_1, %r11_1
+2038: %r10_1 = add %r10_1, 0x00000008
+2040: %r10_0 = xor %r10_0, -1
+2044: %r10_0 = load_word -4
+2048: %r11_1 = xor %r11_1, %r10_0
+204c: %r13_1 = or %r13_1, %r11_1
+2050: %r10_1 = add %r10_1, 0x00000008
+2058: %r10_0 = xor %r10_0, -1
+205c: %r10_0 = load_word -4
+2060: %r11_1 = xor %r11_1, %r10_0
+2064: %r13_1 = or %r13_1, %r11_1
+2068: %r10_1 = add %r10_1, 0x00000008
+2070: %r10_0 = xor %r10_0, -1
+2074: %r10_0 = load_word -4
+2078: %r11_1 = xor %r11_1, %r10_0
+207c: %r13_1 = or %r13_1, %r11_1
+2080: %r10_1 = add %r10_1, 0x00000008
+2088: %r10_0 = load_word -4
+208c: %r11_1 = xor %r11_1, %r10_0
+2090: %r13_1 = or %r13_1, %r11_1
+2094: %r10_1 = add %r10_1, 0x00000008
+209c: %r10_0 = xor %r10_0, -1
+20a0: %r10_0 = load_word -4
+20a4: %r11_1 = xor %r11_1, %r10_0
+20a8: %r13_1 = or %r13_1, %r11_1
+20ac: %r10_1 = add %r10_1, 0x00000008
+20b4: %r10_0 = xor %r10_0, -1
+20b8: %r10_0 = load_word -4
+20bc: %r11_1 = xor %r11_1, %r10_0
+20c0: %r13_1 = or %r13_1, %r11_1
+20c4: %r10_1 = add %r10_1, 0x00000008
+20cc: %r10_0 = xor %r10_0, -1
+20d0: %r10_0 = load_word -4
+20d4: %r11_1 = xor %r11_1, %r10_0
+20d8: %r13_1 = or %r13_1, %r11_1
+20dc: %r10_1 = add %r10_1, 0x00000008
+20e4: %r10_1 = add %r10_1, 0x000000c0
+20ec: op_B -7, 0
+20f0: %r13_1 = add 0, 0
+20f4: store_word_0_100 0x00001605, 0xe4002000
+20fc: store_word_0_100 0x00000605, 0xe4002000
+2104: %r10_0 = add 0x01800180, 0
+210c: op_B -7, 1
+2110: %r10_0 = add 0x02400240, 0
+2118: op_B -7, 1
+211c: %r10_0 = add 0x04200420, 0
+2124: op_B -7, 1
+2128: %r10_0 = add 0x08100810, 0
+2130: op_B -7, 1
+2134: %r10_0 = add 0x10081008, 0
+213c: op_B -7, 1
+2140: %r10_0 = add 0x20042004, 0
+2148: op_B -7, 1
+214c: %r10_0 = add 0x40024002, 0
+2154: op_B -7, 1
+2158: %r10_0 = add 0x80018001, 0
+2160: op_B -7, 1
+2164: %r12_0 = load_word -4
+2168: branch_cond2 %r11_1, 0x00000018
+2170: %r10_0 = load_word -4
+2174: %r11_1 = rotlw_by_31_then_and %r11_1, 0x7fffffff
+217c: %r10_1 = add %r10_1, %r11_1
+2180: %r10_1 = subf %r10_1, 0x00000800
+2188: store_word_0_100 0x00001605, 0xe4002000
+2190: store_word_0_100 0x00000605, 0xe4002000
+2198: %r10_0 = add 0x01800180, 0
+21a0: op_B -7, 1
+21a4: %r10_0 = add 0x02400240, 0
+21ac: op_B -7, 1
+21b0: %r10_0 = add 0x04200420, 0
+21b8: op_B -7, 1
+21bc: %r10_0 = add 0x08100810, 0
+21c4: op_B -7, 1
+21c8: %r10_0 = add 0x10081008, 0
+21d0: op_B -7, 1
+21d4: %r10_0 = add 0x20042004, 0
+21dc: op_B -7, 1
+21e0: %r10_0 = add 0x40024002, 0
+21e8: op_B -7, 1
+21ec: %r10_0 = add 0x80018001, 0
+21f4: op_B -7, 1
+21f8: %r10_0 = load_word -4
+21fc: %r11_1 = rotlw_by_31_then_and %r11_1, 0x7fffffff
+2204: %r10_1 = subf %r10_1, %r11_1
+2208: op_B -7, 0
+220c: %r10_0 = xor %r10_0, -1
+2210: %r10_0 = load_word -5
+2214: %r10_0 = xor %r11_0, %r10_0
+2218: %r13_1 = or %r13_1, %r11_0
+221c: %r10_0 = xor %r11_0, -1
+2220: %r11_1 = or %r11_1, %r11_0
+2224: %r10_1 = add %r10_1, 0x00000008
+222c: %r10_0 = xor %r10_0, -1
+2230: %r10_0 = load_word -5
+2234: %r10_0 = xor %r11_0, %r10_0
+2238: %r13_1 = or %r13_1, %r11_0
+223c: %r10_0 = xor %r11_0, -1
+2240: %r11_1 = or %r11_1, %r11_0
+2244: %r10_1 = add %r10_1, 0x00000008
+224c: %r10_0 = xor %r10_0, -1
+2250: %r10_1 = add %r10_1, 0x00000010
+2258: %r10_0 = xor %r10_0, -1
+225c: %r10_0 = load_word -5
+2260: %r10_0 = xor %r11_0, %r10_0
+2264: %r13_1 = or %r13_1, %r11_0
+2268: %r10_0 = xor %r11_0, -1
+226c: %r11_1 = or %r11_1, %r11_0
+2270: %r10_1 = add %r10_1, 0x00000008
+2278: %r10_0 = xor %r10_0, -1
+227c: %r10_0 = load_word -5
+2280: %r10_0 = xor %r11_0, %r10_0
+2284: %r13_1 = or %r13_1, %r11_0
+2288: %r10_0 = xor %r11_0, -1
+228c: %r11_1 = or %r11_1, %r11_0
+2290: %r10_1 = add %r10_1, 0x00000008
+2298: %r10_0 = xor %r10_0, -1
+229c: %r10_1 = add %r10_1, 0x00000010
+22a4: %r12_0 = load_word -5
+22a8: branch_cond2 %r11_0, 0x00000018
+22b0: %r10_0 = load_word -5
+22b4: %r10_0 = rotlw_by_31_then_and %r11_0, -1
+22b8: %r10_1 = add %r10_1, %r11_0
+22bc: %r10_1 = subf %r10_1, 0x00000040
+22c4: %r10_0 = xor %r10_0, -1
+22c8: %r10_0 = load_word -5
+22cc: %r10_0 = xor %r11_0, %r10_0
+22d0: %r13_1 = or %r13_1, %r11_0
+22d4: %r10_0 = xor %r11_0, -1
+22d8: %r11_1 = or %r11_1, %r11_0
+22dc: %r10_1 = add %r10_1, 0x00000008
+22e4: %r10_0 = xor %r10_0, -1
+22e8: %r10_0 = load_word -5
+22ec: %r10_0 = xor %r11_0, %r10_0
+22f0: %r13_1 = or %r13_1, %r11_0
+22f4: %r10_0 = xor %r11_0, -1
+22f8: %r11_1 = or %r11_1, %r11_0
+22fc: %r10_1 = add %r10_1, 0x00000008
+2304: %r10_0 = xor %r10_0, -1
+2308: %r10_1 = add %r10_1, 0x00000010
+2310: %r10_0 = xor %r10_0, -1
+2314: %r10_0 = load_word -5
+2318: %r10_0 = xor %r11_0, %r10_0
+231c: %r13_1 = or %r13_1, %r11_0
+2320: %r10_0 = xor %r11_0, -1
+2324: %r11_1 = or %r11_1, %r11_0
+2328: %r10_1 = add %r10_1, 0x00000008
+2330: %r10_0 = xor %r10_0, -1
+2334: %r10_0 = load_word -5
+2338: %r10_0 = xor %r11_0, %r10_0
+233c: %r13_1 = or %r13_1, %r11_0
+2340: %r10_0 = xor %r11_0, -1
+2344: %r11_1 = or %r11_1, %r11_0
+2348: %r10_1 = add %r10_1, 0x00000008
+2350: %r10_0 = xor %r10_0, -1
+2354: %r10_1 = add %r10_1, 0x00000010
+235c: %r10_0 = load_word -5
+2360: %r10_0 = rotlw_by_31_then_and %r11_0, -1
+2364: %r10_1 = subf %r10_1, %r11_0
+2368: %r10_1 = add %r10_1, 0x000000c0
+2370: op_B -7, 0
+2374: %r11_1 = add 0, 0
+2378: %r13_1 = add 0, 0
+237c: %r10_0 = add 0x01800180, 0
+2384: op_B -7, 1
+2388: %r10_0 = add 0x02400240, 0
+2390: op_B -7, 1
+2394: %r10_0 = add 0x04200420, 0
+239c: op_B -7, 1
+23a0: %r10_0 = add 0x08100810, 0
+23a8: op_B -7, 1
+23ac: %r10_0 = add 0x10081008, 0
+23b4: op_B -7, 1
+23b8: %r10_0 = add 0x20042004, 0
+23c0: op_B -7, 1
+23c4: %r10_0 = add 0x40024002, 0
+23cc: op_B -7, 1
+23d0: %r10_0 = add 0x80018001, 0
+23d8: op_B -7, 1
+23dc: op_B -7, 1
+23e0: op_B -7, 1
+23e4: op_B -7, 0
+23e8: %r10_0 = xor %r10_0, -1
+23ec: %r10_0 = load_word -5
+23f0: %r10_0 = xor %r11_0, %r10_0
+23f4: %r13_1 = or %r13_1, %r11_0
+23f8: %r10_0 = xor %r11_0, -1
+23fc: %r11_1 = or %r11_1, %r11_0
+2400: %r10_1 = add %r10_1, 0x00000008
+2408: %r10_0 = xor %r10_0, -1
+240c: %r10_0 = load_word -5
+2410: %r10_0 = xor %r11_0, %r10_0
+2414: %r13_1 = or %r13_1, %r11_0
+2418: %r10_0 = xor %r11_0, -1
+241c: %r11_1 = or %r11_1, %r11_0
+2420: %r10_1 = add %r10_1, 0x00000008
+2428: %r10_0 = xor %r10_0, -1
+242c: %r10_1 = add %r10_1, 0x00000010
+2434: %r10_0 = xor %r10_0, -1
+2438: %r10_0 = load_word -5
+243c: %r10_0 = xor %r11_0, %r10_0
+2440: %r13_1 = or %r13_1, %r11_0
+2444: %r10_0 = xor %r11_0, -1
+2448: %r11_1 = or %r11_1, %r11_0
+244c: %r10_1 = add %r10_1, 0x00000008
+2454: %r10_0 = xor %r10_0, -1
+2458: %r10_0 = load_word -5
+245c: %r10_0 = xor %r11_0, %r10_0
+2460: %r13_1 = or %r13_1, %r11_0
+2464: %r10_0 = xor %r11_0, -1
+2468: %r11_1 = or %r11_1, %r11_0
+246c: %r10_1 = add %r10_1, 0x00000008
+2474: %r10_0 = xor %r10_0, -1
+2478: %r10_1 = add %r10_1, 0x00000010
+2480: %r10_1 = add %r10_1, 0x00000008
+2488: %r10_0 = xor %r10_0, -1
+248c: %r10_0 = load_word -5
+2490: %r10_0 = xor %r11_0, %r10_0
+2494: %r13_1 = or %r13_1, %r11_0
+2498: %r10_0 = xor %r11_0, -1
+249c: %r11_1 = or %r11_1, %r11_0
+24a0: %r10_1 = add %r10_1, 0x00000008
+24a8: %r10_0 = xor %r10_0, -1
+24ac: %r10_0 = load_word -5
+24b0: %r10_0 = xor %r11_0, %r10_0
+24b4: %r13_1 = or %r13_1, %r11_0
+24b8: %r10_0 = xor %r11_0, -1
+24bc: %r11_1 = or %r11_1, %r11_0
+24c0: %r10_1 = add %r10_1, 0x00000008
+24c8: %r10_0 = xor %r10_0, -1
+24cc: %r10_1 = add %r10_1, 0x00000010
+24d4: %r10_0 = xor %r10_0, -1
+24d8: %r10_0 = load_word -5
+24dc: %r10_0 = xor %r11_0, %r10_0
+24e0: %r13_1 = or %r13_1, %r11_0
+24e4: %r10_0 = xor %r11_0, -1
+24e8: %r11_1 = or %r11_1, %r11_0
+24ec: %r10_1 = add %r10_1, 0x00000008
+24f4: %r10_0 = xor %r10_0, -1
+24f8: %r10_0 = load_word -5
+24fc: %r10_0 = xor %r11_0, %r10_0
+2500: %r13_1 = or %r13_1, %r11_0
+2504: %r10_0 = xor %r11_0, -1
+2508: %r11_1 = or %r11_1, %r11_0
+250c: %r10_1 = add %r10_1, 0x00000008
+2514: %r10_0 = xor %r10_0, -1
+2518: %r10_1 = add %r10_1, 0x00000010
+2520: %r12_0 = load_word -5
+2524: branch_cond2 %r11_0, 0x00000018
+252c: %r10_0 = load_word -5
+2530: %r10_0 = rotlw_by_31_then_and %r11_0, -1
+2534: %r10_1 = add %r10_1, %r11_0
+2538: %r10_1 = subf %r10_1, 0x00000088
+2540: %r10_0 = xor %r10_0, -1
+2544: %r10_0 = load_word -5
+2548: %r10_0 = xor %r11_0, %r10_0
+254c: %r13_1 = or %r13_1, %r11_0
+2550: %r10_0 = xor %r11_0, -1
+2554: %r11_1 = or %r11_1, %r11_0
+2558: %r10_1 = add %r10_1, 0x00000008
+2560: %r10_0 = xor %r10_0, -1
+2564: %r10_0 = load_word -5
+2568: %r10_0 = xor %r11_0, %r10_0
+256c: %r13_1 = or %r13_1, %r11_0
+2570: %r10_0 = xor %r11_0, -1
+2574: %r11_1 = or %r11_1, %r11_0
+2578: %r10_1 = add %r10_1, 0x00000008
+2580: %r10_0 = xor %r10_0, -1
+2584: %r10_1 = add %r10_1, 0x00000010
+258c: %r10_0 = xor %r10_0, -1
+2590: %r10_0 = load_word -5
+2594: %r10_0 = xor %r11_0, %r10_0
+2598: %r13_1 = or %r13_1, %r11_0
+259c: %r10_0 = xor %r11_0, -1
+25a0: %r11_1 = or %r11_1, %r11_0
+25a4: %r10_1 = add %r10_1, 0x00000008
+25ac: %r10_0 = xor %r10_0, -1
+25b0: %r10_0 = load_word -5
+25b4: %r10_0 = xor %r11_0, %r10_0
+25b8: %r13_1 = or %r13_1, %r11_0
+25bc: %r10_0 = xor %r11_0, -1
+25c0: %r11_1 = or %r11_1, %r11_0
+25c4: %r10_1 = add %r10_1, 0x00000008
+25cc: %r10_0 = xor %r10_0, -1
+25d0: %r10_1 = add %r10_1, 0x00000010
+25d8: %r10_1 = add %r10_1, 0x00000008
+25e0: %r10_0 = xor %r10_0, -1
+25e4: %r10_0 = load_word -5
+25e8: %r10_0 = xor %r11_0, %r10_0
+25ec: %r13_1 = or %r13_1, %r11_0
+25f0: %r10_0 = xor %r11_0, -1
+25f4: %r11_1 = or %r11_1, %r11_0
+25f8: %r10_1 = add %r10_1, 0x00000008
+2600: %r10_0 = xor %r10_0, -1
+2604: %r10_0 = load_word -5
+2608: %r10_0 = xor %r11_0, %r10_0
+260c: %r13_1 = or %r13_1, %r11_0
+2610: %r10_0 = xor %r11_0, -1
+2614: %r11_1 = or %r11_1, %r11_0
+2618: %r10_1 = add %r10_1, 0x00000008
+2620: %r10_0 = xor %r10_0, -1
+2624: %r10_1 = add %r10_1, 0x00000010
+262c: %r10_0 = xor %r10_0, -1
+2630: %r10_0 = load_word -5
+2634: %r10_0 = xor %r11_0, %r10_0
+2638: %r13_1 = or %r13_1, %r11_0
+263c: %r10_0 = xor %r11_0, -1
+2640: %r11_1 = or %r11_1, %r11_0
+2644: %r10_1 = add %r10_1, 0x00000008
+264c: %r10_0 = xor %r10_0, -1
+2650: %r10_0 = load_word -5
+2654: %r10_0 = xor %r11_0, %r10_0
+2658: %r13_1 = or %r13_1, %r11_0
+265c: %r10_0 = xor %r11_0, -1
+2660: %r11_1 = or %r11_1, %r11_0
+2664: %r10_1 = add %r10_1, 0x00000008
+266c: %r10_0 = xor %r10_0, -1
+2670: %r10_1 = add %r10_1, 0x00000010
+2678: %r10_0 = load_word -5
+267c: %r10_0 = rotlw_by_31_then_and %r11_0, -1
+2680: %r10_1 = subf %r10_1, %r11_0
+2684: %r10_1 = add %r10_1, 0x00000078
+268c: op_B -7, 0
+2690: store_word %r11_1, 0xe400001c
+2694: %r11_1 = add 0, 0
+2698: %r13_1 = add 0, 0
+269c: %r10_0 = add 0x01800180, 0
+26a4: op_B -7, 1
+26a8: %r10_0 = add 0x02400240, 0
+26b0: op_B -7, 1
+26b4: %r10_0 = add 0x04200420, 0
+26bc: op_B -7, 1
+26c0: %r10_0 = add 0x08100810, 0
+26c8: op_B -7, 1
+26cc: %r10_0 = add 0x10081008, 0
+26d4: op_B -7, 1
+26d8: %r10_0 = add 0x20042004, 0
+26e0: op_B -7, 1
+26e4: %r10_0 = add 0x40024002, 0
+26ec: op_B -7, 1
+26f0: %r10_0 = add 0x80018001, 0
+26f8: op_B -7, 1
+26fc: op_B -7, 1
+2700: op_B -7, 1
+2704: op_B -7, 0
+2708: %r10_0 = and %r13_1, 0x000000ff
+2710: branch_cond0 %r10_0, 0
+2714: %r12_0 = load_word -5
+2718: %r10_0 = and %r11_0, 0x000000ff
+2720: %r12_0 = add %r12_0, %r10_0
+2724: %r12_0 = add %r13_0, 1
+2728: %r10_0 = and %r13_1, 0x0000ff00
+2730: branch_cond0 %r10_0, 0
+2734: %r12_0 = load_word -5
+2738: %r10_0 = rotlw_by_8_then_and %r11_0, 0x00ff0000
+2740: %r12_0 = add %r12_0, %r10_0
+2744: %r12_0 = add %r13_0, 0x00000100
+274c: %r10_0 = and %r13_1, 0x00ff0000
+2754: branch_cond0 %r10_0, 0
+2758: %r12_0 = load_word -5
+275c: %r10_0 = rotlw_by_16_then_and %r11_0, 0x000000ff
+2764: %r12_1 = add %r12_1, %r10_0
+2768: %r12_0 = add %r13_0, 0x00010000
+2770: %r10_0 = and %r13_1, 0xff000000
+2778: branch_cond0 %r10_0, 0
+277c: %r12_0 = load_word -5
+2780: %r10_0 = rotlw_by_24_then_and %r11_0, 0x00ff0000
+2788: %r12_1 = add %r12_1, %r10_0
+278c: %r12_0 = add %r13_0, 0x01000000
+2794: op_B -7, 0
+2798: %r10_0 = and %r11_1, 0x000000ff
+27a0: branch_cond0 %r10_0, 0
+27a4: %r12_0 = load_word -5
+27a8: %r10_0 = and %r11_0, 0x000000ff
+27b0: %r12_0 = add %r12_0, %r10_0
+27b4: %r12_0 = subf %r12_0, 0x00000050
+27bc: %r12_0 = add %r13_0, 1
+27c0: %r10_0 = and %r11_1, 0x0000ff00
+27c8: branch_cond0 %r10_0, 0
+27cc: %r12_0 = load_word -5
+27d0: %r10_0 = rotlw_by_8_then_and %r11_0, 0x00ff0000
+27d8: %r12_0 = add %r12_0, %r10_0
+27dc: %r12_0 = subf %r12_0, 0x00500000
+27e4: %r12_0 = add %r13_0, 0x00000100
+27ec: %r10_0 = and %r11_1, 0x00ff0000
+27f4: branch_cond0 %r10_0, 0
+27f8: %r12_0 = load_word -5
+27fc: %r10_0 = rotlw_by_16_then_and %r11_0, 0x000000ff
+2804: %r12_1 = add %r12_1, %r10_0
+2808: %r12_1 = subf %r12_1, 0x00000050
+2810: %r12_0 = add %r13_0, 0x00010000
+2818: %r10_0 = and %r11_1, 0xff000000
+2820: branch_cond0 %r10_0, 0
+2824: %r12_0 = load_word -5
+2828: %r10_0 = rotlw_by_24_then_and %r11_0, 0x00ff0000
+2830: %r12_1 = add %r12_1, %r10_0
+2834: %r12_1 = subf %r12_1, 0x00500000
+283c: %r12_0 = add %r13_0, 0x01000000
+2844: op_B -7, 0
+2848: %r10_0 = and %r13_1, 0x000000ff
+2850: branch_cond0 %r10_0, 0
+2854: %r10_0 = load_word -5
+2858: %r10_0 = and %r11_0, 0x000000ff
+2860: %r12_0 = add %r12_0, %r10_0
+2864: %r12_0 = add %r13_0, 1
+2868: %r10_0 = and %r13_1, 0x0000ff00
+2870: branch_cond0 %r10_0, 0
+2874: %r10_0 = load_word -5
+2878: %r10_0 = and %r11_0, 0x00ff0000
+2880: %r12_0 = add %r12_0, %r10_0
+2884: %r12_0 = add %r13_0, 0x00000100
+288c: %r10_0 = and %r13_1, 0x00ff0000
+2894: branch_cond0 %r10_0, 0
+2898: %r10_0 = load_word -5
+289c: %r10_0 = and %r11_0, 0x000000ff
+28a4: %r12_1 = add %r12_1, %r10_0
+28a8: %r12_0 = add %r13_0, 0x00010000
+28b0: %r10_0 = and %r13_1, 0xff000000
+28b8: branch_cond0 %r10_0, 0
+28bc: %r10_0 = load_word -5
+28c0: %r10_0 = and %r11_0, 0x00ff0000
+28c8: %r12_1 = add %r12_1, %r10_0
+28cc: %r12_0 = add %r13_0, 0x01000000
+28d4: op_B -7, 0
+28d8: %r10_0 = and %r11_1, 0x000000ff
+28e0: branch_cond0 %r10_0, 0
+28e4: %r10_0 = load_word -5
+28e8: %r10_0 = and %r11_0, 0x000000ff
+28f0: %r12_0 = add %r12_0, %r10_0
+28f4: %r12_0 = subf %r12_0, 0x00000050
+28fc: %r12_0 = add %r13_0, 1
+2900: %r10_0 = and %r11_1, 0x0000ff00
+2908: branch_cond0 %r10_0, 0
+290c: %r10_0 = load_word -5
+2910: %r10_0 = and %r11_0, 0x00ff0000
+2918: %r12_0 = add %r12_0, %r10_0
+291c: %r12_0 = subf %r12_0, 0x00500000
+2924: %r12_0 = add %r13_0, 0x00000100
+292c: %r10_0 = and %r11_1, 0x00ff0000
+2934: branch_cond0 %r10_0, 0
+2938: %r10_0 = load_word -5
+293c: %r10_0 = and %r11_0, 0x000000ff
+2944: %r12_1 = add %r12_1, %r10_0
+2948: %r12_1 = subf %r12_1, 0x00000050
+2950: %r12_0 = add %r13_0, 0x00010000
+2958: %r10_0 = and %r11_1, 0xff000000
+2960: branch_cond0 %r10_0, 0
+2964: %r10_0 = load_word -5
+2968: %r10_0 = and %r11_0, 0x00ff0000
+2970: %r12_1 = add %r12_1, %r10_0
+2974: %r12_1 = subf %r12_1, 0x00500000
+297c: %r12_0 = add %r13_0, 0x01000000
+2984: op_B -7, 0
+2988: op_E %r10_0, -7
+298c: op_E 0, -7
+2990: op_E 0, -7
+2994: op_E 1, -7
+2998: op_E 1, -7
+299c: op_E 2, -7
+29a0: op_E 2, -7
+29a4: op_E 3, -7
+29a8: op_E 3, -7
+29ac: store_word 0x0012129a, 0xe4000024
+29b4: op_B -7, 1
+29b8: %r10_0 = load_word -6
+29bc: %r10_1 = and %r10_1, 0x000000ff
+29c4: %r10_0 = add 0x06060606, 0
+29cc: branch_cond4 %r10_1, 0
+29d0: %r10_0 = add 0x0a0a0a0a, 0
+29d8: store_word_0_100 %r10_0, 0xe400209c
+29dc: store_word_0_100 %r10_0, 0xe40020a0
+29e0: %r10_0 = add 0x06060606, 0
+29e8: branch_cond4 %r10_1, 0
+29ec: %r10_0 = add 0x0f0f0f0f, 0
+29f4: store_word_0_100 %r10_0, 0xe4002080
+29f8: store_word_0_100 %r10_0, 0xe4002084
+29fc: %r12_0 = load_word -7
+2a00: sync
+2a04: delay -7
+2a08: branch_cond3 -7, -7
+2a0c: op_E %r10_0, -7
+2a10: op_E 0, -7
+2a14: op_E 0, -7
+2a18: op_E 1, -7
+2a1c: op_E 1, -7
+2a20: op_E 2, -7
+2a24: op_E 2, -7
+2a28: op_E 3, -7
+2a2c: op_E 3, -7
+2a30: store_word 0x0013139a, 0xe4000024
+2a38: op_B -7, 1
+2a3c: branch_cond3 -7, -7
+2a40: store_word 0x0010109a, 0xe4000024
+2a48: op_B -7, 1
+2a4c: branch_cond3 -7, -7
+2a50: store_word 0x00000515, 0xe1020008
+2a58: %r10_0 = load_word -7
+2a5c: %r10_0 = and %r10_0, 0x000000ff
+2a64: branch_cond4 %r10_0, 0
+2a68: store_word 0x00000010, 0xe1060030
+2a70: %r10_0 = load_word -5
+2a78: %r10_0 = and %r11_0, 0xffffe3ff
+2a80: %r10_0 = or %r11_0, 0x00001000
+2a88: store_word %r11_0, 0xe1060034
+2a90: %r12_0 = load_word -5
+2a94: %r10_0 = or %r11_0, 0x08000000
+2a9c: store_word %r11_0, 0xe1040024
+2aa0: op_B -7, 0
