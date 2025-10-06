@@ -18,6 +18,27 @@ OLDCB_POST_FUNCTION = SignatureBuilder() \
     ]) \
     .build()
 
+# this is the weird three nops that xeBuild applies, basically some sort of header
+# check against the SMC that really doesn't matter much. but we include this as a placebo
+# because failure here leads to a panic (POST 0xA3)
+OLDCB_SMCHEADER_PATTERN = SignatureBuilder() \
+    .pattern([
+        0x57, 0xeb, 0x05, 0x3e, # rlwinm     r11,r31,0x0,0x14,0x1f
+        0x2b, 0x0b, 0x00, 0x00, # cmplwi     cr6,r11,0x0
+        0x40, 0x9a, 0x00, 0x20, # bne        cr6,LAB_00006ac0 <-- nop
+        0x2b, WILDCARD, 0x30, 0x00, # cmplwi     cr6,r30,0x3000   <-- nop
+        0x40, 0x9a, 0x00, 0x18, # bne        cr6,LAB_00006ac0 <-- nop
+        0x38, 0x80, 0x30, 0x00, # li         r4,0x3000
+    ]) \
+    .build()
+
+def _patch_smc_panic_a3_case(cbb: bytes, smcheader_check_addr: int) -> bytes:
+    base = smcheader_check_addr + 8
+    cbb, base = assemble_nop(cbb, base)
+    cbb, base = assemble_nop(cbb, base)
+    cbb, base = assemble_nop(cbb, base)
+    return cbb
+
 OLDCB_SMCSUM_PATTERN = SignatureBuilder() \
     .pattern([
         0x2F, 0x03, 0x00, 0x00, # cmpwi cr6, r3, 0
@@ -172,6 +193,7 @@ def oldcb_try_patch(cbb: bytes, patchparams: dict) -> None | bytes:
     resolver_params = {
         'postfcn_address':      OLDCB_POST_FUNCTION,
         'cb_ldv_address':       OLDCB_CB_LDV_PREAMBLE_PATTERN,
+        'smcheader_address':    OLDCB_SMCHEADER_PATTERN,
         'smcsum_address':       OLDCB_SMCSUM_PATTERN,
         'fusecheck_call_addr':  OLDCB_FUSECHECK_CALL,
         'decrypt_cd_addr':      OLDCB_DECRYPT_CD_PATTERN,
@@ -202,6 +224,7 @@ def oldcb_try_patch(cbb: bytes, patchparams: dict) -> None | bytes:
         if patchparams['nosmcsum']:
             cbb = _patch_nosmcsum(cbb, resolved_sigs['smcsum_address'])
         cbb = _patch_cb_ldv_check(cbb, resolved_sigs['cb_ldv_address'])
+        cbb = _patch_smc_panic_a3_case(cbb, resolved_sigs['smcheader_address'])
 
     if patchparams['post67']:
         hwinit_top_address   = resolved_sigs['hwinit_top_addr']

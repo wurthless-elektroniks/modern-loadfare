@@ -100,6 +100,22 @@ def hwinit_disassemble(code: bytes, org: int = 0):
 
         r = False
         match opcode:
+            # opcodes 0~7 are branch opcodes that abuse powerpc logic exquisitely
+            #
+            # cmplw      cr7,r5,r6    <-- actually run comparison for jump
+            # mfocrf     r7,cr7       <-- uh oh
+            # vvv all this is decoding and masking the results of the comparison vvv
+            # rlwinm     r7,r7,0x1f,0x1d,0x1f
+            # rlwinm     r9,r8,0x0,0x1e,0x1f
+            # rlwinm     r8,r8,0x1e,0x1f,0x1f
+            # srw        r7,r7,r9
+            # rlwinm     r7,r7,0x0,0x1f,0x1f
+            #
+            # then if r8 and r7 don't match, continue interpreting.
+            # otherwise take the jump which is computed as follows:
+            #
+            # rlwinm     r8,r17,0x2,0xe,0x1d
+            # add        r16,r3,r8            <-- r16 = instruction pointer
             case 0:
                 opcode = "branch_cond0"
                 ops = 2
@@ -134,9 +150,13 @@ def hwinit_disassemble(code: bytes, org: int = 0):
                 opcode = "load_word"
                 ops = 1
                 r = True
+            
             case 0xb:
                 opcode = "op_B"
                 ops = 2
+
+            # delay multiplies r6 by 50 then adds that to the current timebase value
+            # and waits until the timebase value reaches its target before continuing execution
             case 0xc:
                 opcode = "delay"
                 ops = 1
