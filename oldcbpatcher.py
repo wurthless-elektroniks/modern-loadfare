@@ -258,10 +258,7 @@ def oldcb_try_patch(cbb: bytes, patchparams: dict) -> None | bytes:
 
     return cbb
 
-def oldcb_extract_hwinit_bytecode(cbb: bytes) -> None | bytes:
-    # if oldcb_ident(cbb) is False:
-    #     return None
-    
+def oldcb_find_hwinit_bytecode(cbb: bytes) -> dict | None:
     hwinit_top_address = OLDCB_HWINIT_TOP_PATTERN.find(cbb)
     if hwinit_top_address is None:
         print("error: cannot find top of hwinit interpreter")
@@ -292,14 +289,53 @@ def oldcb_extract_hwinit_bytecode(cbb: bytes) -> None | bytes:
     if headered_address is not None:
         hwinit_bytecode_address = struct.unpack(">H", cbb[headered_address+6:headered_address+8])[0]
         hwinit_size = struct.unpack(">I", cbb[hwinit_bytecode_address:hwinit_bytecode_address+4])[0]
-        hwinit_bytecode_address += 4
-        return cbb[hwinit_bytecode_address:hwinit_bytecode_address+hwinit_size]
+        return {
+            'headered':              True,
+            'offset':                hwinit_bytecode_address,
+            'program_start_address': hwinit_bytecode_address+4,
+            'program_size':          hwinit_size
+        }
 
     hardcoded_address = hwinit_setup_exec_hardcoded_pattern.find(cbb, hwinit_top_address - 0x80)
     if hardcoded_address is not None:
         hwinit_bytecode_address = struct.unpack(">H", cbb[hardcoded_address+0x06:hardcoded_address+0x08])[0]
         hwinit_size             = struct.unpack(">H", cbb[hardcoded_address+0x0E:hardcoded_address+0x10])[0]
-        return cbb[hwinit_bytecode_address:hwinit_bytecode_address+hwinit_size]
+        return {
+            'headered':              False,
+            'offset':                hwinit_bytecode_address,
+            'program_start_address': hwinit_bytecode_address,
+            'program_size':          hwinit_size
+        }
 
-    print("error: unable to find hwinit bytecode")
     return None
+
+def oldcb_extract_hwinit_bytecode(cbb: bytes) -> None | bytes:
+    hwinit_meta = oldcb_find_hwinit_bytecode(cbb)
+    if hwinit_meta is None:
+        return None
+    
+    hwinit_bytecode_address = hwinit_meta['program_start_address']
+    hwinit_size = hwinit_meta['program_size']
+    return cbb[hwinit_bytecode_address:hwinit_bytecode_address+hwinit_size]
+
+def oldcb_replace_hwinit_bytecode(cbb: bytes, hwinit_bytecode: bytes) -> bytes | None:
+    hwinit_meta = oldcb_find_hwinit_bytecode(cbb)
+    if hwinit_meta is None:
+        return None
+    
+    if hwinit_meta['headered'] is False:
+        print("error: CB has hardcoded size. please use a CB with headered hwinit")
+        return None
+    maximum_size = hwinit_meta['program_size']
+    if len(hwinit_bytecode) > maximum_size:
+        print(f"error: replacement hwinit bytecode is too large (current size {maximum_size}, replacement size {len(hwinit_bytecode)})")
+        return None
+    
+    hwinit_bytecode_address = hwinit_meta['program_start_address']
+    cbb = bytearray(cbb)
+    cbb[hwinit_bytecode_address:hwinit_bytecode_address+len(hwinit_bytecode)] = hwinit_bytecode
+
+    hwinit_offset = hwinit_meta['offset']
+    cbb[hwinit_offset:hwinit_offset+4] = struct.pack(">I",len(hwinit_bytecode))
+
+    return cbb

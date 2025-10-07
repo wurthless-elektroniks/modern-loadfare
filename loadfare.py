@@ -1,5 +1,5 @@
 from argparse import ArgumentParser,RawTextHelpFormatter
-from oldcbpatcher import oldcb_ident,oldcb_try_patch
+from oldcbpatcher import oldcb_ident,oldcb_try_patch,oldcb_replace_hwinit_bytecode
 from xebuildgen import xebuild_patchlist_make
 
 def _init_argparser():
@@ -44,6 +44,9 @@ def _init_argparser():
     argparser.add_argument("--xebuild-template",
                             help="Append template file to xeBuild patchfile before writing it")
 
+    argparser.add_argument("--hwinit-bytecode",
+                            help="Inject hwinit bytecode from the given file into the target CB")
+
     argparser.add_argument("cbb_in",
                            nargs='?',
                            help="Input CB binary (MUST be in plaintext)")
@@ -84,6 +87,18 @@ def main():
     if patched_cbb is None:
         print("unable to patch CB, exiting.")
         return
+
+    hwinit_bytecode_file = args.hwinit_bytecode
+    if hwinit_bytecode_file is not None:
+        print(f"attempting to load and inject replacement hwinit bytecode from {hwinit_bytecode_file}")
+        bytecode = None
+        with open(hwinit_bytecode_file, "rb") as f:
+            bytecode = f.read()
+        
+        patched_cbb = oldcb_replace_hwinit_bytecode(patched_cbb, bytecode)
+        if patched_cbb is None:
+            print("hwinit replacement failed, exiting.")
+            return
 
     output = None
     if args.write_xebuild:
