@@ -49,6 +49,30 @@ with unique hwinit programs:
 - Trinity: 9188, 9230
 - Corona: 13121 (for systems without Winbond SDRAMs), 13182 (for Winbond SDRAM systems)
 
+## What loader boots my system the fastest?
+
+Again, that depends on if the thing works with your board. These are just the results of my experimentation
+and aren't guaranteed to be stable.
+
+- 1888 boots Xenons as fast as Jaspers. It also works on Falcons with eight SDRAM chips; on four-chip
+  Falcons it will get past HWINIT but will crash soon after, likely because the SDRAM banking configuration
+  doesn't work with those boards. Unfortunately, the eight-chip Falcons are all ones with faulty GPUs.
+
+More are to be tested.
+
+## Why are Falcons so slow to boot?
+
+The answer, to the best of my knowledge, is "because the hwinit bytecode is programmed that way".
+There is an explicit wait loop that will delay execution until some condition is met, and I'm not
+sure what the condition is just yet. Reverse engineering efforts continue.
+
+This affects both Falcon hwinit bytecode revisions (CBs 5761 and 5770) but is known to happen on
+other loaders (7373 is also slow). It also makes Falcon loaders less than ideal for booting other
+systems because they will enter the same wait loop.
+
+When using loadfare.py with Falcon loaders, using `--fastdelay` will speed up hwinit by about half a second.
+I don't know how stable it is in practice.
+
 ## License
 
 Public domain
