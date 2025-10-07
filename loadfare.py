@@ -80,6 +80,19 @@ def main():
     with open(args.cbb_in, "rb") as f:
         cbb = f.read()
 
+    # bytecode must be replaced BEFORE patches are made
+    hwinit_bytecode_file = args.hwinit_bytecode
+    if hwinit_bytecode_file is not None:
+        print(f"attempting to load and inject replacement hwinit bytecode from {hwinit_bytecode_file}")
+        bytecode = None
+        with open(hwinit_bytecode_file, "rb") as f:
+            bytecode = f.read()
+        
+        cbb = oldcb_replace_hwinit_bytecode(cbb, bytecode)
+        if cbb is None:
+            print("hwinit replacement failed, exiting.")
+            return
+        
     if oldcb_ident(cbb):
         print("found old-style CB, attempting patches...")
         patched_cbb = oldcb_try_patch(cbb, patchparams)
@@ -88,17 +101,6 @@ def main():
         print("unable to patch CB, exiting.")
         return
 
-    hwinit_bytecode_file = args.hwinit_bytecode
-    if hwinit_bytecode_file is not None:
-        print(f"attempting to load and inject replacement hwinit bytecode from {hwinit_bytecode_file}")
-        bytecode = None
-        with open(hwinit_bytecode_file, "rb") as f:
-            bytecode = f.read()
-        
-        patched_cbb = oldcb_replace_hwinit_bytecode(patched_cbb, bytecode)
-        if patched_cbb is None:
-            print("hwinit replacement failed, exiting.")
-            return
 
     output = None
     if args.write_xebuild:
