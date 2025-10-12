@@ -57,7 +57,7 @@
 0150: %r10_1 = and %r10_1, 0xffffff00
 0158: %r10_1 = or %r10_1, %r10_0
 015c: store_word %r10_1, 0xe400002c
-0160: op_B -7, 1
+0160: call 0x0200
 0164: store_word 0, 0xe1020004
 0168: store_half 6, 0xd0008004
 016c: %r12_0 = load_half -7
@@ -71,7 +71,7 @@
 0198: store_word 0, 0xe1003000
 01a0: store_word 0, 0xe1003200
 01a8: store_word 0xe0f7fd00, 0xe1003300
-01b4: op_B -7, 0
+01b4: return
 01b8: store_word %r10_0, 0xe4000028
 01bc: %r12_0 = load_word -7
 01c0: %r10_0 = and %r10_0, 0x00000100
@@ -84,7 +84,7 @@
 01e8: store_word %r10_0, 0xea001080
 01f0: store_word 0, 0xea001084
 01f8: %r10_0 = load_word -7
-01fc: op_B -7, 0
+01fc: return
 0200: store_word 0x20000000, 0xe1020000
 0208: store_word 0x20000000, 0xe1040000
 0210: store_word 0, 0xe4002800
@@ -124,7 +124,7 @@
 02cc: delay -7
 02d0: %r10_1 = and %r10_1, 0xdff3ffff
 02d8: store_word %r10_1, 0xe4000284
-02dc: op_B -7, 1
+02dc: call 0x0fa8
 02e0: %r10_1 = add 0x20000013, 0
 02e8: %r10_0 = load_word -7
 02ec: %r10_0 = and %r10_0, 0x000000ff
@@ -161,7 +161,7 @@
 039c: %r12_0 = load_word -7
 03a0: sync
 03a4: delay -7
-03a8: op_B -7, 1
+03a8: call 0x0fa8
 03ac: store_word_0_100 0, 0xe4002090
 03b0: store_word -1, 0xe40020a4
 03b4: store_word -1, 0xe40021a4
@@ -356,25 +356,25 @@
 07d8: store_word %r12_1, 0x00000008
 07dc: store_word %r13_0, 0x0000000c
 07e0: store_word %r13_1, 0x00000010
-07e4: op_B -7, 1
+07e4: call 0x1fc0
 07e8: op_E 0, -7
 07ec: %r10_1 = add 0x00001800, 0
-07f4: op_B -7, 1
+07f4: call 0x20f0
 07f8: %r10_0 = or %r13_1, %r13_1
 07fc: op_E 0, -7
 0800: op_E 1, -7
 0804: %r10_1 = add 0x00001804, 0
-080c: op_B -7, 1
+080c: call 0x20f0
 0810: %r10_0 = or %r11_0, %r13_1
 0814: op_E 1, -7
 0818: op_E 2, -7
 081c: %r10_1 = add 0x00001880, 0
-0824: op_B -7, 1
+0824: call 0x20f0
 0828: %r10_0 = or %r11_0, %r13_1
 082c: op_E 2, -7
 0830: op_E 3, -7
 0834: %r10_1 = add 0x00001884, 0
-083c: op_B -7, 1
+083c: call 0x20f0
 0840: %r10_0 = or %r11_0, %r13_1
 0844: op_E 3, -7
 0848: branch_cond4 %r11_0, 0
@@ -387,7 +387,7 @@
 0864: op_E 3, -7
 0868: op_E 3, -7
 086c: store_word 0x0011119a, 0xe4000024
-0874: op_B -7, 1
+0874: call 0x01b8
 0878: store_word_0_100 0, 0xe4002000
 087c: store_word_0_100 0, 0xe4002034
 0880: store_word_0_100 0x00040000, 0xe400202c
@@ -460,7 +460,7 @@
 0a44: delay -7
 0a48: %r10_1 = and %r10_1, 0xdff3ffff
 0a50: store_word %r10_1, 0xe4000284
-0a54: op_B -7, 1
+0a54: call 0x0fa8
 0a58: %r12_0 = load_word -4
 0a5c: branch_cond2 %r11_1, 0x00000018
 0a64: %r10_0 = or %r11_0, 1
@@ -532,19 +532,19 @@
 0bd4: store_word_0_100 0x00000605, 0xe4002000
 0bdc: op_E 0, -7
 0be0: %r10_1 = add 0x00001808, 0
-0be8: op_B -7, 1
+0be8: call 0x2374
 0bec: op_E 0, -7
 0bf0: op_E 1, -7
 0bf4: %r10_1 = add 0x0000180c, 0
-0bfc: op_B -7, 1
+0bfc: call 0x2374
 0c00: op_E 1, -7
 0c04: op_E 2, -7
 0c08: %r10_1 = add 0x00001888, 0
-0c10: op_B -7, 1
+0c10: call 0x2374
 0c14: op_E 2, -7
 0c18: op_E 3, -7
 0c1c: %r10_1 = add 0x0000188c, 0
-0c24: op_B -7, 1
+0c24: call 0x2374
 0c28: op_E 3, -7
 0c2c: %r10_0 = load_word -5
 0c30: %r10_0 = add %r11_0, 0x01010101
@@ -610,30 +610,30 @@
 0d64: op_E %r11_0, -7
 0d68: %r10_0 = add %r11_0, 1
 0d6c: branch_cond0 %r11_0, 4
-0d70: op_B -7, 1
+0d70: call 0x1038
 0d74: %r10_0 = add 0, 0
 0d78: store_word %r11_0, 0xe4000018
-0d7c: op_B -7, 1
-0d80: op_B -7, 1
+0d7c: call 0x10a4
+0d80: call 0x1fc0
 0d84: op_E 0, -7
 0d88: %r10_1 = add 0x00001808, 0
 0d90: %r10_0 = load_word -4
-0d94: op_B -7, 1
+0d94: call 0x2690
 0d98: op_E 0, -7
 0d9c: op_E 1, -7
 0da0: %r10_1 = add 0x0000180c, 0
 0da8: %r12_0 = load_word -4
-0dac: op_B -7, 1
+0dac: call 0x2690
 0db0: op_E 1, -7
 0db4: op_E 2, -7
 0db8: %r10_1 = add 0x00001888, 0
 0dc0: %r10_0 = load_word -4
-0dc4: op_B -7, 1
+0dc4: call 0x2690
 0dc8: op_E 2, -7
 0dcc: op_E 3, -7
 0dd0: %r10_1 = add 0x0000188c, 0
 0dd8: %r12_0 = load_word -4
-0ddc: op_B -7, 1
+0ddc: call 0x2690
 0de0: op_E 3, -7
 0de4: %r10_0 = load_word -5
 0de8: %r10_0 = add %r11_0, 0x01010101
@@ -684,7 +684,7 @@
 0ed4: %r10_0 = load_word -4
 0ed8: %r11_1 = subf %r11_1, 1
 0edc: branch_cond5 %r11_1, 0
-0ee0: op_B -7, 1
+0ee0: call 0x11b8
 0ee4: store_word_0_100 0, 0xe4002000
 0ee8: store_word_0_100 0, 0xe4002034
 0eec: %r10_0 = load_word -6
@@ -704,7 +704,7 @@
 0f3c: %r10_0 = load_word -7
 0f40: sync
 0f44: delay -7
-0f48: op_B -7, 1
+0f48: call 0x1fc0
 0f4c: %r10_0 = load_word -6
 0f50: %r10_1 = rotlw_by_31_then_and %r10_1, 0x7fffffff
 0f58: branch_cond1 %r10_1, 0x00000080
@@ -719,12 +719,12 @@
 0f80: %r10_0 = load_word -5
 0f84: branch_cond4 %r11_0, %r10_1
 0f88: store_word 0x0014149a, 0xe4000024
-0f90: op_B -7, 1
+0f90: call 0x01b8
 0f94: branch_cond3 -7, -7
 0f98: %r10_0 = load_word -7
 0f9c: sync
 0fa0: delay -7
-0fa4: op_B -7, 0
+0fa4: return
 0fa8: store_word 2, 0xe400028c
 0fac: %r12_0 = load_word -7
 0fb0: sync
@@ -734,16 +734,16 @@
 0fc0: sync
 0fc4: delay -7
 0fc8: store_word 0, 0xe4000288
-0fcc: op_B -7, 1
+0fcc: call 0x0f98
 0fd0: store_word 1, 0xe4000288
-0fd4: op_B -7, 1
+0fd4: call 0x0f98
 0fd8: store_word 5, 0xe4000288
-0fdc: op_B -7, 1
+0fdc: call 0x0f98
 0fe0: store_word 1, 0xe4000288
-0fe4: op_B -7, 1
+0fe4: call 0x0f98
 0fe8: store_word 0, 0xe4000288
-0fec: op_B -7, 1
-0ff0: op_B -7, 0
+0fec: call 0x0f98
+0ff0: return
 0ff4: %r10_0 = and %r10_1, 0x000000ff
 0ffc: branch_cond5 %r11_0, %r10_0
 1000: %r10_0 = or %r11_0, %r11_0
@@ -756,16 +756,16 @@
 1024: %r10_0 = rotlw_by_8_then_and %r10_1, 0x000000ff
 102c: branch_cond5 %r11_0, %r10_0
 1030: %r10_0 = or %r11_0, %r11_0
-1034: op_B -7, 0
+1034: return
 1038: %r10_0 = add 0x00000050, 0
 1040: %r10_0 = load_word -6
-1044: op_B -7, 1
+1044: call 0x0ff4
 1048: %r12_0 = load_word -6
-104c: op_B -7, 1
+104c: call 0x0ff4
 1050: %r10_0 = load_word -6
-1054: op_B -7, 1
+1054: call 0x0ff4
 1058: %r12_0 = load_word -6
-105c: op_B -7, 1
+105c: call 0x0ff4
 1060: %r10_1 = rotlw_by_8_then_and %r10_0, -1
 1064: %r10_0 = or %r10_0, %r10_1
 1068: %r10_1 = rotlw_by_16_then_and %r10_0, -1
@@ -782,7 +782,7 @@
 1094: %r12_0 = load_word -6
 1098: %r10_1 = subf %r10_1, %r10_0
 109c: store_word %r10_1, 0xe4002184
-10a0: op_B -7, 0
+10a0: return
 10a4: %r10_0 = load_word -6
 10a8: %r10_1 = add %r10_1, 0x01010101
 10b0: store_word %r10_1, 0xe4002080
@@ -798,7 +798,7 @@
 10e4: %r12_0 = load_word -7
 10e8: sync
 10ec: delay -7
-10f0: op_B -7, 1
+10f0: call 0x0fa8
 10f4: store_word_0_100 0, 0xe4002000
 10f8: %r12_0 = load_word -6
 10fc: %r10_1 = and %r10_1, -2
@@ -837,7 +837,7 @@
 11a8: %r10_0 = load_word -7
 11ac: sync
 11b0: delay -7
-11b4: op_B -7, 0
+11b4: return
 11b8: store_word_0_100 0, 0xe4002000
 11bc: store_word_0_100 0, 0xe4002034
 11c0: store_word_0_100 0x00040000, 0xe400202c
@@ -845,14 +845,14 @@
 11cc: %r10_0 = load_word -7
 11d0: sync
 11d4: delay -7
-11d8: op_B -7, 1
+11d8: call 0x0fa8
 11dc: store_word_0_100 0, 0xe4002034
 11e0: store_word_0_100 0x003c0000, 0xe400202c
 11e8: store_word_0_100 2, 0xe4002000
 11ec: %r10_0 = load_word -7
 11f0: sync
 11f4: delay -7
-11f8: op_B -7, 0
+11f8: return
 11fc: store_word_0_100 0, 0xe4002000
 1200: store_word_0_100 0, 0xe4002034
 1204: %r10_0 = add 0, 0
@@ -1501,25 +1501,25 @@
 1fa4: store_word_0_100 0x00001605, 0xe4002000
 1fac: store_word_0_100 0x00000605, 0xe4002000
 1fb4: %r10_1 = add %r10_1, 0x00000020
-1fbc: op_B -7, 0
+1fbc: return
 1fc0: %r10_1 = add 0x00001800, 0
 1fc8: %r10_0 = add 0x01800180, 0
-1fd0: op_B -7, 1
+1fd0: call 0x11fc
 1fd4: %r10_0 = add 0x02400240, 0
-1fdc: op_B -7, 1
+1fdc: call 0x11fc
 1fe0: %r10_0 = add 0x04200420, 0
-1fe8: op_B -7, 1
+1fe8: call 0x11fc
 1fec: %r10_0 = add 0x08100810, 0
-1ff4: op_B -7, 1
+1ff4: call 0x11fc
 1ff8: %r10_0 = add 0x10081008, 0
-2000: op_B -7, 1
+2000: call 0x11fc
 2004: %r10_0 = add 0x20042004, 0
-200c: op_B -7, 1
+200c: call 0x11fc
 2010: %r10_0 = add 0x40024002, 0
-2018: op_B -7, 1
+2018: call 0x11fc
 201c: %r10_0 = add 0x80018001, 0
-2024: op_B -7, 1
-2028: op_B -7, 0
+2024: call 0x11fc
+2028: return
 202c: %r10_0 = load_word -4
 2030: %r11_1 = xor %r11_1, %r10_0
 2034: %r13_1 = or %r13_1, %r11_1
@@ -1559,26 +1559,26 @@
 20d8: %r13_1 = or %r13_1, %r11_1
 20dc: %r10_1 = add %r10_1, 0x00000008
 20e4: %r10_1 = add %r10_1, 0x000000c0
-20ec: op_B -7, 0
+20ec: return
 20f0: %r13_1 = add 0, 0
 20f4: store_word_0_100 0x00001605, 0xe4002000
 20fc: store_word_0_100 0x00000605, 0xe4002000
 2104: %r10_0 = add 0x01800180, 0
-210c: op_B -7, 1
+210c: call 0x202c
 2110: %r10_0 = add 0x02400240, 0
-2118: op_B -7, 1
+2118: call 0x202c
 211c: %r10_0 = add 0x04200420, 0
-2124: op_B -7, 1
+2124: call 0x202c
 2128: %r10_0 = add 0x08100810, 0
-2130: op_B -7, 1
+2130: call 0x202c
 2134: %r10_0 = add 0x10081008, 0
-213c: op_B -7, 1
+213c: call 0x202c
 2140: %r10_0 = add 0x20042004, 0
-2148: op_B -7, 1
+2148: call 0x202c
 214c: %r10_0 = add 0x40024002, 0
-2154: op_B -7, 1
+2154: call 0x202c
 2158: %r10_0 = add 0x80018001, 0
-2160: op_B -7, 1
+2160: call 0x202c
 2164: %r12_0 = load_word -4
 2168: branch_cond2 %r11_1, 0x00000018
 2170: %r10_0 = load_word -4
@@ -1588,25 +1588,25 @@
 2188: store_word_0_100 0x00001605, 0xe4002000
 2190: store_word_0_100 0x00000605, 0xe4002000
 2198: %r10_0 = add 0x01800180, 0
-21a0: op_B -7, 1
+21a0: call 0x202c
 21a4: %r10_0 = add 0x02400240, 0
-21ac: op_B -7, 1
+21ac: call 0x202c
 21b0: %r10_0 = add 0x04200420, 0
-21b8: op_B -7, 1
+21b8: call 0x202c
 21bc: %r10_0 = add 0x08100810, 0
-21c4: op_B -7, 1
+21c4: call 0x202c
 21c8: %r10_0 = add 0x10081008, 0
-21d0: op_B -7, 1
+21d0: call 0x202c
 21d4: %r10_0 = add 0x20042004, 0
-21dc: op_B -7, 1
+21dc: call 0x202c
 21e0: %r10_0 = add 0x40024002, 0
-21e8: op_B -7, 1
+21e8: call 0x202c
 21ec: %r10_0 = add 0x80018001, 0
-21f4: op_B -7, 1
+21f4: call 0x202c
 21f8: %r10_0 = load_word -4
 21fc: %r11_1 = rotlw_by_31_then_and %r11_1, 0x7fffffff
 2204: %r10_1 = subf %r10_1, %r11_1
-2208: op_B -7, 0
+2208: return
 220c: %r10_0 = xor %r10_0, -1
 2210: %r10_0 = load_word -5
 2214: %r10_0 = xor %r11_0, %r10_0
@@ -1681,28 +1681,28 @@
 2360: %r10_0 = rotlw_by_31_then_and %r11_0, -1
 2364: %r10_1 = subf %r10_1, %r11_0
 2368: %r10_1 = add %r10_1, 0x000000c0
-2370: op_B -7, 0
+2370: return
 2374: %r11_1 = add 0, 0
 2378: %r13_1 = add 0, 0
 237c: %r10_0 = add 0x01800180, 0
-2384: op_B -7, 1
+2384: call 0x220c
 2388: %r10_0 = add 0x02400240, 0
-2390: op_B -7, 1
+2390: call 0x220c
 2394: %r10_0 = add 0x04200420, 0
-239c: op_B -7, 1
+239c: call 0x220c
 23a0: %r10_0 = add 0x08100810, 0
-23a8: op_B -7, 1
+23a8: call 0x220c
 23ac: %r10_0 = add 0x10081008, 0
-23b4: op_B -7, 1
+23b4: call 0x220c
 23b8: %r10_0 = add 0x20042004, 0
-23c0: op_B -7, 1
+23c0: call 0x220c
 23c4: %r10_0 = add 0x40024002, 0
-23cc: op_B -7, 1
+23cc: call 0x220c
 23d0: %r10_0 = add 0x80018001, 0
-23d8: op_B -7, 1
-23dc: op_B -7, 1
-23e0: op_B -7, 1
-23e4: op_B -7, 0
+23d8: call 0x220c
+23dc: call 0x2848
+23e0: call 0x28d8
+23e4: return
 23e8: %r10_0 = xor %r10_0, -1
 23ec: %r10_0 = load_word -5
 23f0: %r10_0 = xor %r11_0, %r10_0
@@ -1843,29 +1843,29 @@
 267c: %r10_0 = rotlw_by_31_then_and %r11_0, -1
 2680: %r10_1 = subf %r10_1, %r11_0
 2684: %r10_1 = add %r10_1, 0x00000078
-268c: op_B -7, 0
+268c: return
 2690: store_word %r11_1, 0xe400001c
 2694: %r11_1 = add 0, 0
 2698: %r13_1 = add 0, 0
 269c: %r10_0 = add 0x01800180, 0
-26a4: op_B -7, 1
+26a4: call 0x23e8
 26a8: %r10_0 = add 0x02400240, 0
-26b0: op_B -7, 1
+26b0: call 0x23e8
 26b4: %r10_0 = add 0x04200420, 0
-26bc: op_B -7, 1
+26bc: call 0x23e8
 26c0: %r10_0 = add 0x08100810, 0
-26c8: op_B -7, 1
+26c8: call 0x23e8
 26cc: %r10_0 = add 0x10081008, 0
-26d4: op_B -7, 1
+26d4: call 0x23e8
 26d8: %r10_0 = add 0x20042004, 0
-26e0: op_B -7, 1
+26e0: call 0x23e8
 26e4: %r10_0 = add 0x40024002, 0
-26ec: op_B -7, 1
+26ec: call 0x23e8
 26f0: %r10_0 = add 0x80018001, 0
-26f8: op_B -7, 1
-26fc: op_B -7, 1
-2700: op_B -7, 1
-2704: op_B -7, 0
+26f8: call 0x23e8
+26fc: call 0x2708
+2700: call 0x2798
+2704: return
 2708: %r10_0 = and %r13_1, 0x000000ff
 2710: branch_cond0 %r10_0, 0
 2714: %r12_0 = load_word -5
@@ -1890,7 +1890,7 @@
 2780: %r10_0 = rotlw_by_24_then_and %r11_0, 0x00ff0000
 2788: %r12_1 = add %r12_1, %r10_0
 278c: %r12_0 = add %r13_0, 0x01000000
-2794: op_B -7, 0
+2794: return
 2798: %r10_0 = and %r11_1, 0x000000ff
 27a0: branch_cond0 %r10_0, 0
 27a4: %r12_0 = load_word -5
@@ -1919,7 +1919,7 @@
 2830: %r12_1 = add %r12_1, %r10_0
 2834: %r12_1 = subf %r12_1, 0x00500000
 283c: %r12_0 = add %r13_0, 0x01000000
-2844: op_B -7, 0
+2844: return
 2848: %r10_0 = and %r13_1, 0x000000ff
 2850: branch_cond0 %r10_0, 0
 2854: %r10_0 = load_word -5
@@ -1944,7 +1944,7 @@
 28c0: %r10_0 = and %r11_0, 0x00ff0000
 28c8: %r12_1 = add %r12_1, %r10_0
 28cc: %r12_0 = add %r13_0, 0x01000000
-28d4: op_B -7, 0
+28d4: return
 28d8: %r10_0 = and %r11_1, 0x000000ff
 28e0: branch_cond0 %r10_0, 0
 28e4: %r10_0 = load_word -5
@@ -1973,7 +1973,7 @@
 2970: %r12_1 = add %r12_1, %r10_0
 2974: %r12_1 = subf %r12_1, 0x00500000
 297c: %r12_0 = add %r13_0, 0x01000000
-2984: op_B -7, 0
+2984: return
 2988: op_E %r10_0, -7
 298c: op_E 0, -7
 2990: op_E 0, -7
@@ -1984,7 +1984,7 @@
 29a4: op_E 3, -7
 29a8: op_E 3, -7
 29ac: store_word 0x0012129a, 0xe4000024
-29b4: op_B -7, 1
+29b4: call 0x01b8
 29b8: %r10_0 = load_word -6
 29bc: %r10_1 = and %r10_1, 0x000000ff
 29c4: %r10_0 = add 0x06060606, 0
@@ -2011,10 +2011,10 @@
 2a28: op_E 3, -7
 2a2c: op_E 3, -7
 2a30: store_word 0x0013139a, 0xe4000024
-2a38: op_B -7, 1
+2a38: call 0x01b8
 2a3c: branch_cond3 -7, -7
 2a40: store_word 0x0010109a, 0xe4000024
-2a48: op_B -7, 1
+2a48: call 0x01b8
 2a4c: branch_cond3 -7, -7
 2a50: store_word 0x00000515, 0xe1020008
 2a58: %r10_0 = load_word -7
@@ -2028,4 +2028,4 @@
 2a90: %r12_0 = load_word -5
 2a94: %r10_0 = or %r11_0, 0x08000000
 2a9c: store_word %r11_0, 0xe1040024
-2aa0: op_B -7, 0
+2aa0: return

@@ -275,15 +275,26 @@ def hwinit_disassemble(code: bytes, org: int = 0):
                 case other:
                     assert False
         else:
-            match ops:
-                case 0:
-                    print(f"{org_offset:04x}: {opcode}")
-                case 1:
-                    print(f"{org_offset:04x}: {opcode} {operand1}")
-                case 2:
-                    print(f"{org_offset:04x}: {opcode} {operand1}, {operand2}")
-                case other:
-                    assert False
+            if (word & 0xFC000000) == 0x2C000000:
+                # hack for call/return but whatever
+                if operand2 == 1:
+                    print(f"{org_offset:04x}: call 0x{(word&0x3FFF)<<2:04x}")
+                elif operand2 == 2:
+                    print(f"{org_offset:04x}: die")
+                elif operand2 == 3:
+                    print(f"{org_offset:04x}: done")
+                else:
+                    print(f"{org_offset:04x}: return")
+            else:
+                match ops:
+                    case 0:
+                        print(f"{org_offset:04x}: {opcode}")
+                    case 1:
+                        print(f"{org_offset:04x}: {opcode} {operand1}")
+                    case 2:
+                        print(f"{org_offset:04x}: {opcode} {operand1}, {operand2}")
+                    case other:
+                        assert False
 
 
 # old grandpa copypasting AI code. wow!
