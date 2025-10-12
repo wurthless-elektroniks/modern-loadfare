@@ -12,6 +12,8 @@
     # "done" signal
     .equ SMC_HWINIT_DONE_MSGID, 0xA8
 
+    .equ BASE_AND, 0x0100
+
     .org 0x0280
 hwinit_postcount_code_start:
     # stubs - code in cbbpatch.py uses these instead of going to the routines directly
@@ -94,7 +96,7 @@ smc_ipc_tick:
     # otherwise, check timebase against last poll
     ld     %r6,-0xA8(%r1)               # read last poll
     mftb   %r5                          # read timebase counter
-    andis. %r7,%r5,BASE_AND             # check bit (1 << 27)
+    andis. %r7,%r5,BASE_AND             # check bit
     cmpld  %r6,%r7                      # has the bit flipped?
     beq    _smc_ipc_tick_exit           # if it hasn't, exit
     std   %r7,-0xA8(%r1)                # update last poll state
