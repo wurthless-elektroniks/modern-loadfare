@@ -150,7 +150,38 @@ def hwinit_disassemble(code: bytes, org: int = 0):
                 opcode = "load_word"
                 ops = 1
                 r = True
-            
+        
+            # looks like a call/return opcode
+            # relevant disassembly:
+            # cmplwi     r6,0x1
+            # beq        LAB_00000b24
+            # cmplwi     r6,0x2
+            # beq        FUN_00000dcc
+            # cmplwi     r6,0x3
+            # beq        FUN_00000dc4
+            #
+            # default case: pc = hwinit_prg_base + (r18 << 2)
+            # (likely a return-from-subroutine procedure)
+            #
+            # case 1 is definitely a "call procedure" opcode
+            # subf       r7,r3,r16
+            # rlwinm     r7,r7,0x1e,0x10,0x1f
+            # rldicl     r8,r28,0x10,0x30
+            # cmpldi     r8,0x0
+            # bne        FUN_00000dc4        <-- go to "done" block if r8 not zero
+            # rldicl     r28,r28,0x10,0x0
+            # ldicl      r27,r27,0x10,0x0
+            # rldicl     r18,r18,0x10,0x0
+            # rldimi     r28,r27,0x0,0x30
+            # rldimi     r27,r18,0x0,0x30
+            # rldimi     r18,r7,0x0,0x30      <-- set r18 to return address
+            # rlwinm     r8,r17,0x2,0xe,0x1d  <-- r8 <<= 2
+            # add        r16,r3,r8            <-- pc = hwinit_prg_base + r8
+            #
+            # case 2 immediately goes to hwinit failure case, which posts 0xA9 and halts
+            # (let's call that "die")
+            #
+            # case 3 immediately goes to hwinit "done" case
             case 0xb:
                 opcode = "op_B"
                 ops = 2
