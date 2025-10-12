@@ -29,7 +29,12 @@ def _init_argparser():
     argparser.add_argument("--post67",
                            default=False,
                            action='store_true',
-                           help="Install POST 6/7 toggler in HWINIT for RGH1.3/EXT+3 SMC's")
+                           help="Install POST 6/7 toggler in HWINIT for SMCs that support it (e.g. two-wire RGH1.3)")
+    
+    argparser.add_argument("--smc-keepalive",
+                           default=False,
+                           action='store_true',
+                           help="Install SMC keepalive code in HWINIT for SMCs that support it (e.g. one-wire RGH1.3)")
     
     argparser.add_argument("--fastdelay",
                            default=False,
@@ -66,12 +71,17 @@ def main():
         print("error: must specify cbb_in and patch_out arguments")
         return
 
+    if args.post67 and args.smc_keepalive:
+        print("error: post67 and smc keepalive patches can't be used at the same time")
+        return
+
     patchparams = {
         'nofuse': args.nofuse,
         'nosmcsum': args.nosmcsum,
         'nopost': args.nopost,
         'nodecrypt': args.nodecrypt,
         'post67': args.post67,
+        'smc_keepalive': args.smc_keepalive,
         'fastdelay': args.fastdelay
     }
 

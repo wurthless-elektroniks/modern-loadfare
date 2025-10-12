@@ -9,6 +9,7 @@ import struct
 from patcher import assemble_nop, assemble_branch, decode_branch_address, decode_branch_conditional_address
 from signature import SignatureBuilder, WILDCARD, bulk_find
 from postcounter import assemble_hwinit_postcount_block_universal
+from smckeepalive import assemble_hwinit_smc_keepalive_block_universal
 
 OLDCB_POST_FUNCTION = SignatureBuilder() \
     .pattern([
@@ -226,7 +227,7 @@ def oldcb_try_patch(cbb: bytes, patchparams: dict) -> None | bytes:
         cbb = _patch_cb_ldv_check(cbb, resolved_sigs['cb_ldv_address'])
         cbb = _patch_smc_panic_a3_case(cbb, resolved_sigs['smcheader_address'])
 
-    if patchparams['post67']:
+    if patchparams['post67'] or patchparams['smc_keepalive']:
         hwinit_top_address   = resolved_sigs['hwinit_top_addr']
         hwinit_delay_address = resolved_sigs['hwinit_delay_addr']
 
@@ -237,12 +238,23 @@ def oldcb_try_patch(cbb: bytes, patchparams: dict) -> None | bytes:
         # unconditional branch lives here, i hope
         hwinit_exit_address = hwinit_done_address + 4
 
-        cbb = assemble_hwinit_postcount_block_universal(cbb,
-                                                        0x280,
-                                                        hwinit_register_setup_address,
-                                                        hwinit_loop_top_address,
-                                                        hwinit_exit_address,
-                                                        patchparams['fastdelay'])
+        if patchparams['post67']:
+            cbb = assemble_hwinit_postcount_block_universal(cbb,
+                                                            0x280,
+                                                            hwinit_register_setup_address,
+                                                            hwinit_loop_top_address,
+                                                            hwinit_exit_address,
+                                                            patchparams['fastdelay'])
+        elif patchparams['smc_keepalive']:
+            cbb = assemble_hwinit_smc_keepalive_block_universal(
+                                                            cbb,
+                                                            0x280,
+                                                            hwinit_register_setup_address,
+                                                            hwinit_loop_top_address,
+                                                            hwinit_exit_address,
+                                                            patchparams['fastdelay'])
+        else:
+            raise RuntimeError("code execution shouldn't have ended up here bucko")
 
         cbb, _ = assemble_branch(cbb, _get_hwinit_init_hook_address(hwinit_top_address), 0x280 + 0)
         cbb, _ = assemble_branch(cbb, hwinit_delay_address, 0x280 + 4)
