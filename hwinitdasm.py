@@ -278,13 +278,18 @@ def hwinit_disassemble(code: bytes, org: int = 0):
             if (word & 0xFC000000) == 0x2C000000:
                 # hack for call/return but whatever
                 if operand2 == 1:
-                    print(f"{org_offset:04x}: call 0x{(word&0x3FFF)<<2:04x}")
+                    print(f"{org_offset:04x}: call 0x{(word&0xFFFF)<<2:04x}")
                 elif operand2 == 2:
                     print(f"{org_offset:04x}: die")
                 elif operand2 == 3:
                     print(f"{org_offset:04x}: done")
                 else:
                     print(f"{org_offset:04x}: return")
+            elif (word & 0xFC000000) <= 0x1C000000:
+                destaddr = (word&0xFFFF)<<2
+                pos = '^' if destaddr < offset else 'v'
+                print(f"{org_offset:04x}: {opcode} {operand1}, {operand2} -> 0x{destaddr:04x} {pos}")
+
             else:
                 match ops:
                     case 0:
