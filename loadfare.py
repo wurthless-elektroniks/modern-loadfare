@@ -41,11 +41,16 @@ def _init_argparser():
                            default=False,
                            action='store_true',
                            help="Change HWINIT delay multiplier from 50 to 10 (slight speedup, might be unstable)")
+    
+    argparser.add_argument("--fast5050",
+                           default=False,
+                           action='store_true',
+                           help="Change hwinit SDRAM calibration loop to step by 4 instead of 1 (probably unstable)")
 
     argparser.add_argument("--no5050",
                            default=False,
                            action='store_true',
-                           help="NOP out very long hwinit training loops (massive speedup, probably extremely unstable)")
+                           help="NOP out very long hwinit training loops (massive speedup, very unstable)")
 
     argparser.add_argument("--write-xebuild",
                            default=False,
@@ -89,7 +94,8 @@ def main():
         'post67': args.post67,
         'smc_keepalive': args.smc_keepalive,
         'fastdelay': args.fastdelay,
-        'no5050': args.no5050
+        'no5050': args.no5050,
+        'fast5050': args.fast5050
     }
 
     cbb = None

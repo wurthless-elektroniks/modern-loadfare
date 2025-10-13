@@ -10,6 +10,7 @@ from signature import SignatureBuilder, WILDCARD, bulk_find
 from postcounter import assemble_hwinit_postcount_block_universal
 from smckeepalive import assemble_hwinit_smc_keepalive_block_universal
 
+
 # this is within the hwinit bytecode itself
 HWINIT_TRAINING_LOOP_CONDITION_PATTERN = SignatureBuilder() \
     .pattern([
@@ -34,6 +35,27 @@ def _patch_no5050(cbb: bytes, hwinit_bytecode_start_address: int, hwinit_bytecod
 
     if found_one is False:
         print("_patch_no5050: unable to find wait condition(s). no changes applied.")
+
+    return cbb
+
+def _patch_fast5050(cbb: bytes, hwinit_bytecode_start_address: int, hwinit_bytecode_end_address: int) -> bytes:
+    offset = hwinit_bytecode_start_address
+    found_one = False
+    while offset < hwinit_bytecode_end_address:
+        offset = HWINIT_TRAINING_LOOP_CONDITION_PATTERN.find(cbb, offset)
+        if offset is None or offset >= hwinit_bytecode_end_address:
+            break
+
+        if cbb[offset-4:offset] != bytes([0x01, 0x01, 0x01, 0x01]):
+            continue
+
+        found_one = True
+        print(f"_patch_fast5050: at 0x{offset-4:04x} change 0x01010101 to 0x04040404")
+        cbb[offset-4:offset] = bytes([0x04, 0x04, 0x04, 0x04])
+        offset += 8
+
+    if found_one is False:
+        print("_patch_fast5050: unable to find wait condition(s). no changes applied.")
 
     return cbb
 
@@ -248,5 +270,8 @@ def hwinit_apply_patches(cbb: bytes, patchparams: dict) -> bytes:
 
     if patchparams['no5050']:
         cbb = _patch_no5050(cbb, hwinit_start_address, hwinit_start_address+hwinit_size)
-    
+    elif patchparams['fast5050']:
+        cbb = _patch_fast5050(cbb, hwinit_start_address, hwinit_start_address+hwinit_size)
+
+
     return cbb
