@@ -1,6 +1,7 @@
 from argparse import ArgumentParser,RawTextHelpFormatter
-from oldcbpatcher import oldcb_ident,oldcb_try_patch,oldcb_replace_hwinit_bytecode
+from oldcbpatcher import oldcb_ident,oldcb_try_patch
 from xebuildgen import xebuild_patchlist_make
+from hwinitpatcher import hwinit_apply_patches,hwinit_replace_bytecode
 
 def _init_argparser():
     argparser = ArgumentParser(formatter_class=RawTextHelpFormatter,
@@ -40,6 +41,11 @@ def _init_argparser():
                            default=False,
                            action='store_true',
                            help="Change HWINIT delay multiplier from 50 to 10 (slight speedup, might be unstable)")
+
+    argparser.add_argument("--no5050",
+                           default=False,
+                           action='store_true',
+                           help="NOP out very long hwinit training loops (massive speedup, probably extremely unstable)")
 
     argparser.add_argument("--write-xebuild",
                            default=False,
@@ -82,7 +88,8 @@ def main():
         'nodecrypt': args.nodecrypt,
         'post67': args.post67,
         'smc_keepalive': args.smc_keepalive,
-        'fastdelay': args.fastdelay
+        'fastdelay': args.fastdelay,
+        'no5050': args.no5050
     }
 
     cbb = None
@@ -93,12 +100,16 @@ def main():
     # bytecode must be replaced BEFORE patches are made
     hwinit_bytecode_file = args.hwinit_bytecode
     if hwinit_bytecode_file is not None:
+        if args.no5050 is True:
+            print("error: --no5050 is only to be used when not injecting replacement bytecode")
+            return
+
         print(f"attempting to load and inject replacement hwinit bytecode from {hwinit_bytecode_file}")
         bytecode = None
         with open(hwinit_bytecode_file, "rb") as f:
             bytecode = f.read()
         
-        cbb = oldcb_replace_hwinit_bytecode(cbb, bytecode)
+        cbb = hwinit_replace_bytecode(cbb, bytecode)
         if cbb is None:
             print("hwinit replacement failed, exiting.")
             return
@@ -108,9 +119,13 @@ def main():
         patched_cbb = oldcb_try_patch(cbb, patchparams)
 
     if patched_cbb is None:
-        print("unable to patch CB, exiting.")
+        print("unable to apply base CB patches, exiting.")
         return
-
+    
+    patched_cbb = hwinit_apply_patches(patched_cbb, patchparams)
+    if patched_cbb is None:
+        print("unable to apply hwinit patches, exiting.")
+        return
 
     output = None
     if args.write_xebuild:

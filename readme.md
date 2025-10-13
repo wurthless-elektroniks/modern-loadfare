@@ -70,8 +70,20 @@ This affects both Falcon hwinit bytecode revisions (CBs 5761 and 5770) but is kn
 other loaders (7373 is also slow). It also makes Falcon loaders less than ideal for booting other
 systems because they will enter the same wait loop.
 
-When using loadfare.py with Falcon loaders, using `--fastdelay` will speed up hwinit by about half a second.
-I don't know how stable it is in practice.
+The relevant code from Falcon v2 (1d107e2710b427e376a69767f29245c30bf4ff29) is:
+
+```
+3738: %r10_0 = add %r11_0, 0x01010101
+3740: branch_cond0 %r11_0, 0x50505050 -> 0x34bc ^
+```
+
+```
+3ab4: %r10_0 = add %r11_0, 0x01010101
+3abc: branch_cond0 %r11_0, 0x50505050 -> 0x3834 ^
+```
+
+To skip these loops, and massively speed up your boots (and probably make your system very unstable
+in the process), use `--no5050` with loadfare.py.
 
 ## License
 

@@ -5,7 +5,7 @@ Script to bulk dump hwinit bytecode to hwinit_bytecode/.
 import os
 import hashlib
 
-from oldcbpatcher import oldcb_ident, oldcb_extract_hwinit_bytecode
+from hwinitpatcher import hwinit_extract_bytecode
 
 def main():
     # points sha -> list of cbs that use it
@@ -22,7 +22,7 @@ def main():
             with open(os.path.join("cbb",cbbfile), "rb") as f:
                 cbb = f.read()
             
-            hwinit_bytecode = oldcb_extract_hwinit_bytecode(cbb)
+            hwinit_bytecode = hwinit_extract_bytecode(cbb)
             
             if hwinit_bytecode is None:
                 print(f"{cbbfile} - NOT SUPPORTED", file=freadme)

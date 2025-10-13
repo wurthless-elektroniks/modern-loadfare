@@ -199,8 +199,6 @@ def oldcb_try_patch(cbb: bytes, patchparams: dict) -> None | bytes:
         'fusecheck_call_addr':  OLDCB_FUSECHECK_CALL,
         'decrypt_cd_addr':      OLDCB_DECRYPT_CD_PATTERN,
         'hashcheck_addr':       OLDCB_CD_HASHCHECK_FAILURE_CASE_PATTERN,
-        'hwinit_top_addr':      OLDCB_HWINIT_TOP_PATTERN,
-        'hwinit_delay_addr':    OLDCB_HWINIT_DELAY_PATTERN
     }
 
     resolved_sigs = bulk_find(resolver_params, cbb)
@@ -227,127 +225,9 @@ def oldcb_try_patch(cbb: bytes, patchparams: dict) -> None | bytes:
         cbb = _patch_cb_ldv_check(cbb, resolved_sigs['cb_ldv_address'])
         cbb = _patch_smc_panic_a3_case(cbb, resolved_sigs['smcheader_address'])
 
-    if patchparams['post67'] or patchparams['smc_keepalive']:
-        hwinit_top_address   = resolved_sigs['hwinit_top_addr']
-        hwinit_delay_address = resolved_sigs['hwinit_delay_addr']
-
-        hwinit_register_setup_address = _get_hwinit_register_setup_fcn_address(cbb, hwinit_top_address)
-        hwinit_loop_top_address       = _get_hwinit_loop_top_address(hwinit_top_address)
-        hwinit_done_address           = _get_hwinit_done_address(cbb, hwinit_top_address)
-
-        # unconditional branch lives here, i hope
-        hwinit_exit_address = hwinit_done_address + 4
-
-        if patchparams['post67']:
-            cbb = assemble_hwinit_postcount_block_universal(cbb,
-                                                            0x280,
-                                                            hwinit_register_setup_address,
-                                                            hwinit_loop_top_address,
-                                                            hwinit_exit_address,
-                                                            patchparams['fastdelay'])
-        elif patchparams['smc_keepalive']:
-            cbb = assemble_hwinit_smc_keepalive_block_universal(
-                                                            cbb,
-                                                            0x280,
-                                                            hwinit_register_setup_address,
-                                                            hwinit_loop_top_address,
-                                                            hwinit_exit_address,
-                                                            patchparams['fastdelay'])
-        else:
-            raise RuntimeError("code execution shouldn't have ended up here bucko")
-
-        cbb, _ = assemble_branch(cbb, _get_hwinit_init_hook_address(hwinit_top_address), 0x280 + 0)
-        cbb, _ = assemble_branch(cbb, hwinit_delay_address, 0x280 + 4)
-        cbb, _ = assemble_branch(cbb, hwinit_done_address, 0x280 + 8)
-
-    elif patchparams['fastdelay']:
-        cbb = _patch_fastdelay(cbb, resolved_sigs['hwinit_delay_addr'])
-
     if patchparams['nodecrypt']:
         cbb = _patch_nodecrypt(cbb, resolved_sigs['decrypt_cd_addr'])
 
     cbb = _patch_cd_hashcheck(cbb, resolved_sigs['hashcheck_addr'])
-
-    return cbb
-
-def oldcb_find_hwinit_bytecode(cbb: bytes) -> dict | None:
-    hwinit_top_address = OLDCB_HWINIT_TOP_PATTERN.find(cbb)
-    if hwinit_top_address is None:
-        print("error: cannot find top of hwinit interpreter")
-        return None
-
-    # old hwinits like 5761 hardcode the hwinit bytecode program size into the function itself
-    hwinit_setup_exec_hardcoded_pattern = SignatureBuilder() \
-        .pattern([
-            0x3c, 0x60, 0x00, 0x00,           # +0x00 lis  r3,0x0
-            0x38, 0x63, WILDCARD, WILDCARD,   # +0x04 addi r3,r3,0x8b8   <-- hwinit bytecode location
-            0x7c, 0x62, 0x1a, 0x14,           # +0x08 add  r3,r2,r3
-            0x38, 0x83, WILDCARD, WILDCARD,   # +0x0C addi r4,r3,0x44d8  <-- bytecode size
-        ]) \
-        .build()
-    
-    # more recent hwinits like 6752 have the hwinit bytecode program size headered
-    hwinit_setup_exec_headered_pattern = SignatureBuilder() \
-        .pattern([
-            0x3c, 0x60, 0x00, 0x00,          # +0x00 lis  r3,0x0
-            0x38, 0x63, WILDCARD, WILDCARD,  # +0x04 addi r3,r3,0xf70  <-- hwinit bytecode location
-            0x7c, 0x62, 0x1a, 0x14,          # add  r3,r2,r3
-            0x80, 0x83, 0x00, 0x00,          # lwz  r4,0x0(r3)   <-- bytecode size
-            0x38, 0x63, 0x00, 0x04,          # addi r3,r3,0x4    <-- r3 now points to actual hwinit start
-        ]) \
-        .build()
-    
-    headered_address = hwinit_setup_exec_headered_pattern.find(cbb, hwinit_top_address - 0x80)
-    if headered_address is not None:
-        hwinit_bytecode_address = struct.unpack(">H", cbb[headered_address+6:headered_address+8])[0]
-        hwinit_size = struct.unpack(">I", cbb[hwinit_bytecode_address:hwinit_bytecode_address+4])[0]
-        return {
-            'headered':              True,
-            'offset':                hwinit_bytecode_address,
-            'program_start_address': hwinit_bytecode_address+4,
-            'program_size':          hwinit_size
-        }
-
-    hardcoded_address = hwinit_setup_exec_hardcoded_pattern.find(cbb, hwinit_top_address - 0x80)
-    if hardcoded_address is not None:
-        hwinit_bytecode_address = struct.unpack(">H", cbb[hardcoded_address+0x06:hardcoded_address+0x08])[0]
-        hwinit_size             = struct.unpack(">H", cbb[hardcoded_address+0x0E:hardcoded_address+0x10])[0]
-        return {
-            'headered':              False,
-            'offset':                hwinit_bytecode_address,
-            'program_start_address': hwinit_bytecode_address,
-            'program_size':          hwinit_size
-        }
-
-    return None
-
-def oldcb_extract_hwinit_bytecode(cbb: bytes) -> None | bytes:
-    hwinit_meta = oldcb_find_hwinit_bytecode(cbb)
-    if hwinit_meta is None:
-        return None
-    
-    hwinit_bytecode_address = hwinit_meta['program_start_address']
-    hwinit_size = hwinit_meta['program_size']
-    return cbb[hwinit_bytecode_address:hwinit_bytecode_address+hwinit_size]
-
-def oldcb_replace_hwinit_bytecode(cbb: bytes, hwinit_bytecode: bytes) -> bytes | None:
-    hwinit_meta = oldcb_find_hwinit_bytecode(cbb)
-    if hwinit_meta is None:
-        return None
-    
-    if hwinit_meta['headered'] is False:
-        print("error: CB has hardcoded size. please use a CB with headered hwinit")
-        return None
-    maximum_size = hwinit_meta['program_size']
-    if len(hwinit_bytecode) > maximum_size:
-        print(f"error: replacement hwinit bytecode is too large (current size {maximum_size}, replacement size {len(hwinit_bytecode)})")
-        return None
-    
-    hwinit_bytecode_address = hwinit_meta['program_start_address']
-    cbb = bytearray(cbb)
-    cbb[hwinit_bytecode_address:hwinit_bytecode_address+len(hwinit_bytecode)] = hwinit_bytecode
-
-    hwinit_offset = hwinit_meta['offset']
-    cbb[hwinit_offset:hwinit_offset+4] = struct.pack(">I",len(hwinit_bytecode))
 
     return cbb
