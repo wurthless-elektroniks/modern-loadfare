@@ -80,7 +80,9 @@ A rough idea of what's mapped to what:
 - 0xEAxxxxxx - Southbridge, including the SMC and audio controller
 
 After hwinit runs, 0xE1040000 is read to determine what the system RAM size is.
-Anything less than 512 MB will halt with a panic (POST 0xAF).
+Anything less than 512 MB will halt with a panic (POST 0xAF). However, the hwinit
+bytecode will usually explicitly set this value to 0x20000000, so the check should
+always pass.
 
 ## cd_load_and_jump
 

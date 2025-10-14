@@ -63,27 +63,22 @@ More are to be tested.
 ## Why are Falcons so slow to boot?
 
 The answer, to the best of my knowledge, is "because the hwinit bytecode is programmed that way".
-There is an explicit wait loop that will delay execution until some condition is met, and I'm not
-sure what the condition is just yet. Reverse engineering efforts continue.
+More specifically, it's because the SDRAM training loop is slower on some loaders than on others
+for reasons I haven't figured out yet. On Xenon v1 (e2809475df5ac611b355e9917518a6b76b5c5904) the
+training loops are very compact, but on Falcon v2 (1d107e2710b427e376a69767f29245c30bf4ff29) and
+others there are lots of function calls that can slow down execution.
 
-This affects both Falcon hwinit bytecode revisions (CBs 5761 and 5770) but is known to happen on
-other loaders (7373 is also slow). It also makes Falcon loaders less than ideal for booting other
-systems because they will enter the same wait loop.
+The SDRAM training loops appear to use an initial value of 0x00000000 and increment this value by
+0x01010101 until it hits 0x50505050. Obviously this is inefficient compared to some other
+methods of SDRAM calibration
+([here's an example of how NXP does it](https://community.nxp.com/t5/i-MX-Processors/i-MX7D-DDR-Calibration/td-p/706866)).
 
-The relevant code from Falcon v2 (1d107e2710b427e376a69767f29245c30bf4ff29) is:
-
-```
-3738: %r10_0 = add %r11_0, 0x01010101
-3740: branch_cond0 %r11_0, 0x50505050 -> 0x34bc ^
-```
-
-```
-3ab4: %r10_0 = add %r11_0, 0x01010101
-3abc: branch_cond0 %r11_0, 0x50505050 -> 0x3834 ^
-```
-
-To skip these loops, and massively speed up your boots (and probably make your system very unstable
-in the process), use `--no5050` with loadfare.py.
+loadfare.py supports two ways of speeding up SDRAM calibration:
+- `--no5050` only runs one trial. This is stable enough to boot XeLL, but way too unstable to
+  actually run games or the dash, which will crash in interesting ways.
+- `--fast5050` uses a step value of 0x04040404 instead of 0x01010101 and is very fast. In my tests
+  I've found that I can play a game for an hour with no complaints, but I can't guarantee it'll
+  work for everyone.
 
 ## License
 
