@@ -1,3 +1,5 @@
+
+import struct
 from argparse import ArgumentParser,RawTextHelpFormatter
 from oldcbpatcher import oldcb_ident,oldcb_try_patch
 from xebuildgen import xebuild_patchlist_make
@@ -63,6 +65,10 @@ def _init_argparser():
     argparser.add_argument("--hwinit-bytecode",
                             help="Inject hwinit bytecode from the given file into the target CB")
 
+    argparser.add_argument("--set-version",
+                           type=int,
+                           help="Set version field to the given value (for binary outputs only)")
+
     argparser.add_argument("cbb_in",
                            nargs='?',
                            help="Input CB binary (MUST be in plaintext)")
@@ -103,6 +109,13 @@ def main():
     with open(args.cbb_in, "rb") as f:
         cbb = f.read()
 
+    if (cbb[0:2] == bytes([0x43, 0x42]) and \
+        cbb[8:10] == bytes([0x00, 0x00]) and \
+        cbb[12:14] == bytes([0x00, 0x00])) is False:
+        print("error: doesn't look like a valid CB")
+        return
+
+
     # bytecode must be replaced BEFORE patches are made
     hwinit_bytecode_file = args.hwinit_bytecode
     if hwinit_bytecode_file is not None:
@@ -133,6 +146,7 @@ def main():
         print("unable to apply hwinit patches, exiting.")
         return
 
+
     output = None
     if args.write_xebuild:
         print("producing output in xeBuild format")
@@ -149,6 +163,10 @@ def main():
         
         print("patch generated, ready to write it.")
     else:
+        if args.set_version is not None:
+            print(f"change version to {args.set_version}")
+            patched_cbb[2:4] = struct.pack(">H",args.set_version)
+
         print("writing binary output directly")
         output = patched_cbb
 
