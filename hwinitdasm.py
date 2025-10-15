@@ -15,6 +15,35 @@ import struct
 #
 
 # Global constants
+#
+# registers during hwinit are used as follows:
+# r3  - pointer to start of program
+# r4  - pointer to end of program
+# r5  - scratchpad
+# r6  - scratchpad
+# r7  - scratchpad
+# r8  - scratchpad
+# r9  - scratchpad
+# r10 - work registers v0, v1 (32-bit halves)
+# r11 - work registers v2, v3 (32-bit halves)
+# r12 - work registers v4, v5 (32-bit halves)
+# r13 - work registers v6, v7 (32-bit halves)
+# r14 - 0xE108_E400_E102_E104 (pointers to PCI bridges and GPU/northbridge)
+# r15 - 0xD001_E101_0000_D000 (pointers to PCI config space/BARs)
+# r16 - program counter/instruction pointer
+# r17 - current opcode being executed
+# r18 - callstack?
+# r19 - shadow registers s0,  s1
+# r20 - shadow registers s2,  s3
+# r21 - shadow registers s4,  s5
+# r22 - shadow registers s6,  s7
+# r23 - shadow registers s8,  s9
+# r24 - shadow registers s10, s11
+# r25 - shadow registers s12, s13
+# r26 - shadow registers s14, s15
+# r27 - callstack?
+# r28 - callstack?
+
 R14 = 0xE108_E400_E102_E104
 R15 = 0xD001_E101_0000_D000
 
@@ -140,17 +169,37 @@ def hwinit_disassemble(code: bytes, org: int = 0):
             case 7:
                 opcode = "branch_cond7"
                 ops = 2
+
+            # writes 32-bit word using stwbrx
+            #
+            # rldicr     r8,r3,0x0,0x0
+            # stwbrx     r5,r8,r6
             case 8:
                 opcode = "store_word"
                 ops = 2
+
+            # similar to store_word, but writes the same word to offs and offs+0x100
+            #
+            # rldicr     r8,r3,0x0,0x0
+            # stwbrx     r5,r8,r6
+            # addi       r8,r8,0x100
+            # stwbrx     r5,r8,r6
             case 9:
                 opcode = "store_word_0_100"
                 ops = 2
+
+            # does this
+            #
+            # rldicr     r8,r3,0x0,0x0
+            # lwbrx      r5,r8,r6
+            # rlwimi     r17,r17,0xb,0x1d,0x1f
+            #
+            # ... then jumps to some code that places the word in the right register
             case 0xa:
                 opcode = "load_word"
                 ops = 1
                 r = True
-        
+
             # looks like a call/return opcode
             # relevant disassembly:
             # cmplwi     r6,0x1
@@ -194,6 +243,10 @@ def hwinit_disassemble(code: bytes, org: int = 0):
             case 0xd:
                 opcode = "sync"
                 ops = 0
+
+            # both 0x0E and 0x0F do the same thing, which is move 0 to the target register.
+            # however they're both unused; seems the microsoft assembler preferred to do
+            # add %rX,0,0 to do the same thing.
             case 0xe:
                 opcode = "load0_E"
                 ops = 0
@@ -202,27 +255,46 @@ def hwinit_disassemble(code: bytes, org: int = 0):
                 opcode = "load0_F"
                 ops = 0
                 r = True
+
             case 0x10:
                 opcode = "nop_10"
                 ops = 0
             case 0x11:
                 opcode = "nop_11"
                 ops = 0
+
+            # some sort of short relative jump instruction that went unused
+            #
+            # rlwinm     r8,r17,0x2,0xe,0x1d  <-- r8 == (opcode & 0xFFFF) << 2
+            # add        r16,r16,r8           <-- pc += r8
             case 0x12:
                 opcode = "op_12"
                 ops = 2
+
             case 0x13:
                 opcode = "add"
                 ops = 2
                 r = True
+
             case 0x14:
                 opcode = "and"
                 ops = 2
                 r = True
+
+            # weird opcode that does this
+            #
+            # rlwimi     r5,r6,0x18,0x0,0x7
+            # rlwimi     r5,r6,0x8,0x8,0xf
+            # rlwimi     r5,r6,0x18,0x10,0x17
+            # rlwimi     r5,r6,0x8,0x18,0x1f
+            #
+            # looks like some sort of endian swap opcode but it's useless because
+            # load_word and store_word opcodes already do that for us
             case 0x15:
                 opcode = "op_15"
                 ops = 2
                 r = True
+
             case 0x16:
                 opcode = "or"
                 ops = 2
@@ -246,17 +318,64 @@ def hwinit_disassemble(code: bytes, org: int = 0):
                 opcode = "mul"
                 ops = 2
                 r = True
+
+            # divwu      r5,r5,r6
             case 0x1c:
                 opcode = "div"
                 ops = 2
                 r = True
+
+            # divwu      r8,r5,r6
+            # mullw      r8,r8,r6
+            # subf       r5,r8,r5
             case 0x1d:
                 opcode = "rem"
                 ops = 2
                 r = True
+
+            # op_1E exchanges r12 and r13 (v4,v5,v6,v7) with contents of shadow registers
+            #
+            # starts by doing this
+            #
+            # or         r7,r12,r12            <-- effectively just mov opcodes
+            # or         r8,r13,r13
+            # rlwinm     r5,r5,0x0,0x1e,0x1f   <-- r5 &= 3
+            #
+            # then:
+            # case r5 < 1: ("excg v3-v7,s0-s3")
+            #   or         r12,r19,r19
+            #   or         r13,r20,r20
+            #   or         r19,r7,r7
+            #   or         r20,r8,r8
+            # case r5 == 1: ("excg v3-v7,s4-s7")
+            #   or         r12,r21,r21
+            #   or         r13,r22,r22
+            #   or         r21,r7,r7
+            #   or         r22,r8,r8
+            # case r5 < 3:  ("excg v3-v7,s8-s11")
+            #   or         r12,r23,r23
+            #   or         r13,r24,r24
+            #   or         r23,r7,r7
+            #   or         r24,r8,r8
+            # default:      ("excg v3-v7,s12-s15")
+            #   or         r12,r25,r25
+            #   or         r13,r26,r26
+            #   or         r25,r7,r7
+            #   or         r26,r8,r8
             case 0x1e:
-                opcode = "op_E"
+                opcode = "op_1E"
                 ops = 2
+
+            # opcode 0x1F, not implemented here, seems to be another "done" case
+            # that exits the interpreter immediately with a "success" result
+
+            # opcodes 0x20~0x3F do this
+            #
+            # rlwinm     r8,r17,0x6,0x1b,0x1f
+            # rlwnm      r5,r5,r8,0x0,0x1f
+            # and        r5,r5,r6
+            #
+            # ... then jump to the same code as load_word to dump the result where it belongs
             case other:
                 assert opcode != 0x1f
                 rotlcnt = extrwi(word, 5, 1)
