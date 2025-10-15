@@ -184,6 +184,11 @@ def hwinit_disassemble(code: bytes, org: int = 0):
             # stwbrx     r5,r8,r6
             # addi       r8,r8,0x100
             # stwbrx     r5,r8,r6
+            #
+            # this opcode is abused extensively when configuring the SDRAM controllers
+            # because MC0 is mapped at 0xE4002000 and MC1 is at 0xE4002100. in theory
+            # you could have two different kinds of SDRAM bankings that can be configured
+            # independently, but microsoft never did this.
             case 9:
                 opcode = "store_word_0_100"
                 ops = 2
