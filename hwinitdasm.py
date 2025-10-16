@@ -47,6 +47,107 @@ import struct
 R14 = 0xE108_E400_E102_E104
 R15 = 0xD001_E101_0000_D000
 
+def make_gpu_register(reg: int) -> int:
+    return f"0x{0xE4000000 | (reg << 2):08x}"
+
+# from https://github.com/xenon-emu/xenon/blob/main/Xenon/Core/XGPU/XenosRegisters.h
+MEMORY_CONTROLLER_REGISTERS = {
+    make_gpu_register(0x0800): "MC0_CNTL",
+    make_gpu_register(0x0801): "MC0_DRAM_CONFIG",
+    make_gpu_register(0x0802): "MC0_BSB_SNOOPED_TIMER_CNTL",
+    make_gpu_register(0x0803): "MC0_TUNING_0",
+    make_gpu_register(0x0804): "MC0_TUNING_1",
+	make_gpu_register(0x0805): "MC0_RD_BUFFER_CNTL_0",
+	make_gpu_register(0x0806): "MC0_ARBITRATION_CNTL",
+	make_gpu_register(0x0807): "MC0_TIMING_CNTL_0",
+	make_gpu_register(0x0808): "MC0_TIMING_CNTL_1",
+	make_gpu_register(0x0809): "MC0_TIMING_CNTL_2",
+	make_gpu_register(0x080A): "MC0_PAD_CAL_CNTL",
+	make_gpu_register(0x080B): "MC0_DRAM_CMD",
+	make_gpu_register(0x080C): "MC0_DRAM_DATA",
+	make_gpu_register(0x080D): "MC0_POINTER",
+	make_gpu_register(0x080E): "MC0_RDBUF_DATA",
+	make_gpu_register(0x080F): "MC0_DRAM_DQ",
+	make_gpu_register(0x0810): "MC0_STATUS_0",
+	make_gpu_register(0x0811): "MC0_STATUS_1",
+	make_gpu_register(0x0812): "MC0_CRC_CNTL",
+	make_gpu_register(0x0813): "MC0_DEBUG",
+	make_gpu_register(0x0814): "MC0_CRC_READ",
+	make_gpu_register(0x0815): "MC0_PERFCOUNTER0_CNTL",
+	make_gpu_register(0x0816): "MC0_PERFCOUNTER0_HI",
+	make_gpu_register(0x0817): "MC0_PERFCOUNTER0_LOW",
+	make_gpu_register(0x0818): "MC0_PERFCOUNTER1_CNTL",
+	make_gpu_register(0x0819): "MC0_PERFCOUNTER1_HI",
+	make_gpu_register(0x081A): "MC0_PERFCOUNTER1_LOW",
+	make_gpu_register(0x081B): "MC0_INTERRUPT_MASK",
+	make_gpu_register(0x081C): "MC0_INTERRUPT_STATUS",
+	make_gpu_register(0x081D): "MC0_INTERRUPT_ACK",
+	make_gpu_register(0x081E): "MC0_SECURE_MEMORY_APERTURE_LOG_MH",
+	make_gpu_register(0x081F): "MC0_SECURE_MEMORY_APERTURE_LOG_BIU",
+	make_gpu_register(0x0820): "MC0_WR_STR_DLL_0",
+	make_gpu_register(0x0821): "MC0_WR_STR_DLL_1",
+	make_gpu_register(0x0822): "MC0_DLL_MASTER_ADJ_0",
+	make_gpu_register(0x0823): "MC0_DLL_MASTER_ADJ_1",
+	make_gpu_register(0x0824): "MC0_TERM_CNTL",
+	make_gpu_register(0x0825): "MC0_WR_DATA_DLY_0",
+	make_gpu_register(0x0826): "MC0_WR_DATA_DLY_1",
+	make_gpu_register(0x0827): "MC0_RD_STR_DLY_0",
+	make_gpu_register(0x0828): "MC0_RD_STR_DLY_1",
+	make_gpu_register(0x0829): "MC0_WR_STR_DLY",
+	make_gpu_register(0x082A): "MC0_PAD_CAL_STATUS",
+	make_gpu_register(0x082B): "MC0_RD_STR_DLY_CNTL",
+	make_gpu_register(0x0830): "MC0_PAD_IF_CNTL",
+	make_gpu_register(0x0831): "MC0_PAD_IF_CNTL_2",
+	make_gpu_register(0x0832): "MC0_RD_BUFFER_CNTL_1",
+	make_gpu_register(0x0840): "MC1_CNTL",
+	make_gpu_register(0x0841): "MC1_DRAM_CONFIG",
+	make_gpu_register(0x0842): "MC1_BSB_SNOOPED_TIMER_CNTL",
+	make_gpu_register(0x0843): "MC1_TUNING_0",
+	make_gpu_register(0x0844): "MC1_TUNING_1",
+	make_gpu_register(0x0845): "MC1_RD_BUFFER_CNTL_0",
+	make_gpu_register(0x0846): "MC1_ARBITRATION_CNTL",
+	make_gpu_register(0x0847): "MC1_TIMING_CNTL_0",
+	make_gpu_register(0x0848): "MC1_TIMING_CNTL_1",
+	make_gpu_register(0x0849): "MC1_TIMING_CNTL_2",
+	make_gpu_register(0x084A): "MC1_PAD_CAL_CNTL",
+	make_gpu_register(0x084B): "MC1_DRAM_CMD",
+	make_gpu_register(0x084C): "MC1_DRAM_DATA",
+	make_gpu_register(0x084D): "MC1_POINTER",
+	make_gpu_register(0x084E): "MC1_RDBUF_DATA",
+	make_gpu_register(0x084F): "MC1_DRAM_DQ",
+	make_gpu_register(0x0850): "MC1_STATUS_0",
+	make_gpu_register(0x0851): "MC1_STATUS_1",
+	make_gpu_register(0x0852): "MC1_CRC_CNTL",
+	make_gpu_register(0x0853): "MC1_DEBUG",
+	make_gpu_register(0x0854): "MC1_CRC_READ",
+	make_gpu_register(0x0855): "MC1_PERFCOUNTER0_CNTL",
+	make_gpu_register(0x0856): "MC1_PERFCOUNTER0_HI",
+	make_gpu_register(0x0857): "MC1_PERFCOUNTER0_LOW",
+	make_gpu_register(0x0858): "MC1_PERFCOUNTER1_CNTL",
+	make_gpu_register(0x0859): "MC1_PERFCOUNTER1_HI",
+	make_gpu_register(0x085A): "MC1_PERFCOUNTER1_LOW",
+	make_gpu_register(0x085B): "MC1_INTERRUPT_MASK",
+	make_gpu_register(0x085C): "MC1_INTERRUPT_STATUS",
+	make_gpu_register(0x085D): "MC1_INTERRUPT_ACK",
+	make_gpu_register(0x085E): "MC1_SECURE_MEMORY_APERTURE_LOG_MH",
+	make_gpu_register(0x085F): "MC1_SECURE_MEMORY_APERTURE_LOG_BIU",
+	make_gpu_register(0x0860): "MC1_WR_STR_DLL_0",
+	make_gpu_register(0x0861): "MC1_WR_STR_DLL_1",
+	make_gpu_register(0x0862): "MC1_DLL_MASTER_ADJ_0",
+	make_gpu_register(0x0863): "MC1_DLL_MASTER_ADJ_1",
+	make_gpu_register(0x0864): "MC1_TERM_CNTL",
+	make_gpu_register(0x0865): "MC1_WR_DATA_DLY_0",
+	make_gpu_register(0x0866): "MC1_WR_DATA_DLY_1",
+	make_gpu_register(0x0867): "MC1_RD_STR_DLY_0",
+	make_gpu_register(0x0868): "MC1_RD_STR_DLY_1",
+	make_gpu_register(0x0869): "MC1_WR_STR_DLY",
+	make_gpu_register(0x086A): "MC1_PAD_CAL_STATUS",
+	make_gpu_register(0x086B): "MC1_RD_STR_DLY_CNTL",
+	make_gpu_register(0x0870): "MC1_PAD_IF_CNTL",
+	make_gpu_register(0x0871): "MC1_PAD_IF_CNTL_2",
+	make_gpu_register(0x0872): "MC1_RD_BUFFER_CNTL_1",
+}
+
 def rold(word, d):
     return ((word << d)&0xffff_ffff_ffff_ffff)| \
             ((word >> (64 - d))&0xffff_ffff_ffff_ffff)
@@ -155,10 +256,12 @@ def hwinit_disassemble(code: bytes, org: int = 0):
                 opcode = "branch_cond2"
                 ops = 2
             case 3:
+                # typically unconditional i.e. branch_cond3 -7, -7
                 opcode = "branch_cond3"
                 ops = 2
             case 4:
-                opcode = "branch_cond4"
+                # this is guessed based on some spinloop behavior
+                opcode = "beq"
                 ops = 2
             case 5:
                 opcode = "branch_cond5"
@@ -395,7 +498,11 @@ def hwinit_disassemble(code: bytes, org: int = 0):
                 case 1:
                     print(f"{org_offset:04x}: {dest} = {opcode} {operand1}")
                 case 2:
-                    print(f"{org_offset:04x}: {dest} = {opcode} {operand1}, {operand2}")
+                    if opcode == "add" and operand2 == 0:
+                        operand1 = operand1 if operand1 not in MEMORY_CONTROLLER_REGISTERS else MEMORY_CONTROLLER_REGISTERS[operand1]
+                        print(f"{org_offset:04x}: {dest} = {operand1}")
+                    else:
+                        print(f"{org_offset:04x}: {dest} = {opcode} {operand1}, {operand2}")
                 case other:
                     assert False
         else:
@@ -412,7 +519,11 @@ def hwinit_disassemble(code: bytes, org: int = 0):
             elif (word & 0xFC000000) <= 0x1C000000:
                 destaddr = (word&0xFFFF)<<2
                 pos = '^' if destaddr < offset else 'v'
-                print(f"{org_offset:04x}: {opcode} {operand1}, {operand2} -> 0x{destaddr:04x} {pos}")
+
+                if opcode == "branch_cond3" and operand1 == -7 and operand2 == -7:
+                    print(f"{org_offset:04x}: jmp 0x{destaddr:04x} {pos}")
+                else:
+                    print(f"{org_offset:04x}: {opcode} {operand1}, {operand2} -> 0x{destaddr:04x} {pos}")
 
             else:
                 match ops:
@@ -421,7 +532,10 @@ def hwinit_disassemble(code: bytes, org: int = 0):
                     case 1:
                         print(f"{org_offset:04x}: {opcode} {operand1}")
                     case 2:
-                        print(f"{org_offset:04x}: {opcode} {operand1}, {operand2}")
+                        if operand2 in MEMORY_CONTROLLER_REGISTERS:
+                            print(f"{org_offset:04x}: {opcode} {operand1}, {MEMORY_CONTROLLER_REGISTERS[operand2]}")
+                        else:                
+                            print(f"{org_offset:04x}: {opcode} {operand1}, {operand2}")
                     case other:
                         assert False
 
