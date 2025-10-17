@@ -76,9 +76,10 @@ methods of SDRAM calibration
 loadfare.py supports two ways of speeding up SDRAM calibration:
 - `--no5050` only runs one trial. This is stable enough to boot XeLL, but way too unstable to
   actually run games or the dash, which will crash in interesting ways.
-- `--fast5050` uses a step value of 0x04040404 instead of 0x01010101 and is very fast. In my tests
-  I've found that I can play a game for an hour with no complaints, but I can't guarantee it'll
-  work for everyone.
+- `--sdram-step` changes the step value when running calibration trials. 4 seems to be the best
+  compromise between speed and stability: in my tests I've found that I can play a game for an
+  hour with no complaints, but I can't guarantee it'll work for everyone. 2 should also work fine.
+  8 and 16 are also supported, but your system will probably be unstable if you use them.
 
 ## License
 

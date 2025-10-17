@@ -38,7 +38,13 @@ def _patch_no5050(cbb: bytes, hwinit_bytecode_start_address: int, hwinit_bytecod
 
     return cbb
 
-def _patch_fast5050(cbb: bytes, hwinit_bytecode_start_address: int, hwinit_bytecode_end_address: int) -> bytes:
+def _patch_fast5050(cbb: bytes, hwinit_bytecode_start_address: int, hwinit_bytecode_end_address: int, step: int = 4) -> bytes:
+    if step not in [ 1, 2, 4, 8, 16 ]:
+        print("_patch_fast5050: error: illegal training step value. must be 1, 2, 4, 8, 16")
+        return None
+
+    new_training_values = bytes([step, step, step, step])
+
     offset = hwinit_bytecode_start_address
     found_one = False
     while offset < hwinit_bytecode_end_address:
@@ -50,8 +56,8 @@ def _patch_fast5050(cbb: bytes, hwinit_bytecode_start_address: int, hwinit_bytec
             continue
 
         found_one = True
-        print(f"_patch_fast5050: at 0x{offset-4:04x} change 0x01010101 to 0x04040404")
-        cbb[offset-4:offset] = bytes([0x04, 0x04, 0x04, 0x04])
+        print(f"_patch_fast5050: at 0x{offset-4:04x} change 0x01010101 to 0x{struct.unpack(">I",new_training_values)[0]:08x}")
+        cbb[offset-4:offset] = new_training_values
         offset += 8
 
     if found_one is False:
@@ -270,8 +276,8 @@ def hwinit_apply_patches(cbb: bytes, patchparams: dict) -> bytes:
 
     if patchparams['no5050']:
         cbb = _patch_no5050(cbb, hwinit_start_address, hwinit_start_address+hwinit_size)
-    elif patchparams['fast5050']:
-        cbb = _patch_fast5050(cbb, hwinit_start_address, hwinit_start_address+hwinit_size)
+    elif patchparams['sdram_step'] not in [ None, 1 ]:
+        cbb = _patch_fast5050(cbb, hwinit_start_address, hwinit_start_address+hwinit_size, step=patchparams['sdram_step'])
 
 
     return cbb

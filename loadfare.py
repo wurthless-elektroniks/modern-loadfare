@@ -44,10 +44,9 @@ def _init_argparser():
                            action='store_true',
                            help="Change HWINIT delay multiplier from 50 to 10 (slight speedup, might be unstable)")
     
-    argparser.add_argument("--fast5050",
-                           default=False,
-                           action='store_true',
-                           help="Change hwinit SDRAM calibration loop to step by 4 instead of 1 (probably unstable)")
+    argparser.add_argument("--sdram-step",
+                           type=int,
+                           help="Change hwinit SDRAM calibration loop step value (1, 2, 4, 8, 16; lower = more stable, higher = faster)")
 
     argparser.add_argument("--no5050",
                            default=False,
@@ -101,7 +100,7 @@ def main():
         'smc_keepalive': args.smc_keepalive,
         'fastdelay': args.fastdelay,
         'no5050': args.no5050,
-        'fast5050': args.fast5050
+        'sdram_step': args.sdram_step
     }
 
     cbb = None
