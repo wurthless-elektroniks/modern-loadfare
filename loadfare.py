@@ -2,6 +2,7 @@
 import struct
 from argparse import ArgumentParser,RawTextHelpFormatter
 from oldcbpatcher import oldcb_ident,oldcb_try_patch
+from newcbpatcher import newcb_ident,newcb_try_patch
 from xebuildgen import xebuild_patchlist_make
 from hwinitpatcher import hwinit_apply_patches,hwinit_replace_bytecode
 
@@ -22,12 +23,17 @@ def _init_argparser():
     argparser.add_argument("--nopost",
                            default=False,
                            action='store_true',
-                           help="Disable POST on CBs that have them and don't patch them in for CBs that don't have them")
+                           help="Skip patching POST codes into new-style CBs")
 
     argparser.add_argument("--nodecrypt",
                            default=False,
                            action='store_true',
                            help="Skip CD decrypt (needed for XeLL builds)")
+
+    argparser.add_argument("--oldcd",
+                           default=False,
+                           action='store_true',
+                           help="Patch new-style CBs to work with older CDs")
 
     argparser.add_argument("--post67",
                            default=False,
@@ -51,7 +57,7 @@ def _init_argparser():
     argparser.add_argument("--no5050",
                            default=False,
                            action='store_true',
-                           help="NOP out very long hwinit training loops (massive speedup, very unstable)")
+                           help="Skip SDRAM training loops in hwinit (DANGER: extremely unstable)")
 
     argparser.add_argument("--write-xebuild",
                            default=False,
@@ -114,7 +120,6 @@ def main():
         print("error: doesn't look like a valid CB")
         return
 
-
     # bytecode must be replaced BEFORE patches are made
     hwinit_bytecode_file = args.hwinit_bytecode
     if hwinit_bytecode_file is not None:
@@ -135,6 +140,9 @@ def main():
     if oldcb_ident(cbb):
         print("found old-style CB, attempting patches...")
         patched_cbb = oldcb_try_patch(cbb, patchparams)
+    elif newcb_ident(cbb):
+        print("found new-style CB, attempting patches...")
+        patched_cbb = newcb_try_patch(cbb, patchparams)
 
     if patched_cbb is None:
         print("unable to apply base CB patches, exiting.")
@@ -144,7 +152,6 @@ def main():
     if patched_cbb is None:
         print("unable to apply hwinit patches, exiting.")
         return
-
 
     output = None
     if args.write_xebuild:

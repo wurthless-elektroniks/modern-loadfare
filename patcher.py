@@ -137,31 +137,14 @@ def assemble_branch_with_link(cbb_image: bytes, address: int, destination_addres
 def assemble_branch(cbb_image: bytes, address: int, destination_address: int) -> tuple:
     return assemble_branch_generic(cbb_image, address, destination_address, False)
 
+# changed from elpiss: this targets the built-in panic function instead
 def assemble_panic(cbb_image: bytes, address: int, post_code: int, panic_fcn_address: int) -> tuple:
     assert_address_32bit_aligned(address)
 
     next_ptr = address
-    cbb_image, next_ptr = assemble_li_r4(cbb_image, next_ptr, post_code)
+    cbb_image, next_ptr = assemble_li_r3(cbb_image, next_ptr, post_code)
     cbb_image, next_ptr = assemble_branch(cbb_image, next_ptr, panic_fcn_address)
     return cbb_image, next_ptr
-
-def assemble_panic_function(cbb_image: bytes, address: int, post_fcn_address: int) -> tuple:
-    assert_address_32bit_aligned(address)
-
-    cur_address = address
-
-    cbb_image, cur_address = assemble_branch_with_link(cbb_image, address, post_fcn_address)
-
-    infinite_death_spiral = bytes([
-        0x38, 0x00, 0x00, 0x00,  # li r0,0x00
-        0x7c, 0x18, 0x23, 0xa6,  # mtspr CMPE,r0
-        0x4b, 0xff, 0xff, 0xf8,  # b -8 - loop forever
-    ])
-
-    end_address = cur_address+len(infinite_death_spiral)
-    cbb_image[cur_address:end_address] = infinite_death_spiral
-
-    return cbb_image, end_address
 
 def assemble_post_call(cbb_image: bytes, address: int, post_fcn_address: int, post_code: int):
     assert_address_32bit_aligned(address)
@@ -171,6 +154,8 @@ def assemble_post_call(cbb_image: bytes, address: int, post_fcn_address: int, po
     cbb_image, cur_address = assemble_branch_with_link(cbb_image, cur_address, post_fcn_address)
 
     return cbb_image, cur_address
+
+
 
 def fill_nops_between(cbb_image: bytes, address: int, until_address: int):
     assert_address_32bit_aligned(address)

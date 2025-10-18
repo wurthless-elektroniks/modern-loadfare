@@ -145,6 +145,9 @@ class Signature():
         if self._tail_andmask is None:
             return None
         return bytes(self._andmask)
+    
+    def size(self):
+        return self._size
 
 class SignatureBuilder():
     '''
@@ -255,3 +258,14 @@ def bulk_find(sigdict: dict, buffer: bytes):
     for name, signature in sigdict.items():
         resolved[name] = signature.find(buffer)
     return resolved
+
+def check_bulk_find_results(resolved_sigs: dict) -> bool:
+    any_none = False
+    for name, offset in resolved_sigs.items():
+        if offset is not None:
+            print(f"{name} = 0x{offset:04x}")
+        else:
+            print(f"{name} = NOT FOUND")
+            any_none = True
+
+    return any_none
