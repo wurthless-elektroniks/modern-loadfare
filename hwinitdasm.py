@@ -254,13 +254,14 @@ def hwinit_disassemble(code: bytes, org: int = 0, fout = sys.stdout):
             # rlwinm     r8,r17,0x2,0xe,0x1d
             # add        r16,r3,r8            <-- r16 = instruction pointer
             case 0:
-                opcode = "branch_cond0"
+                # definitely a bne per slim ipc waitloop
+                opcode = "bne"
                 ops = 2
             case 1:
-                opcode = "branch_cond1"
+                opcode = "bgt?"
                 ops = 2
             case 2:
-                opcode = "branch_cond2"
+                opcode = "blt?"
                 ops = 2
             case 3:
                 # typically unconditional i.e. branch_cond3 -7, -7
@@ -271,12 +272,15 @@ def hwinit_disassemble(code: bytes, org: int = 0, fout = sys.stdout):
                 opcode = "beq"
                 ops = 2
             case 5:
-                opcode = "branch_cond5"
+                # guessed based on behavior in xenon_v1
+                opcode = "bge"
                 ops = 2
             case 6:
-                opcode = "branch_cond6"
+                # guesssed based on behavior in xenon_v4
+                opcode = "ble"
                 ops = 2
             case 7:
+                # never used. could be a "branch never"
                 opcode = "branch_cond7"
                 ops = 2
 

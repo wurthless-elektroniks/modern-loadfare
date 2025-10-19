@@ -73,7 +73,7 @@
 01a8: store_word 0xe0f7fd00, 0xe1003300
 01b4: return
 01b8: %r10_0 = 0
-01bc: branch_cond0 %r10_0, 5 -> 0x01cc v
+01bc: bne %r10_0, 5 -> 0x01cc v
 01c0: store_word 0x0015159a, 0xe4000024
 01c8: jmp 0x02e0 v
 01cc: %r10_0 = add %r10_0, 1
@@ -105,7 +105,7 @@
 0250: %r10_1 = rotlw_by_12_then_and %r10_1, 0x0000f000
 0258: %r10_0 = or %r11_0, %r10_1
 025c: %r10_1 = and %r11_1, 0x00fff300
-0264: branch_cond0 %r10_1, %r11_0 -> 0x01bc ^
+0264: bne %r10_1, %r11_0 -> 0x01bc ^
 0268: store_word 0x00000200, MC1_PAD_CAL_CNTL
 0270: %r10_0 = load_word -6
 0274: %r10_0 = rotlw_by_20_then_and %r10_1, 0x00f00000
@@ -125,7 +125,7 @@
 02c4: %r10_1 = rotlw_by_12_then_and %r10_1, 0x0000f000
 02cc: %r10_0 = or %r11_0, %r10_1
 02d0: %r10_1 = and %r11_1, 0x00fff300
-02d8: branch_cond0 %r10_1, %r11_0 -> 0x01bc ^
+02d8: bne %r10_1, %r11_0 -> 0x01bc ^
 02dc: return
 02e0: store_word %r10_0, 0xe4000028
 02e4: %r12_0 = *(0xe400002c)
@@ -146,21 +146,21 @@
 033c: store_word 0x08000000, 0xe4002804
 0344: %r12_0 = load_word -4
 0348: %r11_1 = rotlw_by_28_then_and %r11_1, 7
-034c: branch_cond0 %r11_1, 5 -> 0x0358 v
+034c: bne %r11_1, 5 -> 0x0358 v
 0350: %r10_1 = 0x20003021
-0358: branch_cond0 %r11_1, 6 -> 0x0364 v
+0358: bne %r11_1, 6 -> 0x0364 v
 035c: %r10_1 = 0x20001011
-0364: branch_cond0 %r11_1, 7 -> 0x0370 v
+0364: bne %r11_1, 7 -> 0x0370 v
 0368: %r10_1 = 0x20003025
-0370: branch_cond0 %r11_1, 0 -> 0x037c v
+0370: bne %r11_1, 0 -> 0x037c v
 0374: %r10_1 = 0x20000009
-037c: branch_cond0 %r11_1, 1 -> 0x0388 v
+037c: bne %r11_1, 1 -> 0x0388 v
 0380: %r10_1 = 0x20003029
-0388: branch_cond0 %r11_1, 2 -> 0x0394 v
+0388: bne %r11_1, 2 -> 0x0394 v
 038c: %r10_1 = 0x20001015
-0394: branch_cond0 %r11_1, 3 -> 0x03a0 v
+0394: bne %r11_1, 3 -> 0x03a0 v
 0398: %r10_1 = 0x2000302d
-03a0: branch_cond0 %r11_1, 4 -> 0x03ac v
+03a0: bne %r11_1, 4 -> 0x03ac v
 03a4: %r10_1 = 0x2000000b
 03ac: store_word %r10_1, 0xe4000210
 03b0: %r10_1 = or %r10_1, 0x000c0000
@@ -183,7 +183,7 @@
 0408: %r10_1 = 0x20000013
 0410: %r10_0 = *(0xd0008008)
 0414: %r10_0 = and %r10_0, 0x000000ff
-041c: branch_cond0 %r10_0, 0 -> 0x0428 v
+041c: bne %r10_0, 0 -> 0x0428 v
 0420: %r10_1 = 0x20000007
 0428: store_word %r10_1, 0xe4000244
 042c: %r10_1 = or %r10_1, 0x000c0000
@@ -227,7 +227,7 @@
 04f0: store_word_0_100 0, MC0_PAD_CAL_CNTL
 04f4: %r10_0 = *(0xd0008008)
 04f8: %r10_0 = and %r10_0, 0x000000ff
-0500: branch_cond0 %r10_0, 0 -> 0x0518 v
+0500: bne %r10_0, 0 -> 0x0518 v
 0504: store_word_0_100 0x000000e6, MC0_PAD_CAL_CNTL
 050c: store_word_0_100 0x000000e4, MC0_PAD_CAL_CNTL
 0514: jmp 0x0524 v
@@ -284,12 +284,12 @@
 0628: %r12_0 = rotlw_by_16_then_and %r13_0, 0x00ff00ff
 0630: %r13_1 = rotlw_by_24_then_and %r13_1, 0x00ff00ff
 0638: %r13_1 = rotlw_by_16_then_and %r13_1, 0x00ff00ff
-0640: branch_cond0 %r12_0, %r12_1 -> 0x2b5c v
+0640: bne %r12_0, %r12_1 -> 0x2b5c v
 0644: %r12_0 = rotlw_by_16_then_and %r12_0, -1
-0648: branch_cond0 %r12_0, %r12_1 -> 0x2b5c v
-064c: branch_cond0 %r13_0, %r13_1 -> 0x2b5c v
+0648: bne %r12_0, %r12_1 -> 0x2b5c v
+064c: bne %r13_0, %r13_1 -> 0x2b5c v
 0650: %r12_0 = rotlw_by_16_then_and %r13_0, -1
-0654: branch_cond0 %r13_0, %r13_1 -> 0x2b5c v
+0654: bne %r13_0, %r13_1 -> 0x2b5c v
 0658: %r10_1 = 0
 065c: %r10_0 = 0x20000000
 0664: beq %r12_0, %r13_0 -> 0x0694 v
@@ -306,16 +306,16 @@
 06a8: store_word %r11_0, 0xe1020000
 06ac: store_word %r11_0, 0xe1040000
 06b0: %r10_0 = and %r12_0, 0x0000000f
-06b8: branch_cond0 %r10_0, 1 -> 0x3960 v
+06b8: bne %r10_0, 1 -> 0x3960 v
 06bc: jmp 0x3960 v
 06c0: %r10_0 = *(0xd0008008)
 06c4: %r10_0 = and %r10_0, 0x000000ff
 06cc: beq %r10_0, 0 -> 0x0704 v
 06d0: %r10_1 = 0x001ff306
 06d8: %r10_0 = and %r12_0, 0x0000000f
-06e0: branch_cond0 %r10_0, 2 -> 0x06ec v
+06e0: bne %r10_0, 2 -> 0x06ec v
 06e4: %r10_1 = 0x001bb306
-06ec: branch_cond0 %r10_0, 6 -> 0x06f8 v
+06ec: bne %r10_0, 6 -> 0x06f8 v
 06f0: %r10_1 = 0x0007d306
 06f8: %r11_1 = %r10_1
 06fc: call 0x01b8
@@ -336,7 +336,7 @@
 073c: delay -7
 0740: %r10_1 = 0x040e3202
 0748: %r12_0 = load_word -4
-074c: branch_cond2 %r11_1, 0x00000018 -> 0x0758 v
+074c: blt? %r11_1, 0x00000018 -> 0x0758 v
 0754: %r10_1 = or %r10_1, 1
 0758: store_word_0_100 %r10_1, MC0_DRAM_CONFIG
 075c: store_word_0_100 0x00000080, MC0_BSB_SNOOPED_TIMER_CNTL
@@ -359,12 +359,12 @@
 07dc: beq %r10_0, 0 -> 0x0808 v
 07e0: %r10_1 = 0x06208089
 07e8: %r10_0 = and %r12_0, 0x0000000f
-07f0: branch_cond0 %r10_0, 2 -> 0x07fc v
+07f0: bne %r10_0, 2 -> 0x07fc v
 07f4: %r10_1 = 0x0620808a
-07fc: branch_cond0 %r10_0, 6 -> 0x0808 v
+07fc: bne %r10_0, 6 -> 0x0808 v
 0800: %r10_1 = 0x06208089
 0808: %r12_0 = load_word -4
-080c: branch_cond2 %r11_1, 0x00000018 -> 0x0818 v
+080c: blt? %r11_1, 0x00000018 -> 0x0818 v
 0814: %r10_1 = or %r10_1, 4
 0818: store_word_0_100 %r10_1, MC0_DRAM_CMD
 081c: store_word_0_100 0x06200772, MC0_DRAM_CMD
@@ -453,57 +453,57 @@
 09c8: beq %r10_0, 0 -> 0x0b74 v
 09cc: %r12_0 = load_word -4
 09d0: %r11_1 = and %r11_1, 0x0000000f
-09d8: branch_cond0 %r11_1, 0x0000000c -> 0x09f0 v
+09d8: bne %r11_1, 0x0000000c -> 0x09f0 v
 09e0: %r10_1 = 0x2000000b
 09e8: %r10_0 = 0x04113202
-09f0: branch_cond0 %r11_1, 0x0000000d -> 0x0a08 v
+09f0: bne %r11_1, 0x0000000d -> 0x0a08 v
 09f8: %r10_1 = 0x20007061
 0a00: %r10_0 = 0x04113202
-0a08: branch_cond0 %r11_1, 0x0000000e -> 0x0a20 v
+0a08: bne %r11_1, 0x0000000e -> 0x0a20 v
 0a10: %r10_1 = 0x20003031
 0a18: %r10_0 = 0x04123202
-0a20: branch_cond0 %r11_1, 0x0000000f -> 0x0a38 v
+0a20: bne %r11_1, 0x0000000f -> 0x0a38 v
 0a28: %r10_1 = 0x20007065
 0a30: %r10_0 = 0x04123202
-0a38: branch_cond0 %r11_1, 0 -> 0x0a4c v
+0a38: bne %r11_1, 0 -> 0x0a4c v
 0a3c: %r10_1 = 0x20001019
 0a44: %r10_0 = 0x04123202
-0a4c: branch_cond0 %r11_1, 1 -> 0x0a60 v
+0a4c: bne %r11_1, 1 -> 0x0a60 v
 0a50: %r10_1 = 0x20007069
 0a58: %r10_0 = 0x04133202
-0a60: branch_cond0 %r11_1, 2 -> 0x0a74 v
+0a60: bne %r11_1, 2 -> 0x0a74 v
 0a64: %r10_1 = 0x20003035
 0a6c: %r10_0 = 0x04133202
-0a74: branch_cond0 %r11_1, 3 -> 0x0a88 v
+0a74: bne %r11_1, 3 -> 0x0a88 v
 0a78: %r10_1 = 0x2000706d
 0a80: %r10_0 = 0x04133202
-0a88: branch_cond0 %r11_1, 4 -> 0x0a9c v
+0a88: bne %r11_1, 4 -> 0x0a9c v
 0a8c: %r10_1 = 0x2000000d
 0a94: %r10_0 = 0x04143202
-0a9c: branch_cond0 %r11_1, 5 -> 0x0ab0 v
+0a9c: bne %r11_1, 5 -> 0x0ab0 v
 0aa0: %r10_1 = 0x20007071
 0aa8: %r10_0 = 0x04143202
-0ab0: branch_cond0 %r11_1, 6 -> 0x0ac4 v
+0ab0: bne %r11_1, 6 -> 0x0ac4 v
 0ab4: %r10_1 = 0x20003039
 0abc: %r10_0 = 0x04153202
-0ac4: branch_cond0 %r11_1, 7 -> 0x0ad8 v
+0ac4: bne %r11_1, 7 -> 0x0ad8 v
 0ac8: %r10_1 = 0x20007075
 0ad0: %r10_0 = 0x04153202
-0ad8: branch_cond0 %r11_1, 0x00000008 -> 0x0af0 v
+0ad8: bne %r11_1, 0x00000008 -> 0x0af0 v
 0ae0: %r10_1 = 0x2000101d
 0ae8: %r10_0 = 0x04153202
-0af0: branch_cond0 %r11_1, 0x00000009 -> 0x0b08 v
+0af0: bne %r11_1, 0x00000009 -> 0x0b08 v
 0af8: %r10_1 = 0x20007079
 0b00: %r10_0 = 0x04163202
-0b08: branch_cond0 %r11_1, 0x0000000a -> 0x0b20 v
+0b08: bne %r11_1, 0x0000000a -> 0x0b20 v
 0b10: %r10_1 = 0x2000303d
 0b18: %r10_0 = 0x04163202
-0b20: branch_cond0 %r11_1, 0x0000000b -> 0x0b38 v
+0b20: bne %r11_1, 0x0000000b -> 0x0b38 v
 0b28: %r10_1 = 0x2000707d
 0b30: %r10_0 = 0x04163202
 0b38: %r10_0 = and %r12_0, 0x0000000f
-0b40: branch_cond0 %r10_0, 2 -> 0x0b44 v
-0b44: branch_cond0 %r10_0, 6 -> 0x0b48 v
+0b40: bne %r10_0, 2 -> 0x0b44 v
+0b44: bne %r10_0, 6 -> 0x0b48 v
 0b48: store_word %r10_1, 0xe4000284
 0b4c: %r10_1 = or %r10_1, 0x000c0000
 0b54: store_word %r10_1, 0xe4000284
@@ -514,7 +514,7 @@
 0b6c: store_word %r10_1, 0xe4000284
 0b70: call 0x10c4
 0b74: %r12_0 = load_word -4
-0b78: branch_cond2 %r11_1, 0x00000018 -> 0x0b84 v
+0b78: blt? %r11_1, 0x00000018 -> 0x0b84 v
 0b80: %r10_0 = or %r11_0, 1
 0b84: store_word_0_100 %r11_0, MC0_DRAM_CONFIG
 0b88: store_word_0_100 0x00000080, MC0_BSB_SNOOPED_TIMER_CNTL
@@ -543,12 +543,12 @@
 0c20: beq %r10_0, 0 -> 0x0c4c v
 0c24: %r10_1 = 0x06208009
 0c2c: %r10_0 = and %r12_0, 0x0000000f
-0c34: branch_cond0 %r10_0, 2 -> 0x0c40 v
+0c34: bne %r10_0, 2 -> 0x0c40 v
 0c38: %r10_1 = 0x062080b8
-0c40: branch_cond0 %r10_0, 6 -> 0x0c4c v
+0c40: bne %r10_0, 6 -> 0x0c4c v
 0c44: %r10_1 = 0x062080b9
 0c4c: %r12_0 = load_word -4
-0c50: branch_cond2 %r11_1, 0x00000018 -> 0x0c5c v
+0c50: blt? %r11_1, 0x00000018 -> 0x0c5c v
 0c58: %r10_1 = or %r10_1, 4
 0c5c: store_word %r10_1, 0xe4000014
 0c60: store_word_0_100 %r10_1, MC0_DRAM_CMD
@@ -572,7 +572,7 @@
 0cbc: %r12_0 = 0
 0cc0: op_1E %r11_0, -7
 0cc4: %r10_0 = add %r11_0, 1
-0cc8: branch_cond0 %r11_0, 4 -> 0x0cb0 ^
+0cc8: bne %r11_0, 4 -> 0x0cb0 ^
 0ccc: %r10_0 = 0
 0cd0: store_word %r11_0, 0xe4000018
 0cd4: store_word_0_100 %r11_0, MC0_RD_STR_DLY_0
@@ -600,7 +600,7 @@
 0d44: op_1E 3, -7
 0d48: %r10_0 = load_word -5
 0d4c: %r10_0 = add %r11_0, 0x01010101
-0d54: branch_cond0 %r11_0, 0x50505050 -> 0x0cd0 ^
+0d54: bne %r11_0, 0x50505050 -> 0x0cd0 ^
 0d5c: %r10_0 = 0
 0d60: op_1E %r10_0, -7
 0d64: %r11_1 = rotlw_by_0_then_and %r13_0, 0x000000ff
@@ -628,7 +628,7 @@
 0dec: %r13_1 = or %r13_1, %r11_0
 0df0: op_1E %r10_0, -7
 0df4: %r10_0 = add %r10_0, 1
-0df8: branch_cond0 %r10_0, 4 -> 0x0d60 ^
+0df8: bne %r10_0, 4 -> 0x0d60 ^
 0dfc: op_1E 0, -7
 0e00: store_word %r13_1, MC0_RD_STR_DLY_0
 0e04: op_1E 0, -7
@@ -661,7 +661,7 @@
 0e7c: %r12_0 = 0
 0e80: op_1E %r11_0, -7
 0e84: %r10_0 = add %r11_0, 1
-0e88: branch_cond0 %r11_0, 4 -> 0x0e70 ^
+0e88: bne %r11_0, 4 -> 0x0e70 ^
 0e8c: call 0x1154
 0e90: %r10_0 = 0
 0e94: store_word %r11_0, 0xe4000018
@@ -689,7 +689,7 @@
 0efc: op_1E 3, -7
 0f00: %r10_0 = load_word -5
 0f04: %r10_0 = add %r11_0, 0x01010101
-0f0c: branch_cond0 %r11_0, 0x50505050 -> 0x0e94 ^
+0f0c: bne %r11_0, 0x50505050 -> 0x0e94 ^
 0f14: %r10_0 = 0
 0f18: op_1E %r10_0, -7
 0f1c: %r11_1 = rotlw_by_0_then_and %r13_0, 0x000000ff
@@ -717,7 +717,7 @@
 0fa4: %r13_1 = or %r13_1, %r11_0
 0fa8: op_1E %r10_0, -7
 0fac: %r10_0 = add %r10_0, 1
-0fb0: branch_cond0 %r10_0, 4 -> 0x0f18 ^
+0fb0: bne %r10_0, 4 -> 0x0f18 ^
 0fb4: op_1E 0, -7
 0fb8: store_word %r13_1, MC0_WR_STR_DLL_0
 0fbc: op_1E 0, -7
@@ -735,7 +735,7 @@
 0fec: delay -7
 0ff0: %r10_0 = load_word -4
 0ff4: %r11_1 = subf %r11_1, 1
-0ff8: branch_cond5 %r11_1, 0 -> 0x0e68 ^
+0ff8: bge %r11_1, 0 -> 0x0e68 ^
 0ffc: call 0x12d4
 1000: store_word_0_100 0, MC0_CNTL
 1004: store_word_0_100 0, MC0_POINTER
@@ -759,7 +759,7 @@
 1064: call 0x20dc
 1068: %r10_0 = load_word -6
 106c: %r10_1 = rotlw_by_31_then_and %r10_1, 0x7fffffff
-1074: branch_cond1 %r10_1, 0x00000080 -> 0x2b6c v
+1074: bgt? %r10_1, 0x00000080 -> 0x2b6c v
 107c: store_word 0, 0
 1080: %r10_0 = *(0)
 1084: sync
@@ -767,7 +767,7 @@
 108c: %r10_0 = *(%r10_1)
 1090: sync
 1094: %r10_0 = *(0)
-1098: branch_cond0 %r10_0, 0 -> 0x10a4 v
+1098: bne %r10_0, 0 -> 0x10a4 v
 109c: %r10_0 = load_word -5
 10a0: beq %r11_0, %r10_1 -> 0x106c ^
 10a4: store_word 0x0014149a, 0xe4000024
@@ -797,16 +797,16 @@
 1108: call 0x10b4
 110c: return
 1110: %r10_0 = and %r10_1, 0x000000ff
-1118: branch_cond5 %r11_0, %r10_0 -> 0x1120 v
+1118: bge %r11_0, %r10_0 -> 0x1120 v
 111c: %r10_0 = or %r11_0, %r11_0
 1120: %r10_0 = rotlw_by_24_then_and %r10_1, 0x000000ff
-1128: branch_cond5 %r11_0, %r10_0 -> 0x1130 v
+1128: bge %r11_0, %r10_0 -> 0x1130 v
 112c: %r10_0 = or %r11_0, %r11_0
 1130: %r10_0 = rotlw_by_16_then_and %r10_1, 0x000000ff
-1138: branch_cond5 %r11_0, %r10_0 -> 0x1140 v
+1138: bge %r11_0, %r10_0 -> 0x1140 v
 113c: %r10_0 = or %r11_0, %r11_0
 1140: %r10_0 = rotlw_by_8_then_and %r10_1, 0x000000ff
-1148: branch_cond5 %r11_0, %r10_0 -> 0x1150 v
+1148: bge %r11_0, %r10_0 -> 0x1150 v
 114c: %r10_0 = or %r11_0, %r11_0
 1150: return
 1154: %r10_0 = 0x00000050
@@ -1632,7 +1632,7 @@
 2274: %r10_0 = 0x80018001
 227c: call 0x2148
 2280: %r12_0 = load_word -4
-2284: branch_cond2 %r11_1, 0x00000018 -> 0x2324 v
+2284: blt? %r11_1, 0x00000018 -> 0x2324 v
 228c: %r10_0 = load_word -4
 2290: %r11_1 = rotlw_by_31_then_and %r11_1, 0x7fffffff
 2298: %r10_1 = add %r10_1, %r11_1
@@ -1692,7 +1692,7 @@
 23b4: %r10_0 = xor %r10_0, -1
 23b8: %r10_1 = add %r10_1, 0x00000010
 23c0: %r12_0 = load_word -5
-23c4: branch_cond2 %r11_0, 0x00000018 -> 0x2484 v
+23c4: blt? %r11_0, 0x00000018 -> 0x2484 v
 23cc: %r10_0 = load_word -5
 23d0: %r10_0 = rotlw_by_31_then_and %r11_0, -1
 23d4: %r10_1 = add %r10_1, %r11_0
@@ -1821,7 +1821,7 @@
 2630: %r10_0 = xor %r10_0, -1
 2634: %r10_1 = add %r10_1, 0x00000010
 263c: %r12_0 = load_word -5
-2640: branch_cond2 %r11_0, 0x00000018 -> 0x27a0 v
+2640: blt? %r11_0, 0x00000018 -> 0x27a0 v
 2648: %r10_0 = load_word -5
 264c: %r10_0 = rotlw_by_31_then_and %r11_0, -1
 2650: %r10_1 = add %r10_1, %r11_0
@@ -1919,53 +1919,53 @@
 281c: call 0x28b4
 2820: return
 2824: %r10_0 = and %r13_1, 0x000000ff
-282c: branch_cond0 %r10_0, 0 -> 0x2844 v
+282c: bne %r10_0, 0 -> 0x2844 v
 2830: %r12_0 = load_word -5
 2834: %r10_0 = and %r11_0, 0x000000ff
 283c: %r12_0 = add %r12_0, %r10_0
 2840: %r12_0 = add %r13_0, 1
 2844: %r10_0 = and %r13_1, 0x0000ff00
-284c: branch_cond0 %r10_0, 0 -> 0x2868 v
+284c: bne %r10_0, 0 -> 0x2868 v
 2850: %r12_0 = load_word -5
 2854: %r10_0 = rotlw_by_8_then_and %r11_0, 0x00ff0000
 285c: %r12_0 = add %r12_0, %r10_0
 2860: %r12_0 = add %r13_0, 0x00000100
 2868: %r10_0 = and %r13_1, 0x00ff0000
-2870: branch_cond0 %r10_0, 0 -> 0x288c v
+2870: bne %r10_0, 0 -> 0x288c v
 2874: %r12_0 = load_word -5
 2878: %r10_0 = rotlw_by_16_then_and %r11_0, 0x000000ff
 2880: %r12_1 = add %r12_1, %r10_0
 2884: %r12_0 = add %r13_0, 0x00010000
 288c: %r10_0 = and %r13_1, 0xff000000
-2894: branch_cond0 %r10_0, 0 -> 0x28b0 v
+2894: bne %r10_0, 0 -> 0x28b0 v
 2898: %r12_0 = load_word -5
 289c: %r10_0 = rotlw_by_24_then_and %r11_0, 0x00ff0000
 28a4: %r12_1 = add %r12_1, %r10_0
 28a8: %r12_0 = add %r13_0, 0x01000000
 28b0: return
 28b4: %r10_0 = and %r11_1, 0x000000ff
-28bc: branch_cond0 %r10_0, 0 -> 0x28dc v
+28bc: bne %r10_0, 0 -> 0x28dc v
 28c0: %r12_0 = load_word -5
 28c4: %r10_0 = and %r11_0, 0x000000ff
 28cc: %r12_0 = add %r12_0, %r10_0
 28d0: %r12_0 = subf %r12_0, 0x00000050
 28d8: %r12_0 = add %r13_0, 1
 28dc: %r10_0 = and %r11_1, 0x0000ff00
-28e4: branch_cond0 %r10_0, 0 -> 0x2908 v
+28e4: bne %r10_0, 0 -> 0x2908 v
 28e8: %r12_0 = load_word -5
 28ec: %r10_0 = rotlw_by_8_then_and %r11_0, 0x00ff0000
 28f4: %r12_0 = add %r12_0, %r10_0
 28f8: %r12_0 = subf %r12_0, 0x00500000
 2900: %r12_0 = add %r13_0, 0x00000100
 2908: %r10_0 = and %r11_1, 0x00ff0000
-2910: branch_cond0 %r10_0, 0 -> 0x2934 v
+2910: bne %r10_0, 0 -> 0x2934 v
 2914: %r12_0 = load_word -5
 2918: %r10_0 = rotlw_by_16_then_and %r11_0, 0x000000ff
 2920: %r12_1 = add %r12_1, %r10_0
 2924: %r12_1 = subf %r12_1, 0x00000050
 292c: %r12_0 = add %r13_0, 0x00010000
 2934: %r10_0 = and %r11_1, 0xff000000
-293c: branch_cond0 %r10_0, 0 -> 0x2960 v
+293c: bne %r10_0, 0 -> 0x2960 v
 2940: %r12_0 = load_word -5
 2944: %r10_0 = rotlw_by_24_then_and %r11_0, 0x00ff0000
 294c: %r12_1 = add %r12_1, %r10_0
@@ -1973,53 +1973,53 @@
 2958: %r12_0 = add %r13_0, 0x01000000
 2960: return
 2964: %r10_0 = and %r13_1, 0x000000ff
-296c: branch_cond0 %r10_0, 0 -> 0x2984 v
+296c: bne %r10_0, 0 -> 0x2984 v
 2970: %r10_0 = load_word -5
 2974: %r10_0 = and %r11_0, 0x000000ff
 297c: %r12_0 = add %r12_0, %r10_0
 2980: %r12_0 = add %r13_0, 1
 2984: %r10_0 = and %r13_1, 0x0000ff00
-298c: branch_cond0 %r10_0, 0 -> 0x29a8 v
+298c: bne %r10_0, 0 -> 0x29a8 v
 2990: %r10_0 = load_word -5
 2994: %r10_0 = and %r11_0, 0x00ff0000
 299c: %r12_0 = add %r12_0, %r10_0
 29a0: %r12_0 = add %r13_0, 0x00000100
 29a8: %r10_0 = and %r13_1, 0x00ff0000
-29b0: branch_cond0 %r10_0, 0 -> 0x29cc v
+29b0: bne %r10_0, 0 -> 0x29cc v
 29b4: %r10_0 = load_word -5
 29b8: %r10_0 = and %r11_0, 0x000000ff
 29c0: %r12_1 = add %r12_1, %r10_0
 29c4: %r12_0 = add %r13_0, 0x00010000
 29cc: %r10_0 = and %r13_1, 0xff000000
-29d4: branch_cond0 %r10_0, 0 -> 0x29f0 v
+29d4: bne %r10_0, 0 -> 0x29f0 v
 29d8: %r10_0 = load_word -5
 29dc: %r10_0 = and %r11_0, 0x00ff0000
 29e4: %r12_1 = add %r12_1, %r10_0
 29e8: %r12_0 = add %r13_0, 0x01000000
 29f0: return
 29f4: %r10_0 = and %r11_1, 0x000000ff
-29fc: branch_cond0 %r10_0, 0 -> 0x2a1c v
+29fc: bne %r10_0, 0 -> 0x2a1c v
 2a00: %r10_0 = load_word -5
 2a04: %r10_0 = and %r11_0, 0x000000ff
 2a0c: %r12_0 = add %r12_0, %r10_0
 2a10: %r12_0 = subf %r12_0, 0x00000050
 2a18: %r12_0 = add %r13_0, 1
 2a1c: %r10_0 = and %r11_1, 0x0000ff00
-2a24: branch_cond0 %r10_0, 0 -> 0x2a48 v
+2a24: bne %r10_0, 0 -> 0x2a48 v
 2a28: %r10_0 = load_word -5
 2a2c: %r10_0 = and %r11_0, 0x00ff0000
 2a34: %r12_0 = add %r12_0, %r10_0
 2a38: %r12_0 = subf %r12_0, 0x00500000
 2a40: %r12_0 = add %r13_0, 0x00000100
 2a48: %r10_0 = and %r11_1, 0x00ff0000
-2a50: branch_cond0 %r10_0, 0 -> 0x2a74 v
+2a50: bne %r10_0, 0 -> 0x2a74 v
 2a54: %r10_0 = load_word -5
 2a58: %r10_0 = and %r11_0, 0x000000ff
 2a60: %r12_1 = add %r12_1, %r10_0
 2a64: %r12_1 = subf %r12_1, 0x00000050
 2a6c: %r12_0 = add %r13_0, 0x00010000
 2a74: %r10_0 = and %r11_1, 0xff000000
-2a7c: branch_cond0 %r10_0, 0 -> 0x2aa0 v
+2a7c: bne %r10_0, 0 -> 0x2aa0 v
 2a80: %r10_0 = load_word -5
 2a84: %r10_0 = and %r11_0, 0x00ff0000
 2a8c: %r12_1 = add %r12_1, %r10_0
@@ -2118,7 +2118,7 @@
 2c9c: %r10_0 = and %r11_1, 0x00000080
 2ca4: beq %r11_0, 0 -> 0x2cac v
 2ca8: %r11_1 = 0
-2cac: branch_cond5 %r11_1, 0 -> 0x2cb4 v
+2cac: bge %r11_1, 0 -> 0x2cb4 v
 2cb0: %r11_1 = 0
 2cb4: %r10_0 = or %r10_0, %r11_1
 2cb8: %r10_1 = and %r10_0, 0x0000ff00
@@ -2129,7 +2129,7 @@
 2cdc: %r10_0 = and %r11_1, 0x00008000
 2ce4: beq %r11_0, 0 -> 0x2cec v
 2ce8: %r11_1 = 0
-2cec: branch_cond5 %r11_1, 0 -> 0x2cf4 v
+2cec: bge %r11_1, 0 -> 0x2cf4 v
 2cf0: %r11_1 = 0
 2cf4: %r10_0 = or %r10_0, %r11_1
 2cf8: %r10_1 = and %r10_0, 0x00ff0000
@@ -2140,7 +2140,7 @@
 2d1c: %r10_0 = and %r11_1, 0x00800000
 2d24: beq %r11_0, 0 -> 0x2d2c v
 2d28: %r11_1 = 0
-2d2c: branch_cond5 %r11_1, 0 -> 0x2d34 v
+2d2c: bge %r11_1, 0 -> 0x2d34 v
 2d30: %r11_1 = 0
 2d34: %r10_0 = or %r10_0, %r11_1
 2d38: %r10_1 = and %r10_0, 0xff000000
@@ -2151,7 +2151,7 @@
 2d5c: %r10_0 = and %r11_1, 0x80000000
 2d64: beq %r11_0, 0 -> 0x2d6c v
 2d68: %r11_1 = 0
-2d6c: branch_cond5 %r11_1, 0 -> 0x2d74 v
+2d6c: bge %r11_1, 0 -> 0x2d74 v
 2d70: %r11_1 = 0
 2d74: %r10_0 = or %r10_0, %r11_1
 2d78: store_word %r10_0, MC0_WR_STR_DLL_0
@@ -2164,7 +2164,7 @@
 2da4: %r10_0 = and %r11_1, 0x00000080
 2dac: beq %r11_0, 0 -> 0x2db4 v
 2db0: %r11_1 = 0
-2db4: branch_cond5 %r11_1, 0 -> 0x2dbc v
+2db4: bge %r11_1, 0 -> 0x2dbc v
 2db8: %r11_1 = 0
 2dbc: %r10_0 = or %r10_0, %r11_1
 2dc0: %r10_1 = and %r10_0, 0x0000ff00
@@ -2175,7 +2175,7 @@
 2de4: %r10_0 = and %r11_1, 0x00008000
 2dec: beq %r11_0, 0 -> 0x2df4 v
 2df0: %r11_1 = 0
-2df4: branch_cond5 %r11_1, 0 -> 0x2dfc v
+2df4: bge %r11_1, 0 -> 0x2dfc v
 2df8: %r11_1 = 0
 2dfc: %r10_0 = or %r10_0, %r11_1
 2e00: %r10_1 = and %r10_0, 0x00ff0000
@@ -2186,7 +2186,7 @@
 2e24: %r10_0 = and %r11_1, 0x00800000
 2e2c: beq %r11_0, 0 -> 0x2e34 v
 2e30: %r11_1 = 0
-2e34: branch_cond5 %r11_1, 0 -> 0x2e3c v
+2e34: bge %r11_1, 0 -> 0x2e3c v
 2e38: %r11_1 = 0
 2e3c: %r10_0 = or %r10_0, %r11_1
 2e40: %r10_1 = and %r10_0, 0xff000000
@@ -2197,7 +2197,7 @@
 2e64: %r10_0 = and %r11_1, 0x80000000
 2e6c: beq %r11_0, 0 -> 0x2e74 v
 2e70: %r11_1 = 0
-2e74: branch_cond5 %r11_1, 0 -> 0x2e7c v
+2e74: bge %r11_1, 0 -> 0x2e7c v
 2e78: %r11_1 = 0
 2e7c: %r10_0 = or %r10_0, %r11_1
 2e80: store_word %r10_0, MC0_WR_STR_DLL_1
@@ -2210,7 +2210,7 @@
 2eac: %r10_0 = and %r11_1, 0x00000080
 2eb4: beq %r11_0, 0 -> 0x2ebc v
 2eb8: %r11_1 = 0
-2ebc: branch_cond5 %r11_1, 0 -> 0x2ec4 v
+2ebc: bge %r11_1, 0 -> 0x2ec4 v
 2ec0: %r11_1 = 0
 2ec4: %r10_0 = or %r10_0, %r11_1
 2ec8: %r10_1 = and %r10_0, 0x0000ff00
@@ -2221,7 +2221,7 @@
 2eec: %r10_0 = and %r11_1, 0x00008000
 2ef4: beq %r11_0, 0 -> 0x2efc v
 2ef8: %r11_1 = 0
-2efc: branch_cond5 %r11_1, 0 -> 0x2f04 v
+2efc: bge %r11_1, 0 -> 0x2f04 v
 2f00: %r11_1 = 0
 2f04: %r10_0 = or %r10_0, %r11_1
 2f08: %r10_1 = and %r10_0, 0x00ff0000
@@ -2232,7 +2232,7 @@
 2f2c: %r10_0 = and %r11_1, 0x00800000
 2f34: beq %r11_0, 0 -> 0x2f3c v
 2f38: %r11_1 = 0
-2f3c: branch_cond5 %r11_1, 0 -> 0x2f44 v
+2f3c: bge %r11_1, 0 -> 0x2f44 v
 2f40: %r11_1 = 0
 2f44: %r10_0 = or %r10_0, %r11_1
 2f48: %r10_1 = and %r10_0, 0xff000000
@@ -2243,7 +2243,7 @@
 2f6c: %r10_0 = and %r11_1, 0x80000000
 2f74: beq %r11_0, 0 -> 0x2f7c v
 2f78: %r11_1 = 0
-2f7c: branch_cond5 %r11_1, 0 -> 0x2f84 v
+2f7c: bge %r11_1, 0 -> 0x2f84 v
 2f80: %r11_1 = 0
 2f84: %r10_0 = or %r10_0, %r11_1
 2f88: store_word %r10_0, MC1_WR_STR_DLL_0
@@ -2256,7 +2256,7 @@
 2fb4: %r10_0 = and %r11_1, 0x00000080
 2fbc: beq %r11_0, 0 -> 0x2fc4 v
 2fc0: %r11_1 = 0
-2fc4: branch_cond5 %r11_1, 0 -> 0x2fcc v
+2fc4: bge %r11_1, 0 -> 0x2fcc v
 2fc8: %r11_1 = 0
 2fcc: %r10_0 = or %r10_0, %r11_1
 2fd0: %r10_1 = and %r10_0, 0x0000ff00
@@ -2267,7 +2267,7 @@
 2ff4: %r10_0 = and %r11_1, 0x00008000
 2ffc: beq %r11_0, 0 -> 0x3004 v
 3000: %r11_1 = 0
-3004: branch_cond5 %r11_1, 0 -> 0x300c v
+3004: bge %r11_1, 0 -> 0x300c v
 3008: %r11_1 = 0
 300c: %r10_0 = or %r10_0, %r11_1
 3010: %r10_1 = and %r10_0, 0x00ff0000
@@ -2278,7 +2278,7 @@
 3034: %r10_0 = and %r11_1, 0x00800000
 303c: beq %r11_0, 0 -> 0x3044 v
 3040: %r11_1 = 0
-3044: branch_cond5 %r11_1, 0 -> 0x304c v
+3044: bge %r11_1, 0 -> 0x304c v
 3048: %r11_1 = 0
 304c: %r10_0 = or %r10_0, %r11_1
 3050: %r10_1 = and %r10_0, 0xff000000
@@ -2289,7 +2289,7 @@
 3074: %r10_0 = and %r11_1, 0x80000000
 307c: beq %r11_0, 0 -> 0x3084 v
 3080: %r11_1 = 0
-3084: branch_cond5 %r11_1, 0 -> 0x308c v
+3084: bge %r11_1, 0 -> 0x308c v
 3088: %r11_1 = 0
 308c: %r10_0 = or %r10_0, %r11_1
 3090: store_word %r10_0, MC1_WR_STR_DLL_1
@@ -2303,7 +2303,7 @@
 30c4: %r10_0 = and %r11_1, 0x00000080
 30cc: beq %r11_0, 0 -> 0x30d4 v
 30d0: %r11_1 = 0
-30d4: branch_cond5 %r11_1, 0 -> 0x30dc v
+30d4: bge %r11_1, 0 -> 0x30dc v
 30d8: %r11_1 = 0
 30dc: %r10_0 = or %r10_0, %r11_1
 30e0: %r10_1 = and %r10_0, 0x0000ff00
@@ -2314,7 +2314,7 @@
 3108: %r10_0 = and %r11_1, 0x00008000
 3110: beq %r11_0, 0 -> 0x3118 v
 3114: %r11_1 = 0
-3118: branch_cond5 %r11_1, 0 -> 0x3120 v
+3118: bge %r11_1, 0 -> 0x3120 v
 311c: %r11_1 = 0
 3120: %r10_0 = or %r10_0, %r11_1
 3124: %r10_1 = and %r10_0, 0x00ff0000
@@ -2325,7 +2325,7 @@
 314c: %r10_0 = and %r11_1, 0x00800000
 3154: beq %r11_0, 0 -> 0x315c v
 3158: %r11_1 = 0
-315c: branch_cond5 %r11_1, 0 -> 0x3164 v
+315c: bge %r11_1, 0 -> 0x3164 v
 3160: %r11_1 = 0
 3164: %r10_0 = or %r10_0, %r11_1
 3168: %r10_1 = and %r10_0, 0xff000000
@@ -2336,7 +2336,7 @@
 3190: %r10_0 = and %r11_1, 0x80000000
 3198: beq %r11_0, 0 -> 0x31a0 v
 319c: %r11_1 = 0
-31a0: branch_cond5 %r11_1, 0 -> 0x31a8 v
+31a0: bge %r11_1, 0 -> 0x31a8 v
 31a4: %r11_1 = 0
 31a8: %r10_0 = or %r10_0, %r11_1
 31ac: store_word %r10_0, MC0_WR_STR_DLL_0
@@ -2349,7 +2349,7 @@
 31dc: %r10_0 = and %r11_1, 0x00000080
 31e4: beq %r11_0, 0 -> 0x31ec v
 31e8: %r11_1 = 0
-31ec: branch_cond5 %r11_1, 0 -> 0x31f4 v
+31ec: bge %r11_1, 0 -> 0x31f4 v
 31f0: %r11_1 = 0
 31f4: %r10_0 = or %r10_0, %r11_1
 31f8: %r10_1 = and %r10_0, 0x0000ff00
@@ -2360,7 +2360,7 @@
 3220: %r10_0 = and %r11_1, 0x00008000
 3228: beq %r11_0, 0 -> 0x3230 v
 322c: %r11_1 = 0
-3230: branch_cond5 %r11_1, 0 -> 0x3238 v
+3230: bge %r11_1, 0 -> 0x3238 v
 3234: %r11_1 = 0
 3238: %r10_0 = or %r10_0, %r11_1
 323c: %r10_1 = and %r10_0, 0x00ff0000
@@ -2371,7 +2371,7 @@
 3264: %r10_0 = and %r11_1, 0x00800000
 326c: beq %r11_0, 0 -> 0x3274 v
 3270: %r11_1 = 0
-3274: branch_cond5 %r11_1, 0 -> 0x327c v
+3274: bge %r11_1, 0 -> 0x327c v
 3278: %r11_1 = 0
 327c: %r10_0 = or %r10_0, %r11_1
 3280: %r10_1 = and %r10_0, 0xff000000
@@ -2382,7 +2382,7 @@
 32a8: %r10_0 = and %r11_1, 0x80000000
 32b0: beq %r11_0, 0 -> 0x32b8 v
 32b4: %r11_1 = 0
-32b8: branch_cond5 %r11_1, 0 -> 0x32c0 v
+32b8: bge %r11_1, 0 -> 0x32c0 v
 32bc: %r11_1 = 0
 32c0: %r10_0 = or %r10_0, %r11_1
 32c4: store_word %r10_0, MC0_WR_STR_DLL_1
@@ -2395,7 +2395,7 @@
 32f4: %r10_0 = and %r11_1, 0x00000080
 32fc: beq %r11_0, 0 -> 0x3304 v
 3300: %r11_1 = 0
-3304: branch_cond5 %r11_1, 0 -> 0x330c v
+3304: bge %r11_1, 0 -> 0x330c v
 3308: %r11_1 = 0
 330c: %r10_0 = or %r10_0, %r11_1
 3310: %r10_1 = and %r10_0, 0x0000ff00
@@ -2406,7 +2406,7 @@
 3338: %r10_0 = and %r11_1, 0x00008000
 3340: beq %r11_0, 0 -> 0x3348 v
 3344: %r11_1 = 0
-3348: branch_cond5 %r11_1, 0 -> 0x3350 v
+3348: bge %r11_1, 0 -> 0x3350 v
 334c: %r11_1 = 0
 3350: %r10_0 = or %r10_0, %r11_1
 3354: %r10_1 = and %r10_0, 0x00ff0000
@@ -2417,7 +2417,7 @@
 337c: %r10_0 = and %r11_1, 0x00800000
 3384: beq %r11_0, 0 -> 0x338c v
 3388: %r11_1 = 0
-338c: branch_cond5 %r11_1, 0 -> 0x3394 v
+338c: bge %r11_1, 0 -> 0x3394 v
 3390: %r11_1 = 0
 3394: %r10_0 = or %r10_0, %r11_1
 3398: %r10_1 = and %r10_0, 0xff000000
@@ -2428,7 +2428,7 @@
 33c0: %r10_0 = and %r11_1, 0x80000000
 33c8: beq %r11_0, 0 -> 0x33d0 v
 33cc: %r11_1 = 0
-33d0: branch_cond5 %r11_1, 0 -> 0x33d8 v
+33d0: bge %r11_1, 0 -> 0x33d8 v
 33d4: %r11_1 = 0
 33d8: %r10_0 = or %r10_0, %r11_1
 33dc: store_word %r10_0, MC1_WR_STR_DLL_0
@@ -2441,7 +2441,7 @@
 340c: %r10_0 = and %r11_1, 0x00000080
 3414: beq %r11_0, 0 -> 0x341c v
 3418: %r11_1 = 0
-341c: branch_cond5 %r11_1, 0 -> 0x3424 v
+341c: bge %r11_1, 0 -> 0x3424 v
 3420: %r11_1 = 0
 3424: %r10_0 = or %r10_0, %r11_1
 3428: %r10_1 = and %r10_0, 0x0000ff00
@@ -2452,7 +2452,7 @@
 3450: %r10_0 = and %r11_1, 0x00008000
 3458: beq %r11_0, 0 -> 0x3460 v
 345c: %r11_1 = 0
-3460: branch_cond5 %r11_1, 0 -> 0x3468 v
+3460: bge %r11_1, 0 -> 0x3468 v
 3464: %r11_1 = 0
 3468: %r10_0 = or %r10_0, %r11_1
 346c: %r10_1 = and %r10_0, 0x00ff0000
@@ -2463,7 +2463,7 @@
 3494: %r10_0 = and %r11_1, 0x00800000
 349c: beq %r11_0, 0 -> 0x34a4 v
 34a0: %r11_1 = 0
-34a4: branch_cond5 %r11_1, 0 -> 0x34ac v
+34a4: bge %r11_1, 0 -> 0x34ac v
 34a8: %r11_1 = 0
 34ac: %r10_0 = or %r10_0, %r11_1
 34b0: %r10_1 = and %r10_0, 0xff000000
@@ -2474,7 +2474,7 @@
 34d8: %r10_0 = and %r11_1, 0x80000000
 34e0: beq %r11_0, 0 -> 0x34e8 v
 34e4: %r11_1 = 0
-34e8: branch_cond5 %r11_1, 0 -> 0x34f0 v
+34e8: bge %r11_1, 0 -> 0x34f0 v
 34ec: %r11_1 = 0
 34f0: %r10_0 = or %r10_0, %r11_1
 34f4: store_word %r10_0, MC1_WR_STR_DLL_1
@@ -2488,7 +2488,7 @@
 3528: %r10_0 = and %r11_1, 0x00000080
 3530: beq %r11_0, 0 -> 0x3538 v
 3534: %r11_1 = 0
-3538: branch_cond5 %r11_1, 0 -> 0x3540 v
+3538: bge %r11_1, 0 -> 0x3540 v
 353c: %r11_1 = 0
 3540: %r10_0 = or %r10_0, %r11_1
 3544: %r10_1 = and %r10_0, 0x0000ff00
@@ -2499,7 +2499,7 @@
 356c: %r10_0 = and %r11_1, 0x00008000
 3574: beq %r11_0, 0 -> 0x357c v
 3578: %r11_1 = 0
-357c: branch_cond5 %r11_1, 0 -> 0x3584 v
+357c: bge %r11_1, 0 -> 0x3584 v
 3580: %r11_1 = 0
 3584: %r10_0 = or %r10_0, %r11_1
 3588: %r10_1 = and %r10_0, 0x00ff0000
@@ -2510,7 +2510,7 @@
 35b0: %r10_0 = and %r11_1, 0x00800000
 35b8: beq %r11_0, 0 -> 0x35c0 v
 35bc: %r11_1 = 0
-35c0: branch_cond5 %r11_1, 0 -> 0x35c8 v
+35c0: bge %r11_1, 0 -> 0x35c8 v
 35c4: %r11_1 = 0
 35c8: %r10_0 = or %r10_0, %r11_1
 35cc: %r10_1 = and %r10_0, 0xff000000
@@ -2521,7 +2521,7 @@
 35f4: %r10_0 = and %r11_1, 0x80000000
 35fc: beq %r11_0, 0 -> 0x3604 v
 3600: %r11_1 = 0
-3604: branch_cond5 %r11_1, 0 -> 0x360c v
+3604: bge %r11_1, 0 -> 0x360c v
 3608: %r11_1 = 0
 360c: %r10_0 = or %r10_0, %r11_1
 3610: store_word %r10_0, MC0_WR_STR_DLL_0
@@ -2534,7 +2534,7 @@
 3640: %r10_0 = and %r11_1, 0x00000080
 3648: beq %r11_0, 0 -> 0x3650 v
 364c: %r11_1 = 0
-3650: branch_cond5 %r11_1, 0 -> 0x3658 v
+3650: bge %r11_1, 0 -> 0x3658 v
 3654: %r11_1 = 0
 3658: %r10_0 = or %r10_0, %r11_1
 365c: %r10_1 = and %r10_0, 0x0000ff00
@@ -2545,7 +2545,7 @@
 3684: %r10_0 = and %r11_1, 0x00008000
 368c: beq %r11_0, 0 -> 0x3694 v
 3690: %r11_1 = 0
-3694: branch_cond5 %r11_1, 0 -> 0x369c v
+3694: bge %r11_1, 0 -> 0x369c v
 3698: %r11_1 = 0
 369c: %r10_0 = or %r10_0, %r11_1
 36a0: %r10_1 = and %r10_0, 0x00ff0000
@@ -2556,7 +2556,7 @@
 36c8: %r10_0 = and %r11_1, 0x00800000
 36d0: beq %r11_0, 0 -> 0x36d8 v
 36d4: %r11_1 = 0
-36d8: branch_cond5 %r11_1, 0 -> 0x36e0 v
+36d8: bge %r11_1, 0 -> 0x36e0 v
 36dc: %r11_1 = 0
 36e0: %r10_0 = or %r10_0, %r11_1
 36e4: %r10_1 = and %r10_0, 0xff000000
@@ -2567,7 +2567,7 @@
 370c: %r10_0 = and %r11_1, 0x80000000
 3714: beq %r11_0, 0 -> 0x371c v
 3718: %r11_1 = 0
-371c: branch_cond5 %r11_1, 0 -> 0x3724 v
+371c: bge %r11_1, 0 -> 0x3724 v
 3720: %r11_1 = 0
 3724: %r10_0 = or %r10_0, %r11_1
 3728: store_word %r10_0, MC0_WR_STR_DLL_1
@@ -2580,7 +2580,7 @@
 3758: %r10_0 = and %r11_1, 0x00000080
 3760: beq %r11_0, 0 -> 0x3768 v
 3764: %r11_1 = 0
-3768: branch_cond5 %r11_1, 0 -> 0x3770 v
+3768: bge %r11_1, 0 -> 0x3770 v
 376c: %r11_1 = 0
 3770: %r10_0 = or %r10_0, %r11_1
 3774: %r10_1 = and %r10_0, 0x0000ff00
@@ -2591,7 +2591,7 @@
 379c: %r10_0 = and %r11_1, 0x00008000
 37a4: beq %r11_0, 0 -> 0x37ac v
 37a8: %r11_1 = 0
-37ac: branch_cond5 %r11_1, 0 -> 0x37b4 v
+37ac: bge %r11_1, 0 -> 0x37b4 v
 37b0: %r11_1 = 0
 37b4: %r10_0 = or %r10_0, %r11_1
 37b8: %r10_1 = and %r10_0, 0x00ff0000
@@ -2602,7 +2602,7 @@
 37e0: %r10_0 = and %r11_1, 0x00800000
 37e8: beq %r11_0, 0 -> 0x37f0 v
 37ec: %r11_1 = 0
-37f0: branch_cond5 %r11_1, 0 -> 0x37f8 v
+37f0: bge %r11_1, 0 -> 0x37f8 v
 37f4: %r11_1 = 0
 37f8: %r10_0 = or %r10_0, %r11_1
 37fc: %r10_1 = and %r10_0, 0xff000000
@@ -2613,7 +2613,7 @@
 3824: %r10_0 = and %r11_1, 0x80000000
 382c: beq %r11_0, 0 -> 0x3834 v
 3830: %r11_1 = 0
-3834: branch_cond5 %r11_1, 0 -> 0x383c v
+3834: bge %r11_1, 0 -> 0x383c v
 3838: %r11_1 = 0
 383c: %r10_0 = or %r10_0, %r11_1
 3840: store_word %r10_0, MC1_WR_STR_DLL_0
@@ -2626,7 +2626,7 @@
 3870: %r10_0 = and %r11_1, 0x00000080
 3878: beq %r11_0, 0 -> 0x3880 v
 387c: %r11_1 = 0
-3880: branch_cond5 %r11_1, 0 -> 0x3888 v
+3880: bge %r11_1, 0 -> 0x3888 v
 3884: %r11_1 = 0
 3888: %r10_0 = or %r10_0, %r11_1
 388c: %r10_1 = and %r10_0, 0x0000ff00
@@ -2637,7 +2637,7 @@
 38b4: %r10_0 = and %r11_1, 0x00008000
 38bc: beq %r11_0, 0 -> 0x38c4 v
 38c0: %r11_1 = 0
-38c4: branch_cond5 %r11_1, 0 -> 0x38cc v
+38c4: bge %r11_1, 0 -> 0x38cc v
 38c8: %r11_1 = 0
 38cc: %r10_0 = or %r10_0, %r11_1
 38d0: %r10_1 = and %r10_0, 0x00ff0000
@@ -2648,7 +2648,7 @@
 38f8: %r10_0 = and %r11_1, 0x00800000
 3900: beq %r11_0, 0 -> 0x3908 v
 3904: %r11_1 = 0
-3908: branch_cond5 %r11_1, 0 -> 0x3910 v
+3908: bge %r11_1, 0 -> 0x3910 v
 390c: %r11_1 = 0
 3910: %r10_0 = or %r10_0, %r11_1
 3914: %r10_1 = and %r10_0, 0xff000000
@@ -2659,7 +2659,7 @@
 393c: %r10_0 = and %r11_1, 0x80000000
 3944: beq %r11_0, 0 -> 0x394c v
 3948: %r11_1 = 0
-394c: branch_cond5 %r11_1, 0 -> 0x3954 v
+394c: bge %r11_1, 0 -> 0x3954 v
 3950: %r11_1 = 0
 3954: %r10_0 = or %r10_0, %r11_1
 3958: store_word %r10_0, MC1_WR_STR_DLL_1
@@ -2669,9 +2669,9 @@
 396c: beq %r10_0, 0 -> 0x39a4 v
 3970: %r10_1 = 0x001ff306
 3978: %r10_0 = and %r12_0, 0x0000000f
-3980: branch_cond0 %r10_0, 2 -> 0x398c v
+3980: bne %r10_0, 2 -> 0x398c v
 3984: %r10_1 = 0x001bb306
-398c: branch_cond0 %r10_0, 6 -> 0x3998 v
+398c: bne %r10_0, 6 -> 0x3998 v
 3990: %r10_1 = 0x001fa306
 3998: %r11_1 = %r10_1
 399c: call 0x01b8
@@ -2692,7 +2692,7 @@
 39dc: delay -7
 39e0: %r10_1 = 0x040e3202
 39e8: %r12_0 = load_word -4
-39ec: branch_cond2 %r11_1, 0x00000018 -> 0x39f8 v
+39ec: blt? %r11_1, 0x00000018 -> 0x39f8 v
 39f4: %r10_1 = or %r10_1, 1
 39f8: store_word_0_100 %r10_1, MC0_DRAM_CONFIG
 39fc: store_word_0_100 0x00000080, MC0_BSB_SNOOPED_TIMER_CNTL
@@ -2715,12 +2715,12 @@
 3a7c: beq %r10_0, 0 -> 0x3aa8 v
 3a80: %r10_1 = 0x06208089
 3a88: %r10_0 = and %r12_0, 0x0000000f
-3a90: branch_cond0 %r10_0, 2 -> 0x3a9c v
+3a90: bne %r10_0, 2 -> 0x3a9c v
 3a94: %r10_1 = 0x0620808a
-3a9c: branch_cond0 %r10_0, 6 -> 0x3aa8 v
+3a9c: bne %r10_0, 6 -> 0x3aa8 v
 3aa0: %r10_1 = 0x06208089
 3aa8: %r12_0 = load_word -4
-3aac: branch_cond2 %r11_1, 0x00000018 -> 0x3ab8 v
+3aac: blt? %r11_1, 0x00000018 -> 0x3ab8 v
 3ab4: %r10_1 = or %r10_1, 4
 3ab8: store_word_0_100 %r10_1, MC0_DRAM_CMD
 3abc: store_word_0_100 0x06200772, MC0_DRAM_CMD
@@ -2809,57 +2809,57 @@
 3c68: beq %r10_0, 0 -> 0x3e14 v
 3c6c: %r12_0 = load_word -4
 3c70: %r11_1 = and %r11_1, 0x0000000f
-3c78: branch_cond0 %r11_1, 0x0000000c -> 0x3c90 v
+3c78: bne %r11_1, 0x0000000c -> 0x3c90 v
 3c80: %r10_1 = 0x2000000b
 3c88: %r10_0 = 0x04113202
-3c90: branch_cond0 %r11_1, 0x0000000d -> 0x3ca8 v
+3c90: bne %r11_1, 0x0000000d -> 0x3ca8 v
 3c98: %r10_1 = 0x20007061
 3ca0: %r10_0 = 0x04113202
-3ca8: branch_cond0 %r11_1, 0x0000000e -> 0x3cc0 v
+3ca8: bne %r11_1, 0x0000000e -> 0x3cc0 v
 3cb0: %r10_1 = 0x20003031
 3cb8: %r10_0 = 0x04123202
-3cc0: branch_cond0 %r11_1, 0x0000000f -> 0x3cd8 v
+3cc0: bne %r11_1, 0x0000000f -> 0x3cd8 v
 3cc8: %r10_1 = 0x20007065
 3cd0: %r10_0 = 0x04123202
-3cd8: branch_cond0 %r11_1, 0 -> 0x3cec v
+3cd8: bne %r11_1, 0 -> 0x3cec v
 3cdc: %r10_1 = 0x20001019
 3ce4: %r10_0 = 0x04123202
-3cec: branch_cond0 %r11_1, 1 -> 0x3d00 v
+3cec: bne %r11_1, 1 -> 0x3d00 v
 3cf0: %r10_1 = 0x20007069
 3cf8: %r10_0 = 0x04133202
-3d00: branch_cond0 %r11_1, 2 -> 0x3d14 v
+3d00: bne %r11_1, 2 -> 0x3d14 v
 3d04: %r10_1 = 0x20003035
 3d0c: %r10_0 = 0x04133202
-3d14: branch_cond0 %r11_1, 3 -> 0x3d28 v
+3d14: bne %r11_1, 3 -> 0x3d28 v
 3d18: %r10_1 = 0x2000706d
 3d20: %r10_0 = 0x04133202
-3d28: branch_cond0 %r11_1, 4 -> 0x3d3c v
+3d28: bne %r11_1, 4 -> 0x3d3c v
 3d2c: %r10_1 = 0x2000000d
 3d34: %r10_0 = 0x04143202
-3d3c: branch_cond0 %r11_1, 5 -> 0x3d50 v
+3d3c: bne %r11_1, 5 -> 0x3d50 v
 3d40: %r10_1 = 0x20007071
 3d48: %r10_0 = 0x04143202
-3d50: branch_cond0 %r11_1, 6 -> 0x3d64 v
+3d50: bne %r11_1, 6 -> 0x3d64 v
 3d54: %r10_1 = 0x20003039
 3d5c: %r10_0 = 0x04153202
-3d64: branch_cond0 %r11_1, 7 -> 0x3d78 v
+3d64: bne %r11_1, 7 -> 0x3d78 v
 3d68: %r10_1 = 0x20007075
 3d70: %r10_0 = 0x04153202
-3d78: branch_cond0 %r11_1, 0x00000008 -> 0x3d90 v
+3d78: bne %r11_1, 0x00000008 -> 0x3d90 v
 3d80: %r10_1 = 0x2000101d
 3d88: %r10_0 = 0x04153202
-3d90: branch_cond0 %r11_1, 0x00000009 -> 0x3da8 v
+3d90: bne %r11_1, 0x00000009 -> 0x3da8 v
 3d98: %r10_1 = 0x20007079
 3da0: %r10_0 = 0x04163202
-3da8: branch_cond0 %r11_1, 0x0000000a -> 0x3dc0 v
+3da8: bne %r11_1, 0x0000000a -> 0x3dc0 v
 3db0: %r10_1 = 0x2000303d
 3db8: %r10_0 = 0x04163202
-3dc0: branch_cond0 %r11_1, 0x0000000b -> 0x3dd8 v
+3dc0: bne %r11_1, 0x0000000b -> 0x3dd8 v
 3dc8: %r10_1 = 0x2000707d
 3dd0: %r10_0 = 0x04163202
 3dd8: %r10_0 = and %r12_0, 0x0000000f
-3de0: branch_cond0 %r10_0, 2 -> 0x3de4 v
-3de4: branch_cond0 %r10_0, 6 -> 0x3de8 v
+3de0: bne %r10_0, 2 -> 0x3de4 v
+3de4: bne %r10_0, 6 -> 0x3de8 v
 3de8: store_word %r10_1, 0xe4000284
 3dec: %r10_1 = or %r10_1, 0x000c0000
 3df4: store_word %r10_1, 0xe4000284
@@ -2870,7 +2870,7 @@
 3e0c: store_word %r10_1, 0xe4000284
 3e10: call 0x44f8
 3e14: %r12_0 = load_word -4
-3e18: branch_cond2 %r11_1, 0x00000018 -> 0x3e24 v
+3e18: blt? %r11_1, 0x00000018 -> 0x3e24 v
 3e20: %r10_0 = or %r11_0, 1
 3e24: store_word_0_100 %r11_0, MC0_DRAM_CONFIG
 3e28: store_word_0_100 0x00000080, MC0_BSB_SNOOPED_TIMER_CNTL
@@ -2899,12 +2899,12 @@
 3ec0: beq %r10_0, 0 -> 0x3eec v
 3ec4: %r10_1 = 0x06208009
 3ecc: %r10_0 = and %r12_0, 0x0000000f
-3ed4: branch_cond0 %r10_0, 2 -> 0x3ee0 v
+3ed4: bne %r10_0, 2 -> 0x3ee0 v
 3ed8: %r10_1 = 0x0620800a
-3ee0: branch_cond0 %r10_0, 6 -> 0x3eec v
+3ee0: bne %r10_0, 6 -> 0x3eec v
 3ee4: %r10_1 = 0x062080b9
 3eec: %r12_0 = load_word -4
-3ef0: branch_cond2 %r11_1, 0x00000018 -> 0x3efc v
+3ef0: blt? %r11_1, 0x00000018 -> 0x3efc v
 3ef8: %r10_1 = or %r10_1, 4
 3efc: store_word %r10_1, 0xe4000014
 3f00: store_word_0_100 %r10_1, MC0_DRAM_CMD
@@ -2928,7 +2928,7 @@
 3f5c: %r12_0 = 0
 3f60: op_1E %r11_0, -7
 3f64: %r10_0 = add %r11_0, 1
-3f68: branch_cond0 %r11_0, 4 -> 0x3f50 ^
+3f68: bne %r11_0, 4 -> 0x3f50 ^
 3f6c: %r10_0 = 0
 3f70: store_word %r11_0, 0xe4000018
 3f74: store_word_0_100 %r11_0, MC0_RD_STR_DLY_0
@@ -2956,7 +2956,7 @@
 3fe4: op_1E 3, -7
 3fe8: %r10_0 = load_word -5
 3fec: %r10_0 = add %r11_0, 0x01010101
-3ff4: branch_cond0 %r11_0, 0x50505050 -> 0x3f70 ^
+3ff4: bne %r11_0, 0x50505050 -> 0x3f70 ^
 3ffc: %r10_0 = 0
 4000: op_1E %r10_0, -7
 4004: %r10_0 = rotlw_by_2_then_and %r10_0, 0x000000ff
@@ -2987,7 +2987,7 @@
 40a0: %r13_1 = or %r13_1, %r11_0
 40a4: op_1E %r10_0, -7
 40a8: %r10_0 = add %r10_0, 1
-40ac: branch_cond0 %r10_0, 4 -> 0x4000 ^
+40ac: bne %r10_0, 4 -> 0x4000 ^
 40b0: op_1E 0, -7
 40b4: store_word %r13_1, MC0_RD_STR_DLY_0
 40b8: op_1E 0, -7
@@ -3001,15 +3001,15 @@
 40d8: store_word %r13_1, MC1_RD_STR_DLY_1
 40dc: op_1E 3, -7
 40e0: %r10_1 = and %r12_0, 0x0000000f
-40e8: branch_cond0 %r10_1, 1 -> 0x40f4 v
+40e8: bne %r10_1, 1 -> 0x40f4 v
 40ec: call 0x2c08
 40f0: jmp 0x411c v
 40f4: %r10_1 = and %r12_0, 0x0000000f
-40fc: branch_cond0 %r10_1, 2 -> 0x4108 v
+40fc: bne %r10_1, 2 -> 0x4108 v
 4100: call 0x2c2c
 4104: jmp 0x411c v
 4108: %r10_1 = and %r12_0, 0x0000000f
-4110: branch_cond0 %r10_1, 6 -> 0x411c v
+4110: bne %r10_1, 6 -> 0x411c v
 4114: call 0x2c50
 4118: jmp 0x411c v
 411c: %r10_0 = *(MC1_RD_STR_DLY_1)
@@ -3024,16 +3024,16 @@
 4148: %r11_1 = 0
 414c: store_word %r11_1, 0xe4000028
 4150: %r11_1 = and %r11_1, 0x0000000f
-4158: branch_cond0 %r11_1, 0 -> 0x4198 v
+4158: bne %r11_1, 0 -> 0x4198 v
 415c: store_word %r11_1, 0xe4000028
 4160: %r10_0 = rotlw_by_28_then_and %r11_1, 7
-4164: branch_cond0 %r11_0, 0 -> 0x4170 v
+4164: bne %r11_0, 0 -> 0x4170 v
 4168: %r11_1 = 0x001ff306
-4170: branch_cond0 %r11_0, 1 -> 0x417c v
+4170: bne %r11_0, 1 -> 0x417c v
 4174: %r11_1 = 0x001bb306
-417c: branch_cond0 %r11_0, 2 -> 0x4188 v
+417c: bne %r11_0, 2 -> 0x4188 v
 4180: %r11_1 = 0x001fa306
-4188: branch_cond0 %r11_0, 3 -> 0x4194 v
+4188: bne %r11_0, 3 -> 0x4194 v
 418c: %r11_1 = 0x0018f306
 4194: call 0x01b8
 4198: %r10_0 = 0
@@ -3043,7 +3043,7 @@
 41a8: %r12_0 = 0
 41ac: op_1E %r11_0, -7
 41b0: %r10_0 = add %r11_0, 1
-41b4: branch_cond0 %r11_0, 4 -> 0x419c ^
+41b4: bne %r11_0, 4 -> 0x419c ^
 41b8: call 0x4588
 41bc: %r10_0 = 0
 41c0: store_word %r11_0, 0xe4000024
@@ -3072,7 +3072,7 @@
 422c: op_1E 3, -7
 4230: %r10_0 = load_word -5
 4234: %r10_0 = add %r11_0, 0x01010101
-423c: branch_cond0 %r11_0, 0x50505050 -> 0x41c4 ^
+423c: bne %r11_0, 0x50505050 -> 0x41c4 ^
 4244: %r10_0 = 0
 4248: op_1E %r10_0, -7
 424c: %r10_0 = rotlw_by_2_then_and %r10_0, 0x000000ff
@@ -3103,7 +3103,7 @@
 42e8: %r13_1 = or %r13_1, %r11_0
 42ec: op_1E %r10_0, -7
 42f0: %r10_0 = add %r10_0, 1
-42f4: branch_cond0 %r10_0, 4 -> 0x4248 ^
+42f4: bne %r10_0, 4 -> 0x4248 ^
 42f8: op_1E 0, -7
 42fc: store_word %r13_1, MC0_WR_STR_DLL_0
 4300: op_1E 0, -7
@@ -3117,15 +3117,15 @@
 4320: store_word %r13_1, MC1_WR_STR_DLL_1
 4324: op_1E 3, -7
 4328: %r10_1 = and %r12_0, 0x0000000f
-4330: branch_cond0 %r10_1, 1 -> 0x433c v
+4330: bne %r10_1, 1 -> 0x433c v
 4334: call 0x2c74
 4338: jmp 0x4364 v
 433c: %r10_1 = and %r12_0, 0x0000000f
-4344: branch_cond0 %r10_1, 2 -> 0x4350 v
+4344: bne %r10_1, 2 -> 0x4350 v
 4348: call 0x3098
 434c: jmp 0x4364 v
 4350: %r10_1 = and %r12_0, 0x0000000f
-4358: branch_cond0 %r10_1, 6 -> 0x4364 v
+4358: bne %r10_1, 6 -> 0x4364 v
 435c: call 0x34fc
 4360: jmp 0x4364 v
 4364: %r12_0 = *(MC1_WR_STR_DLL_1)
@@ -3133,12 +3133,12 @@
 436c: delay -7
 4370: %r10_0 = load_word -4
 4374: %r10_0 = and %r11_1, 0x0000000f
-437c: branch_cond0 %r11_0, 0 -> 0x441c v
+437c: bne %r11_0, 0 -> 0x441c v
 4380: %r12_0 = load_word -4
 4384: %r11_1 = and %r11_1, 0x0000ffff
 438c: %r10_0 = load_word -5
 4390: %r10_0 = and %r11_0, 0x0000ffff
-4398: branch_cond1 %r11_1, %r11_0 -> 0x43b0 v
+4398: bgt? %r11_1, %r11_0 -> 0x43b0 v
 439c: %r10_0 = load_word -5
 43a0: %r10_0 = rotlw_by_12_then_and %r11_0, 0x00070000
 43a8: %r10_0 = or %r11_1, %r11_0
@@ -3149,25 +3149,25 @@
 43bc: %r10_0 = load_word -4
 43c0: %r11_1 = add %r11_1, 0x00000010
 43c8: %r10_0 = rotlw_by_28_then_and %r11_1, 7
-43cc: branch_cond6 %r11_0, 4 -> 0x415c ^
+43cc: ble %r11_0, 4 -> 0x415c ^
 43d0: %r10_0 = load_word -5
 43d4: %r10_0 = rotlw_by_16_then_and %r11_0, 7
 43d8: %r10_0 = and %r12_0, 0x0000000f
-43e0: branch_cond0 %r10_0, 2 -> 0x43e8 v
+43e0: bne %r10_0, 2 -> 0x43e8 v
 43e4: %r10_0 = 1
-43e8: branch_cond0 %r11_0, 0 -> 0x43f4 v
+43e8: bne %r11_0, 0 -> 0x43f4 v
 43ec: %r11_1 = 0x001ff306
-43f4: branch_cond0 %r11_0, 1 -> 0x4400 v
+43f4: bne %r11_0, 1 -> 0x4400 v
 43f8: %r11_1 = 0x001bb306
-4400: branch_cond0 %r11_0, 2 -> 0x440c v
+4400: bne %r11_0, 2 -> 0x440c v
 4404: %r11_1 = 0x001fa306
-440c: branch_cond0 %r11_0, 3 -> 0x4418 v
+440c: bne %r11_0, 3 -> 0x4418 v
 4410: %r11_1 = 0x0018f306
 4418: call 0x01b8
 441c: %r10_0 = load_word -4
 4420: %r11_1 = add %r11_1, 1
 4424: %r10_0 = and %r11_1, 0x0000000f
-442c: branch_cond6 %r11_0, 2 -> 0x414c ^
+442c: ble %r11_0, 2 -> 0x414c ^
 4430: call 0x4708
 4434: store_word_0_100 0, MC0_CNTL
 4438: store_word_0_100 0, MC0_POINTER
@@ -3191,7 +3191,7 @@
 4498: call 0x5510
 449c: %r10_0 = load_word -6
 44a0: %r10_1 = rotlw_by_31_then_and %r10_1, 0x7fffffff
-44a8: branch_cond1 %r10_1, 0x00000080 -> 0x6030 v
+44a8: bgt? %r10_1, 0x00000080 -> 0x6030 v
 44b0: store_word 0, 0
 44b4: %r10_0 = *(0)
 44b8: sync
@@ -3199,7 +3199,7 @@
 44c0: %r10_0 = *(%r10_1)
 44c4: sync
 44c8: %r10_0 = *(0)
-44cc: branch_cond0 %r10_0, 0 -> 0x44d8 v
+44cc: bne %r10_0, 0 -> 0x44d8 v
 44d0: %r10_0 = load_word -5
 44d4: beq %r11_0, %r10_1 -> 0x44a0 ^
 44d8: store_word 0x0014149a, 0xe4000024
@@ -3229,16 +3229,16 @@
 453c: call 0x44e8
 4540: return
 4544: %r10_0 = and %r10_1, 0x000000ff
-454c: branch_cond5 %r11_0, %r10_0 -> 0x4554 v
+454c: bge %r11_0, %r10_0 -> 0x4554 v
 4550: %r10_0 = or %r11_0, %r11_0
 4554: %r10_0 = rotlw_by_24_then_and %r10_1, 0x000000ff
-455c: branch_cond5 %r11_0, %r10_0 -> 0x4564 v
+455c: bge %r11_0, %r10_0 -> 0x4564 v
 4560: %r10_0 = or %r11_0, %r11_0
 4564: %r10_0 = rotlw_by_16_then_and %r10_1, 0x000000ff
-456c: branch_cond5 %r11_0, %r10_0 -> 0x4574 v
+456c: bge %r11_0, %r10_0 -> 0x4574 v
 4570: %r10_0 = or %r11_0, %r11_0
 4574: %r10_0 = rotlw_by_8_then_and %r10_1, 0x000000ff
-457c: branch_cond5 %r11_0, %r10_0 -> 0x4584 v
+457c: bge %r11_0, %r10_0 -> 0x4584 v
 4580: %r10_0 = or %r11_0, %r11_0
 4584: return
 4588: %r10_0 = 0x00000050
@@ -4064,7 +4064,7 @@
 56a8: %r10_0 = 0x80018001
 56b0: call 0x557c
 56b4: %r12_0 = load_word -4
-56b8: branch_cond2 %r11_1, 0x00000018 -> 0x5758 v
+56b8: blt? %r11_1, 0x00000018 -> 0x5758 v
 56c0: %r10_0 = load_word -4
 56c4: %r11_1 = rotlw_by_31_then_and %r11_1, 0x7fffffff
 56cc: %r10_1 = add %r10_1, %r11_1
@@ -4124,7 +4124,7 @@
 57e8: %r10_0 = xor %r10_0, -1
 57ec: %r10_1 = add %r10_1, 0x00000010
 57f4: %r12_0 = load_word -5
-57f8: branch_cond2 %r11_0, 0x00000018 -> 0x58b8 v
+57f8: blt? %r11_0, 0x00000018 -> 0x58b8 v
 5800: %r10_0 = load_word -5
 5804: %r10_0 = rotlw_by_31_then_and %r11_0, -1
 5808: %r10_1 = add %r10_1, %r11_0
@@ -4253,7 +4253,7 @@
 5a64: %r10_0 = xor %r10_0, -1
 5a68: %r10_1 = add %r10_1, 0x00000010
 5a70: %r12_0 = load_word -5
-5a74: branch_cond2 %r11_0, 0x00000018 -> 0x5bd4 v
+5a74: blt? %r11_0, 0x00000018 -> 0x5bd4 v
 5a7c: %r10_0 = load_word -5
 5a80: %r10_0 = rotlw_by_31_then_and %r11_0, -1
 5a84: %r10_1 = add %r10_1, %r11_0
@@ -4352,28 +4352,28 @@
 5c54: return
 5c58: %r12_0 = load_word -5
 5c5c: %r10_0 = and %r13_1, 0x000000ff
-5c64: branch_cond0 %r10_0, 0 -> 0x5c80 v
+5c64: bne %r10_0, 0 -> 0x5c80 v
 5c68: %r12_0 = *(0xe400001c)
 5c6c: %r10_0 = and %r10_0, 0x000000ff
 5c74: %r12_0 = add %r12_0, %r10_0
 5c78: %r12_0 = add %r13_0, 1
 5c7c: %r10_0 = add %r11_0, 1
 5c80: %r10_0 = and %r13_1, 0x0000ff00
-5c88: branch_cond0 %r10_0, 0 -> 0x5ca8 v
+5c88: bne %r10_0, 0 -> 0x5ca8 v
 5c8c: %r12_0 = *(0xe400001c)
 5c90: %r10_0 = rotlw_by_8_then_and %r10_0, 0x00ff0000
 5c98: %r12_0 = add %r12_0, %r10_0
 5c9c: %r12_0 = add %r13_0, 0x00000100
 5ca4: %r10_0 = add %r11_0, 1
 5ca8: %r10_0 = and %r13_1, 0x00ff0000
-5cb0: branch_cond0 %r10_0, 0 -> 0x5cd0 v
+5cb0: bne %r10_0, 0 -> 0x5cd0 v
 5cb4: %r12_0 = *(0xe400001c)
 5cb8: %r10_0 = rotlw_by_16_then_and %r10_0, 0x000000ff
 5cc0: %r12_1 = add %r12_1, %r10_0
 5cc4: %r12_0 = add %r13_0, 0x00010000
 5ccc: %r10_0 = add %r11_0, 1
 5cd0: %r10_0 = and %r13_1, 0xff000000
-5cd8: branch_cond0 %r10_0, 0 -> 0x5cf8 v
+5cd8: bne %r10_0, 0 -> 0x5cf8 v
 5cdc: %r12_0 = *(0xe400001c)
 5ce0: %r10_0 = rotlw_by_24_then_and %r10_0, 0x00ff0000
 5ce8: %r12_1 = add %r12_1, %r10_0
@@ -4383,7 +4383,7 @@
 5cfc: return
 5d00: %r12_0 = load_word -5
 5d04: %r10_0 = and %r11_1, 0x000000ff
-5d0c: branch_cond0 %r10_0, 0 -> 0x5d30 v
+5d0c: bne %r10_0, 0 -> 0x5d30 v
 5d10: %r12_0 = *(0xe400001c)
 5d14: %r10_0 = and %r10_0, 0x000000ff
 5d1c: %r12_0 = add %r12_0, %r10_0
@@ -4391,7 +4391,7 @@
 5d28: %r12_0 = add %r13_0, 1
 5d2c: %r10_0 = add %r11_0, 1
 5d30: %r10_0 = and %r11_1, 0x0000ff00
-5d38: branch_cond0 %r10_0, 0 -> 0x5d60 v
+5d38: bne %r10_0, 0 -> 0x5d60 v
 5d3c: %r12_0 = *(0xe400001c)
 5d40: %r10_0 = rotlw_by_8_then_and %r10_0, 0x00ff0000
 5d48: %r12_0 = add %r12_0, %r10_0
@@ -4399,7 +4399,7 @@
 5d54: %r12_0 = add %r13_0, 0x00000100
 5d5c: %r10_0 = add %r11_0, 1
 5d60: %r10_0 = and %r11_1, 0x00ff0000
-5d68: branch_cond0 %r10_0, 0 -> 0x5d90 v
+5d68: bne %r10_0, 0 -> 0x5d90 v
 5d6c: %r12_0 = *(0xe400001c)
 5d70: %r10_0 = rotlw_by_16_then_and %r10_0, 0x000000ff
 5d78: %r12_1 = add %r12_1, %r10_0
@@ -4407,7 +4407,7 @@
 5d84: %r12_0 = add %r13_0, 0x00010000
 5d8c: %r10_0 = add %r11_0, 1
 5d90: %r10_0 = and %r11_1, 0xff000000
-5d98: branch_cond0 %r10_0, 0 -> 0x5dc0 v
+5d98: bne %r10_0, 0 -> 0x5dc0 v
 5d9c: %r12_0 = *(0xe400001c)
 5da0: %r10_0 = rotlw_by_24_then_and %r10_0, 0x00ff0000
 5da8: %r12_1 = add %r12_1, %r10_0
@@ -4417,53 +4417,53 @@
 5dc0: store_word %r11_0, 0xe4000024
 5dc4: return
 5dc8: %r10_0 = and %r13_1, 0x000000ff
-5dd0: branch_cond0 %r10_0, 0 -> 0x5de8 v
+5dd0: bne %r10_0, 0 -> 0x5de8 v
 5dd4: %r10_0 = *(0xe4000018)
 5dd8: %r10_0 = and %r10_0, 0x000000ff
 5de0: %r12_0 = add %r12_0, %r10_0
 5de4: %r12_0 = add %r13_0, 1
 5de8: %r10_0 = and %r13_1, 0x0000ff00
-5df0: branch_cond0 %r10_0, 0 -> 0x5e0c v
+5df0: bne %r10_0, 0 -> 0x5e0c v
 5df4: %r10_0 = *(0xe4000018)
 5df8: %r10_0 = and %r10_0, 0x00ff0000
 5e00: %r12_0 = add %r12_0, %r10_0
 5e04: %r12_0 = add %r13_0, 0x00000100
 5e0c: %r10_0 = and %r13_1, 0x00ff0000
-5e14: branch_cond0 %r10_0, 0 -> 0x5e30 v
+5e14: bne %r10_0, 0 -> 0x5e30 v
 5e18: %r10_0 = *(0xe4000018)
 5e1c: %r10_0 = and %r10_0, 0x000000ff
 5e24: %r12_1 = add %r12_1, %r10_0
 5e28: %r12_0 = add %r13_0, 0x00010000
 5e30: %r10_0 = and %r13_1, 0xff000000
-5e38: branch_cond0 %r10_0, 0 -> 0x5e54 v
+5e38: bne %r10_0, 0 -> 0x5e54 v
 5e3c: %r10_0 = *(0xe4000018)
 5e40: %r10_0 = and %r10_0, 0x00ff0000
 5e48: %r12_1 = add %r12_1, %r10_0
 5e4c: %r12_0 = add %r13_0, 0x01000000
 5e54: return
 5e58: %r10_0 = and %r11_1, 0x000000ff
-5e60: branch_cond0 %r10_0, 0 -> 0x5e80 v
+5e60: bne %r10_0, 0 -> 0x5e80 v
 5e64: %r10_0 = *(0xe4000018)
 5e68: %r10_0 = and %r10_0, 0x000000ff
 5e70: %r12_0 = add %r12_0, %r10_0
 5e74: %r12_0 = subf %r12_0, 0x00000050
 5e7c: %r12_0 = add %r13_0, 1
 5e80: %r10_0 = and %r11_1, 0x0000ff00
-5e88: branch_cond0 %r10_0, 0 -> 0x5eac v
+5e88: bne %r10_0, 0 -> 0x5eac v
 5e8c: %r10_0 = *(0xe4000018)
 5e90: %r10_0 = and %r10_0, 0x00ff0000
 5e98: %r12_0 = add %r12_0, %r10_0
 5e9c: %r12_0 = subf %r12_0, 0x00500000
 5ea4: %r12_0 = add %r13_0, 0x00000100
 5eac: %r10_0 = and %r11_1, 0x00ff0000
-5eb4: branch_cond0 %r10_0, 0 -> 0x5ed8 v
+5eb4: bne %r10_0, 0 -> 0x5ed8 v
 5eb8: %r10_0 = *(0xe4000018)
 5ebc: %r10_0 = and %r10_0, 0x000000ff
 5ec4: %r12_1 = add %r12_1, %r10_0
 5ec8: %r12_1 = subf %r12_1, 0x00000050
 5ed0: %r12_0 = add %r13_0, 0x00010000
 5ed8: %r10_0 = and %r11_1, 0xff000000
-5ee0: branch_cond0 %r10_0, 0 -> 0x5f04 v
+5ee0: bne %r10_0, 0 -> 0x5f04 v
 5ee4: %r10_0 = *(0xe4000018)
 5ee8: %r10_0 = and %r10_0, 0x00ff0000
 5ef0: %r12_1 = add %r12_1, %r10_0
@@ -4499,22 +4499,22 @@
 5f88: jmp 0x4430 ^
 5f8c: %r10_0 = load_word -4
 5f90: %r11_1 = and %r11_1, 0x0000000f
-5f98: branch_cond0 %r11_1, 0 -> 0x5ffc v
+5f98: bne %r11_1, 0 -> 0x5ffc v
 5f9c: %r13_1 = 0x0000000f
 5fa4: jmp 0x4280 ^
 5fa8: %r10_0 = load_word -4
 5fac: %r11_1 = and %r11_1, 0x0000000f
-5fb4: branch_cond0 %r11_1, 0 -> 0x5ffc v
+5fb4: bne %r11_1, 0 -> 0x5ffc v
 5fb8: %r13_1 = or %r13_1, 0x00000f00
 5fc0: jmp 0x42a4 ^
 5fc4: %r10_0 = load_word -4
 5fc8: %r11_1 = and %r11_1, 0x0000000f
-5fd0: branch_cond0 %r11_1, 0 -> 0x5ffc v
+5fd0: bne %r11_1, 0 -> 0x5ffc v
 5fd4: %r13_1 = or %r13_1, 0x000f0000
 5fdc: jmp 0x42c8 ^
 5fe0: %r10_0 = load_word -4
 5fe4: %r11_1 = and %r11_1, 0x0000000f
-5fec: branch_cond0 %r11_1, 0 -> 0x5ffc v
+5fec: bne %r11_1, 0 -> 0x5ffc v
 5ff0: %r13_1 = or %r13_1, 0x0f000000
 5ff8: jmp 0x42ec ^
 5ffc: op_1E %r10_0, -7
