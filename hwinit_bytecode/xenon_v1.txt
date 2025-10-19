@@ -3,19 +3,19 @@
 000c: %r12_0 = load_half -7
 0010: sync
 0014: store_word 0, 0xe0020000
-001c: %r10_0 = load_word -7
+001c: %r10_0 = *(0xe0020000)
 0024: sync
 0028: store_word 0xc0000000, 0xe0020004
-0034: %r10_0 = load_word -7
+0034: %r10_0 = *(0xe0020004)
 003c: sync
 0040: store_word 0x00000018, 0xe1020004
-0048: %r12_0 = load_word -7
+0048: %r12_0 = *(0xe1020004)
 004c: sync
 0050: store_word 0x5f076009, 0xe1010000
-0058: %r10_0 = load_word -7
+0058: %r10_0 = *(0xe1010010)
 005c: sync
 0060: store_word 0x00004000, 0xe1018020
-0068: %r10_0 = load_word -7
+0068: %r10_0 = *(0xe1018000)
 006c: sync
 0070: store_word 0xe4000000, 0xd0010010
 0078: store_half 2, 0xd0010004
@@ -23,14 +23,14 @@
 0080: sync
 0084: %r10_1 = 0x20000000
 008c: store_word %r10_1, 0xe4000284
-0090: %r12_0 = load_word -7
+0090: %r12_0 = *(0xe4000284)
 0094: sync
 0098: store_word 0, 0xe4000200
 009c: store_word %r10_1, 0xe4000210
 00a0: store_word %r10_1, 0xe4000244
 00a4: store_word_0_100 0, MC0_CNTL
 00a8: store_word 0, 0xe40002a4
-00ac: %r12_0 = load_word -7
+00ac: %r12_0 = *(0xe40002a4)
 00b0: sync
 00b4: store_word 0x00020100, 0xd0000018
 00bc: store_word 0xea001000, 0xd0150010
@@ -38,20 +38,20 @@
 00d0: %r10_0 = load_half -7
 00d8: sync
 00dc: store_word 0x000001e6, 0xea00101c
-00e4: %r10_0 = load_word -7
+00e4: %r10_0 = *(0xea00101c)
 00ec: sync
 00f0: store_word 0, 0xe400002c
 00f4: store_word 0x00000100, 0xe400002c
-00fc: store_word 4, 0xea001084
-0104: store_word 0x00000012, 0xea001080
-010c: store_word 0, 0xea001084
-0114: %r10_0 = load_word -7
+00fc: store_word 4, SMC_FIFO_INBOX_CTRL_STATUS
+0104: store_word 0x00000012, SMC_FIFO_INBOX_DATA
+010c: store_word 0, SMC_FIFO_INBOX_CTRL_STATUS
+0114: %r10_0 = *(SMC_FIFO_OUTBOX_CTRL_STATUS)
 011c: %r10_1 = and %r10_0, 4
 0120: beq %r10_1, 0 -> 0x0114 ^
-0124: store_word 4, 0xea001094
-012c: %r10_0 = load_word -7
-0134: %r10_0 = load_word -7
-013c: store_word 0, 0xea001094
+0124: store_word 4, SMC_FIFO_OUTBOX_CTRL_STATUS
+012c: %r10_0 = *(SMC_FIFO_OUTBOX_DATA)
+0134: %r10_0 = *(SMC_FIFO_OUTBOX_DATA)
+013c: store_word 0, SMC_FIFO_OUTBOX_CTRL_STATUS
 0144: %r10_0 = and %r10_0, 0x000000ff
 014c: %r12_0 = load_word -6
 0150: %r10_1 = and %r10_1, 0xffffff00
@@ -73,17 +73,17 @@
 01a8: store_word 0xe0f7fd00, 0xe1003300
 01b4: return
 01b8: store_word %r10_0, 0xe4000028
-01bc: %r12_0 = load_word -7
+01bc: %r12_0 = *(0xe400002c)
 01c0: %r10_0 = and %r10_0, 0x00000100
 01c8: beq %r10_0, 0 -> 0x01f8 v
-01cc: %r10_0 = load_word -7
+01cc: %r10_0 = *(SMC_FIFO_INBOX_CTRL_STATUS)
 01d4: %r10_0 = and %r10_0, 4
 01d8: beq %r10_0, 0 -> 0x01cc ^
-01dc: store_word 4, 0xea001084
-01e4: %r12_0 = load_word -7
-01e8: store_word %r10_0, 0xea001080
-01f0: store_word 0, 0xea001084
-01f8: %r10_0 = load_word -7
+01dc: store_word 4, SMC_FIFO_INBOX_CTRL_STATUS
+01e4: %r12_0 = *(0xe4000024)
+01e8: store_word %r10_0, SMC_FIFO_INBOX_DATA
+01f0: store_word 0, SMC_FIFO_INBOX_CTRL_STATUS
+01f8: %r10_0 = *(0xe4000028)
 01fc: return
 0200: store_word 0x20000000, 0xe1020000
 0208: store_word 0x20000000, 0xe1040000
@@ -110,7 +110,7 @@
 0284: store_word %r10_1, 0xe4000210
 0288: %r10_1 = or %r10_1, 0x000c0000
 0290: store_word %r10_1, 0xe4000210
-0294: %r10_0 = load_word -7
+0294: %r10_0 = *(0xe4000210)
 0298: sync
 029c: delay -7
 02a0: %r10_1 = and %r10_1, 0xdff3ffff
@@ -119,21 +119,21 @@
 02b4: store_word %r10_1, 0xe4000284
 02b8: %r10_1 = or %r10_1, 0x000c0000
 02c0: store_word %r10_1, 0xe4000284
-02c4: %r12_0 = load_word -7
+02c4: %r12_0 = *(0xe4000284)
 02c8: sync
 02cc: delay -7
 02d0: %r10_1 = and %r10_1, 0xdff3ffff
 02d8: store_word %r10_1, 0xe4000284
 02dc: call 0x0fa8
 02e0: %r10_1 = 0x20000013
-02e8: %r10_0 = load_word -7
+02e8: %r10_0 = *(0xd0008008)
 02ec: %r10_0 = and %r10_0, 0x000000ff
 02f4: branch_cond0 %r10_0, 0 -> 0x0300 v
 02f8: %r10_1 = 0x20000007
 0300: store_word %r10_1, 0xe4000244
 0304: %r10_1 = or %r10_1, 0x000c0000
 030c: store_word %r10_1, 0xe4000244
-0310: %r12_0 = load_word -7
+0310: %r12_0 = *(0xe4000244)
 0314: sync
 0318: delay -7
 031c: %r10_1 = and %r10_1, 0xdff3ffff
@@ -158,7 +158,7 @@
 038c: %r10_0 = 0x0f0f0f0f
 0394: store_word_0_100 %r10_0, MC0_WR_STR_DLL_0
 0398: store_word_0_100 %r10_0, MC0_WR_STR_DLL_1
-039c: %r12_0 = load_word -7
+039c: %r12_0 = *(MC1_WR_STR_DLL_1)
 03a0: sync
 03a4: delay -7
 03a8: call 0x0fa8
@@ -166,18 +166,18 @@
 03b0: store_word -1, MC0_WR_STR_DLY
 03b4: store_word -1, MC1_WR_STR_DLY
 03b8: store_word_0_100 1, MC0_PAD_CAL_CNTL
-03bc: %r10_0 = load_word -7
+03bc: %r10_0 = *(MC1_PAD_CAL_CNTL)
 03c0: sync
 03c4: delay -7
 03c8: store_word_0_100 0, MC0_PAD_CAL_CNTL
-03cc: %r10_0 = load_word -7
+03cc: %r10_0 = *(0xd0008008)
 03d0: %r10_0 = and %r10_0, 0x000000ff
 03d8: branch_cond0 %r10_0, 0 -> 0x03f0 v
 03dc: store_word_0_100 0x000000e6, MC0_PAD_CAL_CNTL
 03e4: store_word_0_100 0x000000e4, MC0_PAD_CAL_CNTL
 03ec: jmp 0x040c v
 03f0: store_word_0_100 0x000ff306, MC0_PAD_CAL_CNTL
-03f8: %r10_0 = load_word -7
+03f8: %r10_0 = *(MC1_PAD_CAL_CNTL)
 03fc: sync
 0400: delay -7
 0404: store_word_0_100 0x000ff300, MC0_PAD_CAL_CNTL
@@ -186,11 +186,11 @@
 0414: store_word_0_100 0, MC0_POINTER
 0418: store_word_0_100 0x001c0000, MC0_DRAM_CMD
 0420: store_word_0_100 2, MC0_CNTL
-0424: %r10_0 = load_word -7
+0424: %r10_0 = *(MC1_CNTL)
 0428: sync
 042c: delay -7
 0430: store_word 0x00000019, 0xe40002a4
-0438: %r12_0 = load_word -7
+0438: %r12_0 = *(0xe40002a4)
 043c: sync
 0440: delay -7
 0444: store_word_0_100 0, MC0_POINTER
@@ -200,7 +200,7 @@
 0460: store_word_0_100 0x0620808d, MC0_DRAM_CMD
 0468: store_word_0_100 0x06200772, MC0_DRAM_CMD
 0470: store_word_0_100 2, MC0_CNTL
-0474: %r10_0 = load_word -7
+0474: %r10_0 = *(MC1_CNTL)
 0478: sync
 047c: delay -7
 0480: store_word_0_100 0, MC0_POINTER
@@ -209,7 +209,7 @@
 0494: store_word_0_100 0x2f240000, MC0_DRAM_CMD
 049c: store_word_0_100 0x0620c48d, MC0_DRAM_CMD
 04a4: store_word_0_100 2, MC0_CNTL
-04a8: %r10_0 = load_word -7
+04a8: %r10_0 = *(MC1_CNTL)
 04ac: sync
 04b0: %r12_0 = load_word -3
 04b4: %r12_0 = load_word -2
@@ -219,7 +219,7 @@
 04c8: store_word_0_100 0, MC0_POINTER
 04cc: store_word_0_100 0x0620a48d, MC0_DRAM_CMD
 04d4: store_word_0_100 2, MC0_CNTL
-04d8: %r10_0 = load_word -7
+04d8: %r10_0 = *(MC1_CNTL)
 04dc: sync
 04e0: %r12_0 = load_word -1
 04e4: %r12_0 = load_word 0
@@ -253,7 +253,7 @@
 058c: store_word %r11_1, 0xe40002a4
 0590: store_word %r11_0, 0xe1020000
 0594: store_word %r11_0, 0xe1040000
-0598: %r10_0 = load_word -7
+0598: %r10_0 = *(0xd0008008)
 059c: %r10_0 = and %r10_0, 0x000000ff
 05a4: beq %r10_0, 0 -> 0x05e8 v
 05a8: %r10_1 = 0x001ff306
@@ -263,7 +263,7 @@
 05c4: branch_cond0 %r10_0, 6 -> 0x05d0 v
 05c8: %r10_1 = 0x0007d306
 05d0: store_word_0_100 %r10_1, MC0_PAD_CAL_CNTL
-05d4: %r10_0 = load_word -7
+05d4: %r10_0 = *(MC1_PAD_CAL_CNTL)
 05d8: sync
 05dc: delay -7
 05e0: %r10_1 = and %r10_1, -7
@@ -274,12 +274,12 @@
 05f4: store_word_0_100 0, MC0_POINTER
 05f8: store_word_0_100 0x001c0000, MC0_DRAM_CMD
 0600: store_word_0_100 2, MC0_CNTL
-0604: %r10_0 = load_word -7
+0604: %r10_0 = *(MC1_CNTL)
 0608: sync
 060c: delay -7
 0610: %r10_1 = or %r10_1, 1
 0614: store_word %r10_1, 0xe40002a4
-0618: %r12_0 = load_word -7
+0618: %r12_0 = *(0xe40002a4)
 061c: sync
 0620: delay -7
 0624: %r10_1 = 0x040e3202
@@ -302,7 +302,7 @@
 069c: store_word_0_100 0x0a280100, MC0_DRAM_CMD
 06a4: store_word_0_100 0x06200221, MC0_DRAM_CMD
 06ac: %r10_1 = 0x06208088
-06b4: %r10_0 = load_word -7
+06b4: %r10_0 = *(0xd0008008)
 06b8: %r10_0 = and %r10_0, 0x000000ff
 06c0: beq %r10_0, 0 -> 0x06ec v
 06c4: %r10_1 = 0x06208089
@@ -317,7 +317,7 @@
 06fc: store_word_0_100 %r10_1, MC0_DRAM_CMD
 0700: store_word_0_100 0x06200772, MC0_DRAM_CMD
 0708: store_word_0_100 2, MC0_CNTL
-070c: %r10_0 = load_word -7
+070c: %r10_0 = *(MC1_CNTL)
 0710: sync
 0714: delay -7
 0718: store_word_0_100 0, MC0_POINTER
@@ -328,16 +328,16 @@
 073c: store_word_0_100 2, MC0_CNTL
 0740: store_word_0_100 0x00001000, MC0_CNTL
 0748: store_word_0_100 0x00000605, MC0_CNTL
-0750: %r10_0 = load_word -7
+0750: %r10_0 = *(MC1_CNTL)
 0754: sync
 0758: delay -7
 075c: store_word 0, 0
-0760: %r10_0 = load_word -7
+0760: %r10_0 = *(0)
 0764: sync
 0768: store_word 0x00008000, 0x00008000
-0770: %r10_0 = load_word -7
+0770: %r10_0 = *(0x00008000)
 0774: sync
-0778: %r10_0 = load_word -7
+0778: %r10_0 = *(0)
 077c: beq %r10_0, 0 -> 0x07d4 v
 0780: store_word %r12_0, 4
 0784: store_word %r12_1, 0x00000008
@@ -392,11 +392,11 @@
 087c: store_word_0_100 0, MC0_POINTER
 0880: store_word_0_100 0x00040000, MC0_DRAM_CMD
 0888: store_word_0_100 2, MC0_CNTL
-088c: %r10_0 = load_word -7
+088c: %r10_0 = *(MC1_CNTL)
 0890: sync
 0894: delay -7
 0898: %r10_0 = 0x040e3202
-08a0: %r10_0 = load_word -7
+08a0: %r10_0 = *(0xd0008008)
 08a4: %r10_0 = and %r10_0, 0x000000ff
 08ac: beq %r10_0, 0 -> 0x0a58 v
 08b0: %r12_0 = load_word -4
@@ -455,7 +455,7 @@
 0a2c: store_word %r10_1, 0xe4000284
 0a30: %r10_1 = or %r10_1, 0x000c0000
 0a38: store_word %r10_1, 0xe4000284
-0a3c: %r12_0 = load_word -7
+0a3c: %r12_0 = *(0xe4000284)
 0a40: sync
 0a44: delay -7
 0a48: %r10_1 = and %r10_1, 0xdff3ffff
@@ -479,14 +479,14 @@
 0ac0: store_word_0_100 0, MC0_POINTER
 0ac4: store_word_0_100 0x003c0000, MC0_DRAM_CMD
 0acc: store_word_0_100 2, MC0_CNTL
-0ad0: %r10_0 = load_word -7
+0ad0: %r10_0 = *(MC1_CNTL)
 0ad4: sync
 0ad8: delay -7
 0adc: store_word_0_100 0, MC0_POINTER
 0ae0: store_word_0_100 0x0a280100, MC0_DRAM_CMD
 0ae8: store_word_0_100 0x2f240000, MC0_DRAM_CMD
 0af0: %r10_1 = 0x062080b9
-0af8: %r10_0 = load_word -7
+0af8: %r10_0 = *(0xd0008008)
 0afc: %r10_0 = and %r10_0, 0x000000ff
 0b04: beq %r10_0, 0 -> 0x0b30 v
 0b08: %r10_1 = 0x06208009
@@ -507,10 +507,10 @@
 0b60: store_word_0_100 2, MC0_CNTL
 0b64: store_word_0_100 0x00001000, MC0_CNTL
 0b6c: store_word_0_100 0x00000605, MC0_CNTL
-0b74: %r10_0 = load_word -7
+0b74: %r10_0 = *(MC1_CNTL)
 0b78: sync
 0b7c: delay -7
-0b80: %r10_0 = load_word -7
+0b80: %r10_0 = *(0xd0008008)
 0b84: %r10_0 = and %r10_0, 0x000000ff
 0b8c: beq %r10_0, 0 -> 0x0f4c v
 0b90: %r10_0 = 0
@@ -525,7 +525,7 @@
 0bb4: store_word %r11_0, 0xe4000018
 0bb8: store_word_0_100 %r11_0, MC0_RD_STR_DLY_0
 0bbc: store_word_0_100 %r11_0, MC0_RD_STR_DLY_1
-0bc0: %r10_0 = load_word -7
+0bc0: %r10_0 = *(MC1_RD_STR_DLY_1)
 0bc4: sync
 0bc8: delay -7
 0bcc: store_word_0_100 0x00001605, MC0_CNTL
@@ -592,7 +592,7 @@
 0d10: %r10_0 = 0x0a0a0a0a
 0d18: store_word_0_100 %r10_0, MC0_RD_STR_DLY_0
 0d1c: store_word_0_100 %r10_0, MC0_RD_STR_DLY_1
-0d20: %r10_0 = load_word -7
+0d20: %r10_0 = *(MC1_RD_STR_DLY_1)
 0d24: sync
 0d28: delay -7
 0d2c: store_word_0_100 0x00001605, MC0_CNTL
@@ -678,7 +678,7 @@
 0ebc: op_1E 3, -7
 0ec0: store_word %r13_1, MC1_WR_STR_DLL_1
 0ec4: op_1E 3, -7
-0ec8: %r12_0 = load_word -7
+0ec8: %r12_0 = *(MC1_WR_STR_DLL_1)
 0ecc: sync
 0ed0: delay -7
 0ed4: %r10_0 = load_word -4
@@ -693,7 +693,7 @@
 0efc: store_word_0_100 2, MC0_CNTL
 0f00: store_word_0_100 0x00001605, MC0_CNTL
 0f08: store_word_0_100 0x00000605, MC0_CNTL
-0f10: %r10_0 = load_word -7
+0f10: %r10_0 = *(MC1_CNTL)
 0f14: sync
 0f18: delay -7
 0f1c: store_word_0_100 0, MC0_POINTER
@@ -701,7 +701,7 @@
 0f28: store_word_0_100 2, MC0_CNTL
 0f2c: store_word_0_100 0x00001000, MC0_CNTL
 0f34: store_word_0_100 0x00000605, MC0_CNTL
-0f3c: %r10_0 = load_word -7
+0f3c: %r10_0 = *(MC1_CNTL)
 0f40: sync
 0f44: delay -7
 0f48: call 0x1fc0
@@ -709,28 +709,28 @@
 0f50: %r10_1 = rotlw_by_31_then_and %r10_1, 0x7fffffff
 0f58: branch_cond1 %r10_1, 0x00000080 -> 0x2a50 v
 0f60: store_word 0, 0
-0f64: %r10_0 = load_word -7
+0f64: %r10_0 = *(0)
 0f68: sync
 0f6c: store_word %r10_1, %r10_1
-0f70: %r10_0 = load_word -7
+0f70: %r10_0 = *(%r10_1)
 0f74: sync
-0f78: %r10_0 = load_word -7
+0f78: %r10_0 = *(0)
 0f7c: branch_cond0 %r10_0, 0 -> 0x0f88 v
 0f80: %r10_0 = load_word -5
 0f84: beq %r11_0, %r10_1 -> 0x0f50 ^
 0f88: store_word 0x0014149a, 0xe4000024
 0f90: call 0x01b8
 0f94: jmp 0x2a50 v
-0f98: %r10_0 = load_word -7
+0f98: %r10_0 = *(0xe4000288)
 0f9c: sync
 0fa0: delay -7
 0fa4: return
 0fa8: store_word 2, 0xe400028c
-0fac: %r12_0 = load_word -7
+0fac: %r12_0 = *(0xe400028c)
 0fb0: sync
 0fb4: delay -7
 0fb8: store_word 0, 0xe400028c
-0fbc: %r12_0 = load_word -7
+0fbc: %r12_0 = *(0xe400028c)
 0fc0: sync
 0fc4: delay -7
 0fc8: store_word 0, 0xe4000288
@@ -795,7 +795,7 @@
 10d4: %r12_0 = load_word -6
 10d8: %r10_1 = add %r10_1, 0x01010101
 10e0: store_word %r10_1, MC1_WR_STR_DLL_1
-10e4: %r12_0 = load_word -7
+10e4: %r12_0 = *(MC1_WR_STR_DLL_1)
 10e8: sync
 10ec: delay -7
 10f0: call 0x0fa8
@@ -806,24 +806,24 @@
 1104: store_word_0_100 0, MC0_POINTER
 1108: store_word_0_100 0x001c0000, MC0_DRAM_CMD
 1110: store_word_0_100 2, MC0_CNTL
-1114: %r10_0 = load_word -7
+1114: %r10_0 = *(MC1_CNTL)
 1118: sync
 111c: delay -7
 1120: %r10_1 = or %r10_1, 1
 1124: store_word %r10_1, 0xe40002a4
-1128: %r12_0 = load_word -7
+1128: %r12_0 = *(0xe40002a4)
 112c: sync
 1130: delay -7
 1134: store_word_0_100 0, MC0_POINTER
 1138: store_word_0_100 0x423c0000, MC0_DRAM_CMD
 1140: store_word_0_100 0x0a280100, MC0_DRAM_CMD
 1148: store_word_0_100 0x06200221, MC0_DRAM_CMD
-1150: %r12_0 = load_word -7
+1150: %r12_0 = *(0xe4000014)
 1154: store_word_0_100 %r10_0, MC0_DRAM_CMD
-1158: %r10_0 = load_word -7
+1158: %r10_0 = *(0xe4000010)
 115c: store_word_0_100 %r10_0, MC0_DRAM_CMD
 1160: store_word_0_100 2, MC0_CNTL
-1164: %r10_0 = load_word -7
+1164: %r10_0 = *(MC1_CNTL)
 1168: sync
 116c: delay -7
 1170: store_word_0_100 0, MC0_POINTER
@@ -834,7 +834,7 @@
 1194: store_word_0_100 2, MC0_CNTL
 1198: store_word_0_100 0x00001605, MC0_CNTL
 11a0: store_word_0_100 0x00000605, MC0_CNTL
-11a8: %r10_0 = load_word -7
+11a8: %r10_0 = *(MC1_CNTL)
 11ac: sync
 11b0: delay -7
 11b4: return
@@ -842,14 +842,14 @@
 11bc: store_word_0_100 0, MC0_POINTER
 11c0: store_word_0_100 0x00040000, MC0_DRAM_CMD
 11c8: store_word_0_100 2, MC0_CNTL
-11cc: %r10_0 = load_word -7
+11cc: %r10_0 = *(MC1_CNTL)
 11d0: sync
 11d4: delay -7
 11d8: call 0x0fa8
 11dc: store_word_0_100 0, MC0_POINTER
 11e0: store_word_0_100 0x003c0000, MC0_DRAM_CMD
 11e8: store_word_0_100 2, MC0_CNTL
-11ec: %r10_0 = load_word -7
+11ec: %r10_0 = *(MC1_CNTL)
 11f0: sync
 11f4: delay -7
 11f8: return
@@ -1997,7 +1997,7 @@
 29ec: %r10_0 = 0x0f0f0f0f
 29f4: store_word_0_100 %r10_0, MC0_WR_STR_DLL_0
 29f8: store_word_0_100 %r10_0, MC0_WR_STR_DLL_1
-29fc: %r12_0 = load_word -7
+29fc: %r12_0 = *(MC1_WR_STR_DLL_1)
 2a00: sync
 2a04: delay -7
 2a08: jmp 0x0ee0 ^
@@ -2017,7 +2017,7 @@
 2a48: call 0x01b8
 2a4c: jmp 0x0540 ^
 2a50: store_word 0x00000515, 0xe1020008
-2a58: %r10_0 = load_word -7
+2a58: %r10_0 = *(0xd0008008)
 2a5c: %r10_0 = and %r10_0, 0x000000ff
 2a64: beq %r10_0, 0 -> 0x2aa0 v
 2a68: store_word 0x00000010, 0xe1060030

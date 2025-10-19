@@ -1,0 +1,2894 @@
+0000: store_word 0xe0000000, 0xd0008010
+0008: store_half 2, 0xd0008004
+000c: %r12_0 = load_half -7
+0010: sync
+0014: store_word 0, 0xe0020000
+001c: %r10_0 = *(0xe0020000)
+0024: sync
+0028: store_word 0xc0000000, 0xe0020004
+0034: %r10_0 = *(0xe0020004)
+003c: sync
+0040: store_word 0x00000018, 0xe1020004
+0048: %r12_0 = *(0xe1020004)
+004c: sync
+0050: store_word 0xe4000000, 0xd0010010
+0058: store_half 2, 0xd0010004
+005c: %r12_0 = load_half -7
+0060: sync
+0064: store_word 0x04000000, 0xe40001a4
+006c: %r12_0 = *(0xe40001a4)
+0070: sync
+0074: %r10_0 = *(0xd0000048)
+0078: %r10_0 = and %r10_0, 0xfffffff8
+0080: %r10_0 = or %r10_0, 7
+0084: store_word %r10_0, 0xd0000048
+0088: %r10_0 = *(0xe4000248)
+008c: %r10_0 = and %r10_0, 0xfe7fffff
+0094: store_word %r10_0, 0xe4000248
+0098: %r12_0 = *(0xe400028c)
+009c: %r10_0 = and %r10_0, 0xfe7fffff
+00a4: store_word %r10_0, 0xe400028c
+00a8: store_word_0_100 0, MC0_CNTL
+00ac: store_word 0, 0xe40002a4
+00b0: %r12_0 = *(0xe40002a4)
+00b4: sync
+00b8: store_word 0x00020100, 0xd0000018
+00c0: store_word 0xea001000, 0xd0150010
+00cc: store_half 2, 0xd0150004
+00d4: %r10_0 = load_half -7
+00dc: sync
+00e0: store_word 0x000001e6, 0xea00101c
+00e8: %r10_0 = *(0xea00101c)
+00f0: sync
+00f4: call 0x1a48
+00f8: call 0x1a4c
+00fc: store_word %r10_0, 0xe40015e0
+0100: %r10_0 = *(0xe40015e8)
+0104: %r10_0 = and %r10_0, -2
+0108: %r10_0 = or %r10_0, 1
+010c: store_word %r10_0, 0xe40015e8
+0110: %r10_0 = *(0xe40015e0)
+0114: store_word %r10_0, 0xe40015e0
+0118: %r10_0 = *(0xe40015e8)
+011c: %r10_0 = and %r10_0, -3
+0120: %r10_0 = or %r10_0, 0
+0124: store_word %r10_0, 0xe40015e8
+0128: %r10_0 = *(0xe40015e0)
+012c: store_word %r10_0, 0xe40015e0
+0130: %r10_0 = *(0xe40015e8)
+0134: %r10_0 = and %r10_0, 0xffffffdf
+013c: %r10_0 = or %r10_0, 0
+0140: store_word %r10_0, 0xe40015e8
+0144: %r10_0 = *(0xe40015e0)
+0148: store_word %r10_0, 0xe40015e0
+014c: %r10_0 = *(0xe40015e8)
+0150: %r10_0 = and %r10_0, -2
+0154: %r10_0 = or %r10_0, 0
+0158: store_word %r10_0, 0xe40015e8
+015c: %r10_0 = *(0xe40015e0)
+0160: %r10_1 = 0x00000012
+0168: call 0x1a50
+016c: %r10_0 = and %r11_0, 0x000000ff
+0174: store_word %r11_0, 0xe400002c
+0178: %r10_0 = *(0xd0008000)
+017c: %r10_0 = rotlw_by_16_then_and %r10_0, 0x0000ffff
+0184: %r10_1 = rotlw_by_28_then_and %r10_0, 0x0000000f
+018c: store_word %r10_0, 0xe40015e0
+0190: store_word %r10_1, 0xe40015e4
+0194: %r10_1 = and %r10_1, 0x0000000f
+019c: %r12_0 = *(0xe40015ec)
+01a0: %r10_0 = rotlw_by_24_then_and %r10_0, 0xfffffff0
+01a8: %r10_0 = or %r10_0, %r10_1
+01ac: %r10_0 = rotlw_by_8_then_and %r10_0, -1
+01b0: store_word %r10_0, 0xe40015ec
+01b4: %r10_0 = *(0xe40015e0)
+01b8: %r12_0 = load_word -6
+01bc: %r10_0 = load_word -5
+01c0: %r10_0 = and %r11_0, 0x000000ff
+01c8: store_word %r10_0, 0xe40015e0
+01cc: %r12_0 = *(0xe40015ec)
+01d0: %r10_0 = rotlw_by_24_then_and %r10_0, 0x0000000f
+01d8: branch_cond0 %r10_0, 4 -> 0x01e4 v
+01dc: %r10_0 = *(0xe40015e0)
+01e0: jmp 0x01ec v
+01e4: %r10_0 = *(0xe40015e0)
+01e8: jmp 0x01e8 ^
+01ec: store_word 0x20000000, 0xe1020000
+01f4: store_word 0x20000000, 0xe1040000
+01fc: store_word 0, 0xe4002800
+0200: store_word 0x08000000, 0xe4002804
+0208: %r12_0 = load_word 0
+020c: %r13_1 = rotlw_by_28_then_and %r13_1, 7
+0210: branch_cond0 %r13_1, 5 -> 0x022c v
+0214: %r10_0 = 0x0a058b8c
+021c: %r11_1 = 0x00300208
+0224: %r12_0 = 0x03ff3202
+022c: branch_cond0 %r13_1, 6 -> 0x0248 v
+0230: %r10_0 = 0x0a058a34
+0238: %r11_1 = 0x00300208
+0240: %r12_0 = 0x03ff3202
+0248: branch_cond0 %r13_1, 7 -> 0x0264 v
+024c: %r10_0 = 0x0a058adc
+0254: %r11_1 = 0x00300208
+025c: %r12_0 = 0x03ff3202
+0264: branch_cond0 %r13_1, 0 -> 0x0280 v
+0268: %r10_0 = 0x0a058b78
+0270: %r11_1 = 0x00300208
+0278: %r12_0 = 0x03ff3202
+0280: branch_cond0 %r13_1, 1 -> 0x029c v
+0284: %r10_0 = 0x0a058bec
+028c: %r11_1 = 0x00300200
+0294: %r12_0 = 0x03ff3202
+029c: branch_cond0 %r13_1, 2 -> 0x02b8 v
+02a0: %r10_0 = 0x0a058bb4
+02a8: %r11_1 = 0x00300200
+02b0: %r12_0 = 0x03ff3202
+02b8: branch_cond0 %r13_1, 3 -> 0x02d4 v
+02bc: %r10_0 = 0x0a058ad4
+02c4: %r11_1 = 0x00300200
+02cc: %r12_0 = 0x03ff3202
+02d4: branch_cond0 %r13_1, 4 -> 0x02f0 v
+02d8: %r10_0 = 0x0a058b58
+02e0: %r11_1 = 0x00300200
+02e8: %r12_0 = 0x03ff3202
+02f0: %r10_0 = 0xe4000210
+02f8: %r10_1 = 0xe4000248
+0300: call 0x20a0
+0304: %r13_1 = 0
+0308: branch_cond0 %r13_1, 0 -> 0x0324 v
+030c: %r10_0 = 0x0a058aec
+0314: %r11_1 = 0x00300388
+031c: %r12_0 = 0x03ff3202
+0324: %r10_0 = 0xe4000284
+032c: %r10_1 = 0xe400028c
+0334: call 0x20a0
+0338: call 0x2be4
+033c: %r13_1 = 0
+0340: branch_cond0 %r13_1, 0 -> 0x035c v
+0344: %r10_0 = 0x0a058b78
+034c: %r11_1 = 0x00300388
+0354: %r12_0 = 0x03ff3202
+035c: %r10_0 = 0xe4000244
+0364: %r10_1 = 0xe4000218
+036c: call 0x20a0
+0370: store_word 0, 0xe40001a8
+0374: %r10_0 = 0x00000343
+037c: store_word_0_100 %r10_0, MC0_PAD_IF_CNTL
+0380: %r10_0 = 0
+0384: store_word_0_100 %r10_0, MC0_PAD_IF_CNTL_2
+0388: %r10_0 = 0
+038c: store_word_0_100 %r10_0, MC0_DLL_MASTER_ADJ_0
+0390: store_word_0_100 %r10_0, MC0_DLL_MASTER_ADJ_1
+0394: call 0x2bb4
+0398: %r10_0 = 0x000088aa
+03a0: %r10_1 = 0x21001312
+03a8: %r10_0 = 0x00002210
+03b0: store_word_0_100 %r10_0, MC0_TERM_CNTL
+03b4: store_word %r10_1, MC0_WR_STR_DLY
+03b8: store_word %r11_0, MC1_WR_STR_DLY
+03bc: store_word_0_100 1, MC0_PAD_CAL_CNTL
+03c0: store_word_0_100 0x00000028, MC0_PAD_CAL_CNTL
+03c8: call 0x2be4
+03cc: store_word 0, 0xe40002a4
+03d0: store_word_0_100 0, MC0_CNTL
+03d4: store_word_0_100 0, MC0_POINTER
+03d8: store_word_0_100 0x001c0000, MC0_DRAM_CMD
+03e0: store_word_0_100 2, MC0_CNTL
+03e4: %r10_0 = *(MC1_CNTL)
+03e8: sync
+03ec: delay -7
+03f0: %r10_0 = 1
+03f4: store_word %r10_0, 0xe40002a4
+03f8: %r12_0 = *(0xe40002a4)
+03fc: sync
+0400: delay -7
+0404: store_word_0_100 0, MC0_POINTER
+0408: store_word_0_100 0x423c0000, MC0_DRAM_CMD
+0410: store_word_0_100 0x0a280100, MC0_DRAM_CMD
+0418: store_word_0_100 0x06200221, MC0_DRAM_CMD
+0420: store_word_0_100 0x0620808d, MC0_DRAM_CMD
+0428: store_word_0_100 0x06200772, MC0_DRAM_CMD
+0430: store_word_0_100 2, MC0_CNTL
+0434: %r10_0 = *(MC1_CNTL)
+0438: sync
+043c: delay -7
+0440: store_word_0_100 0, MC0_POINTER
+0444: store_word_0_100 0x0a280100, MC0_DRAM_CMD
+044c: store_word_0_100 0x2f240000, MC0_DRAM_CMD
+0454: store_word_0_100 0x2f240000, MC0_DRAM_CMD
+045c: store_word_0_100 0x0620c48d, MC0_DRAM_CMD
+0464: store_word_0_100 2, MC0_CNTL
+0468: %r10_0 = *(MC1_CNTL)
+046c: sync
+0470: %r12_0 = load_word -3
+0474: %r12_0 = load_word -2
+0478: store_word_0_100 0, MC0_POINTER
+047c: store_word_0_100 0x0620c08d, MC0_DRAM_CMD
+0484: store_word_0_100 2, MC0_CNTL
+0488: store_word_0_100 0, MC0_POINTER
+048c: store_word_0_100 0x0620a48d, MC0_DRAM_CMD
+0494: store_word_0_100 2, MC0_CNTL
+0498: %r10_0 = *(MC1_CNTL)
+049c: sync
+04a0: %r12_0 = load_word -1
+04a4: %r12_0 = load_word 0
+04a8: store_word_0_100 0, MC0_POINTER
+04ac: store_word_0_100 0x0620a08d, MC0_DRAM_CMD
+04b4: store_word_0_100 2, MC0_CNTL
+04b8: %r10_1 = rotlw_by_0_then_and %r12_0, 0x000000ff
+04c0: %r10_0 = %r10_1
+04c4: call 0x1ef0
+04c8: %r10_1 = rotlw_by_16_then_and %r12_0, 0x000000ff
+04d0: call 0x1ef0
+04d4: %r10_1 = rotlw_by_0_then_and %r12_1, 0x000000ff
+04dc: call 0x1ef0
+04e0: %r10_1 = rotlw_by_16_then_and %r12_1, 0x000000ff
+04e8: call 0x1ef0
+04ec: store_word %r10_0, 0xe40015e0
+04f0: %r10_0 = *(0xe40015e8)
+04f4: %r10_0 = and %r10_0, 0xffffffef
+04fc: %r10_0 = or %r10_0, 0
+0500: store_word %r10_0, 0xe40015e8
+0504: %r10_0 = *(0xe40015e0)
+0508: %r10_1 = rotlw_by_24_then_and %r13_0, 0x000000ff
+0510: branch_cond0 %r10_1, 0x000000ff -> 0x0540 v
+0518: store_word %r10_0, 0xe40015e0
+051c: %r10_0 = *(0xe40015e8)
+0520: %r10_0 = and %r10_0, 0xffffffef
+0528: %r10_0 = or %r10_0, 0x00000010
+0530: store_word %r10_0, 0xe40015e8
+0534: %r10_0 = *(0xe40015e0)
+0538: %r10_0 = 0x000000ff
+0540: %r10_1 = rotlw_by_24_then_and %r13_0, 0x000000ff
+0548: call 0x1ef0
+054c: %r10_1 = rotlw_by_8_then_and %r13_0, 0x000000ff
+0554: call 0x1ef0
+0558: %r10_1 = rotlw_by_24_then_and %r13_1, 0x000000ff
+0560: call 0x1ef0
+0564: %r10_1 = rotlw_by_8_then_and %r13_1, 0x000000ff
+056c: call 0x1ef0
+0570: branch_cond0 %r11_1, 0 -> 0x0738 v
+0574: %r10_1 = rotlw_by_28_then_and %r12_0, 0x0000000f
+057c: store_word %r10_0, 0xe40015e0
+0580: store_word %r10_1, 0xe40015e4
+0584: %r10_1 = and %r10_1, 0x0000000f
+058c: %r12_0 = *(0xe40015ec)
+0590: %r10_0 = rotlw_by_28_then_and %r10_0, 0xfffffff0
+0598: %r10_0 = or %r10_0, %r10_1
+059c: %r10_0 = rotlw_by_4_then_and %r10_0, -1
+05a0: store_word %r10_0, 0xe40015ec
+05a4: %r10_0 = *(0xe40015e0)
+05a8: %r12_0 = load_word -6
+05ac: %r10_1 = and %r12_0, 0x0000000f
+05b4: store_word %r10_0, 0xe40015e0
+05b8: %r10_0 = *(0xe40015e8)
+05bc: %r10_0 = and %r10_0, 0xfffffff7
+05c4: %r10_0 = or %r10_0, 0x00000008
+05cc: store_word %r10_0, 0xe40015e8
+05d0: %r10_0 = *(0xe40015e0)
+05d4: branch_cond0 %r10_1, 1 -> 0x0654 v
+05d8: store_word %r10_0, 0xe40015e0
+05dc: %r12_0 = *(0xe40015ec)
+05e0: %r10_0 = and %r10_0, 0xfffffff0
+05e8: %r10_0 = or %r10_0, 1
+05ec: store_word %r10_0, 0xe40015ec
+05f0: %r10_0 = *(0xe40015e0)
+05f4: store_word %r10_0, 0xe40015e0
+05f8: %r12_0 = *(0xe40015ec)
+05fc: %r10_0 = rotlw_by_28_then_and %r10_0, 0x0000000f
+0604: branch_cond0 %r10_0, 1 -> 0x0610 v
+0608: %r10_0 = *(0xe40015e0)
+060c: jmp 0x0748 v
+0610: %r10_0 = *(0xe40015e0)
+0614: store_word %r10_0, 0xe40015e0
+0618: %r12_0 = *(0xe40015ec)
+061c: %r10_0 = rotlw_by_28_then_and %r10_0, 0x0000000f
+0624: branch_cond0 %r10_0, 4 -> 0x0630 v
+0628: %r10_0 = *(0xe40015e0)
+062c: jmp 0x0748 v
+0630: %r10_0 = *(0xe40015e0)
+0634: store_word %r10_0, 0xe40015e0
+0638: %r10_0 = *(0xe40015e8)
+063c: %r10_0 = and %r10_0, 0xfffffff7
+0644: %r10_0 = or %r10_0, 0
+0648: store_word %r10_0, 0xe40015e8
+064c: %r10_0 = *(0xe40015e0)
+0650: jmp 0x0738 v
+0654: branch_cond0 %r10_1, 2 -> 0x0698 v
+0658: store_word %r10_0, 0xe40015e0
+065c: %r12_0 = *(0xe40015ec)
+0660: %r10_0 = and %r10_0, 0xfffffff0
+0668: %r10_0 = or %r10_0, 2
+066c: store_word %r10_0, 0xe40015ec
+0670: %r10_0 = *(0xe40015e0)
+0674: store_word %r10_0, 0xe40015e0
+0678: %r12_0 = *(0xe40015ec)
+067c: %r10_0 = rotlw_by_28_then_and %r10_0, 0x0000000f
+0684: branch_cond0 %r10_0, 5 -> 0x0690 v
+0688: %r10_0 = *(0xe40015e0)
+068c: jmp 0x0748 v
+0690: %r10_0 = *(0xe40015e0)
+0694: jmp 0x0738 v
+0698: branch_cond0 %r10_1, 6 -> 0x0738 v
+069c: store_word %r10_0, 0xe40015e0
+06a0: %r12_0 = *(0xe40015ec)
+06a4: %r10_0 = and %r10_0, 0xfffffff0
+06ac: %r10_0 = or %r10_0, 6
+06b0: store_word %r10_0, 0xe40015ec
+06b4: %r10_0 = *(0xe40015e0)
+06b8: store_word %r10_0, 0xe40015e0
+06bc: %r12_0 = *(0xe40015ec)
+06c0: %r10_0 = rotlw_by_28_then_and %r10_0, 0x0000000f
+06c8: branch_cond0 %r10_0, 4 -> 0x06d4 v
+06cc: %r10_0 = *(0xe40015e0)
+06d0: jmp 0x0748 v
+06d4: %r10_0 = *(0xe40015e0)
+06d8: store_word %r10_0, 0xe40015e0
+06dc: %r10_0 = *(0xe40015e8)
+06e0: %r10_0 = and %r10_0, 0xfffffff7
+06e8: %r10_0 = or %r10_0, 0
+06ec: store_word %r10_0, 0xe40015e8
+06f0: %r10_0 = *(0xe40015e0)
+06f4: store_word %r10_0, 0xe40015e0
+06f8: %r12_0 = *(0xe40015ec)
+06fc: %r10_0 = rotlw_by_28_then_and %r10_0, 0x0000000f
+0704: branch_cond0 %r10_0, 1 -> 0x0710 v
+0708: %r10_0 = *(0xe40015e0)
+070c: jmp 0x0748 v
+0710: %r10_0 = *(0xe40015e0)
+0714: store_word %r10_0, 0xe40015e0
+0718: %r12_0 = *(0xe40015ec)
+071c: %r10_0 = rotlw_by_28_then_and %r10_0, 0x0000000f
+0724: branch_cond0 %r10_0, 2 -> 0x0730 v
+0728: %r10_0 = *(0xe40015e0)
+072c: jmp 0x0748 v
+0730: %r10_0 = *(0xe40015e0)
+0734: jmp 0x0738 v
+0738: store_word 0x0010109a, 0xe4000024
+0740: call 0x1e58
+0744: jmp 0x0748 v
+0748: store_word %r10_0, 0xe40015e0
+074c: %r10_0 = *(0xe40015e8)
+0750: %r10_0 = and %r10_0, -5
+0754: %r10_0 = or %r10_0, 0
+0758: store_word %r10_0, 0xe40015e8
+075c: %r10_0 = *(0xe40015e0)
+0760: store_word %r10_0, 0xe40015e0
+0764: %r10_0 = *(0xe40015e8)
+0768: %r10_0 = rotlw_by_29_then_and %r10_0, 1
+076c: branch_cond0 %r10_0, 1 -> 0x0778 v
+0770: %r10_0 = *(0xe40015e0)
+0774: jmp 0x07b0 v
+0778: %r10_0 = *(0xe40015e0)
+077c: store_word %r10_0, 0xe40015e0
+0780: %r10_0 = *(0xe40015e8)
+0784: %r10_0 = rotlw_by_28_then_and %r10_0, 1
+0788: branch_cond0 %r10_0, 0 -> 0x0794 v
+078c: %r10_0 = *(0xe40015e0)
+0790: jmp 0x07b0 v
+0794: %r10_0 = *(0xe40015e0)
+0798: store_word %r10_0, 0xe40015e0
+079c: %r10_0 = *(0xe40015e8)
+07a0: %r10_0 = and %r10_0, -5
+07a4: %r10_0 = or %r10_0, 4
+07a8: store_word %r10_0, 0xe40015e8
+07ac: %r10_0 = *(0xe40015e0)
+07b0: %r12_0 = load_word -4
+07b4: %r11_1 = and %r11_1, 0xffffffe7
+07bc: store_word %r11_1, 0xe40002a4
+07c0: %r10_0 = 0x10000000
+07c8: store_word %r10_0, 0xe40015e0
+07cc: %r10_0 = *(0xe40015e8)
+07d0: %r10_0 = rotlw_by_28_then_and %r10_0, 1
+07d4: branch_cond0 %r10_0, 1 -> 0x07e0 v
+07d8: %r10_0 = *(0xe40015e0)
+07dc: jmp 0x07e8 v
+07e0: %r10_0 = *(0xe40015e0)
+07e4: %r10_0 = rotlw_by_1_then_and %r11_0, -2
+07e8: store_word %r10_0, 0xe40015e0
+07ec: %r10_0 = *(0xe40015e8)
+07f0: %r10_0 = rotlw_by_29_then_and %r10_0, 1
+07f4: branch_cond0 %r10_0, 0 -> 0x0800 v
+07f8: %r10_0 = *(0xe40015e0)
+07fc: jmp 0x0808 v
+0800: %r10_0 = *(0xe40015e0)
+0804: %r10_0 = rotlw_by_1_then_and %r11_0, -2
+0808: store_word %r11_0, 0xe1020000
+080c: store_word %r11_0, 0xe1040000
+0810: %r12_0 = load_word -6
+0814: %r10_1 = and %r10_1, -2
+0818: store_word %r10_1, 0xe40002a4
+081c: store_word_0_100 0, MC0_POINTER
+0820: store_word_0_100 0x001c0000, MC0_DRAM_CMD
+0828: store_word_0_100 2, MC0_CNTL
+082c: %r10_0 = *(MC1_CNTL)
+0830: sync
+0834: delay -7
+0838: %r10_1 = or %r10_1, 1
+083c: store_word %r10_1, 0xe40002a4
+0840: %r12_0 = *(0xe40002a4)
+0844: sync
+0848: delay -7
+084c: call 0x15f4
+0850: store_word_0_100 %r10_1, MC0_TERM_CNTL
+0854: %r10_1 = 0x040e3202
+085c: store_word %r10_0, 0xe40015e0
+0860: %r10_0 = *(0xe40015e8)
+0864: %r10_0 = rotlw_by_30_then_and %r10_0, 1
+0868: branch_cond0 %r10_0, 1 -> 0x0874 v
+086c: %r10_0 = *(0xe40015e0)
+0870: jmp 0x08c4 v
+0874: %r10_0 = *(0xe40015e0)
+0878: %r10_1 = or %r10_1, 1
+087c: store_word %r10_0, 0xe40015e0
+0880: %r10_0 = *(0xe40015e8)
+0884: %r10_0 = rotlw_by_29_then_and %r10_0, 1
+0888: branch_cond0 %r10_0, 0 -> 0x0894 v
+088c: %r10_0 = *(0xe40015e0)
+0890: jmp 0x08c4 v
+0894: %r10_0 = *(0xe40015e0)
+0898: store_word %r10_0, 0xe40015e0
+089c: %r10_0 = *(0xe40015e8)
+08a0: %r10_0 = rotlw_by_28_then_and %r10_0, 1
+08a4: branch_cond0 %r10_0, 1 -> 0x08b0 v
+08a8: %r10_0 = *(0xe40015e0)
+08ac: jmp 0x08c4 v
+08b0: %r10_0 = *(0xe40015e0)
+08b4: %r10_1 = or %r10_1, 0x08000080
+08bc: %r10_1 = and %r10_1, 0xfbffffff
+08c4: store_word_0_100 %r10_1, MC0_DRAM_CONFIG
+08c8: store_word_0_100 0x00000080, MC0_BSB_SNOOPED_TIMER_CNTL
+08d0: store_word_0_100 0x00348084, MC0_TUNING_0
+08d8: store_word_0_100 0x0000007a, MC0_TUNING_1
+08e0: store_word_0_100 0x00106514, MC0_RD_BUFFER_CNTL_0
+08e8: store_word_0_100 0x00210414, MC0_RD_BUFFER_CNTL_1
+08f0: store_word_0_100 0x01283446, MC0_TIMING_CNTL_0
+08f8: store_word_0_100 0x03620991, MC0_TIMING_CNTL_1
+0900: store_word_0_100 0x0c958107, MC0_TIMING_CNTL_2
+0908: store_word_0_100 0x00000018, MC0_WR_DATA_DLY_0
+0910: delay -7
+0914: store_word 0x00000100, 0xe40000f0
+091c: delay -7
+0920: store_word 0, 0xe40000f0
+0924: delay -7
+0928: store_word_0_100 0x00000030, MC0_INTERRUPT_MASK
+0930: store_word_0_100 0, MC0_POINTER
+0934: store_word_0_100 0x423c0000, MC0_DRAM_CMD
+093c: store_word_0_100 0x0a280100, MC0_DRAM_CMD
+0944: store_word_0_100 0x06200221, MC0_DRAM_CMD
+094c: call 0x16bc
+0950: store_word_0_100 %r10_1, MC0_DRAM_CMD
+0954: store_word_0_100 0x06200772, MC0_DRAM_CMD
+095c: call 0x18c4
+0960: beq %r10_1, 0 -> 0x0968 v
+0964: store_word_0_100 %r10_1, MC0_DRAM_CMD
+0968: store_word_0_100 2, MC0_CNTL
+096c: %r10_0 = *(MC1_CNTL)
+0970: sync
+0974: delay -7
+0978: store_word_0_100 0, MC0_POINTER
+097c: store_word_0_100 0x0a280100, MC0_DRAM_CMD
+0984: store_word_0_100 0x2f240000, MC0_DRAM_CMD
+098c: store_word_0_100 0x2f240000, MC0_DRAM_CMD
+0994: store_word_0_100 0x003c0000, MC0_DRAM_CMD
+099c: store_word_0_100 2, MC0_CNTL
+09a0: store_word_0_100 0x00001000, MC0_CNTL
+09a8: store_word_0_100 0x00000605, MC0_CNTL
+09b0: %r10_0 = *(MC1_CNTL)
+09b4: sync
+09b8: delay -7
+09bc: store_word %r12_0, 4
+09c0: store_word %r12_1, 0x00000008
+09c4: store_word %r13_0, 0x0000000c
+09c8: store_word %r13_1, 0x00000010
+09cc: store_word -1, 0xe4000208
+09d0: %r10_0 = *(0xe4000208)
+09d4: %r10_0 = rotlw_by_4_then_and %r10_0, 0x0000000f
+09dc: beq %r10_0, 0x0000000f -> 0x09f0 v
+09e4: store_word 0x0016169a, 0xe4000024
+09ec: call 0x1e58
+09f0: call 0x225c
+09f4: beq %r11_0, 0 -> 0x0a04 v
+09f8: store_word 0x0011119a, 0xe4000024
+0a00: call 0x1e58
+0a04: call 0x2c38
+0a08: %r12_0 = load_word 0
+0a0c: %r13_1 = and %r13_1, 0x0000000f
+0a14: branch_cond0 %r13_1, 0x0000000c -> 0x0a34 v
+0a1c: %r10_0 = 0x0a058ae8
+0a24: %r11_1 = 0x00300388
+0a2c: %r12_0 = 0x04113202
+0a34: branch_cond0 %r13_1, 0x0000000d -> 0x0a54 v
+0a3c: %r10_0 = 0x0a058dd0
+0a44: %r11_1 = 0x00300388
+0a4c: %r12_0 = 0x04113202
+0a54: branch_cond0 %r13_1, 0x0000000e -> 0x0a74 v
+0a5c: %r10_0 = 0x0a0589d0
+0a64: %r11_1 = 0x00300388
+0a6c: %r12_0 = 0x04123202
+0a74: branch_cond0 %r13_1, 0x0000000f -> 0x0a94 v
+0a7c: %r10_0 = 0x0a058fa4
+0a84: %r11_1 = 0x00300388
+0a8c: %r12_0 = 0x04123202
+0a94: branch_cond0 %r13_1, 0 -> 0x0ab0 v
+0a98: %r10_0 = 0x0a058ba4
+0aa0: %r11_1 = 0x00300388
+0aa8: %r12_0 = 0x04123202
+0ab0: branch_cond0 %r13_1, 1 -> 0x0acc v
+0ab4: %r10_0 = 0x0a058d48
+0abc: %r11_1 = 0x00300388
+0ac4: %r12_0 = 0x04133202
+0acc: branch_cond0 %r13_1, 2 -> 0x0ae8 v
+0ad0: %r10_0 = 0x0a058948
+0ad8: %r11_1 = 0x00300388
+0ae0: %r12_0 = 0x04133202
+0ae8: branch_cond0 %r13_1, 3 -> 0x0b04 v
+0aec: %r10_0 = 0x0a058e94
+0af4: %r11_1 = 0x00300388
+0afc: %r12_0 = 0x04133202
+0b04: branch_cond0 %r13_1, 4 -> 0x0b20 v
+0b08: %r10_0 = 0x0a058a94
+0b10: %r11_1 = 0x00300388
+0b18: %r12_0 = 0x04143202
+0b20: branch_cond0 %r13_1, 5 -> 0x0b3c v
+0b24: %r10_0 = 0x0a058d2c
+0b2c: %r11_1 = 0x00300388
+0b34: %r12_0 = 0x04143202
+0b3c: branch_cond0 %r13_1, 6 -> 0x0b58 v
+0b40: %r10_0 = 0x0a05892c
+0b48: %r11_1 = 0x00300388
+0b50: %r12_0 = 0x04153202
+0b58: branch_cond0 %r13_1, 7 -> 0x0b74 v
+0b5c: %r10_0 = 0x0a058e58
+0b64: %r11_1 = 0x00300388
+0b6c: %r12_0 = 0x04153202
+0b74: branch_cond0 %r13_1, 0x00000008 -> 0x0b94 v
+0b7c: %r10_0 = 0x0a058a58
+0b84: %r11_1 = 0x00300388
+0b8c: %r12_0 = 0x04153202
+0b94: branch_cond0 %r13_1, 0x00000009 -> 0x0bb4 v
+0b9c: %r10_0 = 0x0a058cb0
+0ba4: %r11_1 = 0x00300388
+0bac: %r12_0 = 0x04163202
+0bb4: branch_cond0 %r13_1, 0x0000000a -> 0x0bd4 v
+0bbc: %r10_0 = 0x0a0588b0
+0bc4: %r11_1 = 0x00300388
+0bcc: %r12_0 = 0x04163202
+0bd4: branch_cond0 %r13_1, 0x0000000b -> 0x0bf4 v
+0bdc: %r10_0 = 0x0a058f60
+0be4: %r11_1 = 0x00300388
+0bec: %r12_0 = 0x04163202
+0bf4: %r10_0 = 0xe4000284
+0bfc: %r10_1 = 0xe400028c
+0c04: call 0x20a0
+0c08: call 0x2be4
+0c0c: store_word %r10_0, 0xe40015e0
+0c10: %r10_0 = *(0xe40015e8)
+0c14: %r10_0 = rotlw_by_30_then_and %r10_0, 1
+0c18: branch_cond0 %r10_0, 1 -> 0x0c24 v
+0c1c: %r10_0 = *(0xe40015e0)
+0c20: jmp 0x0c74 v
+0c24: %r10_0 = *(0xe40015e0)
+0c28: %r12_0 = or %r12_0, 1
+0c2c: store_word %r10_0, 0xe40015e0
+0c30: %r10_0 = *(0xe40015e8)
+0c34: %r10_0 = rotlw_by_29_then_and %r10_0, 1
+0c38: branch_cond0 %r10_0, 0 -> 0x0c44 v
+0c3c: %r10_0 = *(0xe40015e0)
+0c40: jmp 0x0c74 v
+0c44: %r10_0 = *(0xe40015e0)
+0c48: store_word %r10_0, 0xe40015e0
+0c4c: %r10_0 = *(0xe40015e8)
+0c50: %r10_0 = rotlw_by_28_then_and %r10_0, 1
+0c54: branch_cond0 %r10_0, 1 -> 0x0c60 v
+0c58: %r10_0 = *(0xe40015e0)
+0c5c: jmp 0x0c74 v
+0c60: %r10_0 = *(0xe40015e0)
+0c64: %r12_0 = or %r12_0, 0x08000080
+0c6c: %r12_0 = and %r12_0, 0xfbffffff
+0c74: store_word_0_100 %r12_0, MC0_DRAM_CONFIG
+0c78: store_word_0_100 0x00000080, MC0_BSB_SNOOPED_TIMER_CNTL
+0c80: store_word_0_100 0x20988088, MC0_TUNING_0
+0c88: store_word_0_100 0x0000007a, MC0_TUNING_1
+0c90: store_word_0_100 1, MC0_ARBITRATION_CNTL
+0c94: store_word_0_100 0x00106514, MC0_RD_BUFFER_CNTL_0
+0c9c: store_word_0_100 0x00210414, MC0_RD_BUFFER_CNTL_1
+0ca4: store_word_0_100 0x0128d87b, MC0_TIMING_CNTL_0
+0cac: store_word_0_100 0x03820edb, MC0_TIMING_CNTL_1
+0cb4: store_word_0_100 0x0c97914b, MC0_TIMING_CNTL_2
+0cbc: store_word_0_100 0x00000025, MC0_WR_DATA_DLY_0
+0cc4: delay -7
+0cc8: store_word 0x00000100, 0xe40000f0
+0cd0: delay -7
+0cd4: store_word 0, 0xe40000f0
+0cd8: delay -7
+0cdc: store_word_0_100 0x00000030, MC0_INTERRUPT_MASK
+0ce4: call 0x2c58
+0ce8: store_word_0_100 0, MC0_CNTL
+0cec: store_word_0_100 0, MC0_POINTER
+0cf0: store_word_0_100 0x0c280100, MC0_DRAM_CMD
+0cf8: store_word_0_100 0x2f240000, MC0_DRAM_CMD
+0d00: call 0x17ac
+0d04: store_word %r10_1, 0xe4000014
+0d08: store_word_0_100 %r10_1, MC0_DRAM_CMD
+0d0c: %r10_1 = 0x06200712
+0d14: store_word %r10_1, 0xe4000010
+0d18: store_word_0_100 %r10_1, MC0_DRAM_CMD
+0d1c: call 0x18c4
+0d20: beq %r10_1, 0 -> 0x0d28 v
+0d24: store_word_0_100 %r10_1, MC0_DRAM_CMD
+0d28: store_word_0_100 0x003c0000, MC0_DRAM_CMD
+0d30: store_word_0_100 2, MC0_CNTL
+0d34: store_word_0_100 0x00001000, MC0_CNTL
+0d3c: store_word_0_100 0x00000605, MC0_CNTL
+0d44: %r10_0 = *(MC1_CNTL)
+0d48: sync
+0d4c: delay -7
+0d50: store_word -1, 0xe4000208
+0d54: %r10_0 = *(0xe4000208)
+0d58: %r10_0 = rotlw_by_4_then_and %r10_0, 0x0000000f
+0d60: beq %r10_0, 0x0000000f -> 0x0d74 v
+0d68: store_word 0x0016169a, 0xe4000024
+0d70: call 0x1e58
+0d74: call 0x230c
+0d78: branch_cond0 %r13_1, -1 -> 0x148c v
+0d7c: op_1E 0, -7
+0d80: store_word %r13_1, MC0_RD_STR_DLY_0
+0d84: op_1E 0, -7
+0d88: op_1E 1, -7
+0d8c: store_word %r13_1, MC0_RD_STR_DLY_1
+0d90: op_1E 1, -7
+0d94: op_1E 2, -7
+0d98: store_word %r13_1, MC1_RD_STR_DLY_0
+0d9c: op_1E 2, -7
+0da0: op_1E 3, -7
+0da4: store_word %r13_1, MC1_RD_STR_DLY_1
+0da8: op_1E 3, -7
+0dac: store_word %r10_0, 0xe40015e0
+0db0: %r12_0 = *(0xe40015ec)
+0db4: %r10_0 = rotlw_by_0_then_and %r10_0, 0x0000000f
+0dbc: beq %r10_0, 1 -> 0x0dc8 v
+0dc0: %r10_0 = *(0xe40015e0)
+0dc4: jmp 0x0e34 v
+0dc8: %r10_0 = *(0xe40015e0)
+0dcc: store_word %r10_0, 0xe40015e0
+0dd0: %r12_0 = *(0xe40015ec)
+0dd4: %r10_0 = rotlw_by_28_then_and %r10_0, 0x0000000f
+0ddc: beq %r10_0, 1 -> 0x0de8 v
+0de0: %r10_0 = *(0xe40015e0)
+0de4: jmp 0x0e34 v
+0de8: %r10_0 = *(0xe40015e0)
+0dec: %r10_0 = 0
+0df0: %r11_1 = 1
+0df4: %r10_0 = MC0_RD_STR_DLY_0
+0dfc: %r10_1 = 0
+0e00: call 0x191c
+0e04: %r10_0 = MC0_RD_STR_DLY_1
+0e0c: %r10_1 = 0
+0e10: call 0x191c
+0e14: %r10_0 = MC1_RD_STR_DLY_0
+0e1c: %r10_1 = 0
+0e20: call 0x191c
+0e24: %r10_0 = MC1_RD_STR_DLY_1
+0e2c: %r10_1 = 2
+0e30: call 0x191c
+0e34: store_word %r10_0, 0xe40015e0
+0e38: %r12_0 = *(0xe40015ec)
+0e3c: %r10_0 = rotlw_by_0_then_and %r10_0, 0x0000000f
+0e44: beq %r10_0, 1 -> 0x0e50 v
+0e48: %r10_0 = *(0xe40015e0)
+0e4c: jmp 0x0ebc v
+0e50: %r10_0 = *(0xe40015e0)
+0e54: store_word %r10_0, 0xe40015e0
+0e58: %r12_0 = *(0xe40015ec)
+0e5c: %r10_0 = rotlw_by_28_then_and %r10_0, 0x0000000f
+0e64: beq %r10_0, 4 -> 0x0e70 v
+0e68: %r10_0 = *(0xe40015e0)
+0e6c: jmp 0x0ebc v
+0e70: %r10_0 = *(0xe40015e0)
+0e74: %r10_0 = 0
+0e78: %r11_1 = 1
+0e7c: %r10_0 = MC0_RD_STR_DLY_0
+0e84: %r10_1 = 0
+0e88: call 0x191c
+0e8c: %r10_0 = MC0_RD_STR_DLY_1
+0e94: %r10_1 = 0
+0e98: call 0x191c
+0e9c: %r10_0 = MC1_RD_STR_DLY_0
+0ea4: %r10_1 = 0
+0ea8: call 0x191c
+0eac: %r10_0 = MC1_RD_STR_DLY_1
+0eb4: %r10_1 = 0
+0eb8: call 0x191c
+0ebc: store_word %r10_0, 0xe40015e0
+0ec0: %r12_0 = *(0xe40015ec)
+0ec4: %r10_0 = rotlw_by_0_then_and %r10_0, 0x0000000f
+0ecc: beq %r10_0, 2 -> 0x0ed8 v
+0ed0: %r10_0 = *(0xe40015e0)
+0ed4: jmp 0x0f44 v
+0ed8: %r10_0 = *(0xe40015e0)
+0edc: store_word %r10_0, 0xe40015e0
+0ee0: %r12_0 = *(0xe40015ec)
+0ee4: %r10_0 = rotlw_by_28_then_and %r10_0, 0x0000000f
+0eec: beq %r10_0, 5 -> 0x0ef8 v
+0ef0: %r10_0 = *(0xe40015e0)
+0ef4: jmp 0x0f44 v
+0ef8: %r10_0 = *(0xe40015e0)
+0efc: %r10_0 = 0
+0f00: %r11_1 = 1
+0f04: %r10_0 = MC0_RD_STR_DLY_0
+0f0c: %r10_1 = 0
+0f10: call 0x191c
+0f14: %r10_0 = MC0_RD_STR_DLY_1
+0f1c: %r10_1 = 0
+0f20: call 0x191c
+0f24: %r10_0 = MC1_RD_STR_DLY_0
+0f2c: %r10_1 = 0
+0f30: call 0x191c
+0f34: %r10_0 = MC1_RD_STR_DLY_1
+0f3c: %r10_1 = 0
+0f40: call 0x191c
+0f44: store_word %r10_0, 0xe40015e0
+0f48: %r12_0 = *(0xe40015ec)
+0f4c: %r10_0 = rotlw_by_0_then_and %r10_0, 0x0000000f
+0f54: beq %r10_0, 6 -> 0x0f60 v
+0f58: %r10_0 = *(0xe40015e0)
+0f5c: jmp 0x0fcc v
+0f60: %r10_0 = *(0xe40015e0)
+0f64: store_word %r10_0, 0xe40015e0
+0f68: %r12_0 = *(0xe40015ec)
+0f6c: %r10_0 = rotlw_by_28_then_and %r10_0, 0x0000000f
+0f74: beq %r10_0, 1 -> 0x0f80 v
+0f78: %r10_0 = *(0xe40015e0)
+0f7c: jmp 0x0fcc v
+0f80: %r10_0 = *(0xe40015e0)
+0f84: %r10_0 = 0
+0f88: %r11_1 = 1
+0f8c: %r10_0 = MC0_RD_STR_DLY_0
+0f94: %r10_1 = 0
+0f98: call 0x191c
+0f9c: %r10_0 = MC0_RD_STR_DLY_1
+0fa4: %r10_1 = 0
+0fa8: call 0x191c
+0fac: %r10_0 = MC1_RD_STR_DLY_0
+0fb4: %r10_1 = 0
+0fb8: call 0x191c
+0fbc: %r10_0 = MC1_RD_STR_DLY_1
+0fc4: %r10_1 = 0
+0fc8: call 0x191c
+0fcc: store_word %r10_0, 0xe40015e0
+0fd0: %r12_0 = *(0xe40015ec)
+0fd4: %r10_0 = rotlw_by_0_then_and %r10_0, 0x0000000f
+0fdc: beq %r10_0, 6 -> 0x0fe8 v
+0fe0: %r10_0 = *(0xe40015e0)
+0fe4: jmp 0x1054 v
+0fe8: %r10_0 = *(0xe40015e0)
+0fec: store_word %r10_0, 0xe40015e0
+0ff0: %r12_0 = *(0xe40015ec)
+0ff4: %r10_0 = rotlw_by_28_then_and %r10_0, 0x0000000f
+0ffc: beq %r10_0, 2 -> 0x1008 v
+1000: %r10_0 = *(0xe40015e0)
+1004: jmp 0x1054 v
+1008: %r10_0 = *(0xe40015e0)
+100c: %r10_0 = 0
+1010: %r11_1 = 1
+1014: %r10_0 = MC0_RD_STR_DLY_0
+101c: %r10_1 = 0
+1020: call 0x191c
+1024: %r10_0 = MC0_RD_STR_DLY_1
+102c: %r10_1 = 0
+1030: call 0x191c
+1034: %r10_0 = MC1_RD_STR_DLY_0
+103c: %r10_1 = 0
+1040: call 0x191c
+1044: %r10_0 = MC1_RD_STR_DLY_1
+104c: %r10_1 = 0
+1050: call 0x191c
+1054: store_word %r10_0, 0xe40015e0
+1058: %r12_0 = *(0xe40015ec)
+105c: %r10_0 = rotlw_by_0_then_and %r10_0, 0x0000000f
+1064: beq %r10_0, 6 -> 0x1070 v
+1068: %r10_0 = *(0xe40015e0)
+106c: jmp 0x10dc v
+1070: %r10_0 = *(0xe40015e0)
+1074: store_word %r10_0, 0xe40015e0
+1078: %r12_0 = *(0xe40015ec)
+107c: %r10_0 = rotlw_by_28_then_and %r10_0, 0x0000000f
+1084: beq %r10_0, 4 -> 0x1090 v
+1088: %r10_0 = *(0xe40015e0)
+108c: jmp 0x10dc v
+1090: %r10_0 = *(0xe40015e0)
+1094: %r10_0 = 0
+1098: %r11_1 = 1
+109c: %r10_0 = MC0_RD_STR_DLY_0
+10a4: %r10_1 = 0
+10a8: call 0x191c
+10ac: %r10_0 = MC0_RD_STR_DLY_1
+10b4: %r10_1 = 0
+10b8: call 0x191c
+10bc: %r10_0 = MC1_RD_STR_DLY_0
+10c4: %r10_1 = 0
+10c8: call 0x191c
+10cc: %r10_0 = MC1_RD_STR_DLY_1
+10d4: %r10_1 = 0
+10d8: call 0x191c
+10dc: %r10_0 = *(MC1_RD_STR_DLY_1)
+10e0: sync
+10e4: delay -7
+10e8: store_word_0_100 0x00001605, MC0_CNTL
+10f0: store_word_0_100 0x00000605, MC0_CNTL
+10f8: store_word 0, 0xe4000020
+10fc: call 0x2760
+1100: branch_cond0 %r13_1, -1 -> 0x148c v
+1104: op_1E 0, -7
+1108: store_word %r13_1, MC0_WR_STR_DLL_0
+110c: op_1E 0, -7
+1110: op_1E 1, -7
+1114: store_word %r13_1, MC0_WR_STR_DLL_1
+1118: op_1E 1, -7
+111c: op_1E 2, -7
+1120: store_word %r13_1, MC1_WR_STR_DLL_0
+1124: op_1E 2, -7
+1128: op_1E 3, -7
+112c: store_word %r13_1, MC1_WR_STR_DLL_1
+1130: op_1E 3, -7
+1134: store_word %r10_0, 0xe40015e0
+1138: %r12_0 = *(0xe40015ec)
+113c: %r10_0 = rotlw_by_0_then_and %r10_0, 0x0000000f
+1144: beq %r10_0, 1 -> 0x1150 v
+1148: %r10_0 = *(0xe40015e0)
+114c: jmp 0x11c8 v
+1150: %r10_0 = *(0xe40015e0)
+1154: store_word %r10_0, 0xe40015e0
+1158: %r12_0 = *(0xe40015ec)
+115c: %r10_0 = rotlw_by_28_then_and %r10_0, 0x0000000f
+1164: beq %r10_0, 1 -> 0x1170 v
+1168: %r10_0 = *(0xe40015e0)
+116c: jmp 0x11c8 v
+1170: %r10_0 = *(0xe40015e0)
+1174: %r10_0 = 0
+1178: %r11_1 = 1
+117c: %r10_0 = MC0_WR_STR_DLL_0
+1184: %r10_1 = 0
+1188: call 0x191c
+118c: %r10_0 = MC0_WR_STR_DLL_1
+1194: %r10_1 = 0x000000fd
+119c: call 0x191c
+11a0: %r10_0 = MC1_WR_STR_DLL_0
+11a8: %r10_1 = 0xfcfcfdfd
+11b0: call 0x191c
+11b4: %r10_0 = MC1_WR_STR_DLL_1
+11bc: %r10_1 = 0x00fdfcfc
+11c4: call 0x191c
+11c8: store_word %r10_0, 0xe40015e0
+11cc: %r12_0 = *(0xe40015ec)
+11d0: %r10_0 = rotlw_by_0_then_and %r10_0, 0x0000000f
+11d8: beq %r10_0, 1 -> 0x11e4 v
+11dc: %r10_0 = *(0xe40015e0)
+11e0: jmp 0x1250 v
+11e4: %r10_0 = *(0xe40015e0)
+11e8: store_word %r10_0, 0xe40015e0
+11ec: %r12_0 = *(0xe40015ec)
+11f0: %r10_0 = rotlw_by_28_then_and %r10_0, 0x0000000f
+11f8: beq %r10_0, 4 -> 0x1204 v
+11fc: %r10_0 = *(0xe40015e0)
+1200: jmp 0x1250 v
+1204: %r10_0 = *(0xe40015e0)
+1208: %r10_0 = 0
+120c: %r11_1 = 1
+1210: %r10_0 = MC0_WR_STR_DLL_0
+1218: %r10_1 = 0
+121c: call 0x191c
+1220: %r10_0 = MC0_WR_STR_DLL_1
+1228: %r10_1 = 0
+122c: call 0x191c
+1230: %r10_0 = MC1_WR_STR_DLL_0
+1238: %r10_1 = 0
+123c: call 0x191c
+1240: %r10_0 = MC1_WR_STR_DLL_1
+1248: %r10_1 = 0
+124c: call 0x191c
+1250: store_word %r10_0, 0xe40015e0
+1254: %r12_0 = *(0xe40015ec)
+1258: %r10_0 = rotlw_by_0_then_and %r10_0, 0x0000000f
+1260: beq %r10_0, 2 -> 0x126c v
+1264: %r10_0 = *(0xe40015e0)
+1268: jmp 0x12d8 v
+126c: %r10_0 = *(0xe40015e0)
+1270: store_word %r10_0, 0xe40015e0
+1274: %r12_0 = *(0xe40015ec)
+1278: %r10_0 = rotlw_by_28_then_and %r10_0, 0x0000000f
+1280: beq %r10_0, 5 -> 0x128c v
+1284: %r10_0 = *(0xe40015e0)
+1288: jmp 0x12d8 v
+128c: %r10_0 = *(0xe40015e0)
+1290: %r10_0 = 0
+1294: %r11_1 = 1
+1298: %r10_0 = MC0_WR_STR_DLL_0
+12a0: %r10_1 = 0
+12a4: call 0x191c
+12a8: %r10_0 = MC0_WR_STR_DLL_1
+12b0: %r10_1 = 0
+12b4: call 0x191c
+12b8: %r10_0 = MC1_WR_STR_DLL_0
+12c0: %r10_1 = 0
+12c4: call 0x191c
+12c8: %r10_0 = MC1_WR_STR_DLL_1
+12d0: %r10_1 = 0
+12d4: call 0x191c
+12d8: store_word %r10_0, 0xe40015e0
+12dc: %r12_0 = *(0xe40015ec)
+12e0: %r10_0 = rotlw_by_0_then_and %r10_0, 0x0000000f
+12e8: beq %r10_0, 6 -> 0x12f4 v
+12ec: %r10_0 = *(0xe40015e0)
+12f0: jmp 0x1360 v
+12f4: %r10_0 = *(0xe40015e0)
+12f8: store_word %r10_0, 0xe40015e0
+12fc: %r12_0 = *(0xe40015ec)
+1300: %r10_0 = rotlw_by_28_then_and %r10_0, 0x0000000f
+1308: beq %r10_0, 1 -> 0x1314 v
+130c: %r10_0 = *(0xe40015e0)
+1310: jmp 0x1360 v
+1314: %r10_0 = *(0xe40015e0)
+1318: %r10_0 = 0
+131c: %r11_1 = 1
+1320: %r10_0 = MC0_WR_STR_DLL_0
+1328: %r10_1 = 0
+132c: call 0x191c
+1330: %r10_0 = MC0_WR_STR_DLL_1
+1338: %r10_1 = 0
+133c: call 0x191c
+1340: %r10_0 = MC1_WR_STR_DLL_0
+1348: %r10_1 = 0
+134c: call 0x191c
+1350: %r10_0 = MC1_WR_STR_DLL_1
+1358: %r10_1 = 0
+135c: call 0x191c
+1360: store_word %r10_0, 0xe40015e0
+1364: %r12_0 = *(0xe40015ec)
+1368: %r10_0 = rotlw_by_0_then_and %r10_0, 0x0000000f
+1370: beq %r10_0, 6 -> 0x137c v
+1374: %r10_0 = *(0xe40015e0)
+1378: jmp 0x13e8 v
+137c: %r10_0 = *(0xe40015e0)
+1380: store_word %r10_0, 0xe40015e0
+1384: %r12_0 = *(0xe40015ec)
+1388: %r10_0 = rotlw_by_28_then_and %r10_0, 0x0000000f
+1390: beq %r10_0, 2 -> 0x139c v
+1394: %r10_0 = *(0xe40015e0)
+1398: jmp 0x13e8 v
+139c: %r10_0 = *(0xe40015e0)
+13a0: %r10_0 = 0
+13a4: %r11_1 = 1
+13a8: %r10_0 = MC0_WR_STR_DLL_0
+13b0: %r10_1 = 0
+13b4: call 0x191c
+13b8: %r10_0 = MC0_WR_STR_DLL_1
+13c0: %r10_1 = 0
+13c4: call 0x191c
+13c8: %r10_0 = MC1_WR_STR_DLL_0
+13d0: %r10_1 = 0
+13d4: call 0x191c
+13d8: %r10_0 = MC1_WR_STR_DLL_1
+13e0: %r10_1 = 0
+13e4: call 0x191c
+13e8: store_word %r10_0, 0xe40015e0
+13ec: %r12_0 = *(0xe40015ec)
+13f0: %r10_0 = rotlw_by_0_then_and %r10_0, 0x0000000f
+13f8: beq %r10_0, 6 -> 0x1404 v
+13fc: %r10_0 = *(0xe40015e0)
+1400: jmp 0x1480 v
+1404: %r10_0 = *(0xe40015e0)
+1408: store_word %r10_0, 0xe40015e0
+140c: %r12_0 = *(0xe40015ec)
+1410: %r10_0 = rotlw_by_28_then_and %r10_0, 0x0000000f
+1418: beq %r10_0, 4 -> 0x1424 v
+141c: %r10_0 = *(0xe40015e0)
+1420: jmp 0x1480 v
+1424: %r10_0 = *(0xe40015e0)
+1428: %r10_0 = 0
+142c: %r11_1 = 1
+1430: %r10_0 = MC0_WR_STR_DLL_0
+1438: %r10_1 = 0xfe000000
+1440: call 0x191c
+1444: %r10_0 = MC0_WR_STR_DLL_1
+144c: %r10_1 = 0x000000fd
+1454: call 0x191c
+1458: %r10_0 = MC1_WR_STR_DLL_0
+1460: %r10_1 = 0xfbfcfdfe
+1468: call 0x191c
+146c: %r10_0 = MC1_WR_STR_DLL_1
+1474: %r10_1 = 0x00fcfdfc
+147c: call 0x191c
+1480: %r12_0 = *(MC1_WR_STR_DLL_1)
+1484: sync
+1488: delay -7
+148c: call 0x2c38
+1490: call 0x2be4
+1494: call 0x2c58
+1498: call 0x32a4
+149c: %r10_0 = 0
+14a0: %r11_1 = 1
+14a4: %r12_0 = 3
+14a8: store_word 0, 0xe4000024
+14ac: store_word %r10_0, 0xe40015e0
+14b0: %r10_0 = *(0xe40015e8)
+14b4: %r10_0 = rotlw_by_30_then_and %r10_0, 1
+14b8: branch_cond0 %r10_0, 1 -> 0x14c4 v
+14bc: %r10_0 = *(0xe40015e0)
+14c0: jmp 0x14cc v
+14c4: %r10_0 = *(0xe40015e0)
+14c8: %r12_0 = 7
+14cc: call 0x2184
+14d0: %r10_0 = add %r11_0, 1
+14d4: %r11_1 = rotlw_by_1_then_and %r11_1, -2
+14d8: branch_cond1 %r11_0, %r12_0 -> 0x14cc ^
+14dc: %r12_0 = *(0xe4000024)
+14e0: beq %r10_0, 0 -> 0x14f0 v
+14e4: store_word 0x0014149a, 0xe4000024
+14ec: call 0x1e58
+14f0: store_word 0x00000515, 0xe1020008
+14f8: store_word 0x00000010, 0xe1060030
+1500: %r10_0 = load_word -5
+1508: %r10_0 = and %r11_0, 0xffffe3ff
+1510: %r10_0 = or %r11_0, 0x00001000
+1518: store_word %r11_0, 0xe1060034
+1520: %r12_0 = load_word -5
+1524: %r10_0 = or %r11_0, 0x08000000
+152c: store_word %r11_0, 0xe1040024
+1530: %r10_0 = 0x00356ca9
+1538: %r10_0 = or %r10_0, 0x02000000
+1540: store_word %r10_0, 0xe400001c
+1544: %r10_0 = *(0xe40015e8)
+1548: %r10_0 = rotlw_by_29_then_and %r10_0, 1
+154c: %r10_0 = load_word -6
+1550: %r10_1 = rotlw_by_30_then_and %r10_1, 1
+1554: %r10_1 = rotlw_by_1_then_and %r10_1, -1
+1558: %r10_0 = or %r10_0, %r10_1
+155c: %r10_0 = load_word -6
+1560: %r10_1 = rotlw_by_28_then_and %r10_1, 1
+1564: %r10_1 = rotlw_by_2_then_and %r10_1, -1
+1568: %r10_0 = or %r10_0, %r10_1
+156c: %r12_0 = load_word -6
+1570: %r10_1 = rotlw_by_0_then_and %r10_1, 0x0000000f
+1578: %r10_1 = rotlw_by_8_then_and %r10_1, -1
+157c: %r10_0 = or %r10_0, %r10_1
+1580: %r12_0 = load_word -6
+1584: %r10_1 = rotlw_by_28_then_and %r10_1, 0x0000000f
+158c: %r10_1 = rotlw_by_12_then_and %r10_1, -1
+1590: %r10_0 = or %r10_0, %r10_1
+1594: store_word %r10_0, 0xe4000020
+1598: store_word 0, 0xe1020004
+159c: store_half 6, 0xd0008004
+15a0: %r12_0 = load_half -7
+15a4: sync
+15a8: delay -7
+15ac: store_word 0x00000030, 0xe1003100
+15b4: store_word 0, 0xe1003000
+15bc: store_word 0, 0xe1003200
+15c4: store_word 0xe0f7fd00, 0xe1003300
+15d0: store_word %r10_0, 0xe40015e0
+15d4: %r10_0 = *(0xe40015e8)
+15d8: %r10_0 = rotlw_by_27_then_and %r10_0, 1
+15dc: branch_cond0 %r10_0, 0 -> 0x15e8 v
+15e0: %r10_0 = *(0xe40015e0)
+15e4: jmp 0x15f0 v
+15e8: %r10_0 = *(0xe40015e0)
+15ec: done
+15f0: die
+15f4: %r10_1 = 0x000088aa
+15fc: store_word %r10_0, 0xe40015e0
+1600: %r10_0 = *(0xe40015e8)
+1604: %r10_0 = rotlw_by_28_then_and %r10_0, 1
+1608: branch_cond0 %r10_0, 1 -> 0x1614 v
+160c: %r10_0 = *(0xe40015e0)
+1610: jmp 0x1620 v
+1614: %r10_0 = *(0xe40015e0)
+1618: %r10_1 = 0x00008801
+1620: store_word %r10_0, 0xe40015e0
+1624: %r12_0 = *(0xe40015ec)
+1628: %r10_0 = rotlw_by_0_then_and %r10_0, 0x0000000f
+1630: beq %r10_0, 1 -> 0x163c v
+1634: %r10_0 = *(0xe40015e0)
+1638: jmp 0x166c v
+163c: %r10_0 = *(0xe40015e0)
+1640: %r10_1 = 0x0000bb55
+1648: store_word %r10_0, 0xe40015e0
+164c: %r10_0 = *(0xe40015e8)
+1650: %r10_0 = rotlw_by_28_then_and %r10_0, 1
+1654: branch_cond0 %r10_0, 1 -> 0x1660 v
+1658: %r10_0 = *(0xe40015e0)
+165c: jmp 0x166c v
+1660: %r10_0 = *(0xe40015e0)
+1664: %r10_1 = 0x00008855
+166c: store_word %r10_0, 0xe40015e0
+1670: %r12_0 = *(0xe40015ec)
+1674: %r10_0 = rotlw_by_0_then_and %r10_0, 0x0000000f
+167c: beq %r10_0, 6 -> 0x1688 v
+1680: %r10_0 = *(0xe40015e0)
+1684: jmp 0x16b8 v
+1688: %r10_0 = *(0xe40015e0)
+168c: %r10_1 = 0x00005555
+1694: store_word %r10_0, 0xe40015e0
+1698: %r10_0 = *(0xe40015e8)
+169c: %r10_0 = rotlw_by_28_then_and %r10_0, 1
+16a0: branch_cond0 %r10_0, 1 -> 0x16ac v
+16a4: %r10_0 = *(0xe40015e0)
+16a8: jmp 0x16b8 v
+16ac: %r10_0 = *(0xe40015e0)
+16b0: %r10_1 = 0x00008801
+16b8: return
+16bc: %r10_1 = 0x06228088
+16c4: store_word %r10_0, 0xe40015e0
+16c8: %r12_0 = *(0xe40015ec)
+16cc: %r10_0 = rotlw_by_0_then_and %r10_0, 0x0000000f
+16d4: beq %r10_0, 1 -> 0x16e0 v
+16d8: %r10_0 = *(0xe40015e0)
+16dc: jmp 0x16ec v
+16e0: %r10_0 = *(0xe40015e0)
+16e4: %r10_1 = 0x06228088
+16ec: store_word %r10_0, 0xe40015e0
+16f0: %r12_0 = *(0xe40015ec)
+16f4: %r10_0 = rotlw_by_0_then_and %r10_0, 0x0000000f
+16fc: beq %r10_0, 2 -> 0x1708 v
+1700: %r10_0 = *(0xe40015e0)
+1704: jmp 0x1714 v
+1708: %r10_0 = *(0xe40015e0)
+170c: %r10_1 = 0x06228088
+1714: store_word %r10_0, 0xe40015e0
+1718: %r12_0 = *(0xe40015ec)
+171c: %r10_0 = rotlw_by_0_then_and %r10_0, 0x0000000f
+1724: beq %r10_0, 6 -> 0x1730 v
+1728: %r10_0 = *(0xe40015e0)
+172c: jmp 0x1764 v
+1730: %r10_0 = *(0xe40015e0)
+1734: %r10_1 = 0x06208088
+173c: store_word %r10_0, 0xe40015e0
+1740: %r12_0 = *(0xe40015ec)
+1744: %r10_0 = rotlw_by_28_then_and %r10_0, 0x0000000f
+174c: branch_cond0 %r10_0, 2 -> 0x1758 v
+1750: %r10_0 = *(0xe40015e0)
+1754: jmp 0x1764 v
+1758: %r10_0 = *(0xe40015e0)
+175c: %r10_1 = 0x06228088
+1764: store_word %r10_0, 0xe40015e0
+1768: %r10_0 = *(0xe40015e8)
+176c: %r10_0 = rotlw_by_28_then_and %r10_0, 1
+1770: branch_cond0 %r10_0, 1 -> 0x177c v
+1774: %r10_0 = *(0xe40015e0)
+1778: jmp 0x17a8 v
+177c: %r10_0 = *(0xe40015e0)
+1780: %r10_1 = or %r10_1, 4
+1784: store_word %r10_0, 0xe40015e0
+1788: %r10_0 = *(0xe40015e8)
+178c: %r10_0 = rotlw_by_29_then_and %r10_0, 1
+1790: branch_cond0 %r10_0, 0 -> 0x179c v
+1794: %r10_0 = *(0xe40015e0)
+1798: jmp 0x17a8 v
+179c: %r10_0 = *(0xe40015e0)
+17a0: %r10_1 = and %r10_1, 0xfffdffff
+17a8: return
+17ac: %r10_1 = 0x06228009
+17b4: store_word %r10_0, 0xe40015e0
+17b8: %r12_0 = *(0xe40015ec)
+17bc: %r10_0 = rotlw_by_0_then_and %r10_0, 0x0000000f
+17c4: beq %r10_0, 1 -> 0x17d0 v
+17c8: %r10_0 = *(0xe40015e0)
+17cc: jmp 0x1804 v
+17d0: %r10_0 = *(0xe40015e0)
+17d4: %r10_1 = 0x06228008
+17dc: store_word %r10_0, 0xe40015e0
+17e0: %r12_0 = *(0xe40015ec)
+17e4: %r10_0 = rotlw_by_28_then_and %r10_0, 0x0000000f
+17ec: branch_cond0 %r10_0, 4 -> 0x17f8 v
+17f0: %r10_0 = *(0xe40015e0)
+17f4: jmp 0x1804 v
+17f8: %r10_0 = *(0xe40015e0)
+17fc: %r10_1 = 0x06228009
+1804: store_word %r10_0, 0xe40015e0
+1808: %r12_0 = *(0xe40015ec)
+180c: %r10_0 = rotlw_by_0_then_and %r10_0, 0x0000000f
+1814: beq %r10_0, 2 -> 0x1820 v
+1818: %r10_0 = *(0xe40015e0)
+181c: jmp 0x182c v
+1820: %r10_0 = *(0xe40015e0)
+1824: %r10_1 = 0x06228009
+182c: store_word %r10_0, 0xe40015e0
+1830: %r12_0 = *(0xe40015ec)
+1834: %r10_0 = rotlw_by_0_then_and %r10_0, 0x0000000f
+183c: beq %r10_0, 6 -> 0x1848 v
+1840: %r10_0 = *(0xe40015e0)
+1844: jmp 0x187c v
+1848: %r10_0 = *(0xe40015e0)
+184c: %r10_1 = 0x062080b8
+1854: store_word %r10_0, 0xe40015e0
+1858: %r12_0 = *(0xe40015ec)
+185c: %r10_0 = rotlw_by_28_then_and %r10_0, 0x0000000f
+1864: branch_cond0 %r10_0, 2 -> 0x1870 v
+1868: %r10_0 = *(0xe40015e0)
+186c: jmp 0x187c v
+1870: %r10_0 = *(0xe40015e0)
+1874: %r10_1 = 0x062280b9
+187c: store_word %r10_0, 0xe40015e0
+1880: %r10_0 = *(0xe40015e8)
+1884: %r10_0 = rotlw_by_28_then_and %r10_0, 1
+1888: branch_cond0 %r10_0, 1 -> 0x1894 v
+188c: %r10_0 = *(0xe40015e0)
+1890: jmp 0x18c0 v
+1894: %r10_0 = *(0xe40015e0)
+1898: %r10_1 = or %r10_1, 4
+189c: store_word %r10_0, 0xe40015e0
+18a0: %r10_0 = *(0xe40015e8)
+18a4: %r10_0 = rotlw_by_29_then_and %r10_0, 1
+18a8: branch_cond0 %r10_0, 0 -> 0x18b4 v
+18ac: %r10_0 = *(0xe40015e0)
+18b0: jmp 0x18c0 v
+18b4: %r10_0 = *(0xe40015e0)
+18b8: %r10_1 = and %r10_1, 0xfffdffff
+18c0: return
+18c4: %r10_1 = 0
+18c8: store_word %r10_0, 0xe40015e0
+18cc: %r12_0 = *(0xe40015ec)
+18d0: %r10_0 = rotlw_by_0_then_and %r10_0, 0x0000000f
+18d8: beq %r10_0, 6 -> 0x18e4 v
+18dc: %r10_0 = *(0xe40015e0)
+18e0: jmp 0x18f0 v
+18e4: %r10_0 = *(0xe40015e0)
+18e8: %r10_1 = 0x06210001
+18f0: store_word %r10_0, 0xe40015e0
+18f4: %r12_0 = *(0xe40015ec)
+18f8: %r10_0 = rotlw_by_0_then_and %r10_0, 0x0000000f
+1900: beq %r10_0, 1 -> 0x190c v
+1904: %r10_0 = *(0xe40015e0)
+1908: jmp 0x1918 v
+190c: %r10_0 = *(0xe40015e0)
+1910: %r10_1 = 0x06210000
+1918: return
+191c: %r10_0 = load_word -3
+1920: %r12_1 = and %r12_0, 0x000000ff
+1928: %r12_0 = and %r12_0, 0xffffff00
+1930: %r12_1 = mul %r12_1, %r11_1
+1934: %r12_0 = and %r10_1, 0x000000ff
+193c: %r12_1 = add %r12_1, %r13_0
+1940: %r12_1 = and %r12_1, 0x000000ff
+1948: %r12_0 = and %r12_1, 0x00000080
+1950: beq %r13_0, 0 -> 0x1958 v
+1954: %r12_1 = 0
+1958: %r12_0 = rotlw_by_0_then_and %r11_0, -1
+195c: branch_cond5 %r12_1, %r13_0 -> 0x1964 v
+1960: %r12_1 = and %r13_0, -1
+1964: %r12_0 = or %r12_0, %r12_1
+1968: %r12_1 = and %r12_0, 0x0000ff00
+1970: %r12_0 = and %r12_0, 0xffff00ff
+1978: %r12_1 = mul %r12_1, %r11_1
+197c: %r12_0 = and %r10_1, 0x0000ff00
+1984: %r12_1 = add %r12_1, %r13_0
+1988: %r12_1 = and %r12_1, 0x0000ff00
+1990: %r12_0 = and %r12_1, 0x00008000
+1998: beq %r13_0, 0 -> 0x19a0 v
+199c: %r12_1 = 0
+19a0: %r12_0 = rotlw_by_8_then_and %r11_0, -1
+19a4: branch_cond5 %r12_1, %r13_0 -> 0x19ac v
+19a8: %r12_1 = and %r13_0, -1
+19ac: %r12_0 = or %r12_0, %r12_1
+19b0: %r12_1 = and %r12_0, 0x00ff0000
+19b8: %r12_0 = and %r12_0, 0xff00ffff
+19c0: %r12_1 = mul %r12_1, %r11_1
+19c4: %r12_0 = and %r10_1, 0x00ff0000
+19cc: %r12_1 = add %r12_1, %r13_0
+19d0: %r12_1 = and %r12_1, 0x00ff0000
+19d8: %r12_0 = and %r12_1, 0x00800000
+19e0: beq %r13_0, 0 -> 0x19e8 v
+19e4: %r12_1 = 0
+19e8: %r12_0 = rotlw_by_16_then_and %r11_0, -1
+19ec: branch_cond5 %r12_1, %r13_0 -> 0x19f4 v
+19f0: %r12_1 = and %r13_0, -1
+19f4: %r12_0 = or %r12_0, %r12_1
+19f8: %r12_1 = and %r12_0, 0xff000000
+1a00: %r12_0 = and %r12_0, 0x00ffffff
+1a08: %r12_1 = mul %r12_1, %r11_1
+1a0c: %r12_0 = and %r10_1, 0xff000000
+1a14: %r12_1 = add %r12_1, %r13_0
+1a18: %r12_1 = and %r12_1, 0xff000000
+1a20: %r12_0 = and %r12_1, 0x80000000
+1a28: beq %r13_0, 0 -> 0x1a30 v
+1a2c: %r12_1 = 0
+1a30: %r12_0 = rotlw_by_24_then_and %r11_0, -1
+1a34: branch_cond5 %r12_1, %r13_0 -> 0x1a3c v
+1a38: %r12_1 = and %r13_0, -1
+1a3c: %r12_0 = or %r12_0, %r12_1
+1a40: store_word %r12_0, %r10_0
+1a44: return
+1a48: return
+1a4c: return
+1a50: %r10_0 = *(SMC_FIFO_INBOX_CTRL_STATUS)
+1a58: %r10_0 = and %r10_0, 4
+1a5c: branch_cond0 %r10_0, 0 -> 0x1a8c v
+1a60: %r10_0 = *(SMC_FIFO_OUTBOX_CTRL_STATUS)
+1a68: %r10_0 = and %r10_0, 4
+1a6c: beq %r10_0, 0 -> 0x1a50 ^
+1a70: store_word 4, SMC_FIFO_OUTBOX_CTRL_STATUS
+1a78: %r10_0 = *(SMC_FIFO_OUTBOX_DATA)
+1a80: store_word 0, SMC_FIFO_OUTBOX_CTRL_STATUS
+1a88: jmp 0x1a50 ^
+1a8c: store_word 4, SMC_FIFO_INBOX_CTRL_STATUS
+1a94: store_word %r10_1, SMC_FIFO_INBOX_DATA
+1a9c: store_word %r11_0, SMC_FIFO_INBOX_DATA
+1aa4: store_word 0, SMC_FIFO_INBOX_CTRL_STATUS
+1aac: %r10_0 = and %r10_1, 0x00000080
+1ab4: branch_cond0 %r10_0, 0 -> 0x1b10 v
+1ab8: %r10_0 = *(SMC_FIFO_OUTBOX_CTRL_STATUS)
+1ac0: %r10_0 = and %r10_0, 4
+1ac4: beq %r10_0, 0 -> 0x1ab8 ^
+1ac8: store_word 4, SMC_FIFO_OUTBOX_CTRL_STATUS
+1ad0: %r10_0 = *(SMC_FIFO_OUTBOX_DATA)
+1ad8: %r10_0 = and %r10_0, 0x000000ff
+1ae0: beq %r10_0, %r10_1 -> 0x1af0 v
+1ae4: store_word 0, SMC_FIFO_OUTBOX_CTRL_STATUS
+1aec: jmp 0x1ab8 ^
+1af0: store_word 4, SMC_FIFO_OUTBOX_CTRL_STATUS
+1af8: %r10_0 = load_word -6
+1b00: %r10_0 = load_word -5
+1b08: store_word 0, SMC_FIFO_OUTBOX_CTRL_STATUS
+1b10: return
+1b14: beq %r10_0, 3 -> 0x1ba4 v
+1b18: beq %r10_0, 2 -> 0x1b78 v
+1b1c: beq %r10_0, 1 -> 0x1b4c v
+1b20: %r10_1 = 0x000f0199
+1b28: call 0x1a50
+1b2c: delay -7
+1b34: %r10_1 = 0x00000099
+1b3c: call 0x1a50
+1b40: delay -7
+1b48: return
+1b4c: %r10_1 = 0x00010199
+1b54: call 0x1a50
+1b58: delay -7
+1b60: %r10_1 = 0x00000099
+1b68: call 0x1a50
+1b6c: delay -7
+1b74: return
+1b78: %r10_1 = 0x00030199
+1b80: call 0x1a50
+1b84: delay -7
+1b8c: %r10_1 = 0x00000099
+1b94: call 0x1a50
+1b98: delay -7
+1ba0: return
+1ba4: %r10_1 = 0x00070199
+1bac: call 0x1a50
+1bb0: delay -7
+1bb8: %r10_1 = 0x00000099
+1bc0: call 0x1a50
+1bc4: delay -7
+1bcc: return
+1bd0: beq %r10_0, 3 -> 0x1c60 v
+1bd4: beq %r10_0, 2 -> 0x1c34 v
+1bd8: beq %r10_0, 1 -> 0x1c08 v
+1bdc: %r10_1 = 0x00f00199
+1be4: call 0x1a50
+1be8: delay -7
+1bf0: %r10_1 = 0x00000099
+1bf8: call 0x1a50
+1bfc: delay -7
+1c04: return
+1c08: %r10_1 = 0x00100199
+1c10: call 0x1a50
+1c14: delay -7
+1c1c: %r10_1 = 0x00000099
+1c24: call 0x1a50
+1c28: delay -7
+1c30: return
+1c34: %r10_1 = 0x00300199
+1c3c: call 0x1a50
+1c40: delay -7
+1c48: %r10_1 = 0x00000099
+1c50: call 0x1a50
+1c54: delay -7
+1c5c: return
+1c60: %r10_1 = 0x00700199
+1c68: call 0x1a50
+1c6c: delay -7
+1c74: %r10_1 = 0x00000099
+1c7c: call 0x1a50
+1c80: delay -7
+1c88: return
+1c8c: beq %r10_0, 3 -> 0x1d1c v
+1c90: beq %r10_0, 2 -> 0x1cf0 v
+1c94: beq %r10_0, 1 -> 0x1cc4 v
+1c98: %r10_1 = 0x00ff0199
+1ca0: call 0x1a50
+1ca4: delay -7
+1cac: %r10_1 = 0x00000099
+1cb4: call 0x1a50
+1cb8: delay -7
+1cc0: return
+1cc4: %r10_1 = 0x00110199
+1ccc: call 0x1a50
+1cd0: delay -7
+1cd8: %r10_1 = 0x00000099
+1ce0: call 0x1a50
+1ce4: delay -7
+1cec: return
+1cf0: %r10_1 = 0x00330199
+1cf8: call 0x1a50
+1cfc: delay -7
+1d04: %r10_1 = 0x00000099
+1d0c: call 0x1a50
+1d10: delay -7
+1d18: return
+1d1c: %r10_1 = 0x00770199
+1d24: call 0x1a50
+1d28: delay -7
+1d30: %r10_1 = 0x00000099
+1d38: call 0x1a50
+1d3c: delay -7
+1d44: return
+1d48: %r10_1 = 1
+1d4c: call 0x1a50
+1d50: %r10_1 = 0x0000038c
+1d58: call 0x1a50
+1d5c: delay -7
+1d64: %r11_1 = 0
+1d68: %r10_0 = rotlw_by_26_then_and %r11_1, 3
+1d6c: call 0x1c8c
+1d70: %r10_0 = rotlw_by_28_then_and %r11_1, 3
+1d74: call 0x1c8c
+1d78: %r10_0 = rotlw_by_30_then_and %r11_1, 3
+1d7c: call 0x1c8c
+1d80: %r10_0 = rotlw_by_0_then_and %r11_1, 3
+1d84: call 0x1c8c
+1d88: delay -7
+1d90: %r11_1 = 0x00000016
+1d98: %r10_0 = rotlw_by_26_then_and %r11_1, 3
+1d9c: call 0x1bd0
+1da0: %r10_0 = rotlw_by_28_then_and %r11_1, 3
+1da4: call 0x1bd0
+1da8: %r10_0 = rotlw_by_30_then_and %r11_1, 3
+1dac: call 0x1bd0
+1db0: %r10_0 = rotlw_by_0_then_and %r11_1, 3
+1db4: call 0x1bd0
+1db8: delay -7
+1dc0: %r10_1 = 0x0000018c
+1dc8: call 0x1a50
+1dcc: delay -7
+1dd4: return
+1dd8: %r12_0 = load_word -4
+1ddc: call 0x1d48
+1de0: %r12_0 = load_word -4
+1de4: %r11_1 = rotlw_by_24_then_and %r11_1, 0x000000ff
+1dec: %r10_0 = rotlw_by_26_then_and %r11_1, 3
+1df0: call 0x1b14
+1df4: %r10_0 = rotlw_by_28_then_and %r11_1, 3
+1df8: call 0x1b14
+1dfc: %r10_0 = rotlw_by_30_then_and %r11_1, 3
+1e00: call 0x1b14
+1e04: %r10_0 = rotlw_by_0_then_and %r11_1, 3
+1e08: call 0x1b14
+1e0c: delay -7
+1e14: %r12_0 = load_word -4
+1e18: %r10_0 = rotlw_by_26_then_and %r11_1, 3
+1e1c: call 0x1bd0
+1e20: %r10_0 = rotlw_by_28_then_and %r11_1, 3
+1e24: call 0x1bd0
+1e28: %r10_0 = rotlw_by_30_then_and %r11_1, 3
+1e2c: call 0x1bd0
+1e30: %r10_0 = rotlw_by_0_then_and %r11_1, 3
+1e34: call 0x1bd0
+1e38: delay -7
+1e40: jmp 0x1de0 ^
+1e44: call 0x1d48
+1e48: %r10_1 = 0x00ff0199
+1e50: call 0x1a50
+1e54: jmp 0x1e54 ^
+1e58: store_word %r10_0, 0xe40015e0
+1e5c: %r10_0 = *(0xe40015e8)
+1e60: %r10_0 = rotlw_by_0_then_and %r10_0, 1
+1e64: branch_cond0 %r10_0, 1 -> 0x1e70 v
+1e68: %r10_0 = *(0xe40015e0)
+1e6c: jmp 0x1eb8 v
+1e70: %r10_0 = *(0xe40015e0)
+1e74: store_word %r10_0, 0xe40015e0
+1e78: %r10_0 = *(0xe40015e8)
+1e7c: %r10_0 = rotlw_by_27_then_and %r10_0, 1
+1e80: branch_cond0 %r10_0, 1 -> 0x1e8c v
+1e84: %r10_0 = *(0xe40015e0)
+1e88: jmp 0x1eb8 v
+1e8c: %r10_0 = *(0xe40015e0)
+1e90: store_word %r10_0, 0xe40015e0
+1e94: %r10_0 = *(0xe40015e8)
+1e98: %r10_0 = and %r10_0, 0xffffffdf
+1ea0: %r10_0 = or %r10_0, 0x00000020
+1ea8: store_word %r10_0, 0xe40015e8
+1eac: %r10_0 = *(0xe40015e0)
+1eb0: %r12_0 = load_word -6
+1eb4: call 0x1a50
+1eb8: return
+1ebc: store_word %r10_0, 0xe40015e0
+1ec0: %r10_0 = *(0xe40015e8)
+1ec4: %r10_0 = rotlw_by_28_then_and %r10_0, 1
+1ec8: branch_cond0 %r10_0, 0 -> 0x1ed4 v
+1ecc: %r10_0 = *(0xe40015e0)
+1ed0: jmp 0x1eec v
+1ed4: %r10_0 = *(0xe40015e0)
+1ed8: %r10_0 = rotlw_by_28_then_and %r11_1, 0x0000000f
+1ee0: %r11_1 = or %r11_1, %r10_0
+1ee4: %r11_1 = and %r11_1, 0x0000000f
+1eec: return
+1ef0: %r11_1 = rotlw_by_31_then_and %r11_1, 0x0000007f
+1ef8: branch_cond0 %r10_0, %r10_1 -> 0x1f00 v
+1efc: return
+1f00: %r11_1 = or %r11_1, 0x00000080
+1f08: return
+1f0c: %r11_1 = rotlw_by_31_then_and %r11_1, 7
+1f10: %r10_0 = rotlw_by_0_then_and %r13_0, 0x000000ff
+1f18: beq %r10_0, 0 -> 0x1f44 v
+1f1c: %r10_0 = rotlw_by_24_then_and %r13_0, 0x000000ff
+1f24: beq %r10_0, 0 -> 0x1f44 v
+1f28: %r10_0 = rotlw_by_16_then_and %r13_0, 0x000000ff
+1f30: beq %r10_0, 0 -> 0x1f44 v
+1f34: %r10_0 = rotlw_by_8_then_and %r13_0, 0x000000ff
+1f3c: beq %r10_0, 0 -> 0x1f44 v
+1f40: return
+1f44: %r11_1 = or %r11_1, 0x00000008
+1f4c: return
+1f50: %r10_1 = 0
+1f54: %r10_0 = and %r12_0, 0x000000ff
+1f5c: branch_cond0 %r10_0, 0 -> 0x1f64 v
+1f60: %r10_1 = or %r10_1, 1
+1f64: %r10_0 = and %r12_0, 0x0000ff00
+1f6c: branch_cond0 %r10_0, 0 -> 0x1f74 v
+1f70: %r10_1 = or %r10_1, 2
+1f74: %r10_0 = and %r12_0, 0x00ff0000
+1f7c: branch_cond0 %r10_0, 0 -> 0x1f84 v
+1f80: %r10_1 = or %r10_1, 4
+1f84: %r10_0 = and %r12_0, 0xff000000
+1f8c: branch_cond0 %r10_0, 0 -> 0x1f98 v
+1f90: %r10_1 = or %r10_1, 0x00000008
+1f98: %r10_0 = and %r12_1, 0x000000ff
+1fa0: branch_cond0 %r10_0, 0 -> 0x1fa8 v
+1fa4: %r10_1 = or %r10_1, 1
+1fa8: %r10_0 = and %r12_1, 0x0000ff00
+1fb0: branch_cond0 %r10_0, 0 -> 0x1fb8 v
+1fb4: %r10_1 = or %r10_1, 2
+1fb8: %r10_0 = and %r12_1, 0x00ff0000
+1fc0: branch_cond0 %r10_0, 0 -> 0x1fc8 v
+1fc4: %r10_1 = or %r10_1, 4
+1fc8: %r10_0 = and %r12_1, 0xff000000
+1fd0: branch_cond0 %r10_0, 0 -> 0x1fdc v
+1fd4: %r10_1 = or %r10_1, 0x00000008
+1fdc: return
+1fe0: %r12_0 = 0
+1fe4: %r10_0 = and %r13_1, 0x0000000f
+1fec: beq %r10_0, 0x0000000f -> 0x1ff8 v
+1ff4: %r12_0 = or %r12_0, 1
+1ff8: %r10_0 = and %r13_1, 0x000000f0
+2000: beq %r10_0, 0x000000f0 -> 0x200c v
+2008: %r12_0 = or %r12_0, 2
+200c: %r10_0 = and %r13_1, 0x00000f00
+2014: beq %r10_0, 0x00000f00 -> 0x2020 v
+201c: %r12_0 = or %r12_0, 4
+2020: %r10_0 = and %r13_1, 0x0000f000
+2028: beq %r10_0, 0x0000f000 -> 0x2038 v
+2030: %r12_0 = or %r12_0, 0x00000008
+2038: %r10_0 = and %r13_1, 0x000f0000
+2040: beq %r10_0, 0x000f0000 -> 0x2050 v
+2048: %r12_0 = or %r12_0, 0x00000010
+2050: %r10_0 = and %r13_1, 0x00f00000
+2058: beq %r10_0, 0x00f00000 -> 0x2068 v
+2060: %r12_0 = or %r12_0, 0x00000020
+2068: %r10_0 = and %r13_1, 0x0f000000
+2070: beq %r10_0, 0x0f000000 -> 0x2080 v
+2078: %r12_0 = or %r12_0, 0x00000040
+2080: %r10_0 = and %r13_1, 0xf0000000
+2088: beq %r10_0, 0xf0000000 -> 0x2098 v
+2090: %r12_0 = or %r12_0, 0x00000080
+2098: return
+209c: return
+20a0: %r10_0 = load_word -1
+20a4: %r12_0 = and %r13_0, 0xfe7fffff
+20ac: store_word %r13_0, %r10_1
+20b0: %r10_0 = load_word -1
+20b4: sync
+20b8: branch_cond0 %r10_1, 0xe400028c -> 0x20f0 v
+20c0: %r10_0 = load_word -1
+20c4: %r12_0 = and %r13_0, 0xfe7fffff
+20cc: store_word %r13_0, 0xe4000248
+20d0: %r10_0 = load_word -1
+20d4: sync
+20d8: %r12_0 = load_word -1
+20dc: %r12_0 = or %r13_0, 2
+20e0: store_word %r13_0, 0xe400028c
+20e4: %r12_0 = load_word -1
+20e8: sync
+20ec: %r11_1 = or %r11_1, 2
+20f0: store_word %r11_0, %r10_0
+20f4: %r10_0 = load_word -1
+20f8: %r12_0 = and %r13_0, 0xfe000000
+2100: %r11_1 = or %r11_1, %r13_0
+2104: store_word %r11_1, %r10_1
+2108: %r10_0 = load_word -4
+210c: sync
+2110: delay -7
+2114: %r12_0 = or %r11_0, 1
+2118: store_word %r13_0, %r10_0
+211c: %r10_0 = load_word -1
+2120: sync
+2124: delay -7
+2128: branch_cond0 %r10_1, 0xe400028c -> 0x2148 v
+2130: %r10_0 = load_word -1
+2134: %r12_0 = or %r13_0, 0x01000000
+213c: store_word %r13_0, 0xe4000248
+2140: %r10_0 = load_word -1
+2144: sync
+2148: %r11_1 = or %r11_1, 0x01000000
+2150: store_word %r11_1, %r10_1
+2154: %r10_0 = load_word -4
+2158: sync
+215c: delay -7
+2160: branch_cond0 %r10_1, 0xe400028c -> 0x2180 v
+2168: %r11_1 = and %r11_1, 0xfffffffd
+2170: store_word %r11_1, 0xe400028c
+2174: %r12_0 = load_word -4
+2178: sync
+217c: delay -7
+2180: return
+2184: %r12_1 = rotlw_by_26_then_and %r11_0, 0x10000000
+218c: store_word %r10_0, 0xe40015e0
+2190: %r10_0 = *(0xe40015e8)
+2194: %r10_0 = rotlw_by_29_then_and %r10_0, 1
+2198: branch_cond0 %r10_0, 0 -> 0x21a4 v
+219c: %r10_0 = *(0xe40015e0)
+21a0: jmp 0x21c8 v
+21a4: %r10_0 = *(0xe40015e0)
+21a8: store_word %r10_0, 0xe40015e0
+21ac: %r10_0 = *(0xe40015e8)
+21b0: %r10_0 = rotlw_by_28_then_and %r10_0, 1
+21b4: branch_cond0 %r10_0, 1 -> 0x21c0 v
+21b8: %r10_0 = *(0xe40015e0)
+21bc: jmp 0x21c8 v
+21c0: %r10_0 = *(0xe40015e0)
+21c4: %r12_1 = rotlw_by_1_then_and %r12_1, -2
+21c8: %r10_0 = rotlw_by_6_then_and %r11_0, 0x00000080
+21d0: %r12_1 = add %r12_1, %r10_0
+21d4: %r10_0 = rotlw_by_2_then_and %r11_0, 4
+21d8: %r12_1 = add %r12_1, %r10_0
+21dc: %r12_0 = 0x10000000
+21e4: store_word %r10_0, 0xe40015e0
+21e8: %r10_0 = *(0xe40015e8)
+21ec: %r10_0 = rotlw_by_29_then_and %r10_0, 1
+21f0: branch_cond0 %r10_0, 0 -> 0x21fc v
+21f4: %r10_0 = *(0xe40015e0)
+21f8: jmp 0x2220 v
+21fc: %r10_0 = *(0xe40015e0)
+2200: store_word %r10_0, 0xe40015e0
+2204: %r10_0 = *(0xe40015e8)
+2208: %r10_0 = rotlw_by_28_then_and %r10_0, 1
+220c: branch_cond0 %r10_0, 1 -> 0x2218 v
+2210: %r10_0 = *(0xe40015e0)
+2214: jmp 0x2220 v
+2218: %r10_0 = *(0xe40015e0)
+221c: %r12_0 = rotlw_by_1_then_and %r13_0, -2
+2220: %r12_0 = rotlw_by_31_then_and %r13_0, -1
+2224: beq %r13_0, 4 -> 0x2258 v
+2228: beq %r13_0, 0x00000080 -> 0x2220 ^
+2230: %r13_1 = add %r12_1, %r13_0
+2234: store_word 0, %r12_1
+2238: store_word -1, %r13_1
+223c: %r10_0 = *(%r12_1)
+2240: %r10_0 = load_word -6
+2244: branch_cond0 %r10_0, 0 -> 0x224c v
+2248: beq %r10_1, -1 -> 0x2220 ^
+224c: %r12_0 = *(0xe4000024)
+2250: %r10_0 = or %r10_0, %r11_1
+2254: store_word %r10_0, 0xe4000024
+2258: return
+225c: call 0x32a4
+2260: %r10_0 = 0
+2264: op_1E 0, -7
+2268: %r10_1 = 0x00001800
+2270: call 0x344c
+2274: beq %r12_0, 0 -> 0x227c v
+2278: %r10_0 = or %r11_0, 1
+227c: beq %r12_1, 0 -> 0x2288 v
+2280: %r10_0 = or %r11_0, 0x00000010
+2288: op_1E 0, -7
+228c: op_1E 1, -7
+2290: %r10_1 = 0x00001804
+2298: call 0x344c
+229c: beq %r12_0, 0 -> 0x22a4 v
+22a0: %r10_0 = or %r11_0, 2
+22a4: beq %r12_1, 0 -> 0x22b0 v
+22a8: %r10_0 = or %r11_0, 0x00000020
+22b0: op_1E 1, -7
+22b4: op_1E 2, -7
+22b8: %r10_1 = 0x00001880
+22c0: call 0x344c
+22c4: beq %r12_0, 0 -> 0x22cc v
+22c8: %r10_0 = or %r11_0, 4
+22cc: beq %r12_1, 0 -> 0x22d8 v
+22d0: %r10_0 = or %r11_0, 0x00000040
+22d8: op_1E 2, -7
+22dc: op_1E 3, -7
+22e0: %r10_1 = 0x00001884
+22e8: call 0x344c
+22ec: beq %r12_0, 0 -> 0x22f8 v
+22f0: %r10_0 = or %r11_0, 0x00000008
+22f8: beq %r12_1, 0 -> 0x2304 v
+22fc: %r10_0 = or %r11_0, 0x00000080
+2304: op_1E 3, -7
+2308: return
+230c: %r10_0 = 0
+2310: op_1E %r11_0, -7
+2314: %r12_0 = 0
+2318: %r12_1 = 0
+231c: %r12_0 = 0
+2320: op_1E %r11_0, -7
+2324: %r10_0 = add %r11_0, 1
+2328: branch_cond0 %r11_0, 4 -> 0x2310 ^
+232c: store_word 0, 0xe4000018
+2330: %r13_1 = 0
+2334: %r10_0 = *(0xe4000018)
+2338: store_word_0_100 %r10_0, MC0_RD_STR_DLY_0
+233c: store_word_0_100 %r10_0, MC0_RD_STR_DLY_1
+2340: %r10_0 = *(MC1_RD_STR_DLY_1)
+2344: sync
+2348: store_word_0_100 0x00001605, MC0_CNTL
+2350: store_word_0_100 0x00000605, MC0_CNTL
+2358: %r10_0 = 0
+235c: %r11_1 = 0
+2360: %r10_1 = 0x00001808
+2368: call 0x3624
+236c: call 0x1f50
+2370: %r10_1 = rotlw_by_0_then_and %r10_1, -1
+2374: %r13_1 = or %r13_1, %r10_1
+2378: %r10_1 = 0x000000ff
+2380: store_word %r10_0, 0xe40015e0
+2384: %r10_0 = *(0xe40015e8)
+2388: %r10_0 = rotlw_by_30_then_and %r10_0, 1
+238c: branch_cond0 %r10_0, 1 -> 0x2398 v
+2390: %r10_0 = *(0xe40015e0)
+2394: jmp 0x23b4 v
+2398: %r10_0 = *(0xe40015e0)
+239c: %r10_0 = load_word -6
+23a0: %r10_1 = rotlw_by_31_then_and %r10_1, -1
+23a4: %r10_1 = add %r10_1, 0x00001808
+23ac: call 0x3624
+23b0: call 0x1f50
+23b4: %r10_1 = rotlw_by_16_then_and %r10_1, -1
+23b8: %r13_1 = or %r13_1, %r10_1
+23bc: op_1E 0, -7
+23c0: call 0x3940
+23c4: call 0x39d0
+23c8: store_word %r10_0, 0xe40015e0
+23cc: %r10_0 = *(0xe40015e8)
+23d0: %r10_0 = rotlw_by_31_then_and %r10_0, 1
+23d4: branch_cond0 %r10_0, 0 -> 0x23e0 v
+23d8: %r10_0 = *(0xe40015e0)
+23dc: jmp 0x23e8 v
+23e0: %r10_0 = *(0xe40015e0)
+23e4: call 0x209c
+23e8: op_1E 0, -7
+23ec: %r10_0 = 0
+23f0: %r11_1 = 0
+23f4: %r10_1 = 0x0000180c
+23fc: call 0x3624
+2400: call 0x1f50
+2404: %r10_1 = rotlw_by_4_then_and %r10_1, -1
+2408: %r13_1 = or %r13_1, %r10_1
+240c: %r10_1 = 0x000000ff
+2414: store_word %r10_0, 0xe40015e0
+2418: %r10_0 = *(0xe40015e8)
+241c: %r10_0 = rotlw_by_30_then_and %r10_0, 1
+2420: branch_cond0 %r10_0, 1 -> 0x242c v
+2424: %r10_0 = *(0xe40015e0)
+2428: jmp 0x2448 v
+242c: %r10_0 = *(0xe40015e0)
+2430: %r10_0 = load_word -6
+2434: %r10_1 = rotlw_by_31_then_and %r10_1, -1
+2438: %r10_1 = add %r10_1, 0x0000180c
+2440: call 0x3624
+2444: call 0x1f50
+2448: %r10_1 = rotlw_by_20_then_and %r10_1, -1
+244c: %r13_1 = or %r13_1, %r10_1
+2450: op_1E 1, -7
+2454: call 0x3940
+2458: call 0x39d0
+245c: store_word %r10_0, 0xe40015e0
+2460: %r10_0 = *(0xe40015e8)
+2464: %r10_0 = rotlw_by_31_then_and %r10_0, 1
+2468: branch_cond0 %r10_0, 0 -> 0x2474 v
+246c: %r10_0 = *(0xe40015e0)
+2470: jmp 0x247c v
+2474: %r10_0 = *(0xe40015e0)
+2478: call 0x209c
+247c: op_1E 1, -7
+2480: %r10_0 = 0
+2484: %r11_1 = 0
+2488: %r10_1 = 0x00001888
+2490: call 0x3624
+2494: call 0x1f50
+2498: %r10_1 = rotlw_by_8_then_and %r10_1, -1
+249c: %r13_1 = or %r13_1, %r10_1
+24a0: %r10_1 = 0x000000ff
+24a8: store_word %r10_0, 0xe40015e0
+24ac: %r10_0 = *(0xe40015e8)
+24b0: %r10_0 = rotlw_by_30_then_and %r10_0, 1
+24b4: branch_cond0 %r10_0, 1 -> 0x24c0 v
+24b8: %r10_0 = *(0xe40015e0)
+24bc: jmp 0x24dc v
+24c0: %r10_0 = *(0xe40015e0)
+24c4: %r10_0 = load_word -6
+24c8: %r10_1 = rotlw_by_31_then_and %r10_1, -1
+24cc: %r10_1 = add %r10_1, 0x00001888
+24d4: call 0x3624
+24d8: call 0x1f50
+24dc: %r10_1 = rotlw_by_24_then_and %r10_1, -1
+24e0: %r13_1 = or %r13_1, %r10_1
+24e4: op_1E 2, -7
+24e8: call 0x3940
+24ec: call 0x39d0
+24f0: store_word %r10_0, 0xe40015e0
+24f4: %r10_0 = *(0xe40015e8)
+24f8: %r10_0 = rotlw_by_31_then_and %r10_0, 1
+24fc: branch_cond0 %r10_0, 0 -> 0x2508 v
+2500: %r10_0 = *(0xe40015e0)
+2504: jmp 0x2510 v
+2508: %r10_0 = *(0xe40015e0)
+250c: call 0x209c
+2510: op_1E 2, -7
+2514: %r10_0 = 0
+2518: %r11_1 = 0
+251c: %r10_1 = 0x0000188c
+2524: call 0x3624
+2528: call 0x1f50
+252c: %r10_1 = rotlw_by_12_then_and %r10_1, -1
+2530: %r13_1 = or %r13_1, %r10_1
+2534: %r10_1 = 0x000000ff
+253c: store_word %r10_0, 0xe40015e0
+2540: %r10_0 = *(0xe40015e8)
+2544: %r10_0 = rotlw_by_30_then_and %r10_0, 1
+2548: branch_cond0 %r10_0, 1 -> 0x2554 v
+254c: %r10_0 = *(0xe40015e0)
+2550: jmp 0x2570 v
+2554: %r10_0 = *(0xe40015e0)
+2558: %r10_0 = load_word -6
+255c: %r10_1 = rotlw_by_31_then_and %r10_1, -1
+2560: %r10_1 = add %r10_1, 0x0000188c
+2568: call 0x3624
+256c: call 0x1f50
+2570: %r10_1 = rotlw_by_28_then_and %r10_1, -1
+2574: %r13_1 = or %r13_1, %r10_1
+2578: op_1E 3, -7
+257c: call 0x3940
+2580: call 0x39d0
+2584: store_word %r10_0, 0xe40015e0
+2588: %r10_0 = *(0xe40015e8)
+258c: %r10_0 = rotlw_by_31_then_and %r10_0, 1
+2590: branch_cond0 %r10_0, 0 -> 0x259c v
+2594: %r10_0 = *(0xe40015e0)
+2598: jmp 0x25a4 v
+259c: %r10_0 = *(0xe40015e0)
+25a0: call 0x209c
+25a4: op_1E 3, -7
+25a8: %r10_0 = load_word -5
+25ac: %r10_0 = add %r11_0, 0x01010101
+25b4: store_word %r11_0, 0xe4000018
+25b8: branch_cond0 %r11_0, 0x80808080 -> 0x2334 ^
+25c0: %r10_0 = 0
+25c4: op_1E %r10_0, -7
+25c8: %r10_0 = rotlw_by_2_then_and %r10_0, 0x000000ff
+25d0: %r11_1 = add %r11_0, 0xe4001600
+25d8: store_word %r13_0, %r11_1
+25dc: %r11_1 = rotlw_by_0_then_and %r13_0, 0x000000ff
+25e4: branch_cond0 %r11_1, 0 -> 0x2610 v
+25e8: store_word %r10_0, 0xe40015e0
+25ec: %r10_0 = *(0xe40015e8)
+25f0: %r10_0 = rotlw_by_31_then_and %r10_0, 1
+25f4: branch_cond0 %r10_0, 0 -> 0x2600 v
+25f8: %r10_0 = *(0xe40015e0)
+25fc: jmp 0x2718 v
+2600: %r10_0 = *(0xe40015e0)
+2604: %r13_1 = 0x00000080
+260c: jmp 0x2624 v
+2610: %r10_0 = and %r12_0, 0x0000ffff
+2618: %r10_0 = div %r11_0, %r11_1
+261c: %r13_1 = rotlw_by_0_then_and %r11_0, 0x000000ff
+2624: %r11_1 = rotlw_by_24_then_and %r13_0, 0x000000ff
+262c: branch_cond0 %r11_1, 0 -> 0x2658 v
+2630: store_word %r10_0, 0xe40015e0
+2634: %r10_0 = *(0xe40015e8)
+2638: %r10_0 = rotlw_by_31_then_and %r10_0, 1
+263c: branch_cond0 %r10_0, 0 -> 0x2648 v
+2640: %r10_0 = *(0xe40015e0)
+2644: jmp 0x2718 v
+2648: %r10_0 = *(0xe40015e0)
+264c: %r13_1 = or %r13_1, 0x00008000
+2654: jmp 0x2670 v
+2658: %r10_0 = rotlw_by_16_then_and %r12_0, 0x0000ffff
+2660: %r10_0 = div %r11_0, %r11_1
+2664: %r10_0 = rotlw_by_8_then_and %r11_0, 0x0000ff00
+266c: %r13_1 = or %r13_1, %r11_0
+2670: %r11_1 = rotlw_by_16_then_and %r13_0, 0x000000ff
+2678: branch_cond0 %r11_1, 0 -> 0x26a4 v
+267c: store_word %r10_0, 0xe40015e0
+2680: %r10_0 = *(0xe40015e8)
+2684: %r10_0 = rotlw_by_31_then_and %r10_0, 1
+2688: branch_cond0 %r10_0, 0 -> 0x2694 v
+268c: %r10_0 = *(0xe40015e0)
+2690: jmp 0x2718 v
+2694: %r10_0 = *(0xe40015e0)
+2698: %r13_1 = or %r13_1, 0x00800000
+26a0: jmp 0x26bc v
+26a4: %r10_0 = and %r12_1, 0x0000ffff
+26ac: %r10_0 = div %r11_0, %r11_1
+26b0: %r10_0 = rotlw_by_16_then_and %r11_0, 0x00ff0000
+26b8: %r13_1 = or %r13_1, %r11_0
+26bc: %r11_1 = rotlw_by_8_then_and %r13_0, 0x000000ff
+26c4: branch_cond0 %r11_1, 0 -> 0x26f0 v
+26c8: store_word %r10_0, 0xe40015e0
+26cc: %r10_0 = *(0xe40015e8)
+26d0: %r10_0 = rotlw_by_31_then_and %r10_0, 1
+26d4: branch_cond0 %r10_0, 0 -> 0x26e0 v
+26d8: %r10_0 = *(0xe40015e0)
+26dc: jmp 0x2718 v
+26e0: %r10_0 = *(0xe40015e0)
+26e4: %r13_1 = or %r13_1, 0x80000000
+26ec: jmp 0x2708 v
+26f0: %r10_0 = rotlw_by_16_then_and %r12_1, 0x0000ffff
+26f8: %r10_0 = div %r11_0, %r11_1
+26fc: %r10_0 = rotlw_by_24_then_and %r11_0, 0xff000000
+2704: %r13_1 = or %r13_1, %r11_0
+2708: op_1E %r10_0, -7
+270c: %r10_0 = add %r10_0, 1
+2710: branch_cond0 %r10_0, 4 -> 0x25c4 ^
+2714: return
+2718: op_1E %r10_0, -7
+271c: op_1E 0, -7
+2720: call 0x1f0c
+2724: op_1E 0, -7
+2728: op_1E 1, -7
+272c: call 0x1f0c
+2730: op_1E 1, -7
+2734: op_1E 2, -7
+2738: call 0x1f0c
+273c: op_1E 2, -7
+2740: op_1E 3, -7
+2744: call 0x1f0c
+2748: op_1E 3, -7
+274c: store_word 0x0012129a, 0xe4000024
+2754: call 0x1e58
+2758: call 0x2bb4
+275c: return
+2760: %r10_0 = 0
+2764: op_1E %r11_0, -7
+2768: %r12_0 = 0
+276c: %r12_1 = 0
+2770: %r12_0 = 0
+2774: op_1E %r11_0, -7
+2778: %r10_0 = add %r11_0, 1
+277c: branch_cond0 %r11_0, 4 -> 0x2764 ^
+2780: store_word 0, 0xe4000018
+2784: %r13_1 = 0
+2788: %r10_0 = *(0xe4000018)
+278c: store_word_0_100 %r10_0, MC0_WR_STR_DLL_0
+2790: store_word_0_100 %r10_0, MC0_WR_STR_DLL_1
+2794: %r12_0 = *(MC1_WR_STR_DLL_1)
+2798: sync
+279c: call 0x2c38
+27a0: call 0x2be4
+27a4: call 0x2c58
+27a8: call 0x32a4
+27ac: %r10_0 = 0
+27b0: %r11_1 = 0
+27b4: %r10_1 = 0x00001808
+27bc: call 0x378c
+27c0: call 0x1f50
+27c4: %r10_1 = rotlw_by_0_then_and %r10_1, -1
+27c8: %r13_1 = or %r13_1, %r10_1
+27cc: %r10_1 = 0x000000ff
+27d4: store_word %r10_0, 0xe40015e0
+27d8: %r10_0 = *(0xe40015e8)
+27dc: %r10_0 = rotlw_by_30_then_and %r10_0, 1
+27e0: branch_cond0 %r10_0, 1 -> 0x27ec v
+27e4: %r10_0 = *(0xe40015e0)
+27e8: jmp 0x2808 v
+27ec: %r10_0 = *(0xe40015e0)
+27f0: %r10_0 = load_word -6
+27f4: %r10_1 = rotlw_by_31_then_and %r10_1, -1
+27f8: %r10_1 = add %r10_1, 0x00001808
+2800: call 0x378c
+2804: call 0x1f50
+2808: %r10_1 = rotlw_by_16_then_and %r10_1, -1
+280c: %r13_1 = or %r13_1, %r10_1
+2810: op_1E 0, -7
+2814: call 0x3800
+2818: call 0x3890
+281c: store_word %r10_0, 0xe40015e0
+2820: %r10_0 = *(0xe40015e8)
+2824: %r10_0 = rotlw_by_31_then_and %r10_0, 1
+2828: branch_cond0 %r10_0, 0 -> 0x2834 v
+282c: %r10_0 = *(0xe40015e0)
+2830: jmp 0x283c v
+2834: %r10_0 = *(0xe40015e0)
+2838: call 0x209c
+283c: op_1E 0, -7
+2840: %r10_0 = 0
+2844: %r11_1 = 0
+2848: %r10_1 = 0x0000180c
+2850: call 0x378c
+2854: call 0x1f50
+2858: %r10_1 = rotlw_by_4_then_and %r10_1, -1
+285c: %r13_1 = or %r13_1, %r10_1
+2860: %r10_1 = 0x000000ff
+2868: store_word %r10_0, 0xe40015e0
+286c: %r10_0 = *(0xe40015e8)
+2870: %r10_0 = rotlw_by_30_then_and %r10_0, 1
+2874: branch_cond0 %r10_0, 1 -> 0x2880 v
+2878: %r10_0 = *(0xe40015e0)
+287c: jmp 0x289c v
+2880: %r10_0 = *(0xe40015e0)
+2884: %r10_0 = load_word -6
+2888: %r10_1 = rotlw_by_31_then_and %r10_1, -1
+288c: %r10_1 = add %r10_1, 0x0000180c
+2894: call 0x378c
+2898: call 0x1f50
+289c: %r10_1 = rotlw_by_20_then_and %r10_1, -1
+28a0: %r13_1 = or %r13_1, %r10_1
+28a4: op_1E 1, -7
+28a8: call 0x3800
+28ac: call 0x3890
+28b0: store_word %r10_0, 0xe40015e0
+28b4: %r10_0 = *(0xe40015e8)
+28b8: %r10_0 = rotlw_by_31_then_and %r10_0, 1
+28bc: branch_cond0 %r10_0, 0 -> 0x28c8 v
+28c0: %r10_0 = *(0xe40015e0)
+28c4: jmp 0x28d0 v
+28c8: %r10_0 = *(0xe40015e0)
+28cc: call 0x209c
+28d0: op_1E 1, -7
+28d4: %r10_0 = 0
+28d8: %r11_1 = 0
+28dc: %r10_1 = 0x00001888
+28e4: call 0x378c
+28e8: call 0x1f50
+28ec: %r10_1 = rotlw_by_8_then_and %r10_1, -1
+28f0: %r13_1 = or %r13_1, %r10_1
+28f4: %r10_1 = 0x000000ff
+28fc: store_word %r10_0, 0xe40015e0
+2900: %r10_0 = *(0xe40015e8)
+2904: %r10_0 = rotlw_by_30_then_and %r10_0, 1
+2908: branch_cond0 %r10_0, 1 -> 0x2914 v
+290c: %r10_0 = *(0xe40015e0)
+2910: jmp 0x2930 v
+2914: %r10_0 = *(0xe40015e0)
+2918: %r10_0 = load_word -6
+291c: %r10_1 = rotlw_by_31_then_and %r10_1, -1
+2920: %r10_1 = add %r10_1, 0x00001888
+2928: call 0x378c
+292c: call 0x1f50
+2930: %r10_1 = rotlw_by_24_then_and %r10_1, -1
+2934: %r13_1 = or %r13_1, %r10_1
+2938: op_1E 2, -7
+293c: call 0x3800
+2940: call 0x3890
+2944: store_word %r10_0, 0xe40015e0
+2948: %r10_0 = *(0xe40015e8)
+294c: %r10_0 = rotlw_by_31_then_and %r10_0, 1
+2950: branch_cond0 %r10_0, 0 -> 0x295c v
+2954: %r10_0 = *(0xe40015e0)
+2958: jmp 0x2964 v
+295c: %r10_0 = *(0xe40015e0)
+2960: call 0x209c
+2964: op_1E 2, -7
+2968: %r10_0 = 0
+296c: %r11_1 = 0
+2970: %r10_1 = 0x0000188c
+2978: call 0x378c
+297c: call 0x1f50
+2980: %r10_1 = rotlw_by_12_then_and %r10_1, -1
+2984: %r13_1 = or %r13_1, %r10_1
+2988: %r10_1 = 0x000000ff
+2990: store_word %r10_0, 0xe40015e0
+2994: %r10_0 = *(0xe40015e8)
+2998: %r10_0 = rotlw_by_30_then_and %r10_0, 1
+299c: branch_cond0 %r10_0, 1 -> 0x29a8 v
+29a0: %r10_0 = *(0xe40015e0)
+29a4: jmp 0x29c4 v
+29a8: %r10_0 = *(0xe40015e0)
+29ac: %r10_0 = load_word -6
+29b0: %r10_1 = rotlw_by_31_then_and %r10_1, -1
+29b4: %r10_1 = add %r10_1, 0x0000188c
+29bc: call 0x378c
+29c0: call 0x1f50
+29c4: %r10_1 = rotlw_by_28_then_and %r10_1, -1
+29c8: %r13_1 = or %r13_1, %r10_1
+29cc: op_1E 3, -7
+29d0: call 0x3800
+29d4: call 0x3890
+29d8: store_word %r10_0, 0xe40015e0
+29dc: %r10_0 = *(0xe40015e8)
+29e0: %r10_0 = rotlw_by_31_then_and %r10_0, 1
+29e4: branch_cond0 %r10_0, 0 -> 0x29f0 v
+29e8: %r10_0 = *(0xe40015e0)
+29ec: jmp 0x29f8 v
+29f0: %r10_0 = *(0xe40015e0)
+29f4: call 0x209c
+29f8: op_1E 3, -7
+29fc: %r10_0 = load_word -5
+2a00: %r10_0 = add %r11_0, 0x01010101
+2a08: store_word %r11_0, 0xe4000018
+2a0c: branch_cond0 %r11_0, 0x80808080 -> 0x2788 ^
+2a14: %r10_0 = 0
+2a18: op_1E %r10_0, -7
+2a1c: %r10_0 = rotlw_by_2_then_and %r10_0, 0x000000ff
+2a24: %r11_1 = add %r11_0, 0xe4001610
+2a2c: store_word %r13_0, %r11_1
+2a30: %r11_1 = rotlw_by_0_then_and %r13_0, 0x000000ff
+2a38: branch_cond0 %r11_1, 0 -> 0x2a64 v
+2a3c: store_word %r10_0, 0xe40015e0
+2a40: %r10_0 = *(0xe40015e8)
+2a44: %r10_0 = rotlw_by_31_then_and %r10_0, 1
+2a48: branch_cond0 %r10_0, 0 -> 0x2a54 v
+2a4c: %r10_0 = *(0xe40015e0)
+2a50: jmp 0x2b6c v
+2a54: %r10_0 = *(0xe40015e0)
+2a58: %r13_1 = 0x00000080
+2a60: jmp 0x2a78 v
+2a64: %r10_0 = and %r12_0, 0x0000ffff
+2a6c: %r10_0 = div %r11_0, %r11_1
+2a70: %r13_1 = rotlw_by_0_then_and %r11_0, 0x000000ff
+2a78: %r11_1 = rotlw_by_24_then_and %r13_0, 0x000000ff
+2a80: branch_cond0 %r11_1, 0 -> 0x2aac v
+2a84: store_word %r10_0, 0xe40015e0
+2a88: %r10_0 = *(0xe40015e8)
+2a8c: %r10_0 = rotlw_by_31_then_and %r10_0, 1
+2a90: branch_cond0 %r10_0, 0 -> 0x2a9c v
+2a94: %r10_0 = *(0xe40015e0)
+2a98: jmp 0x2b6c v
+2a9c: %r10_0 = *(0xe40015e0)
+2aa0: %r13_1 = or %r13_1, 0x00008000
+2aa8: jmp 0x2ac4 v
+2aac: %r10_0 = rotlw_by_16_then_and %r12_0, 0x0000ffff
+2ab4: %r10_0 = div %r11_0, %r11_1
+2ab8: %r10_0 = rotlw_by_8_then_and %r11_0, 0x0000ff00
+2ac0: %r13_1 = or %r13_1, %r11_0
+2ac4: %r11_1 = rotlw_by_16_then_and %r13_0, 0x000000ff
+2acc: branch_cond0 %r11_1, 0 -> 0x2af8 v
+2ad0: store_word %r10_0, 0xe40015e0
+2ad4: %r10_0 = *(0xe40015e8)
+2ad8: %r10_0 = rotlw_by_31_then_and %r10_0, 1
+2adc: branch_cond0 %r10_0, 0 -> 0x2ae8 v
+2ae0: %r10_0 = *(0xe40015e0)
+2ae4: jmp 0x2b6c v
+2ae8: %r10_0 = *(0xe40015e0)
+2aec: %r13_1 = or %r13_1, 0x00800000
+2af4: jmp 0x2b10 v
+2af8: %r10_0 = and %r12_1, 0x0000ffff
+2b00: %r10_0 = div %r11_0, %r11_1
+2b04: %r10_0 = rotlw_by_16_then_and %r11_0, 0x00ff0000
+2b0c: %r13_1 = or %r13_1, %r11_0
+2b10: %r11_1 = rotlw_by_8_then_and %r13_0, 0x000000ff
+2b18: branch_cond0 %r11_1, 0 -> 0x2b44 v
+2b1c: store_word %r10_0, 0xe40015e0
+2b20: %r10_0 = *(0xe40015e8)
+2b24: %r10_0 = rotlw_by_31_then_and %r10_0, 1
+2b28: branch_cond0 %r10_0, 0 -> 0x2b34 v
+2b2c: %r10_0 = *(0xe40015e0)
+2b30: jmp 0x2b6c v
+2b34: %r10_0 = *(0xe40015e0)
+2b38: %r13_1 = or %r13_1, 0x80000000
+2b40: jmp 0x2b5c v
+2b44: %r10_0 = rotlw_by_16_then_and %r12_1, 0x0000ffff
+2b4c: %r10_0 = div %r11_0, %r11_1
+2b50: %r10_0 = rotlw_by_24_then_and %r11_0, 0xff000000
+2b58: %r13_1 = or %r13_1, %r11_0
+2b5c: op_1E %r10_0, -7
+2b60: %r10_0 = add %r10_0, 1
+2b64: branch_cond0 %r10_0, 4 -> 0x2a18 ^
+2b68: return
+2b6c: op_1E %r10_0, -7
+2b70: op_1E 0, -7
+2b74: call 0x1f0c
+2b78: op_1E 0, -7
+2b7c: op_1E 1, -7
+2b80: call 0x1f0c
+2b84: op_1E 1, -7
+2b88: op_1E 2, -7
+2b8c: call 0x1f0c
+2b90: op_1E 2, -7
+2b94: op_1E 3, -7
+2b98: call 0x1f0c
+2b9c: op_1E 3, -7
+2ba0: store_word 0x0013139a, 0xe4000024
+2ba8: call 0x1e58
+2bac: call 0x2bb4
+2bb0: return
+2bb4: store_word_0_100 0x80808080, MC0_RD_STR_DLY_0
+2bbc: store_word_0_100 0x80808080, MC0_RD_STR_DLY_1
+2bc4: store_word_0_100 0x80808080, MC0_WR_STR_DLL_0
+2bcc: store_word_0_100 0x80808080, MC0_WR_STR_DLL_1
+2bd4: %r12_0 = *(MC1_WR_STR_DLL_1)
+2bd8: sync
+2bdc: delay -7
+2be0: return
+2be4: store_word 0, 0xe4000288
+2be8: %r10_0 = *(0xe4000288)
+2bec: sync
+2bf0: delay -7
+2bf4: store_word 1, 0xe4000288
+2bf8: %r10_0 = *(0xe4000288)
+2bfc: sync
+2c00: delay -7
+2c04: store_word 5, 0xe4000288
+2c08: %r10_0 = *(0xe4000288)
+2c0c: sync
+2c10: delay -7
+2c14: store_word 1, 0xe4000288
+2c18: %r10_0 = *(0xe4000288)
+2c1c: sync
+2c20: delay -7
+2c24: store_word 0, 0xe4000288
+2c28: %r10_0 = *(0xe4000288)
+2c2c: sync
+2c30: delay -7
+2c34: return
+2c38: store_word_0_100 0, MC0_CNTL
+2c3c: store_word_0_100 0, MC0_POINTER
+2c40: store_word_0_100 0x00040000, MC0_DRAM_CMD
+2c48: store_word_0_100 2, MC0_CNTL
+2c4c: %r10_0 = *(MC1_CNTL)
+2c50: sync
+2c54: return
+2c58: store_word_0_100 0, MC0_POINTER
+2c5c: store_word_0_100 0x003c0000, MC0_DRAM_CMD
+2c64: store_word_0_100 2, MC0_CNTL
+2c68: store_word_0_100 0x00001605, MC0_CNTL
+2c70: store_word_0_100 0x00000605, MC0_CNTL
+2c78: %r10_0 = *(MC1_CNTL)
+2c7c: sync
+2c80: delay -7
+2c84: return
+2c88: store_word_0_100 0, MC0_CNTL
+2c8c: store_word_0_100 0, MC0_POINTER
+2c90: store_word_0_100 -1, MC0_DRAM_DATA
+2c94: store_word_0_100 %r10_0, MC0_DRAM_DATA
+2c98: store_word_0_100 %r10_0, MC0_DRAM_DATA
+2c9c: store_word_0_100 %r10_0, MC0_DRAM_DATA
+2ca0: store_word_0_100 %r10_0, MC0_DRAM_DATA
+2ca4: store_word_0_100 %r10_0, MC0_DRAM_DATA
+2ca8: store_word_0_100 %r10_0, MC0_DRAM_DATA
+2cac: store_word_0_100 %r10_0, MC0_DRAM_DATA
+2cb0: store_word_0_100 %r10_0, MC0_DRAM_DATA
+2cb4: store_word_0_100 -1, MC0_DRAM_DATA
+2cb8: store_word_0_100 %r10_0, MC0_DRAM_DATA
+2cbc: store_word_0_100 %r10_0, MC0_DRAM_DATA
+2cc0: %r10_0 = xor %r10_0, -1
+2cc4: store_word_0_100 %r10_0, MC0_DRAM_DATA
+2cc8: store_word_0_100 %r10_0, MC0_DRAM_DATA
+2ccc: %r10_0 = xor %r10_0, -1
+2cd0: store_word_0_100 %r10_0, MC0_DRAM_DATA
+2cd4: store_word_0_100 %r10_0, MC0_DRAM_DATA
+2cd8: %r10_0 = xor %r10_0, -1
+2cdc: store_word_0_100 %r10_0, MC0_DRAM_DATA
+2ce0: store_word_0_100 %r10_0, MC0_DRAM_DATA
+2ce4: %r10_0 = %r12_0
+2ce8: %r11_1 = rotlw_by_1_then_and %r10_1, 0x00008000
+2cf0: %r10_0 = or %r11_0, %r11_1
+2cf4: %r11_1 = rotlw_by_5_then_and %r10_1, 0x00010000
+2cfc: %r10_0 = or %r11_0, %r11_1
+2d00: %r11_1 = rotlw_by_2_then_and %r10_1, 0x00020000
+2d08: %r10_0 = or %r11_0, %r11_1
+2d0c: %r11_1 = rotlw_by_16_then_and %r10_1, 0x00001fff
+2d14: %r10_0 = or %r11_0, %r11_1
+2d18: store_word_0_100 %r11_0, MC0_DRAM_CMD
+2d1c: %r10_0 = and %r11_0, 0x0003e000
+2d24: %r10_0 = xor %r11_0, 0x00008000
+2d2c: %r10_0 = or %r11_0, 0x012c0000
+2d34: store_word_0_100 %r11_0, MC0_DRAM_CMD
+2d38: %r10_0 = xor %r11_0, 0x00008000
+2d40: %r10_0 = and %r11_0, 0x0003e000
+2d48: %r10_0 = or %r11_0, 0x01b00000
+2d50: %r11_1 = rotlw_by_29_then_and %r10_1, 0x0000000f
+2d58: %r10_0 = or %r11_0, %r11_1
+2d5c: %r11_1 = rotlw_by_28_then_and %r10_1, 0x00000070
+2d64: %r10_0 = or %r11_0, %r11_1
+2d68: %r11_1 = rotlw_by_27_then_and %r10_1, 0x00000080
+2d70: %r10_0 = or %r11_0, %r11_1
+2d74: %r11_1 = rotlw_by_28_then_and %r10_1, 0x00000200
+2d7c: %r10_0 = or %r11_0, %r11_1
+2d80: store_word_0_100 %r11_0, MC0_DRAM_CMD
+2d84: %r10_0 = or %r11_0, 0x02000000
+2d8c: store_word_0_100 %r11_0, MC0_DRAM_CMD
+2d90: %r10_0 = and %r11_0, 0x0003e000
+2d98: %r10_0 = xor %r11_0, 0x00010000
+2da0: %r10_0 = or %r11_0, 0x1f2c0000
+2da8: store_word_0_100 %r11_0, MC0_DRAM_CMD
+2dac: %r10_0 = xor %r11_0, 0x00010000
+2db4: %r10_0 = and %r11_0, 0x0003e000
+2dbc: %r10_0 = or %r11_0, 0x1f280000
+2dc4: store_word_0_100 %r11_0, MC0_DRAM_CMD
+2dc8: %r10_0 = xor %r11_0, 0x00008000
+2dd0: store_word_0_100 %r11_0, MC0_DRAM_CMD
+2dd4: %r10_0 = xor %r11_0, 0x00008000
+2ddc: %r10_0 = xor %r11_0, 0x00010000
+2de4: store_word_0_100 %r11_0, MC0_DRAM_CMD
+2de8: %r10_0 = xor %r11_0, 0x00010000
+2df0: store_word_0_100 2, MC0_CNTL
+2df4: store_word_0_100 0x00001605, MC0_CNTL
+2dfc: store_word_0_100 0x00000605, MC0_CNTL
+2e04: %r10_1 = add %r10_1, 0x00000020
+2e0c: store_word_0_100 0, MC0_CNTL
+2e10: store_word_0_100 0, MC0_POINTER
+2e14: store_word_0_100 -1, MC0_DRAM_DATA
+2e18: store_word_0_100 %r10_0, MC0_DRAM_DATA
+2e1c: store_word_0_100 %r10_0, MC0_DRAM_DATA
+2e20: store_word_0_100 %r10_0, MC0_DRAM_DATA
+2e24: store_word_0_100 %r10_0, MC0_DRAM_DATA
+2e28: store_word_0_100 %r10_0, MC0_DRAM_DATA
+2e2c: store_word_0_100 %r10_0, MC0_DRAM_DATA
+2e30: store_word_0_100 %r10_0, MC0_DRAM_DATA
+2e34: store_word_0_100 %r10_0, MC0_DRAM_DATA
+2e38: store_word_0_100 -1, MC0_DRAM_DATA
+2e3c: store_word_0_100 %r10_0, MC0_DRAM_DATA
+2e40: store_word_0_100 %r10_0, MC0_DRAM_DATA
+2e44: %r10_0 = xor %r10_0, -1
+2e48: store_word_0_100 %r10_0, MC0_DRAM_DATA
+2e4c: store_word_0_100 %r10_0, MC0_DRAM_DATA
+2e50: %r10_0 = xor %r10_0, -1
+2e54: store_word_0_100 %r10_0, MC0_DRAM_DATA
+2e58: store_word_0_100 %r10_0, MC0_DRAM_DATA
+2e5c: %r10_0 = xor %r10_0, -1
+2e60: store_word_0_100 %r10_0, MC0_DRAM_DATA
+2e64: store_word_0_100 %r10_0, MC0_DRAM_DATA
+2e68: %r10_0 = %r12_0
+2e6c: %r11_1 = rotlw_by_1_then_and %r10_1, 0x00008000
+2e74: %r10_0 = or %r11_0, %r11_1
+2e78: %r11_1 = rotlw_by_5_then_and %r10_1, 0x00010000
+2e80: %r10_0 = or %r11_0, %r11_1
+2e84: %r11_1 = rotlw_by_2_then_and %r10_1, 0x00020000
+2e8c: %r10_0 = or %r11_0, %r11_1
+2e90: %r11_1 = rotlw_by_16_then_and %r10_1, 0x00001fff
+2e98: %r10_0 = or %r11_0, %r11_1
+2e9c: store_word_0_100 %r11_0, MC0_DRAM_CMD
+2ea0: %r10_0 = and %r11_0, 0x0003e000
+2ea8: %r10_0 = xor %r11_0, 0x00008000
+2eb0: %r10_0 = or %r11_0, 0x012c0000
+2eb8: store_word_0_100 %r11_0, MC0_DRAM_CMD
+2ebc: %r10_0 = xor %r11_0, 0x00008000
+2ec4: %r10_0 = and %r11_0, 0x0003e000
+2ecc: %r10_0 = or %r11_0, 0x01b00000
+2ed4: %r11_1 = rotlw_by_29_then_and %r10_1, 0x0000000f
+2edc: %r10_0 = or %r11_0, %r11_1
+2ee0: %r11_1 = rotlw_by_28_then_and %r10_1, 0x00000070
+2ee8: %r10_0 = or %r11_0, %r11_1
+2eec: %r11_1 = rotlw_by_27_then_and %r10_1, 0x00000080
+2ef4: %r10_0 = or %r11_0, %r11_1
+2ef8: %r11_1 = rotlw_by_28_then_and %r10_1, 0x00000200
+2f00: %r10_0 = or %r11_0, %r11_1
+2f04: store_word_0_100 %r11_0, MC0_DRAM_CMD
+2f08: %r10_0 = or %r11_0, 0x02000000
+2f10: store_word_0_100 %r11_0, MC0_DRAM_CMD
+2f14: %r10_0 = and %r11_0, 0x0003e000
+2f1c: %r10_0 = xor %r11_0, 0x00010000
+2f24: %r10_0 = or %r11_0, 0x1f2c0000
+2f2c: store_word_0_100 %r11_0, MC0_DRAM_CMD
+2f30: %r10_0 = xor %r11_0, 0x00010000
+2f38: %r10_0 = and %r11_0, 0x0003e000
+2f40: %r10_0 = or %r11_0, 0x1f280000
+2f48: store_word_0_100 %r11_0, MC0_DRAM_CMD
+2f4c: %r10_0 = xor %r11_0, 0x00008000
+2f54: store_word_0_100 %r11_0, MC0_DRAM_CMD
+2f58: %r10_0 = xor %r11_0, 0x00008000
+2f60: %r10_0 = xor %r11_0, 0x00010000
+2f68: store_word_0_100 %r11_0, MC0_DRAM_CMD
+2f6c: %r10_0 = xor %r11_0, 0x00010000
+2f74: store_word_0_100 2, MC0_CNTL
+2f78: store_word_0_100 0x00001605, MC0_CNTL
+2f80: store_word_0_100 0x00000605, MC0_CNTL
+2f88: %r10_1 = add %r10_1, 0x00000020
+2f90: store_word_0_100 0, MC0_CNTL
+2f94: store_word_0_100 0, MC0_POINTER
+2f98: store_word_0_100 -1, MC0_DRAM_DATA
+2f9c: store_word_0_100 %r10_0, MC0_DRAM_DATA
+2fa0: store_word_0_100 %r10_0, MC0_DRAM_DATA
+2fa4: store_word_0_100 %r10_0, MC0_DRAM_DATA
+2fa8: store_word_0_100 %r10_0, MC0_DRAM_DATA
+2fac: store_word_0_100 %r10_0, MC0_DRAM_DATA
+2fb0: store_word_0_100 %r10_0, MC0_DRAM_DATA
+2fb4: store_word_0_100 %r10_0, MC0_DRAM_DATA
+2fb8: store_word_0_100 %r10_0, MC0_DRAM_DATA
+2fbc: store_word_0_100 -1, MC0_DRAM_DATA
+2fc0: store_word_0_100 %r10_0, MC0_DRAM_DATA
+2fc4: store_word_0_100 %r10_0, MC0_DRAM_DATA
+2fc8: store_word_0_100 %r10_0, MC0_DRAM_DATA
+2fcc: store_word_0_100 %r10_0, MC0_DRAM_DATA
+2fd0: %r10_0 = xor %r10_0, -1
+2fd4: store_word_0_100 %r10_0, MC0_DRAM_DATA
+2fd8: store_word_0_100 %r10_0, MC0_DRAM_DATA
+2fdc: %r10_0 = xor %r10_0, -1
+2fe0: store_word_0_100 %r10_0, MC0_DRAM_DATA
+2fe4: store_word_0_100 %r10_0, MC0_DRAM_DATA
+2fe8: %r10_0 = xor %r10_0, -1
+2fec: %r10_0 = %r12_0
+2ff0: %r11_1 = rotlw_by_1_then_and %r10_1, 0x00008000
+2ff8: %r10_0 = or %r11_0, %r11_1
+2ffc: %r11_1 = rotlw_by_5_then_and %r10_1, 0x00010000
+3004: %r10_0 = or %r11_0, %r11_1
+3008: %r11_1 = rotlw_by_2_then_and %r10_1, 0x00020000
+3010: %r10_0 = or %r11_0, %r11_1
+3014: %r11_1 = rotlw_by_16_then_and %r10_1, 0x00001fff
+301c: %r10_0 = or %r11_0, %r11_1
+3020: store_word_0_100 %r11_0, MC0_DRAM_CMD
+3024: %r10_0 = and %r11_0, 0x0003e000
+302c: %r10_0 = xor %r11_0, 0x00008000
+3034: %r10_0 = or %r11_0, 0x012c0000
+303c: store_word_0_100 %r11_0, MC0_DRAM_CMD
+3040: %r10_0 = xor %r11_0, 0x00008000
+3048: %r10_0 = and %r11_0, 0x0003e000
+3050: %r10_0 = or %r11_0, 0x01b00000
+3058: %r11_1 = rotlw_by_29_then_and %r10_1, 0x0000000f
+3060: %r10_0 = or %r11_0, %r11_1
+3064: %r11_1 = rotlw_by_28_then_and %r10_1, 0x00000070
+306c: %r10_0 = or %r11_0, %r11_1
+3070: %r11_1 = rotlw_by_27_then_and %r10_1, 0x00000080
+3078: %r10_0 = or %r11_0, %r11_1
+307c: %r11_1 = rotlw_by_28_then_and %r10_1, 0x00000200
+3084: %r10_0 = or %r11_0, %r11_1
+3088: store_word_0_100 %r11_0, MC0_DRAM_CMD
+308c: %r10_0 = or %r11_0, 0x02000000
+3094: store_word_0_100 %r11_0, MC0_DRAM_CMD
+3098: %r10_0 = and %r11_0, 0x0003e000
+30a0: %r10_0 = xor %r11_0, 0x00010000
+30a8: %r10_0 = or %r11_0, 0x1f2c0000
+30b0: store_word_0_100 %r11_0, MC0_DRAM_CMD
+30b4: %r10_0 = xor %r11_0, 0x00010000
+30bc: %r10_0 = and %r11_0, 0x0003e000
+30c4: %r10_0 = or %r11_0, 0x1f280000
+30cc: store_word_0_100 %r11_0, MC0_DRAM_CMD
+30d0: %r10_0 = xor %r11_0, 0x00008000
+30d8: store_word_0_100 %r11_0, MC0_DRAM_CMD
+30dc: %r10_0 = xor %r11_0, 0x00008000
+30e4: %r10_0 = xor %r11_0, 0x00010000
+30ec: store_word_0_100 %r11_0, MC0_DRAM_CMD
+30f0: %r10_0 = xor %r11_0, 0x00010000
+30f8: store_word_0_100 2, MC0_CNTL
+30fc: store_word_0_100 0x00001605, MC0_CNTL
+3104: store_word_0_100 0x00000605, MC0_CNTL
+310c: %r10_1 = add %r10_1, 0x00000020
+3114: store_word_0_100 0, MC0_CNTL
+3118: store_word_0_100 0, MC0_POINTER
+311c: store_word_0_100 -1, MC0_DRAM_DATA
+3120: store_word_0_100 %r10_0, MC0_DRAM_DATA
+3124: store_word_0_100 %r10_0, MC0_DRAM_DATA
+3128: store_word_0_100 %r10_0, MC0_DRAM_DATA
+312c: store_word_0_100 %r10_0, MC0_DRAM_DATA
+3130: store_word_0_100 %r10_0, MC0_DRAM_DATA
+3134: store_word_0_100 %r10_0, MC0_DRAM_DATA
+3138: store_word_0_100 %r10_0, MC0_DRAM_DATA
+313c: store_word_0_100 %r10_0, MC0_DRAM_DATA
+3140: store_word_0_100 -1, MC0_DRAM_DATA
+3144: store_word_0_100 %r10_0, MC0_DRAM_DATA
+3148: store_word_0_100 %r10_0, MC0_DRAM_DATA
+314c: store_word_0_100 %r10_0, MC0_DRAM_DATA
+3150: store_word_0_100 %r10_0, MC0_DRAM_DATA
+3154: %r10_0 = xor %r10_0, -1
+3158: store_word_0_100 %r10_0, MC0_DRAM_DATA
+315c: store_word_0_100 %r10_0, MC0_DRAM_DATA
+3160: %r10_0 = xor %r10_0, -1
+3164: store_word_0_100 %r10_0, MC0_DRAM_DATA
+3168: store_word_0_100 %r10_0, MC0_DRAM_DATA
+316c: %r10_0 = xor %r10_0, -1
+3170: %r10_0 = %r12_0
+3174: %r11_1 = rotlw_by_1_then_and %r10_1, 0x00008000
+317c: %r10_0 = or %r11_0, %r11_1
+3180: %r11_1 = rotlw_by_5_then_and %r10_1, 0x00010000
+3188: %r10_0 = or %r11_0, %r11_1
+318c: %r11_1 = rotlw_by_2_then_and %r10_1, 0x00020000
+3194: %r10_0 = or %r11_0, %r11_1
+3198: %r11_1 = rotlw_by_16_then_and %r10_1, 0x00001fff
+31a0: %r10_0 = or %r11_0, %r11_1
+31a4: store_word_0_100 %r11_0, MC0_DRAM_CMD
+31a8: %r10_0 = and %r11_0, 0x0003e000
+31b0: %r10_0 = xor %r11_0, 0x00008000
+31b8: %r10_0 = or %r11_0, 0x012c0000
+31c0: store_word_0_100 %r11_0, MC0_DRAM_CMD
+31c4: %r10_0 = xor %r11_0, 0x00008000
+31cc: %r10_0 = and %r11_0, 0x0003e000
+31d4: %r10_0 = or %r11_0, 0x01b00000
+31dc: %r11_1 = rotlw_by_29_then_and %r10_1, 0x0000000f
+31e4: %r10_0 = or %r11_0, %r11_1
+31e8: %r11_1 = rotlw_by_28_then_and %r10_1, 0x00000070
+31f0: %r10_0 = or %r11_0, %r11_1
+31f4: %r11_1 = rotlw_by_27_then_and %r10_1, 0x00000080
+31fc: %r10_0 = or %r11_0, %r11_1
+3200: %r11_1 = rotlw_by_28_then_and %r10_1, 0x00000200
+3208: %r10_0 = or %r11_0, %r11_1
+320c: store_word_0_100 %r11_0, MC0_DRAM_CMD
+3210: %r10_0 = or %r11_0, 0x02000000
+3218: store_word_0_100 %r11_0, MC0_DRAM_CMD
+321c: %r10_0 = and %r11_0, 0x0003e000
+3224: %r10_0 = xor %r11_0, 0x00010000
+322c: %r10_0 = or %r11_0, 0x1f2c0000
+3234: store_word_0_100 %r11_0, MC0_DRAM_CMD
+3238: %r10_0 = xor %r11_0, 0x00010000
+3240: %r10_0 = and %r11_0, 0x0003e000
+3248: %r10_0 = or %r11_0, 0x1f280000
+3250: store_word_0_100 %r11_0, MC0_DRAM_CMD
+3254: %r10_0 = xor %r11_0, 0x00008000
+325c: store_word_0_100 %r11_0, MC0_DRAM_CMD
+3260: %r10_0 = xor %r11_0, 0x00008000
+3268: %r10_0 = xor %r11_0, 0x00010000
+3270: store_word_0_100 %r11_0, MC0_DRAM_CMD
+3274: %r10_0 = xor %r11_0, 0x00010000
+327c: store_word_0_100 2, MC0_CNTL
+3280: store_word_0_100 0x00001605, MC0_CNTL
+3288: store_word_0_100 0x00000605, MC0_CNTL
+3290: %r10_1 = add %r10_1, 0x00000020
+3298: %r10_1 = add %r10_1, 0x00000080
+32a0: return
+32a4: %r10_1 = 0x00001800
+32ac: %r12_0 = 0x0f2c4000
+32b4: %r10_0 = 0x01800180
+32bc: call 0x2c88
+32c0: %r10_0 = 0x02400240
+32c8: call 0x2c88
+32cc: %r10_0 = 0x04200420
+32d4: call 0x2c88
+32d8: %r10_0 = 0x08100810
+32e0: call 0x2c88
+32e4: %r10_0 = 0x10081008
+32ec: call 0x2c88
+32f0: %r10_0 = 0x20042004
+32f8: call 0x2c88
+32fc: %r10_0 = 0x40024002
+3304: call 0x2c88
+3308: %r10_0 = 0x80018001
+3310: call 0x2c88
+3314: %r10_1 = 0x00001800
+331c: %r12_0 = 0x0f2c2000
+3324: %r10_0 = 0x01800180
+332c: call 0x2c88
+3330: %r10_0 = 0x02400240
+3338: call 0x2c88
+333c: %r10_0 = 0x04200420
+3344: call 0x2c88
+3348: %r10_0 = 0x08100810
+3350: call 0x2c88
+3354: %r10_0 = 0x10081008
+335c: call 0x2c88
+3360: %r10_0 = 0x20042004
+3368: call 0x2c88
+336c: %r10_0 = 0x40024002
+3374: call 0x2c88
+3378: %r10_0 = 0x80018001
+3380: call 0x2c88
+3384: return
+3388: %r10_0 = load_word -4
+338c: %r11_1 = xor %r11_1, %r10_0
+3390: %r12_1 = or %r12_1, %r11_1
+3394: %r10_1 = add %r10_1, 0x00000008
+339c: %r10_0 = xor %r10_0, -1
+33a0: %r10_0 = load_word -4
+33a4: %r11_1 = xor %r11_1, %r10_0
+33a8: %r12_1 = or %r12_1, %r11_1
+33ac: %r10_1 = add %r10_1, 0x00000008
+33b4: %r10_0 = xor %r10_0, -1
+33b8: %r10_0 = load_word -4
+33bc: %r11_1 = xor %r11_1, %r10_0
+33c0: %r12_1 = or %r12_1, %r11_1
+33c4: %r10_1 = add %r10_1, 0x00000008
+33cc: %r10_0 = xor %r10_0, -1
+33d0: %r10_0 = load_word -4
+33d4: %r11_1 = xor %r11_1, %r10_0
+33d8: %r12_1 = or %r12_1, %r11_1
+33dc: %r10_1 = add %r10_1, 0x00000008
+33e4: %r10_0 = load_word -4
+33e8: %r11_1 = xor %r11_1, %r10_0
+33ec: %r12_1 = or %r12_1, %r11_1
+33f0: %r10_1 = add %r10_1, 0x00000008
+33f8: %r10_0 = xor %r10_0, -1
+33fc: %r10_0 = load_word -4
+3400: %r11_1 = xor %r11_1, %r10_0
+3404: %r12_1 = or %r12_1, %r11_1
+3408: %r10_1 = add %r10_1, 0x00000008
+3410: %r10_0 = xor %r10_0, -1
+3414: %r10_0 = load_word -4
+3418: %r11_1 = xor %r11_1, %r10_0
+341c: %r12_1 = or %r12_1, %r11_1
+3420: %r10_1 = add %r10_1, 0x00000008
+3428: %r10_0 = xor %r10_0, -1
+342c: %r10_0 = load_word -4
+3430: %r11_1 = xor %r11_1, %r10_0
+3434: %r12_1 = or %r12_1, %r11_1
+3438: %r10_1 = add %r10_1, 0x00000008
+3440: %r10_1 = add %r10_1, 0x000000c0
+3448: return
+344c: %r12_1 = 0
+3450: store_word_0_100 0x00001605, MC0_CNTL
+3458: store_word_0_100 0x00000605, MC0_CNTL
+3460: %r10_0 = 0x01800180
+3468: call 0x3388
+346c: %r10_0 = 0x02400240
+3474: call 0x3388
+3478: %r10_0 = 0x04200420
+3480: call 0x3388
+3484: %r10_0 = 0x08100810
+348c: call 0x3388
+3490: %r10_0 = 0x10081008
+3498: call 0x3388
+349c: %r10_0 = 0x20042004
+34a4: call 0x3388
+34a8: %r10_0 = 0x40024002
+34b0: call 0x3388
+34b4: %r10_0 = 0x80018001
+34bc: call 0x3388
+34c0: %r12_0 = %r12_1
+34c4: %r12_1 = 0
+34c8: store_word %r10_0, 0xe40015e0
+34cc: %r10_0 = *(0xe40015e8)
+34d0: %r10_0 = rotlw_by_30_then_and %r10_0, 1
+34d4: branch_cond0 %r10_0, 1 -> 0x34e0 v
+34d8: %r10_0 = *(0xe40015e0)
+34dc: jmp 0x357c v
+34e0: %r10_0 = *(0xe40015e0)
+34e4: %r10_0 = load_word -4
+34e8: %r11_1 = rotlw_by_31_then_and %r11_1, 0x7fffffff
+34f0: %r10_1 = add %r10_1, %r11_1
+34f4: %r10_1 = subf %r10_1, 0x00000800
+34fc: store_word_0_100 0x00001605, MC0_CNTL
+3504: store_word_0_100 0x00000605, MC0_CNTL
+350c: %r10_0 = 0x01800180
+3514: call 0x3388
+3518: %r10_0 = 0x02400240
+3520: call 0x3388
+3524: %r10_0 = 0x04200420
+352c: call 0x3388
+3530: %r10_0 = 0x08100810
+3538: call 0x3388
+353c: %r10_0 = 0x10081008
+3544: call 0x3388
+3548: %r10_0 = 0x20042004
+3550: call 0x3388
+3554: %r10_0 = 0x40024002
+355c: call 0x3388
+3560: %r10_0 = 0x80018001
+3568: call 0x3388
+356c: %r10_0 = load_word -4
+3570: %r11_1 = rotlw_by_31_then_and %r11_1, 0x7fffffff
+3578: %r10_1 = subf %r10_1, %r11_1
+357c: return
+3580: %r10_0 = xor %r10_0, -1
+3584: %r10_0 = load_word -1
+3588: %r12_0 = xor %r13_0, %r10_0
+358c: %r12_1 = or %r12_1, %r13_0
+3590: %r12_0 = xor %r13_0, -1
+3594: %r12_0 = or %r12_0, %r13_0
+3598: %r10_1 = add %r10_1, 0x00000008
+35a0: %r10_0 = xor %r10_0, -1
+35a4: %r10_0 = load_word -1
+35a8: %r12_0 = xor %r13_0, %r10_0
+35ac: %r12_1 = or %r12_1, %r13_0
+35b0: %r12_0 = xor %r13_0, -1
+35b4: %r12_0 = or %r12_0, %r13_0
+35b8: %r10_1 = add %r10_1, 0x00000008
+35c0: %r10_0 = xor %r10_0, -1
+35c4: %r10_1 = add %r10_1, 0x00000010
+35cc: %r10_0 = xor %r10_0, -1
+35d0: %r10_0 = load_word -1
+35d4: %r12_0 = xor %r13_0, %r10_0
+35d8: %r12_1 = or %r12_1, %r13_0
+35dc: %r12_0 = xor %r13_0, -1
+35e0: %r12_0 = or %r12_0, %r13_0
+35e4: %r10_1 = add %r10_1, 0x00000008
+35ec: %r10_0 = xor %r10_0, -1
+35f0: %r10_0 = load_word -1
+35f4: %r12_0 = xor %r13_0, %r10_0
+35f8: %r12_1 = or %r12_1, %r13_0
+35fc: %r12_0 = xor %r13_0, -1
+3600: %r12_0 = or %r12_0, %r13_0
+3604: %r10_1 = add %r10_1, 0x00000008
+360c: %r10_0 = xor %r10_0, -1
+3610: %r10_1 = add %r10_1, 0x00000010
+3618: %r10_1 = add %r10_1, 0x000000c0
+3620: return
+3624: %r12_0 = 0
+3628: %r12_1 = 0
+362c: %r10_0 = 0x01800180
+3634: call 0x3580
+3638: %r10_0 = 0x02400240
+3640: call 0x3580
+3644: %r10_0 = 0x04200420
+364c: call 0x3580
+3650: %r10_0 = 0x08100810
+3658: call 0x3580
+365c: %r10_0 = 0x10081008
+3664: call 0x3580
+3668: %r10_0 = 0x20042004
+3670: call 0x3580
+3674: %r10_0 = 0x40024002
+367c: call 0x3580
+3680: %r10_0 = 0x80018001
+3688: call 0x3580
+368c: %r10_0 = or %r11_0, %r12_0
+3690: %r11_1 = or %r11_1, %r12_1
+3694: return
+3698: %r10_0 = xor %r10_0, -1
+369c: %r10_0 = load_word -1
+36a0: %r12_0 = xor %r13_0, %r10_0
+36a4: %r12_1 = or %r12_1, %r13_0
+36a8: %r12_0 = xor %r13_0, -1
+36ac: %r12_0 = or %r12_0, %r13_0
+36b0: %r10_1 = add %r10_1, 0x00000008
+36b8: %r10_0 = xor %r10_0, -1
+36bc: %r10_0 = load_word -1
+36c0: %r12_0 = xor %r13_0, %r10_0
+36c4: %r12_1 = or %r12_1, %r13_0
+36c8: %r12_0 = xor %r13_0, -1
+36cc: %r12_0 = or %r12_0, %r13_0
+36d0: %r10_1 = add %r10_1, 0x00000008
+36d8: %r10_0 = xor %r10_0, -1
+36dc: %r10_1 = add %r10_1, 0x00000010
+36e4: %r10_0 = xor %r10_0, -1
+36e8: %r10_0 = load_word -1
+36ec: %r12_0 = xor %r13_0, %r10_0
+36f0: %r12_1 = or %r12_1, %r13_0
+36f4: %r12_0 = xor %r13_0, -1
+36f8: %r12_0 = or %r12_0, %r13_0
+36fc: %r10_1 = add %r10_1, 0x00000008
+3704: %r10_0 = xor %r10_0, -1
+3708: %r10_0 = load_word -1
+370c: %r12_0 = xor %r13_0, %r10_0
+3710: %r12_1 = or %r12_1, %r13_0
+3714: %r12_0 = xor %r13_0, -1
+3718: %r12_0 = or %r12_0, %r13_0
+371c: %r10_1 = add %r10_1, 0x00000008
+3724: %r10_0 = xor %r10_0, -1
+3728: %r10_1 = add %r10_1, 0x00000010
+3730: %r10_1 = add %r10_1, 0x00000008
+3738: %r10_0 = xor %r10_0, -1
+373c: %r10_0 = load_word -1
+3740: %r12_0 = xor %r13_0, %r10_0
+3744: %r12_1 = or %r12_1, %r13_0
+3748: %r12_0 = xor %r13_0, -1
+374c: %r12_0 = or %r12_0, %r13_0
+3750: %r10_1 = add %r10_1, 0x00000008
+3758: %r10_1 = add %r10_1, 0x00000018
+3760: %r10_0 = xor %r10_0, -1
+3764: %r10_0 = load_word -1
+3768: %r12_0 = xor %r13_0, %r10_0
+376c: %r12_1 = or %r12_1, %r13_0
+3770: %r12_0 = xor %r13_0, -1
+3774: %r12_0 = or %r12_0, %r13_0
+3778: %r10_1 = add %r10_1, 0x00000008
+3780: %r10_1 = add %r10_1, 0x00000090
+3788: return
+378c: %r12_0 = 0
+3790: %r12_1 = 0
+3794: %r10_0 = 0x01800180
+379c: call 0x3698
+37a0: %r10_0 = 0x02400240
+37a8: call 0x3698
+37ac: %r10_0 = 0x04200420
+37b4: call 0x3698
+37b8: %r10_0 = 0x08100810
+37c0: call 0x3698
+37c4: %r10_0 = 0x10081008
+37cc: call 0x3698
+37d0: %r10_0 = 0x20042004
+37d8: call 0x3698
+37dc: %r10_0 = 0x40024002
+37e4: call 0x3698
+37e8: %r10_0 = 0x80018001
+37f0: call 0x3698
+37f4: %r10_0 = or %r11_0, %r12_0
+37f8: %r11_1 = or %r11_1, %r12_1
+37fc: return
+3800: %r10_0 = and %r11_1, 0x000000ff
+3808: branch_cond0 %r10_0, 0 -> 0x3820 v
+380c: %r10_0 = *(0xe4000018)
+3810: %r10_0 = and %r10_0, 0x000000ff
+3818: %r12_0 = add %r12_0, %r10_0
+381c: %r12_0 = add %r13_0, 1
+3820: %r10_0 = and %r11_1, 0x0000ff00
+3828: branch_cond0 %r10_0, 0 -> 0x3844 v
+382c: %r10_0 = *(0xe4000018)
+3830: %r10_0 = rotlw_by_8_then_and %r10_0, 0x00ff0000
+3838: %r12_0 = add %r12_0, %r10_0
+383c: %r12_0 = add %r13_0, 0x00000100
+3844: %r10_0 = and %r11_1, 0x00ff0000
+384c: branch_cond0 %r10_0, 0 -> 0x3868 v
+3850: %r10_0 = *(0xe4000018)
+3854: %r10_0 = rotlw_by_16_then_and %r10_0, 0x000000ff
+385c: %r12_1 = add %r12_1, %r10_0
+3860: %r12_0 = add %r13_0, 0x00010000
+3868: %r10_0 = and %r11_1, 0xff000000
+3870: branch_cond0 %r10_0, 0 -> 0x388c v
+3874: %r10_0 = *(0xe4000018)
+3878: %r10_0 = rotlw_by_24_then_and %r10_0, 0x00ff0000
+3880: %r12_1 = add %r12_1, %r10_0
+3884: %r12_0 = add %r13_0, 0x01000000
+388c: return
+3890: %r10_0 = and %r11_0, 0x000000ff
+3898: branch_cond0 %r10_0, 0 -> 0x38b8 v
+389c: %r10_0 = *(0xe4000018)
+38a0: %r10_0 = and %r10_0, 0x000000ff
+38a8: %r12_0 = add %r12_0, %r10_0
+38ac: %r12_0 = add %r12_0, 0x00000080
+38b4: %r12_0 = add %r13_0, 1
+38b8: %r10_0 = and %r11_0, 0x0000ff00
+38c0: branch_cond0 %r10_0, 0 -> 0x38e4 v
+38c4: %r10_0 = *(0xe4000018)
+38c8: %r10_0 = rotlw_by_8_then_and %r10_0, 0x00ff0000
+38d0: %r12_0 = add %r12_0, %r10_0
+38d4: %r12_0 = add %r12_0, 0x00800000
+38dc: %r12_0 = add %r13_0, 0x00000100
+38e4: %r10_0 = and %r11_0, 0x00ff0000
+38ec: branch_cond0 %r10_0, 0 -> 0x3910 v
+38f0: %r10_0 = *(0xe4000018)
+38f4: %r10_0 = rotlw_by_16_then_and %r10_0, 0x000000ff
+38fc: %r12_1 = add %r12_1, %r10_0
+3900: %r12_1 = add %r12_1, 0x00000080
+3908: %r12_0 = add %r13_0, 0x00010000
+3910: %r10_0 = and %r11_0, 0xff000000
+3918: branch_cond0 %r10_0, 0 -> 0x393c v
+391c: %r10_0 = *(0xe4000018)
+3920: %r10_0 = rotlw_by_24_then_and %r10_0, 0x00ff0000
+3928: %r12_1 = add %r12_1, %r10_0
+392c: %r12_1 = add %r12_1, 0x00800000
+3934: %r12_0 = add %r13_0, 0x01000000
+393c: return
+3940: %r10_0 = and %r11_1, 0x000000ff
+3948: branch_cond0 %r10_0, 0 -> 0x3960 v
+394c: %r10_0 = *(0xe4000018)
+3950: %r10_0 = and %r10_0, 0x000000ff
+3958: %r12_0 = add %r12_0, %r10_0
+395c: %r12_0 = add %r13_0, 1
+3960: %r10_0 = and %r11_1, 0x0000ff00
+3968: branch_cond0 %r10_0, 0 -> 0x3984 v
+396c: %r10_0 = *(0xe4000018)
+3970: %r10_0 = and %r10_0, 0x00ff0000
+3978: %r12_0 = add %r12_0, %r10_0
+397c: %r12_0 = add %r13_0, 0x00000100
+3984: %r10_0 = and %r11_1, 0x00ff0000
+398c: branch_cond0 %r10_0, 0 -> 0x39a8 v
+3990: %r10_0 = *(0xe4000018)
+3994: %r10_0 = and %r10_0, 0x000000ff
+399c: %r12_1 = add %r12_1, %r10_0
+39a0: %r12_0 = add %r13_0, 0x00010000
+39a8: %r10_0 = and %r11_1, 0xff000000
+39b0: branch_cond0 %r10_0, 0 -> 0x39cc v
+39b4: %r10_0 = *(0xe4000018)
+39b8: %r10_0 = and %r10_0, 0x00ff0000
+39c0: %r12_1 = add %r12_1, %r10_0
+39c4: %r12_0 = add %r13_0, 0x01000000
+39cc: return
+39d0: %r10_0 = and %r11_0, 0x000000ff
+39d8: branch_cond0 %r10_0, 0 -> 0x39f8 v
+39dc: %r10_0 = *(0xe4000018)
+39e0: %r10_0 = and %r10_0, 0x000000ff
+39e8: %r12_0 = add %r12_0, %r10_0
+39ec: %r12_0 = subf %r12_0, 0x00000080
+39f4: %r12_0 = add %r13_0, 1
+39f8: %r10_0 = and %r11_0, 0x0000ff00
+3a00: branch_cond0 %r10_0, 0 -> 0x3a24 v
+3a04: %r10_0 = *(0xe4000018)
+3a08: %r10_0 = and %r10_0, 0x00ff0000
+3a10: %r12_0 = add %r12_0, %r10_0
+3a14: %r12_0 = subf %r12_0, 0x00800000
+3a1c: %r12_0 = add %r13_0, 0x00000100
+3a24: %r10_0 = and %r11_0, 0x00ff0000
+3a2c: branch_cond0 %r10_0, 0 -> 0x3a50 v
+3a30: %r10_0 = *(0xe4000018)
+3a34: %r10_0 = and %r10_0, 0x000000ff
+3a3c: %r12_1 = add %r12_1, %r10_0
+3a40: %r12_1 = subf %r12_1, 0x00000080
+3a48: %r12_0 = add %r13_0, 0x00010000
+3a50: %r10_0 = and %r11_0, 0xff000000
+3a58: branch_cond0 %r10_0, 0 -> 0x3a7c v
+3a5c: %r10_0 = *(0xe4000018)
+3a60: %r10_0 = and %r10_0, 0x00ff0000
+3a68: %r12_1 = add %r12_1, %r10_0
+3a6c: %r12_1 = subf %r12_1, 0x00800000
+3a74: %r12_0 = add %r13_0, 0x01000000
+3a7c: return

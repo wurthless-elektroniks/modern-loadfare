@@ -3,6 +3,7 @@ hwinit bytecode disassembler
 Original code and reverse engineering work by Mate Kukri
 '''
 
+import sys
 from argparse import ArgumentParser,RawTextHelpFormatter
 import struct
 
@@ -52,6 +53,12 @@ def make_gpu_register(reg: int) -> int:
 
 # from https://github.com/xenon-emu/xenon/blob/main/Xenon/Core/XGPU/XenosRegisters.h
 MEMORY_CONTROLLER_REGISTERS = {
+    "0xea001080": "SMC_FIFO_INBOX_DATA",
+    "0xea001084": "SMC_FIFO_INBOX_CTRL_STATUS",
+    "0xea001090": "SMC_FIFO_OUTBOX_DATA",
+    "0xea001094": "SMC_FIFO_OUTBOX_CTRL_STATUS",
+    
+
     make_gpu_register(0x0800): "MC0_CNTL",
     make_gpu_register(0x0801): "MC0_DRAM_CONFIG",
     make_gpu_register(0x0802): "MC0_BSB_SNOOPED_TIMER_CNTL",
@@ -202,7 +209,7 @@ def parse_dest(word):
         return f"%r11_{half}"
     return f"%r10_{half}"
 
-def hwinit_disassemble(code: bytes, org: int = 0):
+def hwinit_disassemble(code: bytes, org: int = 0, fout = sys.stdout):
 
     offset = 0
     while offset < len(code):
@@ -494,48 +501,55 @@ def hwinit_disassemble(code: bytes, org: int = 0):
         if r:
             match ops:
                 case 0:
-                    print(f"{org_offset:04x}: {dest} = {opcode}")
+                    print(f"{org_offset:04x}: {dest} = {opcode}", file=fout)
                 case 1:
-                    print(f"{org_offset:04x}: {dest} = {opcode} {operand1}")
+                    # load from immediate 32-bit address
+                    if opcode == "load_word" and operand1 == -7:
+                        operand2 = operand2 if operand2 not in MEMORY_CONTROLLER_REGISTERS else MEMORY_CONTROLLER_REGISTERS[operand2]
+                        print(f"{org_offset:04x}: {dest} = *({operand2})", file=fout)
+                    else:
+                        print(f"{org_offset:04x}: {dest} = {opcode} {operand1}", file=fout)
+
+
                 case 2:
                     if opcode == "add" and operand2 == 0:
                         operand1 = operand1 if operand1 not in MEMORY_CONTROLLER_REGISTERS else MEMORY_CONTROLLER_REGISTERS[operand1]
-                        print(f"{org_offset:04x}: {dest} = {operand1}")
+                        print(f"{org_offset:04x}: {dest} = {operand1}", file=fout)
                     else:
-                        print(f"{org_offset:04x}: {dest} = {opcode} {operand1}, {operand2}")
+                        print(f"{org_offset:04x}: {dest} = {opcode} {operand1}, {operand2}", file=fout)
                 case other:
                     assert False
         else:
             if (word & 0xFC000000) == 0x2C000000:
                 # hack for call/return but whatever
                 if operand2 == 1:
-                    print(f"{org_offset:04x}: call 0x{(word&0xFFFF)<<2:04x}")
+                    print(f"{org_offset:04x}: call 0x{(word&0xFFFF)<<2:04x}", file=fout)
                 elif operand2 == 2:
-                    print(f"{org_offset:04x}: die")
+                    print(f"{org_offset:04x}: die", file=fout)
                 elif operand2 == 3:
-                    print(f"{org_offset:04x}: done")
+                    print(f"{org_offset:04x}: done", file=fout)
                 else:
-                    print(f"{org_offset:04x}: return")
+                    print(f"{org_offset:04x}: return", file=fout)
             elif (word & 0xFC000000) <= 0x1C000000:
                 destaddr = (word&0xFFFF)<<2
                 pos = '^' if destaddr < offset else 'v'
 
                 if opcode == "branch_cond3" and operand1 == -7 and operand2 == -7:
-                    print(f"{org_offset:04x}: jmp 0x{destaddr:04x} {pos}")
+                    print(f"{org_offset:04x}: jmp 0x{destaddr:04x} {pos}", file=fout)
                 else:
-                    print(f"{org_offset:04x}: {opcode} {operand1}, {operand2} -> 0x{destaddr:04x} {pos}")
+                    print(f"{org_offset:04x}: {opcode} {operand1}, {operand2} -> 0x{destaddr:04x} {pos}", file=fout)
 
             else:
                 match ops:
                     case 0:
-                        print(f"{org_offset:04x}: {opcode}")
+                        print(f"{org_offset:04x}: {opcode}", file=fout)
                     case 1:
-                        print(f"{org_offset:04x}: {opcode} {operand1}")
+                        print(f"{org_offset:04x}: {opcode} {operand1}", file=fout)
                     case 2:
                         if operand2 in MEMORY_CONTROLLER_REGISTERS:
-                            print(f"{org_offset:04x}: {opcode} {operand1}, {MEMORY_CONTROLLER_REGISTERS[operand2]}")
+                            print(f"{org_offset:04x}: {opcode} {operand1}, {MEMORY_CONTROLLER_REGISTERS[operand2]}", file=fout)
                         else:                
-                            print(f"{org_offset:04x}: {opcode} {operand1}, {operand2}")
+                            print(f"{org_offset:04x}: {opcode} {operand1}, {operand2}", file=fout)
                     case other:
                         assert False
 
