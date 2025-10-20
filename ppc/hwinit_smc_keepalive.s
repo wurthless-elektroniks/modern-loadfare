@@ -1,16 +1,22 @@
 #
 # hwinit keepalive code using the SMC FIFOs instead of POST bits
 #
+# This might not work on slim bytecodes because they call a common SMC IPC function
+# late in the bytecode.
+#
 
     # hwinit programcounter must be past this point before sending SMC messages
-    # otherwise we're talking to uninitialized PCI space
-    .equ HWINIT_MINIMUM_PC_VALUE, 0x0300
+    # otherwise we're talking to uninitialized PCI space.
+    # value here was chosen because it's the last opcode after the IPC call
+    # on slim bytecodes.
+    .equ HWINIT_MINIMUM_PC_VALUE, 0x016C
 
-    # keepalive signal (0xA2, 0xE2) - should blink RoL LEDs and reset watchdogs
-    .equ SMC_HWINIT_KEEPALIVE_MSGID, 0xA2
+    # keepalive signal (0xA2,0xE2) - should blink RoL LEDs and reset watchdogs
+    .equ SMC_HWINIT_KEEPALIVE_MSGID_0, 0xA2
+    .equ SMC_HWINIT_KEEPALIVE_MSGID_1, 0xE2
 
     # "done" signal
-    .equ SMC_HWINIT_DONE_MSGID, 0xA8
+    .equ SMC_HWINIT_DONE_MSGID, 0xA4
 
     .equ BASE_AND, 0x0100
 
@@ -66,12 +72,18 @@ hwinit_done:
     oris %r5,%r5,0xEA00
 
     lis %r6,0x0400                      # set FIFO tx active
+
+    # wait for SMC to acknowledge any message in its inbox
+_hwinitdone_wait_fifo_free:
+    lwz %r7,0x1084(%r5)
+    and %r7,%r7,%r6
+    cmpw %r7,%r6
+    bne _hwinitdone_wait_fifo_free
+
     stw %r6,0x1084(%r5)
-
-    li %r6,SMC_HWINIT_DONE_MSGID        # write command to FIFO (SMC will not reply)
-    rlwinm %r6,24,0,7
+    
+    lis %r6,(SMC_HWINIT_DONE_MSGID << 8) # write command to FIFO (SMC will not reply)
     stw %r6,0x1080(%r5)
-
     li %r6,0                            # release FIFO
     stw %r6,0x1084(%r5)                       
 
@@ -82,21 +94,18 @@ hwinit_done:
 # ------------------------------------------------------------------------------------------------
 
 smc_ipc_tick:
-    std %r5,-0xB0(%r1)
-    std %r6,-0xB8(%r1)
-    std %r7,-0xC0(%r1)
-    std %r8,-0xC8(%r1)
+    # do NOT touch %r8 during this function!!
+    # %r5, %r6, %r7 are fair game
 
     # check that hwinit interpreter is past a certain point before sending SMC messages.
     # during hwinit, %r16 is the program counter and %r3 is the program base.
-    sub %r5,%r16,%r3
+    subf %r5,%r3,%r16
     cmpwi %r5,HWINIT_MINIMUM_PC_VALUE
     blt _smc_ipc_tick_exit
 
     # otherwise, check timebase against last poll
     ld     %r6,-0xA8(%r1)               # read last poll
-    mftb   %r5                          # read timebase counter
-    andis. %r7,%r5,BASE_AND             # check bit
+    andis. %r7,%r7,BASE_AND             # check bit (%r7 was last timebase poll in delay loop)
     cmpld  %r6,%r7                      # has the bit flipped?
     beq    _smc_ipc_tick_exit           # if it hasn't, exit
     std   %r7,-0xA8(%r1)                # update last poll state
@@ -106,22 +115,22 @@ smc_ipc_tick:
     rldicr %r5,%r5,32,31
     oris %r5,%r5,0xEA00
 
-    lis %r7,0x0400                       # r7 = 0x04000000 (sets FIFO active)
-    stw %r7,0x1084(%r5)                  # start talking on FIFO
+    lis %r7,0x0400                      # r7 = 0x04000000 (sets FIFO active)
+_smcipctick_wait_fifo_free:
+    lwz %r9,0x1084(%r5)
+    and %r9,%r9,%r7
+    cmpw %r9,%r7
+    bne _smcipctick_wait_fifo_free
 
-    li %r7,SMC_HWINIT_KEEPALIVE_MSGID   # prepare keepalive message
-    cmpwi %r6,0                         # if the bit we checked earlier was 0, leave as-is
+    stw %r7,0x1084(%r5)                 # start talking on FIFO
+    lis %r7,(SMC_HWINIT_KEEPALIVE_MSGID_0 << 8)
+    cmpwi %r6,0          # if the bit we checked earlier was 0, leave as-is
     beq _toggle_post_send_post
-    ori %r7,%r7,0x40                    # otherwise toggle bit 6 (0xA2, 0xE2, 0xA2, etc...)
+    lis %r7,(SMC_HWINIT_KEEPALIVE_MSGID_1 << 8)
 _toggle_post_send_post:
-    rlwinm %r7,24,0,7                   # SMC command has to be shifted left too
     stw %r7,0x1080(%r5)                 # send SMC command (we don't care if it's acknowledged or not)
     li %r7,0                            # release FIFO
     stw %r7,0x1084(%r5)
 
 _smc_ipc_tick_exit:
-    ld %r5,-0xB0(%r1)
-    ld %r6,-0xB8(%r1)
-    ld %r7,-0xC0(%r1)
-    ld %r8,-0xC8(%r1)
     blr
