@@ -163,12 +163,15 @@ def oldcb_try_patch(cbb: bytes, patchparams: dict) -> None | bytes:
     else:
         if patchparams['nosmcsum']:
             cbb = _patch_nosmcsum(cbb, resolved_sigs['smcsum_address'])
-        cbb = _patch_cb_ldv_check(cbb, resolved_sigs['cb_ldv_address'])
-        cbb = _patch_smc_panic_a3_case(cbb, resolved_sigs['smcheader_address'])
+
+        if patchparams['disable_default'] is False:
+            cbb = _patch_cb_ldv_check(cbb, resolved_sigs['cb_ldv_address'])
+            cbb = _patch_smc_panic_a3_case(cbb, resolved_sigs['smcheader_address'])
 
     if patchparams['nodecrypt']:
         cbb = _patch_nodecrypt(cbb, resolved_sigs['decrypt_cd_addr'])
 
-    cbb = _patch_cd_hashcheck(cbb, resolved_sigs['hashcheck_addr'])
+    if patchparams['disable_default'] is False:
+        cbb = _patch_cd_hashcheck(cbb, resolved_sigs['hashcheck_addr'])
 
     return cbb

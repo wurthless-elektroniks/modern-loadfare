@@ -30,14 +30,18 @@ def xebuild_patchlist_make(cbb_original: bytes, cbb_patched: bytes) -> bytes:
         patched_bytes  = cbb_patched[pos:pos+4]
         if original_bytes == patched_bytes:
             if current_patch is not None:
+                patch_addr = current_patch._start_address
+                patch_len = len(current_patch._bits)
+
+                unmodified_data = cbb_original[patch_addr:patch_addr+patch_len]
+                patch_data      = cbb_patched[patch_addr:patch_addr+patch_len]
+                print(f"xebuild_patchlist_make: at 0x{patch_addr:04x} change {unmodified_data.hex()} to {patch_data.hex()}")
+
                 patchlist.append(current_patch)
                 current_patch = None
-                print(f"xebuild_patchlist_make: diff end {pos:08x}")
         else:
             if current_patch is None:
                 current_patch = Patch(pos)
-                print(f"xebuild_patchlist_make: diff start {pos:08x}")
-
             current_patch.push(patched_bytes)
 
         pos += 4

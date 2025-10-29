@@ -10,6 +10,16 @@ def _init_argparser():
     argparser = ArgumentParser(formatter_class=RawTextHelpFormatter,
                                prog='loadfare')
 
+    argparser.add_argument("--hwinit-only",
+                           default=False,
+                           action='store_true',
+                           help="Disable **ALL** CB patches and patch hwinit only (will NOT produce a bootable patch)")
+
+    argparser.add_argument("--disable-default",
+                           default=False,
+                           action='store_true',
+                           help="Disable all default CB patches (will NOT produce a bootable patch)")
+
     argparser.add_argument("--nofuse",
                            default=False,
                            action='store_true',
@@ -106,7 +116,8 @@ def main():
         'smc_keepalive': args.smc_keepalive,
         'fastdelay': args.fastdelay,
         'no5050': args.no5050,
-        'sdram_step': args.sdram_step
+        'sdram_step': args.sdram_step,
+        'disable_default': args.disable_default,
     }
 
     cbb = None
@@ -136,8 +147,11 @@ def main():
         if cbb is None:
             print("hwinit replacement failed, exiting.")
             return
-        
-    if oldcb_ident(cbb):
+    
+    if args.hwinit_only:
+        print("DANGER: bypassing CB patches. resulting CB_B will not be bootable.")
+        patched_cbb = bytearray(cbb)
+    elif oldcb_ident(cbb):
         print("found old-style CB, attempting patches...")
         patched_cbb = oldcb_try_patch(cbb, patchparams)
     elif newcb_ident(cbb):
