@@ -49,10 +49,24 @@ be abused for a softmod...
 
 Not really that interesting...
 
-## POST 0x2F - Setup TLB and relocate program (to SDRAM?)
+## POST 0x2F - Setup TLB and relocate program
 
-The CB also sets up some exception vectors during this phase. They are not to be tampered
-with if you want to run the kernel, as the kernel will be using them.
+- TLB init
+- CB_B copies itself into SDRAM, which hasn't been fully initialized yet (or so it looks, anyway)
+- An exception handler that POSTs 0xAE (unexpected IRQ) and dies is installed
+- Some general purpose exception handler is installed (this MUST be present if you want to run the kernel)
+- More TLB-related crap happens
+- Execution continues at relocated address (0x03003000? + entry point)
+
+6752 does this to setup the address to continue execution to:
+
+```
+        0000069c 3c c0 00 00     lis        r6,0x0
+        000006a0 38 c6 06 e0     addi       r6,r6,0x6e0    <-- 0x06E0 within the context of the CB_B
+        000006a4 3c c6 03 00     addis      r6,r6,0x300
+        000006a8 38 c6 30 00     addi       r6,r6,0x3000   <-- execution actually continues at 0x03003000 + 0x06E0
+        000006ac 7c da 03 a6     mtspr      SRR0,r6        <-- RFID happens soon after
+```
 
 ## POST 0x23 - hwinit about to run
 
@@ -69,6 +83,15 @@ of hardware it detects.
 The PCIe BARs (Base Address Registers) are configured during this phase, allowing the CPU
 to talk to the PCI devices. Then the devices are configured. The devices should live at
 addresses that are already publicly documented, as in libxenon.
+
+The typical workflow is:
+- Init PCI-PCI bridge
+- Init GPU BARs and some GPU registers
+- Init Southbridge BAR (`store_word 0xea001000, 0xd0150010 / store_half 2, 0xd0150004`)
+- Write 0x000001E6 to Southbridge UART configuration register, probably to disable the UART
+- Send command 0x12 to the SMC and then store its response to 0xE400002C
+- Run SDRAM detection, configuration and training (this is the most involved part of the whole process)
+- Finish up PCI-PCI bridge configuration and exit
 
 When reading hwinit disassemblies keep in mind that 0xD0000000 is the PCI configuration
 space, including each device's BARs, and that 0xE0000000 are where the configured devices

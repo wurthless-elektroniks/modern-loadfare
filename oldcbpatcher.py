@@ -125,8 +125,15 @@ def oldcb_ident(cbb: bytes) -> bool:
     # entry point must be 0x3C0
     # opcode at 0x3DC must be 38 80 00 20 (li r5,0x20 - about to POST 0x20)
     return cbb[0x0000:0x0002] == bytes([0x43, 0x42]) and \
-           cbb[0x0008:0x000C] == bytes([0x00, 0x00, 0x03, 0xC0]) and \
-           cbb[0x03DC:0x03E0] == bytes([0x38, 0x80, 0x00, 0x20])
+           (
+            # most old-style ones
+            (cbb[0x0008:0x000C] == bytes([0x00, 0x00, 0x03, 0xC0]) and \
+             cbb[0x03DC:0x03E0] == bytes([0x38, 0x80, 0x00, 0x20]))
+             or \
+            # CB_B 13121 is like this, who knows why
+            (cbb[0x0008:0x000C] == bytes([0x00, 0x00, 0x03, 0xD0]) and \
+             cbb[0x03EC:0x03F0] == bytes([0x38, 0x80, 0x00, 0x20]))
+           )
 
 def oldcb_try_patch(cbb: bytes, patchparams: dict) -> None | bytes:
     if oldcb_ident(cbb) is False:
