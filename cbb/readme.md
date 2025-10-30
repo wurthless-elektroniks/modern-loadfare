@@ -108,7 +108,8 @@ The typical workflow is:
 - Init GPU BARs and some GPU registers
 - Init Southbridge BAR (`store_word 0xea001000, 0xd0150010 / store_half 2, 0xd0150004`)
 - Write 0x000001E6 to Southbridge UART configuration register, probably to disable the UART
-- Send command 0x12 to the SMC and then store its response to 0xE400002C
+- Send command 0x12 to the SMC (gets SMC version and the contents of two SMC memory cells) and then store one byte(?) of its response to 0xE400002C,
+  to be used as a parameter during SDRAM init
 - Run SDRAM detection, configuration and training (this is the most involved part of the whole process)
 - Finish up PCI-PCI bridge configuration and exit
 
