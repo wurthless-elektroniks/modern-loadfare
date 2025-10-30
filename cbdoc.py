@@ -7,7 +7,7 @@ from oldcbpatcher import oldcb_ident
 from newcbpatcher import newcb_ident
 from hwinitpatcher import hwinit_extract_bytecode
 from hwinitdump import KNOWN_SHAS
-from cbheader import get_cb_version, parse_cb_ldv, get_cd_rotsumsha
+from cbheader import get_cb_version, get_cd_rotsumsha, get_cb_ldv_revocation_bitfield, get_cb_expected_ldv
 
 def _make_report(fout):
     print("--- cbdoc dumped it ---", file=fout)
@@ -30,12 +30,12 @@ def _make_report(fout):
         hwinit_hash = hashlib.sha1(hwinit_bytecode).hexdigest()
 
         record = {
-            'version':       get_cb_version(cbb),
-            'style':         style,
-            'ldv_bitfield':  f"{parse_cb_ldv(cbb)['bitfield']:016b}",
-            'ldv':           parse_cb_ldv(cbb)['ldv'],
-            'hwinit':        KNOWN_SHAS[hwinit_hash] if hwinit_hash in KNOWN_SHAS else hwinit_hash,
-            'cdhash':        get_cd_rotsumsha(cbb),
+            'version':              get_cb_version(cbb),
+            'style':                style,
+            'revocation_bitfield':  f"{get_cb_ldv_revocation_bitfield(cbb):016b}",
+            'expected_ldv':         f"{get_cb_expected_ldv(cbb)}",
+            'hwinit':               KNOWN_SHAS[hwinit_hash] if hwinit_hash in KNOWN_SHAS else hwinit_hash,
+            'cdhash':               get_cd_rotsumsha(cbb),
         }
 
         print(record)

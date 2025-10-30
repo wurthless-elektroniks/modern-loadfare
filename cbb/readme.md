@@ -20,6 +20,16 @@ Panics in the early stages are:
 - 0xB0 can happen after the CB LDV fusecheck.
 - 0xA1 appears to be raised by some sort of integrity checks.
 
+To check the CB LDV fuseline, get the lockdown value first, then compare the lockdown value
+to the byte at 0x3B1; if it matches, set a flag and continue:
+```
+        rlwinm     r11,r21,0x0,0x10,0x1f
+        ori        r21,r11,0x8
+```
+If the LDV value didn't match and wasn't less than or equal to 0, get the 16-bit bitfield
+at 0x3B2, then compute `v = bitfield & (1 << (ldv-1))`. If the result is non-zero, the
+CB has been revoked and execution will stop with POST 0xA0.
+
 After that, r22, r23, r24 and r25 are compared to zero. These arguments should have been
 passed from the previous stage. If they are zero, a flag is set and SMC integrity checks
 are skipped:
