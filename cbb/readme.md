@@ -30,9 +30,9 @@ If the LDV value didn't match and wasn't less than or equal to 0, get the 16-bit
 at 0x3B2, then compute `v = bitfield & (1 << (ldv-1))`. If the result is non-zero, the
 CB has been revoked and execution will stop with POST 0xA0.
 
-After that, r22, r23, r24 and r25 are compared to zero. These arguments should have been
-passed from the previous stage. If they are zero, a flag is set and SMC integrity checks
-are skipped:
+After that, r22, r23, r24 and r25 (the CB header values from 0x20~0x40) are compared to zero.
+These arguments should have been passed from the previous stage. If they are zero, then the
+SMC integrity checks are skipped and a flag is set to enter zero-paired mode:
 
 ```
         00006a48 7f 2b c3 78     or         r11,r25,r24
@@ -45,15 +45,24 @@ are skipped:
         00006a64 48 00 00 dc     b          LAB_00006b40
 ```
 
+When in zero-paired mode, the kernel will usually end up in manufacturing mode (displays
+Christmas lights and stops the boot). There are some (xeBuild-patched) kernels that don't.
+
 Further panics are:
 - 0xA2 - not sure yet
 - 0xA3 - SMC program is not in the right place in NAND or is not the right size
 - 0xA4 - Actual SMC checksum did not match expected values passed by previous stage
 
-It is important to pass real arguments to the CB; if zeros are passed in their place, then
-the kernel will almost certainly end up in manufacturing mode and display Christmas lights
-on the Ring of Light. Note that manufacturing mode was abused for JTAG, and it could also
-be abused for a softmod...
+SMC integrity checks are a bit complex:
+- Calculate 12 magic seed values from some place in RAM I don't really know the location of
+- Compute the 128-bit HMAC key `key = ((seed[2] | seed[3]) << 64) | (seed[4] | seed[5]))`
+- Checksum the entire encrypted SMC from flash. The checksum routine is almost identical to the
+  one used by RotSumSha, in that it computes a sum and a difference that are both bitwise rotated
+  as the loop continues. The result will be a 16-byte value.
+- Run HMAC verification. The key is as computed above, the message is `cb_salt + cb[0x20:0x30] + checksum_result`.
+  If this value does not match the one at `cb[0x30:0x40]`, verification fails.
+
+(Remember that the previous stage zeroes 0x20-0x40 before CB_B runs.)
 
 ## POST 0x22 - Init security engine
 
@@ -116,6 +125,20 @@ After hwinit runs, 0xE1040000 is read to determine what the system RAM size is.
 Anything less than 512 MB will halt with a panic (POST 0xAF). However, the hwinit
 bytecode will usually explicitly set this value to 0x20000000, so the check should
 always pass.
+
+### SDRAM training errors
+
+The hwinit program will throw RRoDs if it fails to initialize SDRAM (and if the CPU doesn't crash while it happens). These include:
+
+| SMC command   | SMC command word | RRoD Error | Error Name                                    |
+|---------------|------------------|------------|-----------------------------------------------|
+| `9A 10 10 00` | `0x0010109a`     | 0100       | ERROR_NBINIT_MEM_VENDOR_ID                    |
+| `9A 11 11 00` | `0x0011119a`     | 0101       | ERROR_NBINIT_MEM_READ_STROBE_DATA_WRITE       |
+| `9A 12 12 00` | `0x0012129a`     | 0102       | ERROR_NBINIT_MEM_READ_STROBE_DELAY_TRAINING   |
+| `9A 13 13 00` | `0x0013139a`     | 0103       | ERROR_NBINIT_MEM_WRITE_STROBE_DELAY_TRAINING  |
+| `9A 14 14 00` | `0x0014149a`     | 0110       | ERROR_MEMORY_ADDRESSING                       |
+| `9A 15 15 00` | `0x0015159a`     | 0111       | ERROR_MEMORY_DATA                             |
+| `9A 16 16 00` | `0x0016169a`     | 0112       | Undocumented (probably same as 0111)          |
 
 ## cd_load_and_jump
 
