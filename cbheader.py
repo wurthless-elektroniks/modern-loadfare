@@ -17,3 +17,6 @@ def parse_cb_ldv(cbb: bytes):
 
 def get_cb_version(cbb: bytes):
     return struct.unpack(">H", cbb[2:4])[0]
+
+def get_cd_rotsumsha(cbb: bytes):
+    return cbb[0x39C:0x3B0].hex()
