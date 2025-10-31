@@ -78,6 +78,6 @@ First few opcodes were made consistent with corona_v1 and corona_v2. Otherwise i
 
 ### corona_v2
 
-- Known CBs: 13182
+- Known CBs: 13182, 16128
 
-Adds support for Winbond SDRAMs.
+Adds support for Winbond SDRAMs. Also used on Winchester.
