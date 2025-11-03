@@ -12,7 +12,7 @@ from signature import SignatureBuilder, WILDCARD, bulk_find, check_bulk_find_res
 # this is the only POST code that wasn't removed from newer CBs
 NEWCB_PANIC_FUNCTION = SignatureBuilder() \
     .pattern([
-        0x38, 0x60, 0x00, 0xae, # li r3,0xA3
+        0x38, 0x60, 0x00, 0xae, # li r3,0xAE
         0x78, 0x63, 0xc1, 0xc6, # then usual panic case code follows
         0x38, 0x80, 0x02, 0x00,
         0x64, 0x84, 0x80, 0x00,
@@ -25,8 +25,19 @@ NEWCB_PANIC_FUNCTION = SignatureBuilder() \
     ]) \
     .build()
 
+# done several times in cd_load_and_jump - will be useful for claiming free space
+# and patching in postcodes
+NEWCB_RANDOM_DELAY_CALL_PATTERN = SignatureBuilder() \
+    .pattern([
+        0x38, 0xa0, 0x1b, 0xff,         # li         r5,0x1bff
+        0x38, 0x80, 0x04, 0x00,         # li         r4,0x400
+        0x38, 0x61, 0x00, 0x80,         # addi       r3,r1,0x80
+        0x48, 0x00, WILDCARD, WILDCARD, # bl         time_waster
+    ])
+
 # this is the infamous random delay function.
 # it is called throughout cd_load_and_jump and nowhere else.
+# it can also be found in CB_A.
 NEWCB_RANDOM_DELAY_FUNCTION = SignatureBuilder() \
     .pattern([
         0x7d, 0x88, 0x02, 0xa6,                 # mfspr      r12,LR
@@ -170,20 +181,25 @@ def _postpatch_hwinitproxy(cbb: bytes, hwinitproxy_address: int, post_address: i
     cbb, _ = assemble_branch_with_link(cbb, hwinitproxy_address + 0x1C, post_target_address)
     return cbb
 
-
 NEWCB_CB_LDV_PREAMBLE_PATTERN = SignatureBuilder() \
     .pattern([
-        0x7f, 0x0b, 0x50, 0x00,     # cmpw       cr6,r11,r10
-        0x40, 0x9a, 0x00, 0x10,     # bne        cr6,LAB_0000699c
-        WILDCARD, WILDCARD, 0x04, 0x3e, # rlwinm     r11,r21,0x0,0x10,0x1f
-        0x61, WILDCARD, 0x00, 0x08, # ori        r21,r11,0x8
-        0x48, 0x00, 0x00, 0x2C      # branch target different because panic is removed
+        0x7f, 0x0b, 0x50, 0x00,     # +0x00 cmpw       cr6,r11,r10
+        0x40, 0x9a, 0x00, 0x10,     # +0x04 bne        cr6,LAB_0000699c
+        WILDCARD, WILDCARD, 0x04, 0x3e, # +0x08 rlwinm     r11,r21,0x0,0x10,0x1f
+        0x61, WILDCARD, 0x00, 0x08, # +0x0C ori        r21,r11,0x8
+        0x48, 0x00, 0x00, 0x2C      # +0x10 branch target different because panic is removed
     ]) \
     .build()
 
 def _patch_cb_ldv_check(cbb: bytes, cb_ldv_address: int):
     cbb, _ = assemble_nop(cbb, cb_ldv_address+0x04)
     return cbb
+
+def _reclaim_cb_ldv_fusecheck(cbb: bytes, cb_ldv_address: int):
+    range_start = cb_ldv_address + 0x14
+    range_end   = range_start + 0x2C
+    print(f"_reclaim_cb_ldv_fusecheck: reclaimed 0x{range_start:04x} ~ 0x{range_end:04x} as free space")
+    return cbb, FreeSpaceArea(range_start, range_end)
 
 # identical to old CB
 NEWCB_FUSECHECK_CALL = SignatureBuilder() \
@@ -208,7 +224,7 @@ def _postpatch_fusecheck(cbb: bytes, fusecheck_call_addr: int, post_address: int
     cbb, _ = assemble_branch_with_link(cbb, fusecheck_call_addr + 0x10, post_target_address)
     return cbb
 
-def _postpatch_secengine_init(cbb: bytes, fusecheck_call_addr: int,post_address: int, free_space: FreeSpaceArea) -> bytes:
+def _postpatch_secengine_init(cbb: bytes, fusecheck_call_addr: int, post_address: int, free_space: FreeSpaceArea) -> bytes:
     secengine_init_addr = decode_branch_address(cbb[fusecheck_call_addr + 0x14:fusecheck_call_addr + 0x18], fusecheck_call_addr + 0x14)
 
     post_target_address = free_space.head()
@@ -225,6 +241,180 @@ def _patch_nofuse(cbb: bytes, fusecheck_call_addr: int) -> bytes:
     cbb, _ = assemble_nop(cbb, base)
     return cbb
 
+NEWCB_SMCSUM_PATTERN = SignatureBuilder() \
+    .pattern([
+        0x48, WILDCARD, WILDCARD, WILDCARD, # bl to hmac verify function
+        0x2F, 0x03, 0x00, 0x00,             # cmpwi cr6, r3, 0
+        0x40, 0x9A, 0x00, 0x08,             # bne cr6,+0x8
+        0x00, 0x00, 0x00, 0x00              # die (old CB panics with POST code 0xA4)
+    ]) \
+    .build()
+
+def _patch_nosmcsum(cbb: bytes, smcsum_check_addr: int) -> bytes:
+    base = smcsum_check_addr + 0x0C
+    cbb, _ = assemble_branch(cbb, base, base+0x08)
+    return cbb
+
+def _panicpatch_smcsum(cbb: bytes, smcsum_check_addr: int, panic_address: int, free_space: FreeSpaceArea) -> bytes:
+    post_target_address = free_space.head()
+    cbb, head = assemble_panic(cbb, post_target_address, 0xA4, panic_address)
+    free_space.create_func_and_set_head("panic_A4", head)
+    cbb, _ = assemble_branch(cbb, smcsum_check_addr + 0x0C, post_target_address)
+    return cbb
+
+NEWCB_SMCHEADER_PATTERN = SignatureBuilder() \
+    .pattern([
+        0x2b, 0x0a, 0x00, 0x00,   # +0x00 cmplwi     cr6,r10,0x0
+        0x40, 0x9a, 0x00, 0x2c,   # +0x04 bne        cr6,LAB_00006e6c
+        0x2b, 0x1e, 0x30, 0x00,   # +0x08 cmplwi     cr6,r30,0x3000
+        0x41, 0x9a, 0x00, 0x0c,   # +0x0C beq        cr6,LAB_00006e54
+        0x2b, 0x1e, 0x38, 0x00,   # +0x10 cmplwi     cr6,r30,0x3800 (for KSB SMC's)
+        0x40, 0x9a, 0x00, 0x1c,   # +0x14 bne        cr6,LAB_00006e6c
+
+        # have to check the rest of this block too
+        0x7f, 0xc4, 0xf3, 0x78,   # +0x18
+        0x7b, 0xe3, 0x00, 0x20,   # +0x1C
+        WILDCARD, WILDCARD, WILDCARD, WILDCARD, # +0x20
+        0xe9, 0x7d, 0x02, 0x58,   # +0x24
+        0x2f, 0x03, 0x00, 0x00,   # +0x28
+        0x40, 0x9a, 0x00, 0x08,   # +0x2C
+        0x00, 0x00, 0x00, 0x00,   # normal 0xA3 panic case goes here
+    ]) \
+    .build()
+
+def _patch_smc_panic_a3_case(cbb: bytes, smcheader_check_addr: int) -> bytes:
+    cbb, _ = assemble_branch(cbb, smcheader_check_addr, smcheader_check_addr + 0x18)
+    return cbb
+
+def _panicpatch_smc_panic_a3_case(cbb: bytes, smcheader_check_addr: int, panic_address: int) -> bytes:
+    cbb, _ = assemble_panic(cbb, smcheader_check_addr + 4, 0xA3, panic_address)
+    cbb, _ = assemble_branch(cbb, smcheader_check_addr + 0x30, smcheader_check_addr + 4)
+    return cbb
+
+NEWCB_SECOTP_1_CHECK_PATTERN = SignatureBuilder() \
+    .pattern([
+        0x79, 0x8c, 0xd1, 0x46, # +0x00 rldicr     r12,r12,0x3a,0x5
+        0x7d, 0x6a, 0x60, 0x38, # +0x04 and        r10,r11,r12
+        0x2b, 0x2a, 0x00, 0x00, # +0x08 cmpldi     cr6,r10,0x0
+        0x41, 0x9a, 0x00, 0x08, # +0x0C beq        cr6,LAB_00006bf8
+        0x00, 0x00, 0x00, 0x00, # +0x10 fail with POST 0x9B
+    ]) \
+    .build()
+
+def _panicpatch_secotp1(cbb: bytes, secotp1_check_addr: int, panic_address: int, free_space: FreeSpaceArea) -> bytes:
+    post_target_address = free_space.head()
+    cbb, head = assemble_panic(cbb, post_target_address, 0x9B, panic_address)
+    free_space.create_func_and_set_head("panic_9B", head)
+    cbb, _ = assemble_branch(cbb, secotp1_check_addr + 0x10, post_target_address)
+
+    return cbb
+
+NEWCB_SECOTP_2_CHECK_PATTERN = SignatureBuilder() \
+    .pattern([
+        0x57, 0x07, 0x04, 0x3e, # rlwinm     r7,r24,0x0,0x10,0x1f
+        0x54, 0xea, 0xff, 0xfe, # rlwinm     r10,r7,0x1f,0x1f,0x1f
+        0x7f, 0x0b, 0x50, 0x00, # cmpw       cr6,r11,r10
+        0x41, 0x9a, 0x00, 0x08, # beq        cr6,LAB_00006c3c
+        0x00, 0x00, 0x00, 0x00, # +0x10 fail with POST 0x9C
+    ]) \
+    .build()
+
+def _panicpatch_secotp2(cbb: bytes, secotp2_check_addr: int, panic_address: int, free_space: FreeSpaceArea) -> bytes:
+    post_target_address = free_space.head()
+    cbb, head = assemble_panic(cbb, post_target_address, 0x9C, panic_address)
+    free_space.create_func_and_set_head("panic_9C", head)
+    cbb, _ = assemble_branch(cbb, secotp2_check_addr + 0x10, post_target_address)
+
+    return cbb
+
+# IMPORTANT! secotp 4, 5, 3 are checked out-of-order
+NEWCB_SECOTP_4_CHECK_PATTERN = SignatureBuilder() \
+    .pattern([
+        0x41, 0x9a, 0x00, 0x14, # beq        cr6,LAB_00006c74
+        0x79, 0x69, 0x07, 0x20, # rldicl     r9,r11,0x0,0x3c
+        0x2b, 0x29, 0x00, 0x00, # cmpldi     cr6,r9,0x0
+        0x41, 0x9a, 0x00, 0x08, # beq        cr6,LAB_00006c74
+        0x00, 0x00, 0x00, 0x00, # +0x10 fail with POST 0x9E
+    ]) \
+    .build()
+
+def _panicpatch_secotp4(cbb: bytes, secotp4_check_addr: int, panic_address: int, free_space: FreeSpaceArea) -> bytes:
+    post_target_address = free_space.head()
+    cbb, head = assemble_panic(cbb, post_target_address, 0x9E, panic_address)
+    free_space.create_func_and_set_head("panic_9E", head)
+    cbb, _ = assemble_branch(cbb, secotp4_check_addr + 0x10, post_target_address)
+    return cbb
+
+NEWCB_SECOTP_5_CHECK_PATTERN = SignatureBuilder() \
+    .pattern([
+        0x41, 0x9a, 0x00, 0x14, # beq        cr6,LAB_00006c74
+        0x79, 0x69, 0x07, 0x20, # rldicl     r9,r11,0x0,0x3c
+        0x2b, 0x29, 0x00, 0x00, # cmpldi     cr6,r9,0x0
+        0x41, 0x9a, 0x00, 0x08, # beq        cr6,LAB_00006c74
+        0x00, 0x00, 0x00, 0x00, # +0x10 fail with POST 0x9E
+    ]) \
+    .build()
+
+def _panicpatch_secotp5(cbb: bytes, secotp5_check_addr: int, panic_address: int, free_space: FreeSpaceArea) -> bytes:
+    post_target_address = free_space.head()
+    cbb, head = assemble_panic(cbb, post_target_address, 0x9F, panic_address)
+    free_space.create_func_and_set_head("panic_9F", head)
+    cbb, _ = assemble_branch(cbb, secotp5_check_addr + 0x10, post_target_address)
+    return cbb
+
+NEWCB_SECOTP_3_CHECK_PATTERN = SignatureBuilder() \
+    .pattern([
+        0x40, 0x9a, 0x00, 0x10, # bne        cr6,LAB_00006cc8
+        0x54, 0xeb, 0x07, 0xbc, # rlwinm     r11,r7,0x0,0x1e,0x1e
+        0x2b, 0x0b, 0x00, 0x00, # cmplwi     cr6,r11,0x0
+        0x41, 0x9a, 0x00, 0x08, # beq        cr6,LAB_00006ccc
+        0x00, 0x00, 0x00, 0x00, # +0x10 fail with POST 0x9E
+    ]) \
+    .build()
+
+def _panicpatch_secotp3(cbb: bytes, secotp3_check_addr: int, panic_address: int, free_space: FreeSpaceArea) -> bytes:
+    post_target_address = free_space.head()
+    cbb, head = assemble_panic(cbb, post_target_address, 0x9D, panic_address)
+    free_space.create_func_and_set_head("panic_9D", head)
+    cbb, _ = assemble_branch(cbb, secotp3_check_addr + 0x10, post_target_address)
+    return cbb
+
+NEWCB_CONSOLE_TYPE_CHECK_PATTERN = SignatureBuilder() \
+    .pattern([
+        0x79, 0x8c, 0x07, 0xc6, # rldicr     r12,r12,0x20,0x1f
+        0x7d, 0x2b, 0x60, 0x38, # and        r11,r9,r12
+        0x2b, 0x2b, 0x00, 0x00, # cmpldi     cr6,r11,0x0
+        0x41, 0x9a, 0x00, 0x08, # beq        cr6,LAB_00006d7c
+        0x00, 0x00, 0x00, 0x00, # +0x10 fail with POST 0xB0
+    ]) \
+    .build()
+
+def _panicpatch_consoletype_check(cbb: bytes, consoletype_check_addr: int, panic_address: int, free_space: FreeSpaceArea) -> bytes:
+    post_target_address = free_space.head()
+    cbb, head = assemble_panic(cbb, post_target_address, 0xB0, panic_address)
+    free_space.create_func_and_set_head("panic_B0", head)
+    cbb, _ = assemble_branch(cbb, consoletype_check_addr + 0x10, post_target_address)
+    return cbb
+
+NEWCB_SECOTP_7_CHECK_PATTERN = SignatureBuilder() \
+    .pattern([
+        0x48, 0x00, 0x00, 0x14, # b          LAB_00006df0
+        0x57, 0x0b, 0x07, 0xbc, # rlwinm     r11,r24,0x0,0x1e,0x1e
+        0x2b, 0x0b, 0x00, 0x00, # cmplwi     cr6,r11,0x0
+        0x41, 0x9a, 0x00, 0x08, # beq        cr6,LAB_00006df0
+        0x00, 0x00, 0x00, 0x00, # +0x10 fail with POST 0xA1
+    ]) \
+    .build()
+
+def _panicpatch_secotp7(cbb: bytes, secotp7_check_addr: int, panic_address: int, free_space: FreeSpaceArea) -> bytes:
+    post_target_address = free_space.head()
+    cbb, head = assemble_panic(cbb, post_target_address, 0xB0, panic_address)
+    free_space.create_func_and_set_head("panic_A1", head)
+    cbb, _ = assemble_branch(cbb, secotp7_check_addr + 0x10, post_target_address)
+    return cbb
+
+# ----------------------------------------------------------------------------------------------------------------
+
 def newcb_ident(cbb: bytes) -> bool:
     # entry point must be 0x3E0
     return cbb[0x0000:0x0002] == bytes([0x43, 0x42]) and \
@@ -235,13 +425,22 @@ def newcb_try_patch(cbb: bytes, patchparams: dict) -> None | bytes:
         return None
     
     resolver_params = {
-        'panic_a3_address':          NEWCB_PANIC_FUNCTION,
+        'panic_ae_address':          NEWCB_PANIC_FUNCTION,
         'randomdelay_address':       NEWCB_RANDOM_DELAY_FUNCTION,
         'cd_hash_cmp_address':       NEWCB_CD_HASH_COMPARE_FUNCTION,
         'hwinitproxy_address':       NEWCB_HWINIT_PROXY,
 
         'cb_ldv_address':            NEWCB_CB_LDV_PREAMBLE_PATTERN,
         'fusecheck_call_addr':       NEWCB_FUSECHECK_CALL,
+        'smcsum_address':            NEWCB_SMCSUM_PATTERN,
+        'smcheader_address':         NEWCB_SMCHEADER_PATTERN,
+        'secotp1_address':           NEWCB_SECOTP_1_CHECK_PATTERN,
+        'secotp2_address':           NEWCB_SECOTP_2_CHECK_PATTERN,
+        'secotp4_address':           NEWCB_SECOTP_4_CHECK_PATTERN,
+        'secotp5_address':           NEWCB_SECOTP_5_CHECK_PATTERN,
+        'secotp3_address':           NEWCB_SECOTP_3_CHECK_PATTERN,
+        'consoletype_check_address': NEWCB_CONSOLE_TYPE_CHECK_PATTERN,
+        'secotp7_address':           NEWCB_SECOTP_7_CHECK_PATTERN,
     }
 
     resolved_sigs = bulk_find(resolver_params, cbb)
@@ -256,8 +455,9 @@ def newcb_try_patch(cbb: bytes, patchparams: dict) -> None | bytes:
     # reclaim some free space while patching out useless functions
     cbb, cd_hash_compare_freespace = _reclaim_cd_hash_compare(cbb, resolved_sigs['cd_hash_cmp_address'])
     cbb, random_delay_freespace    = _reclaim_random_delay(cbb, resolved_sigs['randomdelay_address'])
-    post_fcn_address = None
 
+    post_fcn_address = None
+    panic_fcn_address = resolved_sigs['panic_ae_address'] + 4
     if reenabling_posts:
         post_fcn_address = random_delay_freespace.head()
         cbb, new_head = assemble_post_function(cbb, post_fcn_address)
@@ -266,17 +466,46 @@ def newcb_try_patch(cbb: bytes, patchparams: dict) -> None | bytes:
         # make sure any POST patches you add here don't conflict with any other patches!
         cbb = _postpatch_hwinitproxy(cbb, resolved_sigs['hwinitproxy_address'], post_fcn_address, cd_hash_compare_freespace)
         cbb = _postpatch_secengine_init(cbb, resolved_sigs['fusecheck_call_addr'], post_fcn_address, cd_hash_compare_freespace)
-
+    
     if patchparams['nofuse']:
         cbb = _patch_nofuse(cbb, resolved_sigs['fusecheck_call_addr'])
     else:
         if reenabling_posts:
+            # POST 0x21 before running this function
             cbb = _postpatch_fusecheck(cbb, resolved_sigs['fusecheck_call_addr'], post_fcn_address, cd_hash_compare_freespace)
 
-        # if patchparams['nosmcsum']:
-            # cbb = _patch_nosmcsum(cbb, resolved_sigs['smcsum_address'])
+        if patchparams['nosmcsum']:
+            cbb = _patch_nosmcsum(cbb, resolved_sigs['smcsum_address'])
+        elif reenabling_posts:
+            # re-enable 0xA4 panic when SMC checksum/HMAC check fails
+            cbb = _panicpatch_smcsum(cbb, resolved_sigs['smcsum_address'], panic_fcn_address, cd_hash_compare_freespace)
+
         cbb = _patch_cb_ldv_check(cbb, resolved_sigs['cb_ldv_address'])
-        # cbb = _patch_smc_panic_a3_case(cbb, resolved_sigs['smcheader_address'])
+
+        # code following the LDV check is now free space for 10 instructions
+        # giving us space to put 5 panics
+        cbb, cb_ldv_freespace = _reclaim_cb_ldv_fusecheck(cbb, resolved_sigs['cb_ldv_address'])
+
+        cbb = _patch_smc_panic_a3_case(cbb, resolved_sigs['smcheader_address'])
+        if reenabling_posts:
+            # re-enable 0xA3 panic
+            cbb = _panicpatch_smc_panic_a3_case(cbb, resolved_sigs['smcheader_address'], panic_fcn_address)
+
+        # rest of this is re-enabling all other panic cases in the fusecheck/SMC sanity check function
+        if reenabling_posts:
+            # at this point, A3/A4 panics have been reinstated above
+            # put secotp panics where the CB LDV revocation check was
+            cbb = _panicpatch_secotp1(cbb, resolved_sigs['secotp1_address'], panic_fcn_address, cb_ldv_freespace)
+            cbb = _panicpatch_secotp2(cbb, resolved_sigs['secotp2_address'], panic_fcn_address, cb_ldv_freespace)
+            cbb = _panicpatch_secotp4(cbb, resolved_sigs['secotp4_address'], panic_fcn_address, cb_ldv_freespace)
+            cbb = _panicpatch_secotp5(cbb, resolved_sigs['secotp5_address'], panic_fcn_address, cb_ldv_freespace)
+            cbb = _panicpatch_secotp3(cbb, resolved_sigs['secotp3_address'], panic_fcn_address, cb_ldv_freespace)
+
+            # two cases remain: 0xB0 and 0xA1
+            cbb = _panicpatch_consoletype_check(cbb, resolved_sigs['consoletype_check_address'], panic_fcn_address, cd_hash_compare_freespace)
+            cbb = _panicpatch_secotp7(cbb, resolved_sigs['secotp7_address'], panic_fcn_address, cd_hash_compare_freespace)
+
+    # 
 
 
     print("i'm still in development - returning None.")

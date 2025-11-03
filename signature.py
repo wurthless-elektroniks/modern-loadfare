@@ -269,3 +269,13 @@ def check_bulk_find_results(resolved_sigs: dict) -> bool:
             any_none = True
 
     return any_none
+
+def find_all_instances(signature: Signature, align32: bool = True) -> list:
+    matches = []
+    offset = 0
+    while True:
+        offset = signature.find(signature, offset, align32=align32)
+        if offset is None:
+            return matches
+        matches.append(offset)
+        offset += signature.size()
