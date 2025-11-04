@@ -6,11 +6,22 @@ CB_B on split CB systems is functionally the same as the CB on single CB systems
 This is brief documentation as to how it works, based on how 5772 works.
 POST codes are listed in order of which they appear (I hope).
 
-## POST 0x20 - CB starting execution
+
+## List of CBs
+
+Todo.
+
+## Old-style vs new-style CBs
+
+Todo.
+
+## CB boot procedure
+
+### POST 0x20 - CB starting execution
 
 Sets up some stuff (to be described later)
 
-## POST 0x21 - Fusecheck / SMC sanity check
+### POST 0x21 - Fusecheck / SMC sanity check
 
 Fuselines are decoded to make sure the CB is running on a system it should be.
 
@@ -64,11 +75,11 @@ SMC integrity checks are a bit complex:
 
 (Remember that the previous stage zeroes 0x20-0x40 before CB_B runs.)
 
-## POST 0x22 - Init security engine
+### POST 0x22 - Init security engine
 
 Not really that interesting...
 
-## POST 0x2F - Setup TLB and relocate program
+### POST 0x2F - Setup TLB and relocate program
 
 - TLB init
 - CB_B copies itself into SDRAM, which hasn't been fully initialized yet (or so it looks, anyway)
@@ -87,12 +98,12 @@ Not really that interesting...
         000006ac 7c da 03 a6     mtspr      SRR0,r6        <-- RFID happens soon after
 ```
 
-## POST 0x23 - hwinit about to run
+### POST 0x23 - hwinit about to run
 
 This is documented as "INIT_SYSRAM" in most sources but in reality it does nothing.
 This POST happens in a wrapper function where hwinit executes.
 
-## POST 0x2E - hwinit running
+### POST 0x2E - hwinit running
 
 hwinit is a mess of code that is still being reverse engineered and there's not much to
 say about it that's different than what's already been written, but as a reminder, it's
@@ -141,7 +152,7 @@ The hwinit program will throw RRoDs if it fails to initialize SDRAM (and if the 
 | `9A 15 15 00` | `0x0015159a`     | 0111       | ERROR_MEMORY_DATA                             |
 | `9A 16 16 00` | `0x0016169a`     | 0112       | Undocumented (probably same as 0111)          |
 
-## cd_load_and_jump
+### cd_load_and_jump
 
 Long procedure that performs the following in order:
 
@@ -161,3 +172,27 @@ Long procedure that performs the following in order:
 This function was probably written in C because, even though execution never returns here, there's a bit of code
 that handles stack maintenance and cleanup after the call to cd_jump.
 
+#### New-style CD entry point obfuscation
+
+New-style CB/CD pairings typically obfuscate the real CD entry point. The way to compute the real entry point is
+as follows, using CB/CD 7378 as an example:
+
+```
+uVar12 = 0x05E1272D24F81CDA # cd @ 0x2F8
+uVar7  = 0x0000000000000000 # cd @ 0x300 
+uVar5  = 0xBBA218337EADBCEF # cd @ 0x2F0
+uVar8  = 0x20C5A472B94B44B9 # cb @ 0x3D8
+uVar9  = 0xFC96783760CA74AA # cb @ 0x3C8
+uVar10 = 0xF1AD214506091F14 # cb @ 0x3C0
+local_2e8 = 0xD8B0672E8DAD7398 # CD rotsumsha hash, bytes 8~15
+local_2f0 = 0xB4F25ACFF38F0045 # CD rotsumsha hash, bytes 0~7
+
+real_entry_point = uVar7 ^ uVar12 ^ uVar5 ^ 0xffffffffffffffff ^ uVar8 ^ uVar9 ^ uVar10 ^ local_2e8 ^ local_2f0
+```
+
+In this case the entry point will be `0x04000310`, which in practice isn't any different than the entry point specified
+in the CD header (`0x0310`).
+
+This seems like an attempt by Microsoft to prevent pairing random CB/CD pairings, and to cause an intentional crash
+if CD has been tampered with. Obviously, it's not a very successful attempt, because it can be bypassed easily
+by patching cd_jump to start CD the same way as an old-style CB would.
