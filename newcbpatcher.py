@@ -7,7 +7,7 @@ some parameters before calling CD.
 '''
 
 from patcher import *
-from signature import SignatureBuilder, WILDCARD, bulk_find, check_bulk_find_results
+from signature import SignatureBuilder, WILDCARD, bulk_find, check_bulk_find_results, find_all_instances
 
 # this is the only POST code that wasn't removed from newer CBs
 NEWCB_PANIC_FUNCTION = SignatureBuilder() \
@@ -33,7 +33,8 @@ NEWCB_RANDOM_DELAY_CALL_PATTERN = SignatureBuilder() \
         0x38, 0x80, 0x04, 0x00,         # li         r4,0x400
         0x38, 0x61, 0x00, 0x80,         # addi       r3,r1,0x80
         0x48, 0x00, WILDCARD, WILDCARD, # bl         time_waster
-    ])
+    ]) \
+    .build()
 
 # this is the infamous random delay function.
 # it is called throughout cd_load_and_jump and nowhere else.
@@ -210,6 +211,7 @@ NEWCB_FUSECHECK_CALL = SignatureBuilder() \
         0x7F, 0xC6, 0xF3, 0x78,
         0x48, WILDCARD, WILDCARD, WILDCARD, # +0x10 call to fusecheck function
         0x48, WILDCARD, WILDCARD, WILDCARD, # +0x14 call to secengine init function
+        0x7c, 0x74, 0xfa, 0xa6, # +0x18 mfspr r3,IAC1 - POST 0x2F should be happening around here
     ]) \
     .build()
 
@@ -233,6 +235,18 @@ def _postpatch_secengine_init(cbb: bytes, fusecheck_call_addr: int, post_address
     free_space.create_func_and_set_head("seceng_22_reroute", head)
 
     cbb, _ = assemble_branch_with_link(cbb, fusecheck_call_addr + 0x14, post_target_address)
+    return cbb
+
+def _postpatch_relocate_and_init_vectors(cbb: bytes, fusecheck_call_addr: int, post_address: int, free_space: FreeSpaceArea) -> bytes:
+    post_target_address = free_space.head()
+    cbb[post_target_address:post_target_address+4] = bytes([0x7c, 0x74, 0xfa, 0xa6])
+
+    cbb, head = assemble_post_call(cbb, post_target_address+4, post_address, 0x2F)
+    cbb, head = assemble_branch(cbb, head, fusecheck_call_addr + 0x1C)
+    free_space.create_func_and_set_head("reloc_2F_reroute", head)
+
+    cbb, _ = assemble_branch(cbb, fusecheck_call_addr + 0x18, post_target_address)
+
     return cbb
 
 def _patch_nofuse(cbb: bytes, fusecheck_call_addr: int) -> bytes:
@@ -331,8 +345,8 @@ def _panicpatch_secotp2(cbb: bytes, secotp2_check_addr: int, panic_address: int,
 NEWCB_SECOTP_4_CHECK_PATTERN = SignatureBuilder() \
     .pattern([
         0x41, 0x9a, 0x00, 0x14, # beq        cr6,LAB_00006c74
-        0x79, 0x69, 0x07, 0x20, # rldicl     r9,r11,0x0,0x3c
-        0x2b, 0x29, 0x00, 0x00, # cmpldi     cr6,r9,0x0
+        0x79, WILDCARD, 0x07, 0x20, # rldicl     r9,r11,0x0,0x3c
+        0x2b, WILDCARD, 0x00, 0x00, # cmpldi     cr6,r9,0x0
         0x41, 0x9a, 0x00, 0x08, # beq        cr6,LAB_00006c74
         0x00, 0x00, 0x00, 0x00, # +0x10 fail with POST 0x9E
     ]) \
@@ -347,11 +361,11 @@ def _panicpatch_secotp4(cbb: bytes, secotp4_check_addr: int, panic_address: int,
 
 NEWCB_SECOTP_5_CHECK_PATTERN = SignatureBuilder() \
     .pattern([
-        0x41, 0x9a, 0x00, 0x14, # beq        cr6,LAB_00006c74
-        0x79, 0x69, 0x07, 0x20, # rldicl     r9,r11,0x0,0x3c
-        0x2b, 0x29, 0x00, 0x00, # cmpldi     cr6,r9,0x0
-        0x41, 0x9a, 0x00, 0x08, # beq        cr6,LAB_00006c74
-        0x00, 0x00, 0x00, 0x00, # +0x10 fail with POST 0x9E
+        0x7d, WILDCARD, WILDCARD, 0xf8, # nor        r6,r9,r9
+        0x54, WILDCARD, 0x07, 0xfe, # rlwinm     r6,r6,0x0,0x1f,0x1f
+        0x7f, WILDCARD, WILDCARD, 0x00, # cmpw       cr6,r6,r10
+        0x41, 0x9a, 0x00, 0x08, # beq        cr6,LAB_00006320
+        0x00, 0x00, 0x00, 0x00, # +0x10 fail with POST 0x9F
     ]) \
     .build()
 
@@ -368,7 +382,7 @@ NEWCB_SECOTP_3_CHECK_PATTERN = SignatureBuilder() \
         0x54, 0xeb, 0x07, 0xbc, # rlwinm     r11,r7,0x0,0x1e,0x1e
         0x2b, 0x0b, 0x00, 0x00, # cmplwi     cr6,r11,0x0
         0x41, 0x9a, 0x00, 0x08, # beq        cr6,LAB_00006ccc
-        0x00, 0x00, 0x00, 0x00, # +0x10 fail with POST 0x9E
+        0x00, 0x00, 0x00, 0x00, # +0x10 fail with POST 0x9D
     ]) \
     .build()
 
@@ -445,8 +459,20 @@ def newcb_try_patch(cbb: bytes, patchparams: dict) -> None | bytes:
 
     resolved_sigs = bulk_find(resolver_params, cbb)
     if check_bulk_find_results(resolved_sigs):
-        print("error: one or more required signatures can't be found, cannot apply patches safely.")
-        return None
+        # some later new-style CBs (e.g. 16128) don't check the console type at all
+        # so the console type check not being found doesn't mean we're missing a signature
+        if resolved_sigs['consoletype_check_address'] is not None:
+            print("error: one or more required signatures can't be found, cannot apply patches safely.")
+            return None
+        
+        print("CB might not have console type checking, checking that all other sigs resolved...")
+        del resolved_sigs['consoletype_check_address']
+        if check_bulk_find_results(resolved_sigs):
+            print("error: one or more required signatures can't be found, cannot apply patches safely.")
+            return None
+        
+        print("all other sigs found, assuming console type check not present.")
+        resolved_sigs['consoletype_check_address'] = None
 
     reenabling_posts = patchparams['nopost'] is False
 
@@ -466,6 +492,7 @@ def newcb_try_patch(cbb: bytes, patchparams: dict) -> None | bytes:
         # make sure any POST patches you add here don't conflict with any other patches!
         cbb = _postpatch_hwinitproxy(cbb, resolved_sigs['hwinitproxy_address'], post_fcn_address, cd_hash_compare_freespace)
         cbb = _postpatch_secengine_init(cbb, resolved_sigs['fusecheck_call_addr'], post_fcn_address, cd_hash_compare_freespace)
+        cbb = _postpatch_relocate_and_init_vectors(cbb, resolved_sigs['fusecheck_call_addr'], post_fcn_address, cd_hash_compare_freespace)
     
     if patchparams['nofuse']:
         cbb = _patch_nofuse(cbb, resolved_sigs['fusecheck_call_addr'])
@@ -502,11 +529,14 @@ def newcb_try_patch(cbb: bytes, patchparams: dict) -> None | bytes:
             cbb = _panicpatch_secotp3(cbb, resolved_sigs['secotp3_address'], panic_fcn_address, cb_ldv_freespace)
 
             # two cases remain: 0xB0 and 0xA1
-            cbb = _panicpatch_consoletype_check(cbb, resolved_sigs['consoletype_check_address'], panic_fcn_address, cd_hash_compare_freespace)
+            if resolved_sigs['consoletype_check_address'] is not None:
+                cbb = _panicpatch_consoletype_check(cbb, resolved_sigs['consoletype_check_address'], panic_fcn_address, cd_hash_compare_freespace)
+
             cbb = _panicpatch_secotp7(cbb, resolved_sigs['secotp7_address'], panic_fcn_address, cd_hash_compare_freespace)
 
-    # 
-
+    random_delay_instances = find_all_instances(cbb, NEWCB_RANDOM_DELAY_CALL_PATTERN)
+    for d in random_delay_instances:
+        print(f"- random delay at 0x{d:04x}")
 
     print("i'm still in development - returning None.")
     return None
