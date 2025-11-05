@@ -6,6 +6,10 @@
 
 - Known CBs: 1888, 1940, 1941, 1942
 
+This is the "simplest", and therefore fastest, version of the hwinit programs.
+It initializes SDRAM very quickly compared to the others and is able to boot any eight-chip SDRAM system,
+although stability might be compromised.
+
 ### xenon_v2
 
 - Known CBs: 1897
@@ -66,11 +70,14 @@ Adds support for Falcons with four-chip SDRAM configurations.
 
 - Known CBs: 9188
 
+Contains a bug where the hwinit program tries to initialize 0xE40001A4 (DBG_CNTL1_REG) before the GPU BAR is configured.
+This is fixed in trinity_v2 and all Corona bytecodes.
+
 ### trinity_v2
 
 - Known CBs: 9230, 9231
 
-First few opcodes were made consistent with corona_v1 and corona_v2. Otherwise identical to trinity_v1.
+Contains aforementioned bugfix; otherwise identical to trinity_v1.
 
 ### corona_v1
 
