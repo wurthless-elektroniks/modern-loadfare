@@ -270,11 +270,11 @@ def check_bulk_find_results(resolved_sigs: dict) -> bool:
 
     return any_none
 
-def find_all_instances(signature: Signature, align32: bool = True) -> list:
+def find_all_instances(buffer: bytes, signature: Signature, align32: bool = True) -> list:
     matches = []
     offset = 0
     while True:
-        offset = signature.find(signature, offset, align32=align32)
+        offset = signature.find(buffer, offset, align32=align32)
         if offset is None:
             return matches
         matches.append(offset)
