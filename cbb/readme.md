@@ -6,7 +6,6 @@ CB_B on split CB systems is functionally the same as the CB on single CB systems
 This is brief documentation as to how it works, based on how 5772 works.
 POST codes are listed in order of which they appear (I hope).
 
-
 ## List of CBs
 
 | Version | Style | LDV  | hwinit code | Expected CD, or RotSumSha hash            |
@@ -72,7 +71,10 @@ POST codes are listed in order of which they appear (I hope).
 
 ## Old-style vs new-style CBs
 
-Todo.
+New-style CBs typically have the following characteristics:
+- No POST code outputs during execution
+- Random delays to throw off glitching attempts (also in CB_A)
+- Strict CB/CD pairings, enforced by CD entry point obfuscation (see below)
 
 ## CB boot procedure
 
@@ -233,7 +235,7 @@ that handles stack maintenance and cleanup after the call to cd_jump.
 
 #### New-style CD entry point obfuscation
 
-New-style CB/CD pairings typically obfuscate the real CD entry point. The way to compute the real entry point is
+New-style CB/CD pairings will obfuscate the real CD entry point. The way to compute the real entry point is
 as follows, using CB/CD 7378 as an example:
 
 ```
@@ -250,7 +252,8 @@ real_entry_point = uVar7 ^ uVar12 ^ uVar5 ^ 0xffffffffffffffff ^ uVar8 ^ uVar9 ^
 ```
 
 In this case the entry point will be `0x04000310`, which in practice isn't any different than the entry point specified
-in the CD header (`0x0310`).
+in the CD header (`0x0310`). In fact, virtually all CB_B/CD pairings that I've tried don't have an obfuscated entry point
+different than the one in the header.
 
 This seems like an attempt by Microsoft to prevent pairing random CB/CD pairings, and to cause an intentional crash
 if CD has been tampered with. Obviously, it's not a very successful attempt, because it can be bypassed easily

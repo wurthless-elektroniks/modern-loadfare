@@ -2,9 +2,11 @@
 import struct
 from argparse import ArgumentParser,RawTextHelpFormatter
 from oldcbpatcher import oldcb_ident,oldcb_try_patch
-from newcbpatcher import newcb_ident,newcb_try_patch
+from newcbpatcher import newcb_ident,newcb_try_patch,newcb_decode_real_entry_point
 from xebuildgen import xebuild_patchlist_make
 from hwinitpatcher import hwinit_apply_patches,hwinit_replace_bytecode
+from cbheader import get_cd_rotsumsha
+from rotsumsha import rotsumsha_calc
 
 def _init_argparser():
     argparser = ArgumentParser(formatter_class=RawTextHelpFormatter,
@@ -84,6 +86,9 @@ def _init_argparser():
                            type=int,
                            help="Set version field to the given value (for binary outputs only)")
 
+    argparser.add_argument("--paired-cd",
+                           help="For new-style CBs: input (paired) CD file for e.g. deobfuscating entry points")
+
     argparser.add_argument("cbb_in",
                            nargs='?',
                            help="Input CB binary (MUST be in plaintext)")
@@ -155,6 +160,25 @@ def main():
         print("found old-style CB, attempting patches...")
         patched_cbb = oldcb_try_patch(cbb, patchparams)
     elif newcb_ident(cbb):
+        
+        if args.paired_cd is not None:
+            print(f"paired CD mode on, loading paired CD from: {args.paired_cd}")
+        
+            paired_cd_bin = None
+            with open(args.paired_cd, "rb") as f:
+                paired_cd_bin = f.read()
+            
+            expected_rotsumsha = get_cd_rotsumsha(cbb)
+            actual_rotsumsha = rotsumsha_calc(paired_cd_bin[:0x10], paired_cd_bin[0x120:]).hex()
+            if actual_rotsumsha != expected_rotsumsha:
+                print("error: CD is not paired with this CB")
+                print(f"\texpected rotsumsha: {expected_rotsumsha}")
+                print(f"\tactual rotsumsha: {actual_rotsumsha}")
+                return
+            
+            print("CB/CD pairing successful")
+            print(f"real CD entrypoint is: 0x{newcb_decode_real_entry_point(cbb, paired_cd_bin):08x}")
+
         print("found new-style CB, attempting patches...")
         patched_cbb = newcb_try_patch(cbb, patchparams)
 

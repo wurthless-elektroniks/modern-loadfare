@@ -540,3 +540,15 @@ def newcb_try_patch(cbb: bytes, patchparams: dict) -> None | bytes:
 
     print("i'm still in development - returning None.")
     return None
+
+def newcb_decode_real_entry_point(cbb: bytes, paired_cd: bytes) -> int:
+    return \
+        struct.unpack(">Q", paired_cd[0x300:0x308])[0] ^ \
+        struct.unpack(">Q", paired_cd[0x2F8:0x300])[0] ^ \
+        struct.unpack(">Q", paired_cd[0x2F0:0x2F8])[0] ^ \
+        0xFFFFFFFFFFFFFFFF ^ \
+        struct.unpack(">Q", cbb[0x3D8:0x3E0])[0] ^ \
+        struct.unpack(">Q", cbb[0x3C8:0x3D0])[0] ^ \
+        struct.unpack(">Q", cbb[0x3C0:0x3C8])[0] ^ \
+        struct.unpack(">Q", cbb[0x3A4:0x3AC])[0] ^ \
+        struct.unpack(">Q", cbb[0x39C:0x3A4])[0]
