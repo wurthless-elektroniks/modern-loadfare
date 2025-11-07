@@ -427,6 +427,49 @@ def _panicpatch_secotp7(cbb: bytes, secotp7_check_addr: int, panic_address: int,
     cbb, _ = assemble_branch(cbb, secotp7_check_addr + 0x10, post_target_address)
     return cbb
 
+
+# this block can be replaced with addis r31,r22,0x0400
+NEWCB_REAL_ENTRYPOINT_DECRYPT_PATTERN = SignatureBuilder() \
+    .pattern([
+        0xe9, 0x5e, 0x02, 0xf8,
+        0xe9, 0x7e, 0x03, 0x00,
+        0x7f, 0xa9, 0x07, 0xb4,
+        0xe9, 0x1e, 0x02, 0xf0,
+        0x38, 0xa0, 0x1b, 0xff,
+        0x7d, 0x6b, 0x52, 0x78,
+        0x38, 0x80, 0x04, 0x00,
+        0x7d, 0x6b, 0x42, 0x78,
+        0x38, 0x61, 0x00, 0x80,
+        0x7d, 0x6a, 0x4a, 0x78,
+        0xe9, 0x7f, 0x03, 0xd8,
+        0x7d, 0x4a, 0x5a, 0x78,
+        0xe9, 0x7f, 0x03, 0xc8,
+        0x7d, 0x4a, 0x5a, 0x78,
+        0xe9, 0x7f, 0x03, 0xc0,
+        0x7d, 0x4b, 0x5a, 0x78,
+        0xe9, 0x41, 0x00, 0x68,
+        0x7d, 0x6b, 0x52, 0x78,
+        0xe9, 0x41, 0x00, 0x60,
+        0x7d, 0x7f, 0x52, 0x78,
+        0x48, WILDCARD, WILDCARD, WILDCARD,
+        0x2f, 0x1d, 0xff, 0xff,
+        0x41, 0x9a, 0x00, 0x08,
+        0x00, 0x00, 0x00, 0x00 
+    ]) \
+    .build()
+
+def _reclaim_real_entrypoint_decrypt(cbb: bytes, real_entrypoint_decrypt_address: int):
+    offs = real_entrypoint_decrypt_address
+    range_end = real_entrypoint_decrypt_address + NEWCB_REAL_ENTRYPOINT_DECRYPT_PATTERN.size()
+
+    cbb[offs:offs+4] = bytes([0x3F, 0xF6, 0x04, 0x00]) # addis r31,r22,0x0400
+    offs += 4
+    cbb, offs = assemble_branch(cbb, offs, range_end)
+
+    # rest of it can be used as free space
+    print(f"_reclaim_real_entrypoint_decrypt: reclaimed 0x{offs:04x} ~ 0x{range_end:04x} as free space")
+    return cbb, FreeSpaceArea(offs, range_end)
+
 # ----------------------------------------------------------------------------------------------------------------
 
 def newcb_ident(cbb: bytes) -> bool:
@@ -455,6 +498,8 @@ def newcb_try_patch(cbb: bytes, patchparams: dict) -> None | bytes:
         'secotp3_address':           NEWCB_SECOTP_3_CHECK_PATTERN,
         'consoletype_check_address': NEWCB_CONSOLE_TYPE_CHECK_PATTERN,
         'secotp7_address':           NEWCB_SECOTP_7_CHECK_PATTERN,
+
+        'real_entrypoint_decrypt_address': NEWCB_REAL_ENTRYPOINT_DECRYPT_PATTERN
     }
 
     resolved_sigs = bulk_find(resolver_params, cbb)
@@ -537,6 +582,8 @@ def newcb_try_patch(cbb: bytes, patchparams: dict) -> None | bytes:
     random_delay_instances = find_all_instances(cbb, NEWCB_RANDOM_DELAY_CALL_PATTERN)
     for d in random_delay_instances:
         print(f"- random delay at 0x{d:04x}")
+
+    cbb, real_entrypoint_decrypt_freespace = _reclaim_real_entrypoint_decrypt(cbb, resolved_sigs['real_entrypoint_decrypt_address'])
 
     print("i'm still in development - returning None.")
     return None
