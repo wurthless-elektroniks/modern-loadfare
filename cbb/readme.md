@@ -73,6 +73,8 @@ POST codes are listed in order of which they appear (I hope).
 
 New-style CBs typically have the following characteristics:
 - No POST code outputs during execution
+- Almost all panic cases, instead of outputting a POST code and halting gracefully, instead
+  execute an illegal opcode (`00 00 00 00`)
 - Random delays to throw off glitching attempts (also in CB_A)
 - Strict CB/CD pairings, enforced by CD entry point obfuscation (see below)
 
@@ -221,7 +223,7 @@ Long procedure that performs the following in order:
   case is POST 0xAA.
 - POST 0x31 - Copy CD header from NAND
 - POST 0x32 - CD header checks which vary between CB revisions, any failure ends up with POST 0xAB.
-- POST 0x33 - Load encrypted CD from NAND
+- POST 0x33 - Load encrypted CD from NAND into SDRAM, typically at 0x8000017C04000000
 - POST 0x34, 0x35 - Init HMAC for RC4 decrypt
 - POST 0x36 - RC4 decrypt CD
 - POST 0x37 - Compute RotSumSha hash of CD
