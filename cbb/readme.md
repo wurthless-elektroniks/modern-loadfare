@@ -3,7 +3,7 @@
 CB is the second stage bootloader on retail Xbox 360 systems.
 CB_B on split CB systems is functionally the same as the CB on single CB systems.
 
-This is brief documentation as to how it works, based on how 5772 works.
+This is brief documentation as to how it works, based on numerous disassemblies.
 POST codes are listed in order of which they appear (I hope).
 
 ## List of CBs
@@ -182,8 +182,8 @@ The typical workflow is:
 - Init GPU BARs and some GPU registers
 - Init Southbridge BAR (`store_word 0xea001000, 0xd0150010 / store_half 2, 0xd0150004`)
 - Write 0x000001E6 to Southbridge UART configuration register, probably to disable the UART
-- Send command 0x12 to the SMC (gets SMC version and the contents of two SMC memory cells) and then store one byte(?) of its response to 0xE400002C,
-  to be used as a parameter during SDRAM init
+- Send command 0x12 to the SMC (gets SMC version and the contents of two SMC memory cells) and then store the second SMC memory cell
+  value to 0xE400002C, which can be picked up by other loaders or the kernel later on
 - Run SDRAM detection, configuration and training (this is the most involved part of the whole process)
 - Finish up PCI-PCI bridge configuration and exit
 
@@ -201,7 +201,7 @@ Anything less than 512 MB will halt with a panic (POST 0xAF). However, the hwini
 bytecode will usually explicitly set this value to 0x20000000, so the check should
 always pass.
 
-### SDRAM training errors
+#### SDRAM training errors
 
 The hwinit program will throw RRoDs if it fails to initialize SDRAM (and if the CPU doesn't crash while it happens). These include:
 
