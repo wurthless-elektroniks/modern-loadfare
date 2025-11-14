@@ -5,6 +5,7 @@ from oldcbpatcher import oldcb_ident,oldcb_try_patch
 from newcbpatcher import newcb_ident,newcb_try_patch,newcb_decode_real_entry_point
 from xebuildgen import xebuild_patchlist_make
 from hwinitpatcher import hwinit_apply_patches,hwinit_replace_bytecode
+from vfusespatcher import vfuses_try_patch
 from cbheader import get_cd_rotsumsha
 from rotsumsha import rotsumsha_calc
 
@@ -70,6 +71,11 @@ def _init_argparser():
                            default=False,
                            action='store_true',
                            help="Skip SDRAM training loops in hwinit (DANGER: extremely unstable)")
+
+    argparser.add_argument("--vfuse",
+                           default=False,
+                           action='store_true',
+                           help="Apply vfuse patches for Glitch2m images and similar")
 
     argparser.add_argument("--write-xebuild",
                            default=False,
@@ -181,6 +187,13 @@ def main():
 
         print("found new-style CB, attempting patches...")
         patched_cbb = newcb_try_patch(cbb, patchparams)
+
+    if patched_cbb is None:
+        print("unable to apply base CB patches, exiting.")
+        return
+    
+    if args.vfuse:
+        patched_cbb = vfuses_try_patch(patched_cbb)
 
     if patched_cbb is None:
         print("unable to apply base CB patches, exiting.")

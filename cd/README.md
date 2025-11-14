@@ -29,10 +29,11 @@ Freeboot was a hacked CD that became the basis for xeBuild's CD patches.
 basically says what I'm about to write, so go read that in the meantime.
 
 The typical Freeboot patches redirect execution into a custom function that basically does what CDxell does. If the power up cause
-matches one of two expected values, it initializes the PCI devices the same way as CDxell, then loads XeLL from a hardcoded address in
-NAND (typically 0x070000) and jumps to it. Otherwise, execution continues as normal.
+matches one of two expected values (in NAND at 0x4E and 0x4F), it initializes the PCI devices the same way as CDxell, then loads
+XeLL from a hardcoded address in NAND (typically 0x070000) and jumps to it. Otherwise, execution continues as normal.
 
-Once the hypervisor/kernel has been decompressed and patched, Freeboot patches it on the fly before running it. The patch blob location
-is specified by the sum of two 32-bit words in the NAND header at 0x64 and 0x70. If 0x70 is 0, then default it to 0x00010000. 
+Once the hypervisor/kernel has been decompressed and delta-patched, Freeboot applies the xeBuild kernel patches before running it.
+The patch blob location is specified by the sum of two 32-bit words in the NAND header at 0x64 and 0x70. If 0x70 is 0, then default
+it to 0x00010000.
 
 Read a disassembly of the 9452 patches [here](https://github.com/mitchellwaite/glitch2m_17559/blob/main/src/include/cd_9452.S).
