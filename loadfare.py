@@ -4,7 +4,7 @@ from argparse import ArgumentParser,RawTextHelpFormatter
 from oldcbpatcher import oldcb_ident,oldcb_try_patch
 from newcbpatcher import newcb_ident,newcb_try_patch,newcb_decode_real_entry_point
 from xebuildgen import xebuild_patchlist_make
-from hwinitpatcher import hwinit_apply_patches,hwinit_replace_bytecode
+from hwinitpatcher import hwinit_apply_patches,hwinit_replace_bytecode,VALID_HWINIT_STEPS
 from vfusespatcher import vfuses_try_patch
 from cbheader import get_cd_rotsumsha
 from rotsumsha import rotsumsha_calc
@@ -70,7 +70,8 @@ def _init_argparser():
     
     argparser.add_argument("--sdram-step",
                            type=int,
-                           help="Change hwinit SDRAM calibration loop step value (1, 2, 4, 8, 16; lower = more stable, higher = faster)")
+                           help="Change hwinit SDRAM calibration loop step value (lower = more stable, higher = faster). "+
+                                f"Valid values are: {", ".join(map(str,VALID_HWINIT_STEPS))}")
 
     argparser.add_argument("--no5050",
                            default=False,

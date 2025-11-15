@@ -10,6 +10,7 @@ from signature import SignatureBuilder, WILDCARD, bulk_find
 from postcounter import assemble_hwinit_postcount_block_universal
 from smckeepalive import assemble_hwinit_smc_keepalive_block_universal
 
+VALID_HWINIT_STEPS = [ 1, 2, 4, 5, 8, 10, 16, 20, 40, 80 ]
 
 # this is within the hwinit bytecode itself
 HWINIT_TRAINING_LOOP_CONDITION_PATTERN = SignatureBuilder() \
@@ -39,8 +40,8 @@ def _patch_no5050(cbb: bytes, hwinit_bytecode_start_address: int, hwinit_bytecod
     return cbb
 
 def _patch_fast5050(cbb: bytes, hwinit_bytecode_start_address: int, hwinit_bytecode_end_address: int, step: int = 4) -> bytes:
-    if step not in [ 1, 2, 4, 8, 16 ]:
-        print("_patch_fast5050: error: illegal training step value. must be 1, 2, 4, 8, 16")
+    if step not in VALID_HWINIT_STEPS:
+        print(f"_patch_fast5050: error: illegal training step value ({step}). must be one of: {", ".join(map(str, VALID_HWINIT_STEPS))}")
         return None
 
     new_training_values = bytes([step, step, step, step])
