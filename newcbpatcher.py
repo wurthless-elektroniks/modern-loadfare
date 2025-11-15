@@ -143,9 +143,10 @@ NEWCB_CD_HASH_COMPARE_FUNCTION = SignatureBuilder() \
 
 def _reclaim_cd_hash_compare(cbb: bytes, cd_hash_cmp_address: int):
     # patch routine to return -1 (always succeed)
-    cbb[cd_hash_cmp_address:cd_hash_cmp_address+4] = bytes([0x38,0x60,0xff,0xff])
+    print(f"_reclaim_cd_hash_compare: patch function at 0x{cd_hash_cmp_address:04x} to always return -1")
+    cbb[cd_hash_cmp_address:cd_hash_cmp_address+4] = bytes([0x38,0x60,0xff,0xff]) # li r3,-1
     cbb, offs = assemble_branch_to_link_register(cbb, cd_hash_cmp_address+4)
-
+    
     # rest of it can be used as free space
     range_end = offs + (NEWCB_CD_HASH_COMPARE_FUNCTION.size() - 8)
     print(f"_reclaim_cd_hash_compare: reclaimed 0x{offs:04x} ~ 0x{range_end:04x} as free space")
@@ -648,10 +649,12 @@ def newcb_try_patch(cbb: bytes, patchparams: dict) -> None | bytes:
                                           panic_fcn_address,
                                           real_entrypoint_decrypt_freespace)
     
+    if patchparams['im_a_developer'] is False:
+        print("this patcher is still in development, returning error")
+        print("to force writing output anyway pass --im-a-developer")
+        return None
 
-
-    print("i'm still in development - returning None.")
-    return None
+    return cbb
 
 def newcb_decode_real_entry_point(cbb: bytes, paired_cd: bytes) -> int:
     return \

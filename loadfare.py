@@ -12,6 +12,11 @@ from rotsumsha import rotsumsha_calc
 def _init_argparser():
     argparser = ArgumentParser(formatter_class=RawTextHelpFormatter,
                                prog='loadfare')
+    
+    argparser.add_argument("--im-a-developer",
+                           default=False,
+                           action='store_true',
+                           help="Enable all development-only features (WARNING: may not produce working patches)")
 
     argparser.add_argument("--hwinit-only",
                            default=False,
@@ -129,6 +134,7 @@ def main():
         'no5050': args.no5050,
         'sdram_step': args.sdram_step,
         'disable_default': args.disable_default,
+        'im_a_developer': args.im_a_developer
     }
 
     cbb = None
