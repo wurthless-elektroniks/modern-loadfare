@@ -42,12 +42,12 @@ def _truncate_loader_for_crc32_calc(loader: bytes) -> bytes:
     data_size = struct.unpack(">I", loader[0x0C:0x10])[0]
     return loader[:data_size]
 
-def _calc_cb_crc32(cbb: bytes) -> int:
+def calc_cb_crc32(cbb: bytes) -> int:
     truncated = bytearray(_truncate_loader_for_crc32_calc(cbb))
     truncated[0x10:0x40] = bytes([0] * 0x30)
     return crc32(truncated)
 
-def _calc_cd_crc32(cd: bytes):
+def calc_cd_crc32(cd: bytes):
     truncated = bytearray(_truncate_loader_for_crc32_calc(cd))
     truncated[0x10:0x20] = bytes([0] * 0x10)
     return crc32(truncated)
@@ -60,9 +60,9 @@ def print_glitch2_crc32s(cba: bytes,
     if kernel_version not in KERNEL_CRC_ENTRIES:
         raise RuntimeError(f"unrecognized kernel version: {kernel_version}")
 
-    print(f"cba_{get_cb_version(cba)}.bin,{_calc_cb_crc32(cba):08x}", file=printstream)
-    print(f"cbb_{get_cb_version(cbb)}.bin,{_calc_cb_crc32(cbb):08x}", file=printstream)
-    print(f"cd_{get_cb_version(cd)}.bin,{_calc_cd_crc32(cd):08x}", file=printstream)
+    print(f"cba_{get_cb_version(cba)}.bin,{calc_cb_crc32(cba):08x}", file=printstream)
+    print(f"cbb_{get_cb_version(cbb)}.bin,{calc_cb_crc32(cbb):08x}", file=printstream)
+    print(f"cd_{get_cb_version(cd)}.bin,{calc_cd_crc32(cd):08x}", file=printstream)
     print(f"ce_1888.bin,{CE_1888_CRC32:08x}", file=printstream)
     print(f"cf_{kernel_version}.bin,{KERNEL_CRC_ENTRIES[kernel_version]['cf']:08x}", file=printstream)
     print(f"cg_{kernel_version}.bin,{KERNEL_CRC_ENTRIES[kernel_version]['cg']:08x}", file=printstream)
