@@ -59,26 +59,34 @@ FUSE_COPY_LOOP_PATTERN = SignatureBuilder() \
     .build()
 
 def _patch_fuse_copy_loop(cbb: bytes, fuse_copy_loop_address: int, copy_64bit_blocks_address: int) -> bytes:
-    print(f"_patch_fuse_copy_loop: applying patch at 0x{fuse_copy_loop_address:04x}")
+    # detect if the fuse copy loop is inlined, or if it's in its own function.
+    # if it's in its own function (as it is on 7378), alternative patches must be applied
+    end_pos = fuse_copy_loop_address + FUSE_COPY_LOOP_PATTERN.size()
+    if cbb[end_pos:end_pos+4] != bytes([0x4e, 0x80, 0x00, 0x20]):
+        print(f"_patch_fuse_copy_loop: applying inlined patch at 0x{fuse_copy_loop_address:04x}")
 
-    pos = fuse_copy_loop_address
+        pos = fuse_copy_loop_address
 
-    # same as g2m for falcon/jasper
-    # https://github.com/mitchellwaite/glitch2m_17559/blob/main/src/include/cbb_6752.S
-    fuse_copy_patch = bytes([
-        0xE8, 0x7D, 0x02, 0x58, # ld %r3, 0x258(%r29) - get NAND base
-        0x80, 0x83, 0x00, 0x64, # lwz %r4, 0x64(%r3)
-        0x80, 0xA3, 0x00, 0x70, # lwz %r5, 0x70(%r3)
-        0x7C, 0x63, 0x22, 0x14, # add %r3, %r3, %r4
-        0x7C, 0x83, 0x2A, 0x14, # add %r4, %r3, %r5   - point r4 at data we're about to copy
-        0x7D, 0x43, 0x53, 0x78, # mr %r3, %r10        - r3 = data copy destination
-        0x38, 0xA0, 0x00, 0x0C, # li %r5, 0xc         - r5 = num of 64-bit words to copy
-    ])
+        # same as g2m for falcon/jasper
+        # https://github.com/mitchellwaite/glitch2m_17559/blob/main/src/include/cbb_6752.S
+        fuse_copy_patch = bytes([
+            0xE8, 0x7D, 0x02, 0x58, # ld %r3, 0x258(%r29) - get NAND base
+            0x80, 0x83, 0x00, 0x64, # lwz %r4, 0x64(%r3)
+            0x80, 0xA3, 0x00, 0x70, # lwz %r5, 0x70(%r3)
+            0x7C, 0x63, 0x22, 0x14, # add %r3, %r3, %r4
+            0x7C, 0x83, 0x2A, 0x14, # add %r4, %r3, %r5   - point r4 at data we're about to copy
+            0x7D, 0x43, 0x53, 0x78, # mr %r3, %r10        - r3 = data copy destination
+            0x38, 0xA0, 0x00, 0x0C, # li %r5, 0xc         - r5 = num of 64-bit words to copy
+        ])
 
-    cbb[pos:pos+len(fuse_copy_patch)] = fuse_copy_patch
-    pos += len(fuse_copy_patch)
-    cbb, pos = assemble_branch_with_link(cbb, pos, copy_64bit_blocks_address)
+        cbb[pos:pos+len(fuse_copy_patch)] = fuse_copy_patch
+        pos += len(fuse_copy_patch)
+        cbb, pos = assemble_branch_with_link(cbb, pos, copy_64bit_blocks_address)
 
+        return cbb
+    
+    print("_patch_fuse_copy_loop: signature was found in its own function. patch still TODO.")
+    print("NOT applying patches here; this could cause crashes later on...")
     return cbb
 
 # some other fuse copy loop in the secengine init function
