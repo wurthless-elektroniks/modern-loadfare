@@ -5,7 +5,6 @@ from oldcbpatcher import oldcb_ident,oldcb_try_patch
 from newcbpatcher import newcb_ident,newcb_try_patch,newcb_decode_real_entry_point
 from xebuildgen import xebuild_patchlist_make
 from hwinitpatcher import hwinit_apply_patches,hwinit_replace_bytecode,VALID_HWINIT_STEPS
-from vfusespatcher import vfuses_try_patch
 from cbheader import get_cd_rotsumsha
 from rotsumsha import rotsumsha_calc
 
@@ -135,6 +134,7 @@ def main():
         'no5050': args.no5050,
         'sdram_step': args.sdram_step,
         'disable_default': args.disable_default,
+        'vfuse': args.vfuse,
         'im_a_developer': args.im_a_developer
     }
 
@@ -194,13 +194,6 @@ def main():
 
         print("found new-style CB, attempting patches...")
         patched_cbb = newcb_try_patch(cbb, patchparams)
-
-    if patched_cbb is None:
-        print("unable to apply base CB patches, exiting.")
-        return
-    
-    if args.vfuse:
-        patched_cbb = vfuses_try_patch(patched_cbb)
 
     if patched_cbb is None:
         print("unable to apply base CB patches, exiting.")

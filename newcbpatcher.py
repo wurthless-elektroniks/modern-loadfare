@@ -652,6 +652,7 @@ def newcb_try_patch(cbb: bytes, patchparams: dict) -> None | bytes:
     if patchparams['im_a_developer'] is False:
         print("this patcher is still in development, returning error")
         print("to force writing output anyway pass --im-a-developer")
+        print("resulting patch probably won't boot; for best results also pass --nopost")
         return None
 
     return cbb
