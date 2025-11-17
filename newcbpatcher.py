@@ -13,6 +13,10 @@ this patcher is way more complex than oldcbpatcher.py.
 from patcher import *
 from signature import SignatureBuilder, WILDCARD, bulk_find, check_bulk_find_results, find_all_instances
 
+from vfusespatcher import COPY_64BIT_BLOCKS_PATTERN, VFUSE_LI_600_PATTERN, \
+                          SECENGINE_FUSE_COPY_LOOP, vfuses_patch_li_600, \
+                          vfuses_patch_secengine_fuse_copy_loop
+
 # this is the only POST code that wasn't removed from newer CBs
 NEWCB_PANIC_FUNCTION = SignatureBuilder() \
     .pattern([
@@ -526,7 +530,51 @@ def _panicpatch_cd_header_check(cbb: bytes, cd_header_check_address: int, panic_
     cbb, _ = assemble_branch(cbb, cd_header_check_address + 0x68, post_target_address)
     return cbb
 
-# ----------------------------------------------------------------------------------------------------------------
+NEWCB_FUSE_COPY_FUNCTION_PATTERN = SignatureBuilder() \
+    .pattern([
+        0x7c, 0x8a, 0x23, 0x78,
+        0x39, 0x60, 0x00, 0x00,
+        0x7d, 0x69, 0x07, 0xb4,
+        0x39, 0x6b, 0x00, 0x40,
+        0x79, 0x28, 0x1f, 0x24,
+        0x2f, 0x0b, 0x03, 0x00,
+        0x7c, 0xe8, 0x18, 0x2a,
+        0xf8, 0xea, 0x00, 0x00,
+        0x39, 0x4a, 0x00, 0x08,
+        0x41, 0x98, 0xff, 0xe4,
+        0x4e, 0x80, 0x00, 0x20,
+        0x00, 0x00, 0x00, 0x00, # pray there's zeropadding afterwards
+    ]) \
+    .build()
+
+def _patch_fuse_copy_function(cbb: bytes, fuse_copy_function_address: int, copy_64bit_blocks_address: int):
+    print(f"_patch_fuse_copy_function: replacing function at 0x{fuse_copy_function_address:04x}")
+
+    pos = fuse_copy_function_address
+
+    # assembled from vfuse_newcb.s
+    new_function_template = bytes([
+        0x7C, 0x8A, 0x23, 0x78,
+        0x3C, 0x60, 0x80, 0x00,
+        0x38, 0x63, 0x02, 0x00,
+        0x78, 0x63, 0x07, 0xC6,
+        0x64, 0x63, 0xC8, 0x00,
+        0x80, 0x83, 0x00, 0x64,
+        0x80, 0xA3, 0x00, 0x70,
+        0x7C, 0x63, 0x22, 0x14,
+        0x7C, 0x83, 0x2A, 0x14,
+        0x7D, 0x43, 0x53, 0x78,
+        0x38, 0xA0, 0x00, 0x0C,
+    ])
+
+    cbb[pos:pos+len(new_function_template)] = new_function_template
+    pos += len(new_function_template)
+
+    cbb, pos = assemble_branch(cbb, pos, copy_64bit_blocks_address)
+
+    return cbb
+
+# ---------------------------------------------------------------------------------------------
 
 def newcb_ident(cbb: bytes) -> bool:
     # entry point must be 0x3E0
@@ -557,6 +605,11 @@ def newcb_try_patch(cbb: bytes, patchparams: dict) -> None | bytes:
 
         'real_entrypoint_decrypt_address': NEWCB_REAL_ENTRYPOINT_DECRYPT_PATTERN,
         'cd_header_check_address': NEWCB_CD_HEADER_CHECK_PATTERN,
+
+        'copy_64bit_blocks_address': COPY_64BIT_BLOCKS_PATTERN,
+        'li_600_address': VFUSE_LI_600_PATTERN,
+        'fuse_copy_function_address': NEWCB_FUSE_COPY_FUNCTION_PATTERN,
+        'secengine_fuse_copy_loop_address': SECENGINE_FUSE_COPY_LOOP
     }
 
     resolved_sigs = bulk_find(resolver_params, cbb)
@@ -648,6 +701,12 @@ def newcb_try_patch(cbb: bytes, patchparams: dict) -> None | bytes:
                                           resolved_sigs['cd_header_check_address'],
                                           panic_fcn_address,
                                           real_entrypoint_decrypt_freespace)
+        
+    if patchparams['vfuse']:
+        copy_64bit_blocks_address = resolved_sigs['copy_64bit_blocks_address']
+        cbb = _patch_fuse_copy_function(cbb, resolved_sigs['fuse_copy_function_address'], copy_64bit_blocks_address)
+        cbb = vfuses_patch_li_600(cbb, resolved_sigs['li_600_address'])
+        cbb = vfuses_patch_secengine_fuse_copy_loop(cbb, resolved_sigs['secengine_fuse_copy_loop_address'], copy_64bit_blocks_address)
     
     if patchparams['im_a_developer'] is False:
         print("this patcher is still in development, returning error")
