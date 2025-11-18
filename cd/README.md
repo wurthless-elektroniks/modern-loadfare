@@ -37,3 +37,35 @@ The patch blob location is specified by the sum of two 32-bit words in the NAND 
 it to 0x00010000.
 
 Read a disassembly of the 9452 patches [here](https://github.com/mitchellwaite/glitch2m_17559/blob/main/src/include/cd_9452.S).
+
+## Boot process
+
+Work in progress for CD 9452
+
+- POST 0x45, 0x46: HMAC init for CE decrypt
+- POST 0x47: Decrypt CE
+- POST 0x48: Compute RotSumSha of CE we just decrypted
+- POST 0x49: Compare CE hash to one hardcoded in CD (always `89 8B C3 F9 7F A2 D8 20 72 01 46 5F 30 3F 70 F2 FC 8A F4 13`).
+  If it doesn't match, panic 0xB3
+- POST 0x4B: LZX decompress
+- Calls function that POSTs 0x4D and grabs fuses (can fail with panic 0xB6)
+- POST 0x53: Calls function that does signature validation but its return value is (seemingly) never used
+- POST 0x4E: Get patch slot address from NAND (two words at 0x64 and 0x70, defaulting 0x70 to 0x010000 if it is zero)
+- POST 0x4F: Validate patch slot address, failure = panic 0xB5
+- POST 0x50, 0x51: Try both patch slots, calling load_patch_slot() on both of them. If both tries fail, panic 0xB7
+- POST 0x52: Clear caches, turn on memory encryption in HRMOR, and start the hypervisor
+
+### load_patch_slot
+
+Returns non-zero value if successful, 0 otherwise.
+
+- Initial CF header checks
+- Copy encrypted CF to SDRAM
+- RC4 decrypt CF and calc RotSumSha for signature verification. If signature verification fails, return 0
+- Pass RotSumSha hash to a function that compares the CF RotSumSha to two known hashes
+  (`52 F6 04 0A 74 98 5C 21 F2 D7 E5 21 13 01 5A 6D C5 C8 BE 9A` and `BB A0 A4 99 C3 C4 7E 25 48 66 19 A7 D7 46 08 25 5C A6 89 4F`)
+  corresponding to kernels vulnerable to the King Kong and JTAG exploits. If the RotSumSha matches either of those
+  hashes, panic immediately (POST 0xB8) instead of simply refusing to load the patch slot.
+- CF header checks (to be described later)
+- Some weird functions that might be patching exception vectors to point to CF instead
+- Run CF and return the status of whatever it returned
