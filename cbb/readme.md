@@ -128,8 +128,8 @@ Further panics are:
 - 0xA4 - Actual SMC checksum did not match expected values passed by previous stage
 
 SMC integrity checks are a bit complex:
-- Calculate 12 magic seed values from some place in RAM I don't really know the location of
-- Compute the 128-bit HMAC key `key = ((seed[2] | seed[3]) << 64) | (seed[4] | seed[5]))`
+- Read the 12 fuselines to get the CPU key and other stuff needed for this function
+- Calculate the 128-bit HMAC key from the CPU key: `key = ((fuselines[3] | fuselines[4]) << 64) | (fuselines[5] | fuselines[6]))`
 - Checksum the entire encrypted SMC from flash. The checksum routine is almost identical to the
   one used by RotSumSha, in that it computes a sum and a difference that are both bitwise rotated
   as the loop continues. The result will be a 16-byte value.
