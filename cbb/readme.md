@@ -140,7 +140,27 @@ SMC integrity checks are a bit complex:
 
 ### POST 0x22 - Init security engine
 
-Not really that interesting...
+Since the CB is about to relocate itself to SDRAM, it needs to initialize the security engine so that
+HRMOR memory protection and encryption can do its job (otherwise it'd be very easy to do a side-channel
+attack and hijack the boot process).
+
+Quoting from [GliGli's RGH explainer](https://free60.org/Hacks/Reset_Glitch_Hack/):
+
+```
+CB then initialises the processor security engine, its task will be to do real time encryption and
+hash check of physical DRAM memory. From what we found, it's using AES128 for crypto and strong
+(Toeplitz ?) hashing.
+
+The crypto is different each boot because it is seeded at least from:
+- A hash of the entire fuseset.
+- The timebase counter value.
+- A truly random value that comes from the hardware random number generator the processor embeds.
+  on fats, that RNG could be electronically deactivated, but there's a check for "apparent randomness"
+  (merely a count of 1 bits) in CB, it just waits for a seemingly proper random number.
+```
+
+In short: when HRMOR is turned on, hypervisor memory is protected in a way that's impossible for us to crack
+in real time.
 
 ### POST 0x2F - Setup TLB and relocate program
 
@@ -149,7 +169,7 @@ Not really that interesting...
 - An exception handler that POSTs 0xAE (unexpected IRQ) and dies is installed
 - Some general purpose exception handler is installed (this MUST be present if you want to run the kernel)
 - More TLB-related crap happens
-- Execution continues at relocated address (0x03003000? + entry point)
+- Execution continues at relocated address (0x03003000? + entry point) with HRMOR set
 
 6752 does this to setup the address to continue execution to:
 
