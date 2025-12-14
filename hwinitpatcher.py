@@ -125,6 +125,19 @@ def _patch_fastdelay(cbb: bytes, hwinit_delay_address: int):
     cbb[hwinit_delay_address+3] = 10
     return cbb
 
+HWINIT_EXIT_PATTERN = SignatureBuilder() \
+    .pattern([
+        # first is a "return 1" case - which I thought for a long time
+        # was the success case... unfortunately it isn't. it's the failure case
+        0x38, 0xA0, 0x00, 0x01, # li r5,1
+        0x48, 0x00, 0x00, 0x08, # branch past "success" case
+
+        # success case = return 0
+        0x38, 0xA0, 0x00, 0x00
+    ]) \
+    .build()
+
+
 def hwinit_find_bytecode(cbb: bytes) -> dict | None:
     hwinit_top_address = OLDCB_HWINIT_TOP_PATTERN.find(cbb)
     if hwinit_top_address is None:
@@ -243,10 +256,20 @@ def hwinit_apply_patches(cbb: bytes, patchparams: dict) -> bytes:
 
         hwinit_register_setup_address = _get_hwinit_register_setup_fcn_address(cbb, hwinit_top_address)
         hwinit_loop_top_address       = _get_hwinit_loop_top_address(hwinit_top_address)
+        
+        
+        # check "done" block - first is return 1 (fail), then is return 0 (success).
+        # we want to install our "success" hook
         hwinit_done_address           = _get_hwinit_done_address(cbb, hwinit_top_address)
+        if HWINIT_EXIT_PATTERN.compare(cbb, hwinit_done_address) is False:
+            print("error: hwinit done pattern doesn't match expected, failing.")
+            return None
+        
+        # "done" handler should return to execution after the li r5,0 instruction
+        hwinit_exit_address = hwinit_done_address + 16
 
-        # unconditional branch lives here, i hope
-        hwinit_exit_address = hwinit_done_address + 4
+        # put hook at li r5,0
+        hwinit_done_address = hwinit_done_address + 12
 
         if patchparams['post67']:
             print("installing post67...")

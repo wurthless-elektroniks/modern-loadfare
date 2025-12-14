@@ -74,7 +74,7 @@ hwinit_done:
     std %r7,0x1010(%r5)  # write to POST register
 
     # return success and go to epilogue as normal
-    li %r5,1
+    li %r5,0
     b hwinit_exit
 
 toggle_post:

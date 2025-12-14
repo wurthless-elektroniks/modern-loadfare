@@ -88,7 +88,7 @@ _hwinitdone_wait_fifo_free:
     stw %r6,0x1084(%r5)                       
 
     # return success and go to epilogue as normal
-    li %r5,1
+    li %r5,0
     b hwinit_exit
 
 # ------------------------------------------------------------------------------------------------
