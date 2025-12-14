@@ -129,11 +129,11 @@ HWINIT_EXIT_PATTERN = SignatureBuilder() \
     .pattern([
         # first is a "return 1" case - which I thought for a long time
         # was the success case... unfortunately it isn't. it's the failure case
-        0x38, 0xA0, 0x00, 0x01, # li r5,1
-        0x48, 0x00, 0x00, 0x08, # branch past "success" case
+        0x38, 0xA0, 0x00, 0x01, # +0x00 li r5,1
+        0x48, 0x00, 0x00, 0x08, # +0x04 branch past "success" case
 
         # success case = return 0
-        0x38, 0xA0, 0x00, 0x00
+        0x38, 0xA0, 0x00, 0x00  # +0x08
     ]) \
     .build()
 
@@ -266,10 +266,10 @@ def hwinit_apply_patches(cbb: bytes, patchparams: dict) -> bytes:
             return None
         
         # "done" handler should return to execution after the li r5,0 instruction
-        hwinit_exit_address = hwinit_done_address + 16
+        hwinit_exit_address = hwinit_done_address + 12
 
         # put hook at li r5,0
-        hwinit_done_address = hwinit_done_address + 12
+        hwinit_done_address = hwinit_done_address + 8
 
         if patchparams['post67']:
             print("installing post67...")
