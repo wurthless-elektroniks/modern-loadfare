@@ -711,7 +711,9 @@ def newcb_try_patch(cbb: bytes, patchparams: dict) -> None | bytes:
     if patchparams['im_a_developer'] is False:
         print("this patcher is still in development, returning error")
         print("to force writing output anyway pass --im-a-developer")
-        print("resulting patch probably won't boot; for best results also pass --nopost")
+        print("i'm a lazy dodo and will probably never finish this because it's tedious just to")
+        print("add all the postcodes back. the resulting patch will likely crash.")
+        print("if you want a patch that *should* work but has no postcodes, pass --nopost")
         return None
 
     return cbb
