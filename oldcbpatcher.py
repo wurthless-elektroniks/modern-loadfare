@@ -148,7 +148,7 @@ def _patch_fuse_copy_loop(cbb: bytes, fuse_copy_loop_address: int, copy_64bit_bl
     pos = fuse_copy_loop_address
 
     # same as g2m for falcon/jasper
-    # https://github.com/mitchellwaite/glitch2m_17559/blob/main/src/include/cbb_6752.S
+    # https://github.com/mitchellwaite/xbox360_xebuild_patches/blob/main/src/2BL/6752/inc/cbb_6752.S 
     fuse_copy_patch = bytes([
         0xE8, 0x7D, 0x02, 0x58, # ld %r3, 0x258(%r29) - get NAND base
         0x80, 0x83, 0x00, 0x64, # lwz %r4, 0x64(%r3)
