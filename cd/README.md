@@ -36,7 +36,7 @@ Once the hypervisor/kernel has been decompressed and delta-patched, Freeboot app
 The patch blob location is specified by the sum of two 32-bit words in the NAND header at 0x64 and 0x70. If 0x70 is 0, then default
 it to 0x00010000.
 
-Read a disassembly of the 9452 patches [here](https://github.com/mitchellwaite/glitch2m_17559/blob/main/src/include/cd_9452.S).
+Read a disassembly of the 9452 patches [here](https://github.com/mitchellwaite/xbox360_xebuild_patches/blob/main/src/4BL/9452/inc/cd_9452.S).
 
 ## Boot process
 
