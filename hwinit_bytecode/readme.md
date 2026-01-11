@@ -1,5 +1,7 @@
 # hwinit program dumps
 
+Disassemblies generated with [Mate's hwinit tool](https://codeberg.org/hax360/tools/src/branch/main/hwinit).
+
 ## Versions
 
 ### xenon_v1

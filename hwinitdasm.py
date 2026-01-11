@@ -1,6 +1,9 @@
 '''
 hwinit bytecode disassembler
 Original code and reverse engineering work by Mate Kukri
+
+DANGER! This is old and outdated code full of errors.
+Do NOT rely on this for correct disassembly!!
 '''
 
 import sys

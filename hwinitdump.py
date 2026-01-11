@@ -57,9 +57,11 @@ def main():
                 fname = f"{hwinit_hash}" if hwinit_hash not in KNOWN_SHAS else f"{KNOWN_SHAS[hwinit_hash]}"
                 with open(os.path.join("hwinit_bytecode", f"{fname}.bin"), "wb") as f:
                     f.write(hwinit_bytecode)
-                with open(os.path.join("hwinit_bytecode", f"{fname}.txt"), "w", encoding='utf8') as f:
-                    hwinit_disassemble(hwinit_bytecode, fout=f)
-
+                
+                # do NOT call hwinit_disassemble() anymore.
+                # prefer using mate's hwinit tool:
+                # https://codeberg.org/hax360/tools/src/branch/main/hwinit
+                
             hwinit_pokeball[hwinit_hash].append(cbbfile)
 
             if hwinit_hash in KNOWN_SHAS:
