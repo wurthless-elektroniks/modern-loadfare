@@ -143,12 +143,13 @@ def main():
     with open(args.cbb_in, "rb") as f:
         cbb = f.read()
 
-    if (cbb[0:2] == bytes([0x43, 0x42]) and \
+    
+    if ((cbb[0:2] == bytes([0x43, 0x42]) or cbb[0:2] == bytes([0x53, 0x42])) and \
         cbb[8:10] == bytes([0x00, 0x00]) and \
         cbb[12:14] == bytes([0x00, 0x00])) is False:
         print("error: doesn't look like a valid CB")
         return
-
+    
     # bytecode must be replaced BEFORE patches are made
     hwinit_bytecode_file = args.hwinit_bytecode
     if hwinit_bytecode_file is not None:

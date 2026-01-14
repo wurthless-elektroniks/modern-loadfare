@@ -221,6 +221,8 @@ def hwinit_replace_bytecode(cbb: bytes, hwinit_bytecode: bytes) -> bytes | None:
     return cbb
 
 def hwinit_apply_patches(cbb: bytes, patchparams: dict) -> bytes:
+    is_sb = cbb[0] == 0x53
+
     resolver_params = {
         'hwinit_top_addr':      OLDCB_HWINIT_TOP_PATTERN,
         'hwinit_delay_addr':    OLDCB_HWINIT_DELAY_PATTERN
@@ -240,13 +242,18 @@ def hwinit_apply_patches(cbb: bytes, patchparams: dict) -> bytes:
         print("error: one or more required signatures can't be found, cannot apply patches safely.")
         return None
 
-    meta = hwinit_find_bytecode(cbb)
-    if meta is None:
-        print("error: can't find hwinit bytecode")
-        return None
+    meta = None
+    if is_sb is False:
+        print("this looks like a CB, looking for bytecode...")
+        meta = hwinit_find_bytecode(cbb)
+        if meta is None:
+            print("error: can't find hwinit bytecode")
+            return None
 
-    hwinit_start_address = meta['program_start_address']
-    hwinit_size          = meta['program_size']
+        hwinit_start_address = meta['program_start_address']
+        hwinit_size          = meta['program_size']
+    else:
+        print("this bootloader is a SB, disabling hwinit bytecode patching.")
 
     cbb = bytearray(cbb)
 
@@ -256,7 +263,6 @@ def hwinit_apply_patches(cbb: bytes, patchparams: dict) -> bytes:
 
         hwinit_register_setup_address = _get_hwinit_register_setup_fcn_address(cbb, hwinit_top_address)
         hwinit_loop_top_address       = _get_hwinit_loop_top_address(hwinit_top_address)
-        
         
         # check "done" block - first is return 1 (fail), then is return 0 (success).
         # we want to install our "success" hook
@@ -298,10 +304,10 @@ def hwinit_apply_patches(cbb: bytes, patchparams: dict) -> bytes:
     elif patchparams['fastdelay']:
         cbb = _patch_fastdelay(cbb, resolved_sigs['hwinit_delay_addr'])
 
-    if patchparams['no5050']:
-        cbb = _patch_no5050(cbb, hwinit_start_address, hwinit_start_address+hwinit_size)
-    elif patchparams['sdram_step'] not in [ None, 1 ]:
-        cbb = _patch_fast5050(cbb, hwinit_start_address, hwinit_start_address+hwinit_size, step=patchparams['sdram_step'])
-
+    if is_sb is False:
+        if patchparams['no5050']:
+            cbb = _patch_no5050(cbb, hwinit_start_address, hwinit_start_address+hwinit_size)
+        elif patchparams['sdram_step'] not in [ None, 1 ]:
+            cbb = _patch_fast5050(cbb, hwinit_start_address, hwinit_start_address+hwinit_size, step=patchparams['sdram_step'])
 
     return cbb

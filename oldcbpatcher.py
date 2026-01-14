@@ -111,10 +111,11 @@ OLDCB_CD_HASHCHECK_FAILURE_CASE_PATTERN = SignatureBuilder() \
     .pattern([
         0x2F, 0x03, 0x00, 0x00,     # cmpwi cr6,r3,0
         WILDCARD, 0x9A, 0x00, 0x14, # beq/bne cr6,+0x14  - newer uses beq, older uses bne
-        0x38, 0x80, 0x00, 0xAD,     # otherwise POST 0xAD and stop
+        0x38, 0x80, 0x00, 0xAD,     # otherwise POST 0xAD and stop (0xAC on SB's)
         0x7F, 0xE3, 0xFB, 0x78,
         0x48, WILDCARD, WILDCARD, WILDCARD, # bl post
     ]) \
+    .modify_andmask(0x0B, bytes([0xFE])) \
     .build()
 
 def _patch_cd_hashcheck(cbb: bytes, cd_hashcheck_addr: int) -> bytes:
@@ -170,7 +171,10 @@ def _patch_fuse_copy_loop(cbb: bytes, fuse_copy_loop_address: int, copy_64bit_bl
 def oldcb_ident(cbb: bytes) -> bool:
     # entry point must be 0x3C0
     # opcode at 0x3DC must be 38 80 00 20 (li r5,0x20 - about to POST 0x20)
-    return cbb[0x0000:0x0002] == bytes([0x43, 0x42]) and \
+    return (
+            cbb[0x0000:0x0002] == bytes([0x43, 0x42]) or \
+            cbb[0x0000:0x0002] == bytes([0x53, 0x42])
+           ) and \
            (
             # most old-style ones
             (cbb[0x0008:0x000C] == bytes([0x00, 0x00, 0x03, 0xC0]) and \
@@ -179,11 +183,18 @@ def oldcb_ident(cbb: bytes) -> bool:
             # CB_B 13121 is like this, who knows why
             (cbb[0x0008:0x000C] == bytes([0x00, 0x00, 0x03, 0xD0]) and \
              cbb[0x03EC:0x03F0] == bytes([0x38, 0x80, 0x00, 0x20]))
+             or \
+            # most SBs
+            (cbb[0x0008:0x000C] == bytes([0x00, 0x00, 0x03, 0xC0]) and \
+             cbb[0x03EC:0x03F0] == bytes([0x3C, 0x60, 0x01, 0x00]))
+            # SB 1835
+            (cbb[0x0008:0x000C] == bytes([0x00, 0x00, 0x03, 0xB0]) and \
+             cbb[0x03EC:0x03F0] == bytes([0x3C, 0x60, 0x01, 0x00]))
            )
 
 def oldcb_try_patch(cbb: bytes, patchparams: dict) -> None | bytes:
     if oldcb_ident(cbb) is False:
-        return None
+       return None
 
     resolver_params = {
         'postfcn_address':      OLDCB_POST_FUNCTION,
