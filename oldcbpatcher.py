@@ -186,7 +186,7 @@ def _patch_sb_hwinit_rsa_panic(cbb: bytes, sb_hwinit_rsa_panic_address: int) -> 
     cbb[0x280:0x380] = bytes([0] * 0x100)
 
     # always pretend RSA verify succeeded
-    cbb, _ = assemble_li_r3(cbb, sb_hwinit_rsa_panic_address+0x10, 0)
+    cbb, _ = assemble_li_r3(cbb, sb_hwinit_rsa_panic_address+0x10, 1)
 
     return cbb
 
