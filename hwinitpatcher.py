@@ -258,6 +258,12 @@ def hwinit_apply_patches(cbb: bytes, patchparams: dict) -> bytes:
     cbb = bytearray(cbb)
 
     if patchparams['post67'] or patchparams['smc_keepalive']:
+
+        # patch dropoff location should be zero already
+        if cbb[0x280:0x380] != bytes([0] * 0x100):
+            print("error: there's something present at 0x280~0x380. unable to install stub.")
+            return None
+
         hwinit_top_address   = resolved_sigs['hwinit_top_addr']
         hwinit_delay_address = resolved_sigs['hwinit_delay_addr']
 

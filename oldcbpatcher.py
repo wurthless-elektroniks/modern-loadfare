@@ -6,7 +6,7 @@ and no obfuscation when calling cd_jump.
 '''
 
 import struct
-from patcher import assemble_nop, assemble_branch, assemble_branch_with_link, decode_branch_address, decode_branch_conditional_address
+from patcher import assemble_nop, assemble_branch, assemble_branch_with_link, decode_branch_address, decode_branch_conditional_address, assemble_li_r3
 from signature import SignatureBuilder, WILDCARD, bulk_find
 from postcounter import assemble_hwinit_postcount_block_universal
 from smckeepalive import assemble_hwinit_smc_keepalive_block_universal
@@ -166,6 +166,30 @@ def _patch_fuse_copy_loop(cbb: bytes, fuse_copy_loop_address: int, copy_64bit_bl
 
     return cbb
 
+# for devkit loaders only: panic 0xA8 happens if SC verification fails.
+# the hwinit patcher needs to land in custom code, so we need to patch this out anyway
+SB_HWINIT_RSA_PANIC_PATTERN = SignatureBuilder() \
+    .pattern([
+        0x38, 0xdc, 0x02, 0x68,             # +0x00 addi       r6,r28,0x268
+        0x38, 0xbc, 0x03, 0x88,             # +0x04 addi       r5,r28,0x388
+        0x38, 0x81, 0x00, 0x60,             # +0x08 addi       r4,r1,0x60
+        0x7f, 0xa3, 0xeb, 0x78,             # +0x0C or         r3,r29,r29
+        0x48, WILDCARD, WILDCARD, WILDCARD, # +0x10 call rsa verification routine
+        0x2f, 0x03, 0x00, 0x00,             # +0x14 cmpwi      cr6,r3,0x0
+        0x40, 0x9a, 0x00, 0x14,             # +0x18 bne        cr6,LAB_00001b14
+        0x38, 0x80, 0x00, 0xa8,             # +0x1C li         r4,0xa8
+    ]) \
+    .build()
+
+def _patch_sb_hwinit_rsa_panic(cbb: bytes, sb_hwinit_rsa_panic_address: int) -> bytes:
+    # kill RSA public key so hwinit patcher can drop post67/ipc stub in its place
+    cbb[0x280:0x380] = bytes([0] * 0x100)
+
+    # always pretend RSA verify succeeded
+    cbb, _ = assemble_li_r3(cbb, sb_hwinit_rsa_panic_address+0x10, 0)
+
+    return cbb
+
 # -------------------------------------------------------------------------------------
 
 def oldcb_ident(cbb: bytes) -> bool:
@@ -186,15 +210,18 @@ def oldcb_ident(cbb: bytes) -> bool:
              or \
             # most SBs
             (cbb[0x0008:0x000C] == bytes([0x00, 0x00, 0x03, 0xC0]) and \
-             cbb[0x03EC:0x03F0] == bytes([0x3C, 0x60, 0x01, 0x00]))
+             cbb[0x03C0:0x03C4] == bytes([0x3C, 0x60, 0x01, 0x00]))
+             or \
             # SB 1835
             (cbb[0x0008:0x000C] == bytes([0x00, 0x00, 0x03, 0xB0]) and \
-             cbb[0x03EC:0x03F0] == bytes([0x3C, 0x60, 0x01, 0x00]))
+             cbb[0x03B0:0x03B4] == bytes([0x3C, 0x60, 0x01, 0x00]))
            )
 
 def oldcb_try_patch(cbb: bytes, patchparams: dict) -> None | bytes:
     if oldcb_ident(cbb) is False:
        return None
+
+    is_sb = cbb[0] == 0x53
 
     resolver_params = {
         'postfcn_address':      OLDCB_POST_FUNCTION,
@@ -209,6 +236,12 @@ def oldcb_try_patch(cbb: bytes, patchparams: dict) -> None | bytes:
         'fuse_copy_loop_address': OLDCB_FUSE_COPY_LOOP_PATTERN,
         'secengine_fuse_copy_loop_address': SECENGINE_FUSE_COPY_LOOP
     }
+
+    if is_sb:
+        print("devkit SB detected, enabling SB patches.")
+        resolver_params.update({
+            'hwinit_rsa_panic_address': SB_HWINIT_RSA_PANIC_PATTERN
+        })
 
     resolved_sigs = bulk_find(resolver_params, cbb)
 
@@ -251,5 +284,8 @@ def oldcb_try_patch(cbb: bytes, patchparams: dict) -> None | bytes:
 
     if patchparams['disable_default'] is False:
         cbb = _patch_cd_hashcheck(cbb, resolved_sigs['hashcheck_addr'])
+
+    if is_sb:
+        cbb = _patch_sb_hwinit_rsa_panic(cbb, resolved_sigs['hwinit_rsa_panic_address'])
 
     return cbb
