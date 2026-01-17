@@ -6,7 +6,8 @@ and no obfuscation when calling cd_jump.
 '''
 
 import struct
-from patcher import assemble_nop, assemble_branch, assemble_branch_with_link, decode_branch_address, decode_branch_conditional_address, assemble_li_r3
+from patcher import assemble_nop, assemble_branch, assemble_branch_with_link, assemble_branch_to_link_register, \
+                    decode_branch_address, decode_branch_conditional_address, assemble_li_r3
 from signature import SignatureBuilder, WILDCARD, bulk_find
 from postcounter import assemble_hwinit_postcount_block_universal
 from smckeepalive import assemble_hwinit_smc_keepalive_block_universal
@@ -182,11 +183,14 @@ SB_HWINIT_RSA_PANIC_PATTERN = SignatureBuilder() \
     .build()
 
 def _patch_sb_hwinit_rsa_panic(cbb: bytes, sb_hwinit_rsa_panic_address: int) -> bytes:
+    rsa_verify_address = decode_branch_address(cbb[sb_hwinit_rsa_panic_address+0x10:sb_hwinit_rsa_panic_address+0x14], sb_hwinit_rsa_panic_address+0x10)
+    
     # kill RSA public key so hwinit patcher can drop post67/ipc stub in its place
     cbb[0x280:0x380] = bytes([0] * 0x100)
 
-    # always pretend RSA verify succeeded
-    cbb, _ = assemble_li_r3(cbb, sb_hwinit_rsa_panic_address+0x10, 1)
+    # make all calls to RSA verify routine return success (both SC and SD are RSA signed)
+    cbb, pointer = assemble_li_r3(cbb, rsa_verify_address, 1)
+    cbb, pointer = assemble_branch_to_link_register(cbb, pointer)
 
     return cbb
 
